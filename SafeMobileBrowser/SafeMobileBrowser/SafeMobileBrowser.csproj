@@ -15,6 +15,8 @@
     <PackageReference Include="MaidSafe.SafeApp" Version="0.2.1" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.14.0" />
     <PackageReference Include="MimeMapping" Version="1.0.1.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="System.ObjectModel" Version="4.3.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.250467-pre7" />
@@ -28,8 +30,16 @@
     <EmbeddedResource Update="Views\HomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\MenuPopUp.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ModelPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SecondPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>

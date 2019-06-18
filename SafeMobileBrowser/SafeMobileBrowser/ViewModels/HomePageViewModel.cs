@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Rg.Plugins.Popup.Extensions;
+using SafeMobileBrowser.Views;
 using Xamarin.Forms;
 
 namespace SafeMobileBrowser.ViewModels
@@ -91,7 +93,11 @@ namespace SafeMobileBrowser.ViewModels
             set { SetProperty(ref _addressbarText, value); }
         }
 
-        public HomePageViewModel()
+        private MenuPopUp _menuPopUp;
+
+        public INavigation Navigation { get; set; }
+
+        public HomePageViewModel(INavigation navigation)
         {
             PageLoadCommand = new Command(LoadUrl);
             ToolbarItemCommand = new Command<string>(LoadUrl);
@@ -100,9 +106,41 @@ namespace SafeMobileBrowser.ViewModels
             WebViewNavigatedCommand = new Command<WebNavigatedEventArgs>(OnNavigated);
         }
 
-        private void OnNavigated(WebNavigatedEventArgs args)
+        private async void ShowCollectionView()
         {
-            IsNavigating = false;
+            // if (bookMarkManager == null)
+            // {
+            //    if(AppService.fetchSession() == null)
+            //         AuthService.ProcessNonMockAuthentication();
+            //    if(AppService.fetchSession() !=  null)
+            //    {
+            //        bookMarkManager = new BookmarkManager(AppService.fetchSession());
+            //        bookMarkManager.SetMdInfo(await AppService.GetMdInfoAsync());
+            //        await GetWebsiteBookmark();
+            //    }
+
+            // }
+            // else
+            // {
+            //    await GetWebsiteBookmark();
+            // }
+            GetWebsiteBookmark();
+        }
+
+        private async Task GetWebsiteBookmark()
+        {
+            try
+            {
+                if (_menuPopUp == null)
+                    _menuPopUp = new MenuPopUp();
+                await Navigation.PushPopupAsync(_menuPopUp);
+
+                // var modelPage = new ModelPage();
+                // await Navigation.PushModalAsync(modelPage);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void OnNavigating(WebNavigatingEventArgs args)

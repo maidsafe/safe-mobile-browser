@@ -33,7 +33,7 @@ namespace SafeMobileBrowser.Droid
 
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
-
+            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);

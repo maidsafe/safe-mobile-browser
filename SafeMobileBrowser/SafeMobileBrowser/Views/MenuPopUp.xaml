@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 mc:Ignorable="d"
+                 x:Class="SafeMobileBrowser.Views.MenuPopUp"
+                 BackgroundColor="Transparent"
+                 HasSystemPadding="True">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#F6F6F6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Frame CornerRadius="10"
+               Padding="0"
+               BackgroundColor="White"
+               HeightRequest="300"
+               WidthRequest="220"
+               VerticalOptions="EndAndExpand"
+               HorizontalOptions="EndAndExpand">
+            <StackLayout Padding="20" Margin="0">
+                <CollectionView x:Name="MenuPopUpCollection"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="5"
+                                  HeightRequest="40"
+                                  ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding MenuItemIcon}"
+                                       Aspect="AspectFit"
+                                       HeightRequest="20"
+                                       VerticalOptions="Center"
+                                       WidthRequest="20" />
+                                <Label Grid.Column="1"
+                                       VerticalOptions="Center"
+                                       TextColor="Black"
+                                       Text="{Binding MenuItemTitle}"
+                                       FontSize="Medium" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <BoxView HeightRequest="0.5" BackgroundColor="LightGray" />
+                <StackLayout Orientation="Horizontal" HeightRequest="44">
+                    <Image Source="refresh"
+                           HorizontalOptions="CenterAndExpand"
+                           Aspect="AspectFit"
+                           HeightRequest="25"
+                           VerticalOptions="Center"
+                           WidthRequest="25" />
+                    <Image Source="bookmark"
+                           Aspect="AspectFit"
+                           HeightRequest="25"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Center"
+                           WidthRequest="25" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</pages:PopupPage>

@@ -2,7 +2,6 @@
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SafeMobileBrowser.Views
 {
@@ -14,7 +13,7 @@ namespace SafeMobileBrowser.Views
         public HomePage()
         {
             InitializeComponent();
-            BindingContext = new HomePageViewModel();
+
             HybridWebViewControl.Navigating += (s, e) =>
             {
                 _viewModel.WebViewNavigatingCommand.Execute(e);
@@ -62,7 +61,7 @@ namespace SafeMobileBrowser.Views
                         Text = url,
                         CommandParameter = url
                     };
-                    item.SetBinding(MenuItem.CommandProperty, new Binding("ToolbarItemCommand"));
+                    item.SetBinding(Xamarin.Forms.MenuItem.CommandProperty, new Binding("ToolbarItemCommand"));
                     ToolbarItems.Add(item);
                 }
             }
