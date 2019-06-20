@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
+             xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+             mc:Ignorable="d"
+             x:Class="SafeMobileBrowser.Views.BrowserSettingsPage">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Spacing="0">
+                <StackLayout Orientation="Horizontal"
+                             Spacing="20"
+                             Padding="20, 10"
+                             HeightRequest="34">
+                    <Image x:Name="backImage"
+                           VerticalOptions="Center"
+                           WidthRequest="25"
+                           HeightRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Glyph="{x:Static Icons:IconFont.ArrowLeft}"
+                                             Size="30"
+                                             Color="Black" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GoBack" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Settings"
+                           VerticalOptions="Center"
+                           FontSize="20"
+                           FontAttributes="Bold" />
+                </StackLayout>
+                <controls:ShadowBoxView ShadowType="Bottom"
+                                        HeightRequest="6" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

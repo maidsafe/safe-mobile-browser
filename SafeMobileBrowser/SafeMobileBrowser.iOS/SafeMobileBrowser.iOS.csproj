@@ -183,16 +183,4 @@
   <ItemGroup>
     <BundleResource Include="Resources\clear.svg" />
   </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\share.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\authenticate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\bookmark.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\settings.png" />
-  </ItemGroup>
 </Project>

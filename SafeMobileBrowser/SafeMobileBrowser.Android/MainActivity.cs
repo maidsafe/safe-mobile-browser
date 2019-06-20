@@ -28,9 +28,9 @@ namespace SafeMobileBrowser.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Forms.SetFlags("CollectionView_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);

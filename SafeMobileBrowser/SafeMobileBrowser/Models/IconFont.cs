@@ -24,5 +24,11 @@
         public const string DotsHorizontal = "\uf1d8";
         public const string Magnify = "\uf349";
         public const string HomeOutline = "\uf6a0";
+        public const string ShareVariant = "\uf497";
+        public const string BookmarkPlusOutline = "\uf0c4";
+        public const string Bookmark = "\uf0c0";
+        public const string BookmarkOutline = "\uf0c3";
+        public const string Settings = "\uf493";
+        public const string Delete = "\uf1c0";
     }
 }

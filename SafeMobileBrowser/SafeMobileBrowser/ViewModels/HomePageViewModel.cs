@@ -26,9 +26,13 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand ReloadCommand { get; set; }
 
+        public ICommand GoToHomePageCommand { get; set; }
+
         public ICommand WebViewNavigatingCommand { get; set; }
 
         public ICommand WebViewNavigatedCommand { get; set; }
+
+        public ICommand MenuCommand { get; set; }
 
         private bool _canGoBack;
 
@@ -99,48 +103,41 @@ namespace SafeMobileBrowser.ViewModels
 
         public HomePageViewModel(INavigation navigation)
         {
+            Navigation = navigation;
             PageLoadCommand = new Command(LoadUrl);
             ToolbarItemCommand = new Command<string>(LoadUrl);
             BottomNavbarTapCommand = new Command<string>(OnTapped);
             WebViewNavigatingCommand = new Command<WebNavigatingEventArgs>(OnNavigating);
             WebViewNavigatedCommand = new Command<WebNavigatedEventArgs>(OnNavigated);
+            GoToHomePageCommand = new Command(GoToHomePage);
+            MenuCommand = new Command(ShowPopUpMenu);
         }
 
-        private async void ShowCollectionView()
+        private void GoToHomePage()
         {
-            // if (bookMarkManager == null)
-            // {
-            //    if(AppService.fetchSession() == null)
-            //         AuthService.ProcessNonMockAuthentication();
-            //    if(AppService.fetchSession() !=  null)
-            //    {
-            //        bookMarkManager = new BookmarkManager(AppService.fetchSession());
-            //        bookMarkManager.SetMdInfo(await AppService.GetMdInfoAsync());
-            //        await GetWebsiteBookmark();
-            //    }
-
-            // }
-            // else
-            // {
-            //    await GetWebsiteBookmark();
-            // }
-            GetWebsiteBookmark();
+            if (Device.RuntimePlatform == Device.iOS)
+                LoadUrl("file:///android_asset/startbrowsing.html");
+            else
+                Url = $"file:///android_asset/startbrowsing.html";
         }
 
-        private async Task GetWebsiteBookmark()
+        private async void ShowPopUpMenu()
         {
             try
             {
                 if (_menuPopUp == null)
                     _menuPopUp = new MenuPopUp();
                 await Navigation.PushPopupAsync(_menuPopUp);
-
-                // var modelPage = new ModelPage();
-                // await Navigation.PushModalAsync(modelPage);
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex);
             }
+        }
+
+        private void OnNavigated(WebNavigatedEventArgs obj)
+        {
+            IsNavigating = false;
         }
 
         private void OnNavigating(WebNavigatingEventArgs args)
@@ -179,7 +176,9 @@ namespace SafeMobileBrowser.ViewModels
         internal async Task InitilizeSessionAsync()
         {
             // TODO: Connect using hardcoded response, provide option to authenticate using Authenticator
-            await AuthService.ConnectUsingHardcodedResponse();
+            await AuthService.ConnectUsingHardcodedResponseAsync();
+            AppService = new Services.AppService();
+            BookmarkManager = new Models.BookmarkManager();
         }
 
         public void OnTapped(string navigationBarIconString)
@@ -197,15 +196,18 @@ namespace SafeMobileBrowser.ViewModels
                 case "Focus":
                     AddressBarFocusCommand.Execute(null);
                     break;
-                case "Refresh":
-                    ReloadCommand.Execute(null);
+                case "Home":
+                    GoToHomePage();
+                    break;
+                case "Menu":
+                    ShowPopUpMenu();
                     break;
                 default:
                     break;
             }
         }
 
-        private void LoadUrl(string url)
+        public void LoadUrl(string url)
         {
             AddressbarText = url;
             LoadUrl();

@@ -70,7 +70,7 @@ namespace SafeMobileBrowser.ViewModels
                 if (StoredResponse == null)
                 {
                     ProgressText = "Requesting authentication for authenticator app";
-                    await AuthenticationService.RequestLiveNetworkAuthenticationAsync();
+                    await AuthenticationService.RequestNonMockAuthenticationAsync(true);
                 }
                 else
                 {

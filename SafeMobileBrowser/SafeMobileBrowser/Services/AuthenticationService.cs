@@ -3,9 +3,8 @@
 using SafeApp.MockAuthBindings;
 #endif
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
@@ -50,13 +49,37 @@ namespace SafeMobileBrowser.Services
             }
         }
 #else
-        public static async Task RequestLiveNetworkAuthenticationAsync()
+        public static async Task<(uint, string)> GenerateEncodedAuthReqAsync()
+        {
+            // Create an AuthReq
+            var authReq = new AuthReq
+            {
+                AppContainer = true,
+                App = new AppExchangeInfo
+                {
+                    Id = Constants.AppId,
+                    Scope = string.Empty,
+                    Name = Constants.AppName,
+                    Vendor = Constants.Vendor
+                },
+                Containers = new List<ContainerPermissions>()
+            };
+
+            // Return encoded AuthReq
+            return await Session.EncodeAuthReqAsync(authReq);
+        }
+
+        public static async Task RequestNonMockAuthenticationAsync(bool isUnregistered = false)
         {
             try
             {
-                var req = await Session.EncodeUnregisteredRequestAsync(Constants.AppId);
-                var url = $"safe-auth://{Constants.AppId}/{req.Item2}";
-                Device.OpenUri(new Uri(url));
+                var req = string.Empty;
+                if (isUnregistered)
+                    (_, req) = await Session.EncodeUnregisteredRequestAsync(Constants.AppId);
+                else
+                    (_, req) = await GenerateEncodedAuthReqAsync();
+                var url = UrlFormat.Format(Constants.AppId, req, true);
+                Device.BeginInvokeOnMainThread(() => { Device.OpenUri(new Uri(url)); });
             }
             catch (Exception ex)
             {
@@ -65,22 +88,28 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-#endif
         public async Task ProcessAuthenticationResponseAsync(string url)
         {
             try
             {
                 MessagingCenter.Send(this, MessageCenterConstants.ProcessingAuthResponse);
                 var encodedResponse = RequestHelpers.GetRequestData(url);
-                var decodeResult = await Session.DecodeIpcMessageAsync(encodedResponse);
-                if (decodeResult.GetType() == typeof(UnregisteredIpcMsg))
+                var decodeResponse = await Session.DecodeIpcMessageAsync(encodedResponse);
+                var decodedResponseType = decodeResponse.GetType();
+                if (decodedResponseType == typeof(UnregisteredIpcMsg))
                 {
-                    var ipcMsg = decodeResult as UnregisteredIpcMsg;
-
-                    if (ipcMsg != null)
+                    if (decodeResponse is UnregisteredIpcMsg ipcMsg)
                     {
                         App.AppSession = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
                         MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
+                    }
+                }
+                else if (decodedResponseType == typeof(AuthIpcMsg))
+                {
+                    if (decodeResponse is AuthIpcMsg ipcMsg)
+                    {
+                        Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
+                        AppService.InitialiseSession(session);
                     }
                 }
             }
@@ -91,7 +120,7 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-        public async Task ConnectUsingHardcodedResponse()
+        public async Task ConnectUsingHardcodedResponseAsync()
         {
             await ConnectUsingStoredSerialisedConfiguration(Constants.HardCodedAuthResponse);
         }
@@ -124,5 +153,6 @@ namespace SafeMobileBrowser.Services
                 MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
             }
         }
+#endif
     }
 }

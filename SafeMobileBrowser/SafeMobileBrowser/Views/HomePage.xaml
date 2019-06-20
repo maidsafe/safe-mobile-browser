@@ -198,7 +198,7 @@
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
-                                              CommandParameter="Refresh"
+                                              CommandParameter="Home"
                                               NumberOfTapsRequired="1" />
                     </Image.GestureRecognizers>
                 </Image>
@@ -214,7 +214,7 @@
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
-                                              CommandParameter="MenuImage"
+                                              CommandParameter="Menu"
                                               NumberOfTapsRequired="1" />
                     </Image.GestureRecognizers>
                 </Image>

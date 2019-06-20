@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
@@ -31,7 +32,7 @@ namespace SafeMobileBrowser.Views
 
             if (_viewModel == null)
             {
-                _viewModel = new HomePageViewModel();
+                _viewModel = new HomePageViewModel(Navigation);
                 await _viewModel.InitilizeSessionAsync();
             }
 
@@ -44,6 +45,22 @@ namespace SafeMobileBrowser.Views
             {
                 _viewModel.PageLoadCommand.Execute(null);
             };
+
+            MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
+                this,
+                MessageCenterConstants.BookmarkUrl,
+                (sender, args) =>
+                {
+                    _viewModel.LoadUrl(args);
+                });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
+                this,
+                MessageCenterConstants.BookmarkUrl);
         }
 
         private void AddWebsiteList()

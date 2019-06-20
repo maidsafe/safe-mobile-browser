@@ -9,8 +9,20 @@ namespace SafeMobileBrowser.Services
 {
     public class AppService
     {
-        private static MDataInfo mdinfo;
+        private static MDataInfo _accesscontainerMdinfo;
         private static Session _session;
+
+        public Session Session
+        {
+            get => _session;
+
+            private set
+            {
+                _session = value;
+            }
+        }
+
+        public bool IsSessionAvailable => _session == null ? false : true;
 
         public static void InitialiseSession(Session session)
         {
@@ -28,7 +40,7 @@ namespace SafeMobileBrowser.Services
         {
             try
             {
-                mdinfo = await _session.AccessContainer.GetMDataInfoAsync($"apps/{Constants.AppId}");
+                _accesscontainerMdinfo = await _session.AccessContainer.GetMDataInfoAsync($"apps/{Constants.AppId}");
             }
             catch (FfiException ex)
             {
@@ -39,12 +51,7 @@ namespace SafeMobileBrowser.Services
                 Debug.WriteLine("Error : " + ex.Message);
                 throw;
             }
-            return mdinfo;
-        }
-
-        public Session FetchSession()
-        {
-            return _session;
+            return _accesscontainerMdinfo;
         }
     }
 }

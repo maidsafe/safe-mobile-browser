@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
@@ -9,6 +10,10 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public static BookmarkManager BookmarkManager { get; set; }
+
+        public static AppService AppService { get; set; }
+
         public AuthenticationService AuthService => DependencyService.Get<AuthenticationService>();
 
         bool isBusy = false;

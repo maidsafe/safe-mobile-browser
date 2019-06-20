@@ -3,8 +3,9 @@
     public static class Constants
     {
         public const string AppName = "SAFE Browser";
-        public const string AppId = "net.maidsafe.mobilebrowser";
+        public const string AppId = "net.maidsafe.safe-browser";
         public const string Vendor = "MaidSafe.net Ltd";
+        public const string AppStateMdEntryKey = "safeBrowserState";
         public const string HardCodedAuthResponse = "bAEAAAAAOS4US2AQAAAAAAAAAAAMQAAAAAAAAAAAQAAAAAAAAAAADCN" +
             "ZYFY3DELRXGYXDQORVGQ4DGEYAAAAAAAAAAAYTGOBOGY4C4MJYGUXDEMJYHI2TIOBTCIAAAAAAAAAAAMJTHAXDMOBOGE4DC" +
             "LRVG45DKNBYGMJAAAAAAAAAAABRGM4C4NRYFYYTQMJOGYYDUNJUHAZREAAAAAAAAAAAGEZTQLRWHAXDCOBRFY4DMORVGQ4DG" +
