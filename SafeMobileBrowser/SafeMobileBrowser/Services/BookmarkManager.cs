@@ -16,7 +16,7 @@ namespace SafeMobileBrowser.Models
         private static MDataInfo _accesscontainerMdinfo;
         private static Session _session;
 
-        public void SetSession(Session session)
+        public BookmarkManager(Session session)
         {
             _session = session;
         }

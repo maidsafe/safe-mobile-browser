@@ -49,12 +49,23 @@ namespace SafeMobileBrowser.ViewModels
             {
                 await RemoveBookmark(obj);
             });
-            BookmarkManager = new BookmarkManager();
+            if (BookmarkManager == null)
+                BookmarkManager = new BookmarkManager(AppService.Session);
+            if (Bookmarks == null)
+                Bookmarks = new ObservableCollection<string>();
         }
 
         private async Task RemoveBookmark(object bookmark)
         {
-            await BookmarkManager.DeleteBookmarks(bookmark.ToString());
+            try
+            {
+                await BookmarkManager.DeleteBookmarks(bookmark.ToString());
+                Bookmarks.Remove((string)bookmark);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async void OpenBookmarkedPage()
@@ -63,16 +74,14 @@ namespace SafeMobileBrowser.ViewModels
             MessagingCenter.Send(this, MessageCenterConstants.BookmarkUrl, SelectedBookmarkItem.Replace("safe://", string.Empty));
         }
 
-        public void SetBookmarks(List<string> bookmarks)
+        public async Task GetBookmarks()
         {
-            Bookmarks = new ObservableCollection<string>(bookmarks);
-        }
-
-        public async Task<List<string>> GetBookmarks()
-        {
-            BookmarkManager.SetSession(AppService.Session);
-            BookmarkManager.SetMdInfo(await AppService.GetMdInfoAsync());
-            return await BookmarkManager.FetchBookmarks();
+            if (!AppService.IsAccessContainerMDataInfoAvailable)
+            {
+                var mdInfo = await AppService.GetAccessContainerMdataInfoAsync();
+                BookmarkManager.SetMdInfo(mdInfo);
+            }
+            Bookmarks = new ObservableCollection<string>(await BookmarkManager.FetchBookmarks());
         }
 
         private async void GoBackToHomePage()

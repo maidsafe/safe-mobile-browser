@@ -21,10 +21,9 @@ namespace SafeMobileBrowser.Views
             if (_viewModel == null)
             {
                 _viewModel = new BookmarksModalPageViewModel(Navigation);
+                await _viewModel.GetBookmarks();
             }
             BindingContext = _viewModel;
-
-            _viewModel.SetBookmarks(await _viewModel.GetBookmarks());
         }
     }
 }

@@ -180,7 +180,4 @@
     <BundleResource Include="Resources\startbrowsing.html" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
-  <ItemGroup>
-    <BundleResource Include="Resources\clear.svg" />
-  </ItemGroup>
 </Project>

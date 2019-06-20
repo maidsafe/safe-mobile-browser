@@ -115,8 +115,9 @@ namespace SafeMobileBrowser.ViewModels
 
         private void GoToHomePage()
         {
+            // Todo: Update iOS url;
             if (Device.RuntimePlatform == Device.iOS)
-                LoadUrl("file:///android_asset/startbrowsing.html");
+                Url = $"file:///android_asset/startbrowsing.html";
             else
                 Url = $"file:///android_asset/startbrowsing.html";
         }
@@ -178,7 +179,6 @@ namespace SafeMobileBrowser.ViewModels
             // TODO: Connect using hardcoded response, provide option to authenticate using Authenticator
             await AuthService.ConnectUsingHardcodedResponseAsync();
             AppService = new Services.AppService();
-            BookmarkManager = new Models.BookmarkManager();
         }
 
         public void OnTapped(string navigationBarIconString)
