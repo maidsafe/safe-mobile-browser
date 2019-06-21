@@ -13,7 +13,8 @@ namespace SafeMobileBrowser.Droid
 {
     [Activity(
         Label = "SAFE Browser",
-        Icon = "@mipmap/icon",
+        Icon = "@mipmap/ic_launcher",
+        RoundIcon = "@mipmap/ic_launcher_round",
         Theme = "@style/MainTheme",
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTask,
