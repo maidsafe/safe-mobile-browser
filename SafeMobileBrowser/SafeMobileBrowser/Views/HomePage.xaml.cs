@@ -24,6 +24,21 @@ namespace SafeMobileBrowser.Views
             {
                 _viewModel.WebViewNavigatedCommand.Execute(e);
             };
+
+            MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
+                this,
+                MessageCenterConstants.BookmarkUrl,
+                (sender, args) =>
+                {
+                    _viewModel.LoadUrl(args);
+                });
+            MessagingCenter.Subscribe<MenuPopUpViewModel>(
+                this,
+                MessageCenterConstants.ReloadMessage,
+                (sender) =>
+                {
+                    _viewModel.ReloadCommand.Execute(null);
+                });
         }
 
         protected override async void OnAppearing()
@@ -45,22 +60,16 @@ namespace SafeMobileBrowser.Views
             {
                 _viewModel.PageLoadCommand.Execute(null);
             };
-
-            MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
-                this,
-                MessageCenterConstants.BookmarkUrl,
-                (sender, args) =>
-                {
-                    _viewModel.LoadUrl(args);
-                });
         }
 
-        protected override void OnDisappearing()
+        ~HomePage()
         {
-            base.OnDisappearing();
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);
+            MessagingCenter.Unsubscribe<MenuPopUpViewModel>(
+                this,
+                MessageCenterConstants.ReloadMessage);
         }
 
         private void AddWebsiteList()

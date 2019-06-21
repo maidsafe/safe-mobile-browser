@@ -10,6 +10,10 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class HomePageViewModel : BaseViewModel
     {
+        public static string CurrentUrl { get; private set; }
+
+        public static string CurrentTitle { get; private set; }
+
         public bool IsSessionAvailable => App.AppSession != null ? true : false;
 
         public ICommand PageLoadCommand { get; private set; }
@@ -85,8 +89,17 @@ namespace SafeMobileBrowser.ViewModels
 
         public string Url
         {
-            get { return _url; }
-            set { SetProperty(ref _url, value); }
+            get
+            {
+                return _url;
+            }
+
+            set
+            {
+                SetProperty(ref _url, value);
+                CurrentUrl = value;
+                CurrentTitle = value;
+            }
         }
 
         private string _addressbarText;

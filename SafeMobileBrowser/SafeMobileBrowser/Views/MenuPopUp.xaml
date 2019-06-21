@@ -9,97 +9,122 @@
                  xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
-  <ContentPage.Resources>
-    <Style TargetType="Grid">
-      <Setter Property="VisualStateManager.VisualStateGroups">
-        <VisualStateGroupList>
-          <VisualStateGroup x:Name="CommonStates">
-            <VisualState x:Name="Normal" />
-            <VisualState x:Name="Selected">
-              <VisualState.Setters>
-                <Setter Property="BackgroundColor"
-                        Value="#F6F6F6" />
-              </VisualState.Setters>
-            </VisualState>
-          </VisualStateGroup>
-        </VisualStateGroupList>
-      </Setter>
-    </Style>
-  </ContentPage.Resources>
-  <ContentPage.Content>
-    <Frame CornerRadius="10"
-           Padding="0"
-           BackgroundColor="White"
-           HeightRequest="300"
-           WidthRequest="220"
-           VerticalOptions="EndAndExpand"
-           HorizontalOptions="EndAndExpand">
-      <StackLayout Padding="0, 20, 0, 0"
-                   Margin="0">
-        <CollectionView x:Name="MenuPopUpCollection"
-                        ItemsSource="{Binding PopMenuItems}"
-                        SelectedItem="{Binding SelectedPopMenuItem, Mode=TwoWay}"
-                        SelectionMode="Single">
-          <CollectionView.ItemTemplate>
-            <DataTemplate>
-              <Grid Padding="25, 5"
-                    HeightRequest="40"
-                    ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="5*" />
-                </Grid.ColumnDefinitions>
-                <Image Aspect="AspectFit"
-                       HeightRequest="20"
-                       VerticalOptions="Center"
-                       WidthRequest="20">
-                  <Image.Source>
-                    <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                     Glyph="{Binding MenuItemIcon}"
-                                     Size="30"
-                                     Color="Black" />
-                  </Image.Source>
-                </Image>
-                <Label Grid.Column="1"
-                       VerticalOptions="Center"
-                       TextColor="Black"
-                       Text="{Binding MenuItemTitle}"
-                       FontSize="Medium" />
-              </Grid>
-            </DataTemplate>
-          </CollectionView.ItemTemplate>
-        </CollectionView>
-        <BoxView HeightRequest="0.5"
-                 BackgroundColor="LightGray" />
-        <StackLayout Orientation="Horizontal"
-                     HeightRequest="28"
-                     Padding="8">
-          <Image HorizontalOptions="CenterAndExpand"
-                 Aspect="AspectFit"
-                 HeightRequest="25"
-                 VerticalOptions="Center"
-                 WidthRequest="25">
-            <Image.Source>
-              <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                               Glyph="{x:Static Icons:IconFont.Refresh}"
-                               Size="30"
-                               Color="Black" />
-            </Image.Source>
-          </Image>
-          <Image Aspect="AspectFit"
-                 HeightRequest="25"
-                 HorizontalOptions="CenterAndExpand"
-                 VerticalOptions="Center"
-                 WidthRequest="25">
-            <Image.Source>
-              <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                               Glyph="{x:Static Icons:IconFont.BookmarkOutline}"
-                               Size="30"
-                               Color="Black" />
-            </Image.Source>
-          </Image>
-        </StackLayout>
-      </StackLayout>
-    </Frame>
-  </ContentPage.Content>
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#F6F6F6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Frame CornerRadius="10"
+               Padding="0"
+               BackgroundColor="White"
+               HeightRequest="300"
+               WidthRequest="220"
+               VerticalOptions="EndAndExpand"
+               HorizontalOptions="EndAndExpand">
+            <StackLayout Padding="0, 20, 0, 0"
+                         Margin="0">
+                <CollectionView x:Name="MenuPopUpCollection"
+                                ItemsSource="{Binding PopMenuItems}"
+                                SelectedItem="{Binding SelectedPopMenuItem, Mode=TwoWay}"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="25, 5"
+                                  HeightRequest="40"
+                                  ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Aspect="AspectFit"
+                                       HeightRequest="20"
+                                       VerticalOptions="Center"
+                                       WidthRequest="20">
+                                    <Image.Source>
+                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                         Glyph="{Binding MenuItemIcon}"
+                                                         Size="30"
+                                                         Color="Black" />
+                                    </Image.Source>
+                                </Image>
+                                <Label Grid.Column="1"
+                                       VerticalOptions="Center"
+                                       TextColor="Black"
+                                       Text="{Binding MenuItemTitle}"
+                                       FontSize="Medium" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <BoxView HeightRequest="0.5"
+                         BackgroundColor="LightGray" />
+                <StackLayout Orientation="Horizontal"
+                             HeightRequest="28"
+                             Padding="8">
+                    <Image HorizontalOptions="CenterAndExpand"
+                           Aspect="AspectFit"
+                           HeightRequest="25"
+                           VerticalOptions="Center"
+                           WidthRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Glyph="{x:Static Icons:IconFont.Refresh}"
+                                             Size="30"
+                                             Color="Black" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RefreshWebViewCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Aspect="AspectFit"
+                           HeightRequest="25"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Center"
+                           WidthRequest="25"
+                           IsVisible="{Binding CheckIfAlreadyAvailableInBookmark, Converter={d:StaticResource BooleanInverter}}">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Glyph="{x:Static Icons:IconFont.BookmarkOutline}"
+                                             Size="30"
+                                             Color="Black" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddBookmarkCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Image Aspect="AspectFit"
+                           HeightRequest="25"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="Center"
+                           WidthRequest="25"
+                           IsVisible="{Binding CheckIfAlreadyAvailableInBookmark}">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Glyph="{x:Static Icons:IconFont.Bookmark}"
+                                             Size="30"
+                                             Color="Black" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RemoveBookmarkCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
 </pages:PopupPage>

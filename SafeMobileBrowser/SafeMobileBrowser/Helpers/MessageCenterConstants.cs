@@ -8,5 +8,6 @@
         public const string AuthenticationUsingCache = "CacheAuthSuccessfull";
         public const string BookmarkUrl = "BookmarkUrl";
         public const string DisplayAlertMessage = "DisplayAlertMessage";
+        public const string ReloadMessage = "ReloadMessage";
     }
 }

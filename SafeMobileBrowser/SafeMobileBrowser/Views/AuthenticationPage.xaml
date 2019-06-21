@@ -42,13 +42,13 @@
                        Aspect="AspectFit"
                        HeightRequest="100" />
 
-                <Label Text="SAFE Browser" 
+                <Label Text="SAFE Browser"
                        Margin="0, 10, 0, 0"
                        HorizontalTextAlignment="Center"
                        TextColor="{StaticResource PrimaryColor}"
                        FontSize="Large" />
 
-                <Label Text="Hello! Authenticate to connect to the SAFE Network and browse websites." 
+                <Label Text="Hello! Authenticate to connect to the SAFE Network and browse websites."
                        HorizontalTextAlignment="Center"
                        TextColor="Gray"
                        Margin="20, 0"
@@ -69,7 +69,8 @@
                         IsVisible="{Binding IsBusy, Converter={StaticResource BooleanInverter}}">
                 </Button>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
                              IsVisible="{Binding IsBusy}">
                     <ActivityIndicator IsRunning="{Binding IsBusy}"
                                        HeightRequest="20"

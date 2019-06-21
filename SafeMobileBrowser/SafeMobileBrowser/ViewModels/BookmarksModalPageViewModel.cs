@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -49,8 +48,6 @@ namespace SafeMobileBrowser.ViewModels
             {
                 await RemoveBookmark(obj);
             });
-            if (BookmarkManager == null)
-                BookmarkManager = new BookmarkManager(AppService.Session);
             if (Bookmarks == null)
                 Bookmarks = new ObservableCollection<string>();
         }
@@ -71,7 +68,7 @@ namespace SafeMobileBrowser.ViewModels
         public async void OpenBookmarkedPage()
         {
             await Navigation.PopModalAsync();
-            MessagingCenter.Send(this, MessageCenterConstants.BookmarkUrl, SelectedBookmarkItem.Replace("safe://", string.Empty));
+            MessagingCenter.Send<BookmarksModalPageViewModel, string>(this, MessageCenterConstants.BookmarkUrl, SelectedBookmarkItem.Replace("safe://", string.Empty));
         }
 
         public async Task GetBookmarks()
@@ -81,7 +78,8 @@ namespace SafeMobileBrowser.ViewModels
                 var mdInfo = await AppService.GetAccessContainerMdataInfoAsync();
                 BookmarkManager.SetMdInfo(mdInfo);
             }
-            Bookmarks = new ObservableCollection<string>(await BookmarkManager.FetchBookmarks());
+            await BookmarkManager.FetchBookmarks();
+            Bookmarks = new ObservableCollection<string>(BookmarkManager.RetrieveBookmarks());
         }
 
         private async void GoBackToHomePage()

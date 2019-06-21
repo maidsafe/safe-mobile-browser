@@ -20,7 +20,19 @@ namespace SafeMobileBrowser.ViewModels
 
         public INavigation Navigation { get; set; }
 
+        private bool _checkIfBookmarked;
+
+        public bool CheckIfAlreadyAvailableInBookmark
+        {
+            get => _checkIfBookmarked;
+            set => SetProperty(ref _checkIfBookmarked, value);
+        }
+
         public ICommand RefreshWebViewCommand { get; set; }
+
+        public ICommand AddBookmarkCommand { get; set; }
+
+        public ICommand RemoveBookmarkCommand { get; set; }
 
         private List<MenuItem> _popMenuItems;
 
@@ -42,9 +54,9 @@ namespace SafeMobileBrowser.ViewModels
 
             set
             {
+                SetProperty(ref _selectedPopMenuItem, value);
                 if (value != null)
                 {
-                    SetProperty(ref _selectedPopMenuItem, value);
                     OnPopupMenuSelection();
                 }
             }
@@ -54,12 +66,78 @@ namespace SafeMobileBrowser.ViewModels
         {
             Navigation = navigation;
             RefreshWebViewCommand = new Command(RefreshWebView);
+            AddBookmarkCommand = new Command(AddBookmarkToSAFE);
+            RemoveBookmarkCommand = new Command(RemoveBookmark);
             InitaliseMenuItems();
+        }
+
+        public void InitialiseBookmarkManager()
+        {
+            if (BookmarkManager == null)
+                BookmarkManager = new BookmarkManager(AppService.Session);
+        }
+
+        private void RemoveBookmark()
+        {
+            var currentUrl = HomePageViewModel.CurrentUrl.Replace("https", "safe");
+            if (!string.IsNullOrWhiteSpace(currentUrl) && BookmarkManager != null)
+            {
+                Task.Run(async () =>
+                {
+                    await BookmarkManager.DeleteBookmarks(currentUrl);
+                    CheckIsBookmarkAvailable();
+                });
+            }
+            Task.Run(async () =>
+            {
+                await Navigation.PopPopupAsync();
+            });
+        }
+
+        private void AddBookmarkToSAFE()
+        {
+            var currentUrl = HomePageViewModel.CurrentUrl;
+            InitialiseBookmarkManager();
+            if (!string.IsNullOrWhiteSpace(currentUrl))
+            {
+                Task.Run(async () =>
+                {
+                    await BookmarkManager.AddBookmark(currentUrl.Replace("https", "safe"));
+                    CheckIsBookmarkAvailable();
+                });
+            }
+            Task.Run(async () =>
+            {
+                await Navigation.PopPopupAsync();
+            });
+        }
+
+        internal void CheckIsBookmarkAvailable()
+        {
+            if (AppService.IsSessionAvailable && !string.IsNullOrWhiteSpace(HomePageViewModel.CurrentUrl) && BookmarkManager != null)
+            {
+                var currentUrl = HomePageViewModel.CurrentUrl.Replace("https", "safe");
+                CheckIfAlreadyAvailableInBookmark = BookmarkManager.CheckIfBookmarkAvailable(currentUrl);
+            }
+            else
+            {
+                CheckIfAlreadyAvailableInBookmark = false;
+            }
         }
 
         private void RefreshWebView(object obj)
         {
-            throw new NotImplementedException();
+            var currentUrl = HomePageViewModel.CurrentUrl;
+            if (!string.IsNullOrWhiteSpace(currentUrl))
+            {
+                MessagingCenter.Send(
+                    this,
+                    MessageCenterConstants.ReloadMessage);
+            }
+            Task.Run(async () =>
+            {
+                await Navigation.PopPopupAsync();
+            });
         }
 
         internal void InitaliseMenuItems()
@@ -89,6 +167,7 @@ namespace SafeMobileBrowser.ViewModels
                         {
                             if (_bookmarksModalPage == null)
                                 _bookmarksModalPage = new BookmarksModalPage();
+                            InitialiseBookmarkManager();
                             await Navigation.PushModalAsync(_bookmarksModalPage);
                         }
                         else
@@ -98,7 +177,9 @@ namespace SafeMobileBrowser.ViewModels
                         break;
                     case "Authenticate":
                         if (!AppService.IsSessionAvailable)
+                        {
                             await AuthenticationService.RequestNonMockAuthenticationAsync();
+                        }
                         break;
                     case "Share":
                         await Share.RequestAsync(new ShareTextRequest
@@ -110,7 +191,6 @@ namespace SafeMobileBrowser.ViewModels
                     default:
                         break;
                 }
-                await Navigation.PopPopupAsync();
             }
             catch (Exception ex)
             {
@@ -120,6 +200,9 @@ namespace SafeMobileBrowser.ViewModels
                     "Unable to Authenticate");
                 Debug.WriteLine(ex);
             }
+
+            // Todo: delay in popup. Needs refactoring
+            await Navigation.PopPopupAsync();
             SelectedPopMenuItem = null;
         }
     }

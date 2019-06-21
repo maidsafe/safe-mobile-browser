@@ -15,10 +15,12 @@ namespace SafeMobileBrowser.Models
     {
         private static MDataInfo _accesscontainerMdinfo;
         private static Session _session;
+        private static List<string> bookmarksList;
 
         public BookmarkManager(Session session)
         {
             _session = session;
+            bookmarksList = new List<string>();
         }
 
         public void SetMdInfo(MDataInfo mdinfo)
@@ -26,7 +28,54 @@ namespace SafeMobileBrowser.Models
             _accesscontainerMdinfo = mdinfo;
         }
 
-        internal async Task<List<string>> FetchBookmarks()
+        internal async Task AddBookmark(string bookmarkUrl)
+        {
+            try
+            {
+                using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
+                {
+                    var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
+                    var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
+
+                    var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
+                    var browserState = JObject.Parse(decryptedValue);
+                    var bookmarksArray = (JArray)browserState["bookmarks"];
+                    browserState.Remove("bookmarks");
+                    JTokenWriter writer = new JTokenWriter();
+                    writer.WriteStartObject();
+                    writer.WritePropertyName("url");
+                    writer.WriteValue(bookmarkUrl);
+                    writer.WriteEndObject();
+                    JObject newBookmarksJObject = (JObject)writer.Token;
+                    bookmarksArray.Add(newBookmarksJObject);
+                    browserState.Add("bookmarks", bookmarksArray);
+                    var newbrowserState = JsonConvert.SerializeObject(browserState);
+                    var encryptedValue = await _session.MDataInfoActions.EncryptEntryValueAsync(_accesscontainerMdinfo, newbrowserState.ToUtfBytes());
+                    using (var mutateEntriesHandle = await _session.MDataEntryActions.NewAsync())
+                    {
+                        await _session.MDataEntryActions.UpdateAsync(mutateEntriesHandle, encryptedKey, encryptedValue, version + 1);
+                        await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
+                    }
+                }
+                bookmarksList.Add(bookmarkUrl);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        internal bool CheckIfBookmarkAvailable(string currentUrl)
+        {
+            return bookmarksList.Contains(currentUrl);
+        }
+
+        internal List<string> RetrieveBookmarks()
+        {
+            return bookmarksList;
+        }
+
+        internal async Task FetchBookmarks()
         {
             var bookmarks = new List<string>();
             try
@@ -50,7 +99,7 @@ namespace SafeMobileBrowser.Models
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-            return bookmarks;
+            bookmarksList = bookmarks;
         }
 
         internal async Task DeleteBookmarks(string bookmark)
@@ -82,6 +131,7 @@ namespace SafeMobileBrowser.Models
                             await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
                         }
                     }
+                    bookmarksList.Remove(bookmark);
                 }
                 catch (Exception ex)
                 {
