@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Rg.Plugins.Popup.Pages;
+﻿using Rg.Plugins.Popup.Pages;
 using SafeMobileBrowser.Helpers;
-using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
 

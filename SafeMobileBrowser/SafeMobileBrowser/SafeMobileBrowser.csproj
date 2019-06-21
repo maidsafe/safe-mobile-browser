@@ -56,7 +56,16 @@
     <None Update="Views\AuthenticationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Update="Views\BookmarksModalPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\BrowserSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Update="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\MenuPopUp.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\TabsRightMenuView.xaml">

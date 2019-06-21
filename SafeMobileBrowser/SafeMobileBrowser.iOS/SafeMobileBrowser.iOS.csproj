@@ -170,5 +170,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\startbrowsing.html" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\safenetworklogo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>
