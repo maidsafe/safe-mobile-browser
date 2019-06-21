@@ -29,13 +29,19 @@
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#2196F3</item>
   </style>
-  
+
   <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
     <item name="contentInsetStart">0dp</item>
   </style>
 
-<style name="ToolbarDarkOverflow" parent="Theme.AppCompat.Light">
-  <item name="android:textColorSecondary">#000000</item>
-  <item name="android:background">#FFFFFF</item>
-</style>
+  <style name="ToolbarDarkOverflow" parent="Theme.AppCompat.Light">
+    <item name="android:textColorSecondary">#000000</item>
+    <item name="android:background">#FFFFFF</item>
+  </style>
+
+  <style name="MyTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+  </style>
 </resources>
