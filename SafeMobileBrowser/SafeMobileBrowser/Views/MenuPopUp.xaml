@@ -89,7 +89,6 @@
                             <TapGestureRecognizer Command="{Binding RefreshWebViewCommand}" />
                         </Image.GestureRecognizers>
                     </Image>
-
                     <Image Aspect="AspectFit"
                            HeightRequest="25"
                            HorizontalOptions="CenterAndExpand"

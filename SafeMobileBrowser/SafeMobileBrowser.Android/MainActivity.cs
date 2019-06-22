@@ -12,11 +12,7 @@ using Xamarin.Forms;
 namespace SafeMobileBrowser.Droid
 {
     [Activity(
-        Label = "SAFE Browser",
-        Icon = "@mipmap/icon",
         Theme = "@style/MainTheme",
-        MainLauncher = true,
-        LaunchMode = LaunchMode.SingleTask,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(
             new[] { Intent.ActionView },
