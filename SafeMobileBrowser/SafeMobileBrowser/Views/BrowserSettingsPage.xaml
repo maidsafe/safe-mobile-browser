@@ -3,56 +3,119 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
+             xmlns:XamEffects="clr-namespace:XamEffects;assembly=XamEffects"
              xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              mc:Ignorable="d"
              x:Class="SafeMobileBrowser.Views.BrowserSettingsPage">
     <ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+            </Style>
+            <Style x:Key="ItemStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+            </Style>
+            <Style x:Key="LogoutStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
+            </Style>
+            <Style x:Key="BoxViewStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="0.5" />
+                <Setter Property="Color" Value="{StaticResource GreySmokeMediumColor}" />
+            </Style>
+            <Style x:Key="ExternalLinkStyle" TargetType="StackLayout">
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
             <StackLayout Spacing="0">
-                <StackLayout Orientation="Horizontal"
+                <StackLayout Spacing="0">
+                    <StackLayout Orientation="Horizontal"
                              Spacing="20"
                              Padding="20, 10"
                              HeightRequest="34">
-                    <Image x:Name="backImage"
-                           VerticalOptions="Center"
+                        <Image VerticalOptions="Center"
                            WidthRequest="25"
                            HeightRequest="25">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                            <Image.Source>
+                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static Icons:IconFont.ArrowLeft}"
                                              Size="30"
                                              Color="Black" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="GoBack" />
-                        </Image.GestureRecognizers>
-                    </Image>
-                    <Label Text="Settings"
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Settings"
                            VerticalOptions="Center"
                            FontSize="20"
                            FontAttributes="Bold" />
-                </StackLayout>
-                <controls:ShadowBoxView ShadowType="Bottom"
+                    </StackLayout>
+                    <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
+                </StackLayout>
+                <StackLayout Padding="16, 10" 
+                             Spacing="15">
+                    <Label Text="General"
+                           Style="{StaticResource TitleStyle}" />
+                    <Grid x:Name="AutoReconnectLayout">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Dark Mode"
+                               Style="{StaticResource ItemStyle}"
+                               VerticalOptions="Center" />
+                        <Switch Grid.Column="1"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                IsToggled="{Binding AppDarkMode}" />
+                    </Grid>
+                </StackLayout>
+                <BoxView Style="{StaticResource BoxViewStyle}" Margin="0,15,0,0"/>
+                <StackLayout Spacing="0" Margin="0,15,0,0">
+                    <Label Text="Help"
+                           Margin="16,0,16,10"
+                           Style="{StaticResource TitleStyle}" />
+
+                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                                 XamEffects:Commands.Tap="{Binding FaqCommand}"
+                                 Style="{StaticResource ExternalLinkStyle}">
+
+                        <Label Text="FAQs"
+                               Margin="16,0"
+                               Style="{StaticResource ItemStyle}"
+                               VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                                 XamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
+                                 Style="{StaticResource ExternalLinkStyle}">
+
+                        <Label Text="Privacy statement"
+                               Margin="16,0"
+                               Style="{StaticResource ItemStyle}"
+                               VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout Margin="16,10">
+                        <Label Text="Application version"
+                               Style="{StaticResource ItemStyle}" />
+                        <Label Text="{Binding ApplicationVersion}"
+                               Margin="0,5,0,0"
+                               Style="{StaticResource ItemStyle}"
+                               TextColor="{StaticResource GreySmokeMediumColor}"
+                               HorizontalOptions="Start" />
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

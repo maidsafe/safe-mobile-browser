@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,14 +7,23 @@ namespace SafeMobileBrowser.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BrowserSettingsPage : ContentPage
     {
+        BrowserSettingsPageViewModel _viewModel;
+
         public BrowserSettingsPage()
         {
             InitializeComponent();
         }
 
-        public void GoBack(object sender, EventArgs args)
+        protected override void OnAppearing()
         {
-            Navigation.PopModalAsync();
+            base.OnAppearing();
+
+            if (_viewModel == null)
+            {
+                _viewModel = new BrowserSettingsPageViewModel(Navigation);
+            }
+
+            BindingContext = _viewModel;
         }
     }
 }
