@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
@@ -27,6 +28,7 @@ namespace SafeMobileBrowser.Views
 
             AddressBarEntry.Focused += EntryFocused;
             AddressBarEntry.Unfocused += EntryUnfocused;
+            AddressBarEntry.TextChanged += TextChanged;
 
             MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
                 this,
@@ -96,6 +98,24 @@ namespace SafeMobileBrowser.Views
             }
         }
 
+        public void ClearAddressBar(object sender, EventArgs args)
+        {
+            AddressBarEntry.Text = string.Empty;
+            AddressBarEntry.Focus();
+        }
+
+        private void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length > 0 && AddressBarEntry.IsFocused)
+            {
+                AddressBarButton.IsVisible = true;
+            }
+            else
+            {
+                AddressBarButton.IsVisible = false;
+            }
+        }
+
         private void EntryUnfocused(object sender, FocusEventArgs e)
         {
             AddressBarButton.IsVisible = false;
@@ -107,7 +127,6 @@ namespace SafeMobileBrowser.Views
 
         private void EntryFocused(object sender, FocusEventArgs e)
         {
-            AddressBarButton.IsVisible = true;
             SafeLabel.FadeTo(0, 250);
             SafeLabel.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
             AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
@@ -115,6 +134,7 @@ namespace SafeMobileBrowser.Views
             if (AddressBarEntry.Text.Length > 0)
             {
                 AddressBarEntry.SelectionLength = AddressBarEntry.Text.Length;
+                AddressBarButton.IsVisible = true;
             }
         }
     }
