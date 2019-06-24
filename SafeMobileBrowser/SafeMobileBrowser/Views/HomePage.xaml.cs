@@ -25,6 +25,9 @@ namespace SafeMobileBrowser.Views
                 _viewModel.WebViewNavigatedCommand.Execute(e);
             };
 
+            AddressBarEntry.Focused += EntryFocused;
+            AddressBarEntry.Unfocused += EntryUnfocused;
+
             MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl,
@@ -90,6 +93,28 @@ namespace SafeMobileBrowser.Views
                     item.SetBinding(Xamarin.Forms.MenuItem.CommandProperty, new Binding("ToolbarItemCommand"));
                     ToolbarItems.Add(item);
                 }
+            }
+        }
+
+        private void EntryUnfocused(object sender, FocusEventArgs e)
+        {
+            AddressBarButton.IsVisible = false;
+            AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicInOut);
+            SafeLabel.TranslateTo(0, 0, 250, Easing.CubicInOut);
+            SafeLabel.FadeTo(100, 250);
+            AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
+        }
+
+        private void EntryFocused(object sender, FocusEventArgs e)
+        {
+            AddressBarButton.IsVisible = true;
+            SafeLabel.FadeTo(0, 250);
+            SafeLabel.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
+            AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
+            AddressBarEntry.WidthRequest += SafeLabel.WidthRequest;
+            if (AddressBarEntry.Text.Length > 0)
+            {
+                AddressBarEntry.SelectionLength = AddressBarEntry.Text.Length;
             }
         }
     }
