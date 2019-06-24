@@ -7,7 +7,7 @@
              xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              mc:Ignorable="d"
-             x:Class="SafeMobileBrowser.Views.BrowserSettingsPage">
+             x:Class="SafeMobileBrowser.Views.SettingsModalPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="TitleStyle" TargetType="Label">

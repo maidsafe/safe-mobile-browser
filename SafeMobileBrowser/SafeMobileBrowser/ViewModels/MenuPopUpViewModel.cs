@@ -10,13 +10,13 @@ using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using MenuItem = SafeMobileBrowser.Models.MenuItem;
 
 namespace SafeMobileBrowser.ViewModels
 {
     public class MenuPopUpViewModel : BaseViewModel
     {
         BookmarksModalPage _bookmarksModalPage;
+        SettingsModalPage _settingsModalPage;
 
         public INavigation Navigation { get; set; }
 
@@ -34,9 +34,9 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand RemoveBookmarkCommand { get; set; }
 
-        private List<MenuItem> _popMenuItems;
+        private List<PopUpMenuItem> _popMenuItems;
 
-        public List<MenuItem> PopMenuItems
+        public List<PopUpMenuItem> PopMenuItems
         {
             get => _popMenuItems;
 
@@ -46,9 +46,9 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
-        private MenuItem _selectedPopMenuItem;
+        private PopUpMenuItem _selectedPopMenuItem;
 
-        public MenuItem SelectedPopMenuItem
+        public PopUpMenuItem SelectedPopMenuItem
         {
             get => _selectedPopMenuItem;
 
@@ -69,6 +69,7 @@ namespace SafeMobileBrowser.ViewModels
             AddBookmarkCommand = new Command(AddBookmarkToSAFE);
             RemoveBookmarkCommand = new Command(RemoveBookmark);
             InitaliseMenuItems();
+            InitialiseBookmarkManager();
         }
 
         public void InitialiseBookmarkManager()
@@ -97,7 +98,6 @@ namespace SafeMobileBrowser.ViewModels
         private void AddBookmarkToSAFE()
         {
             var currentUrl = HomePageViewModel.CurrentUrl;
-            InitialiseBookmarkManager();
             if (!string.IsNullOrWhiteSpace(currentUrl) && AppService.IsSessionAvailable)
             {
                 Task.Run(async () =>
@@ -110,6 +110,11 @@ namespace SafeMobileBrowser.ViewModels
             {
                 await Navigation.PopPopupAsync();
             });
+        }
+
+        internal void UpdateMenuItemsStatus()
+        {
+            CheckIsBookmarkAvailable();
         }
 
         internal void CheckIsBookmarkAvailable()
@@ -142,12 +147,12 @@ namespace SafeMobileBrowser.ViewModels
 
         internal void InitaliseMenuItems()
         {
-            PopMenuItems = new List<MenuItem>
+            PopMenuItems = new List<PopUpMenuItem>
             {
-                new MenuItem { MenuItemTitle = "Settings", MenuItemIcon = IconFont.Settings },
-                new MenuItem { MenuItemTitle = "Bookmarks", MenuItemIcon = IconFont.BookmarkPlusOutline },
-                new MenuItem { MenuItemTitle = "Authenticate", MenuItemIcon = IconFont.Web },
-                new MenuItem { MenuItemTitle = "Share", MenuItemIcon = IconFont.ShareVariant }
+                new PopUpMenuItem { MenuItemTitle = "Settings", MenuItemIcon = IconFont.Settings, IsEnabled = true },
+                new PopUpMenuItem { MenuItemTitle = "Bookmarks", MenuItemIcon = IconFont.BookmarkPlusOutline },
+                new PopUpMenuItem { MenuItemTitle = "Authenticate", MenuItemIcon = IconFont.Web, IsEnabled = true },
+                new PopUpMenuItem { MenuItemTitle = "Share", MenuItemIcon = IconFont.ShareVariant }
             };
         }
 
@@ -159,15 +164,15 @@ namespace SafeMobileBrowser.ViewModels
                 switch (selectedMenuItemTitle)
                 {
                     case "Settings":
-                        var browserSettingsPage = new BrowserSettingsPage();
-                        await Navigation.PushModalAsync(browserSettingsPage);
+                        if (_settingsModalPage == null)
+                            _settingsModalPage = new SettingsModalPage();
+                        await Navigation.PushModalAsync(_settingsModalPage);
                         break;
                     case "Bookmarks":
                         if (AppService.IsSessionAvailable)
                         {
                             if (_bookmarksModalPage == null)
                                 _bookmarksModalPage = new BookmarksModalPage();
-                            InitialiseBookmarkManager();
                             await Navigation.PushModalAsync(_bookmarksModalPage);
                         }
                         else
@@ -184,8 +189,8 @@ namespace SafeMobileBrowser.ViewModels
                     case "Share":
                         await Share.RequestAsync(new ShareTextRequest
                         {
-                            Title = "Some Title",
-                            Uri = "Page Uri"
+                            Title = HomePageViewModel.CurrentTitle,
+                            Uri = HomePageViewModel.CurrentUrl
                         });
                         break;
                     default:
@@ -197,7 +202,7 @@ namespace SafeMobileBrowser.ViewModels
                 MessagingCenter.Send(
                     this,
                     MessageCenterConstants.DisplayAlertMessage,
-                    "Unable to Authenticate");
+                    ex.Message);
                 Debug.WriteLine(ex);
             }
 

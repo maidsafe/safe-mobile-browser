@@ -30,7 +30,7 @@ namespace SafeMobileBrowser.Views
                 _viewModel = new MenuPopUpViewModel(Navigation);
                 BindingContext = _viewModel;
             }
-            _viewModel.CheckIsBookmarkAvailable();
+            _viewModel.UpdateMenuItemsStatus();
         }
 
         ~MenuPopUp()

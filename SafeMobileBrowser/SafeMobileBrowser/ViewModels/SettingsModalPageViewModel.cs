@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SafeMobileBrowser.ViewModels
 {
-    public class BrowserSettingsPageViewModel : BaseViewModel
+    public class SettingsModalPageViewModel : BaseViewModel
     {
         public ICommand FaqCommand { get; }
 
@@ -19,7 +16,7 @@ namespace SafeMobileBrowser.ViewModels
 
         private INavigation _navigation;
 
-        public BrowserSettingsPageViewModel(INavigation navigation)
+        public SettingsModalPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
             GoBackCommand = new Command(GoBackToHomePage);
