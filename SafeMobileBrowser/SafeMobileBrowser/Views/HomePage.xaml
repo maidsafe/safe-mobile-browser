@@ -55,12 +55,6 @@
                                               IsTextPredictionEnabled="False"
                                               Text="{Binding AddressbarText}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}" />
-
-                    <!--<Image x:Name="AddressBarButton"
-                           Grid.Column="2"
-                           HeightRequest="15"
-                           HorizontalOptions="End"
-                           Source="refresh" />-->
                 </Grid>
             </Frame>
 

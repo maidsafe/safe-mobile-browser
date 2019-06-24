@@ -11,8 +11,7 @@ namespace SafeMobileBrowser.Droid
         RoundIcon = "@mipmap/ic_launcher_round",
         Theme = "@style/MyTheme.Splash",
         MainLauncher = true,
-        NoHistory = true,
-        LaunchMode = LaunchMode.SingleTask)]
+        NoHistory = true)]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

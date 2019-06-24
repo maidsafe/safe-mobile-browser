@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
@@ -110,6 +111,7 @@ namespace SafeMobileBrowser.Services
                     {
                         Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
                         AppService.InitialiseSession(session);
+                        BookmarkManager.InitialiseSession(session);
                     }
                 }
             }

@@ -17,9 +17,20 @@ namespace SafeMobileBrowser.Models
         private static Session _session;
         private static List<string> bookmarksList;
 
-        public BookmarkManager(Session session)
+        public static void InitialiseSession(Session session)
         {
-            _session = session;
+            try
+            {
+                _session = session;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        public BookmarkManager()
+        {
             bookmarksList = new List<string>();
         }
 

@@ -12,6 +12,7 @@ using Xamarin.Forms;
 namespace SafeMobileBrowser.Droid
 {
     [Activity(
+        LaunchMode = LaunchMode.SingleTask,
         Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(
