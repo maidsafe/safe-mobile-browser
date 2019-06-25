@@ -106,11 +106,12 @@ namespace SafeMobileBrowser.ViewModels
             set
             {
                 SetProperty(ref _addressbarText, value);
-                if (!string.IsNullOrWhiteSpace(value))
+                var address = string.IsNullOrWhiteSpace(value);
+                if (!address)
                     CurrentUrl = CurrentTitle = $"safe://{value}";
                 else
                     CurrentUrl = CurrentTitle = value;
-                CanGoToHomePage = string.IsNullOrWhiteSpace(value) ? false : true;
+                CanGoToHomePage = address ? false : true;
                 OnPropertyChanged(nameof(CanGoToHomePage));
             }
         }

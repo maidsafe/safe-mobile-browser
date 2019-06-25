@@ -109,33 +109,7 @@
                             </DataTrigger>
                         </Image.Triggers>
                     </Image>
-                    <!--<Image Aspect="AspectFit"
-                           HeightRequest="25"
-                           HorizontalOptions="CenterAndExpand"
-                           VerticalOptions="Center"
-                           WidthRequest="25"
-                           Opacity="0.25"
-                           IsEnabled="{Binding IsEnabled}"
-                           IsVisible="{Binding CheckIfAlreadyAvailableInBookmark, Converter={d:StaticResource BooleanInverter}}">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
-                                             Size="30"
-                                             Color="Black" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding AddBookmarkCommand}" />
-                        </Image.GestureRecognizers>
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image"
-                                         Binding="{Binding IsEnabled, Mode=Default}"
-                                         Value="True">
-                                <Setter Property="Opacity"
-                                        Value="0.75" />
-                            </DataTrigger>
-                        </Image.Triggers>
-                    </Image>-->
-
+                    
                     <Image Aspect="AspectFit"
                            HeightRequest="25"
                            HorizontalOptions="CenterAndExpand"
