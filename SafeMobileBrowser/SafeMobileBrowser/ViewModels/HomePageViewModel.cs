@@ -93,26 +93,29 @@ namespace SafeMobileBrowser.ViewModels
 
         public string Url
         {
-            get
-            {
-                return _url;
-            }
+            get => _url;
 
-            set
-            {
-                SetProperty(ref _url, value);
-                CurrentUrl = value;
-                CurrentTitle = value;
-            }
+            set => SetProperty(ref _url, value);
         }
 
         private string _addressbarText;
 
         public string AddressbarText
         {
-            get { return _addressbarText; }
-            set { SetProperty(ref _addressbarText, value); }
+            get => _addressbarText;
+            set
+            {
+                SetProperty(ref _addressbarText, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    CurrentUrl = CurrentTitle = $"safe://{value}";
+                else
+                    CurrentUrl = CurrentTitle = value;
+                CanGoToHomePage = string.IsNullOrWhiteSpace(value) ? false : true;
+                OnPropertyChanged(nameof(CanGoToHomePage));
+            }
         }
+
+        public bool CanGoToHomePage { get; set; }
 
         private MenuPopUp _menuPopUp;
 
@@ -174,13 +177,13 @@ namespace SafeMobileBrowser.ViewModels
                 else if (url.StartsWith("https"))
                 {
                     IsNavigating = true;
-                    string newurlText = url.Remove(0, 8);
+                    string newurlText = url.Remove(0, 8).TrimEnd('/');
                     AddressbarText = newurlText;
                 }
                 else if (url.StartsWith("http"))
                 {
                     IsNavigating = true;
-                    string newurlText = url.Remove(0, 7);
+                    string newurlText = url.Remove(0, 7).TrimEnd('/');
                     AddressbarText = newurlText;
                 }
                 else
@@ -207,12 +210,10 @@ namespace SafeMobileBrowser.ViewModels
             switch (navigationBarIconString)
             {
                 case "Back":
-                    if (CanGoBack)
-                        GoBackCommand.Execute(null);
+                    GoBackCommand.Execute(null);
                     break;
                 case "Forward":
-                    if (CanGoForward)
-                        GoForwardCommand.Execute(null);
+                    GoForwardCommand.Execute(null);
                     break;
                 case "Focus":
                     AddressBarFocusCommand.Execute(null);

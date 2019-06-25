@@ -1,11 +1,30 @@
 ﻿namespace SafeMobileBrowser.Models
 {
-    public class PopUpMenuItem
+    public class PopUpMenuItem : ObservableObject
     {
         public string MenuItemTitle { get; set; }
 
-        public string MenuItemIcon { get; set; }
+        private string _menuItemIcon;
 
-        public bool IsEnabled { get; set; }
+        public string MenuItemIcon
+        {
+            get => _menuItemIcon;
+            set
+            {
+                SetProperty(ref _menuItemIcon, value);
+            }
+        }
+
+        private bool _isEnabled;
+
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+
+            set
+            {
+                SetProperty(ref _isEnabled, value);
+            }
+        }
     }
 }

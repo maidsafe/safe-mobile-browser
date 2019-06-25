@@ -43,8 +43,17 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="25, 5"
+                                  IsEnabled="{Binding IsEnabled}"
                                   HeightRequest="40"
                                   ColumnSpacing="10">
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid"
+                                                 Binding="{Binding IsEnabled}"
+                                                 Value="False">
+                                        <Setter Property="Opacity"
+                                                Value="0.25" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
@@ -74,53 +83,83 @@
                 <StackLayout Orientation="Horizontal"
                              HeightRequest="28"
                              Padding="8">
-                    <Image HorizontalOptions="CenterAndExpand"
+                    <Image x:Name="refresh"
+                           HorizontalOptions="CenterAndExpand"
                            Aspect="AspectFit"
                            HeightRequest="25"
                            VerticalOptions="Center"
+                           IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
+                           Opacity="0.25"
                            WidthRequest="25">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.Refresh}"
+                                             Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
                                              Size="30"
                                              Color="Black" />
                         </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RefreshWebViewCommand}" />
                         </Image.GestureRecognizers>
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding ReloadMenuItem.IsEnabled, Mode=Default}"
+                                         Value="True">
+                                <Setter Property="Opacity"
+                                        Value="0.75" />
+                            </DataTrigger>
+                        </Image.Triggers>
                     </Image>
-                    <Image Aspect="AspectFit"
+                    <!--<Image Aspect="AspectFit"
                            HeightRequest="25"
                            HorizontalOptions="CenterAndExpand"
                            VerticalOptions="Center"
                            WidthRequest="25"
+                           Opacity="0.25"
+                           IsEnabled="{Binding IsEnabled}"
                            IsVisible="{Binding CheckIfAlreadyAvailableInBookmark, Converter={d:StaticResource BooleanInverter}}">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.BookmarkOutline}"
+                                             Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
                                              Size="30"
                                              Color="Black" />
                         </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding AddBookmarkCommand}" />
                         </Image.GestureRecognizers>
-                    </Image>
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding IsEnabled, Mode=Default}"
+                                         Value="True">
+                                <Setter Property="Opacity"
+                                        Value="0.75" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>-->
 
                     <Image Aspect="AspectFit"
                            HeightRequest="25"
                            HorizontalOptions="CenterAndExpand"
                            VerticalOptions="Center"
                            WidthRequest="25"
-                           IsVisible="{Binding CheckIfAlreadyAvailableInBookmark}">
+                           Opacity="0.25"
+                           IsEnabled="{Binding BookmarkMenuItem.IsEnabled}">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.Bookmark}"
+                                             Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
                                              Size="30"
                                              Color="Black" />
                         </Image.Source>
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding RemoveBookmarkCommand}" />
+                            <TapGestureRecognizer Command="{Binding ManageBookmarkCommand}" />
                         </Image.GestureRecognizers>
+                        <Image.Triggers>
+                            <DataTrigger TargetType="Image"
+                                         Binding="{Binding BookmarkMenuItem.IsEnabled, Mode=Default}"
+                                         Value="True">
+                                <Setter Property="Opacity"
+                                        Value="0.75" />
+                            </DataTrigger>
+                        </Image.Triggers>
                     </Image>
                 </StackLayout>
             </StackLayout>

@@ -57,7 +57,7 @@
                                               IsTextPredictionEnabled="False"
                                               Text="{Binding AddressbarText}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}" />
-                    
+
                     <Image x:Name="AddressBarButton"
                            IsVisible="False"
                            Grid.Column="2"
@@ -126,7 +126,9 @@
                                         Grid.ColumnSpan="5" />
 
                 <Image Grid.Row="1"
-                       Margin="0, 10">
+                       Margin="0, 10"
+                       Opacity="0.75"
+                       IsEnabled="{Binding CanGoBack}">
                     <Image.Source>
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.ChevronLeft}"
@@ -140,12 +142,6 @@
                     </Image.GestureRecognizers>
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
-                                     Binding="{Binding CanGoBack,Mode=Default}"
-                                     Value="True">
-                            <Setter Property="Opacity"
-                                    Value="0.75" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Image"
                                      Binding="{Binding CanGoBack, Mode=Default}"
                                      Value="False">
                             <Setter Property="Opacity"
@@ -156,7 +152,8 @@
 
                 <Image Grid.Column="1"
                        Grid.Row="1"
-                       Margin="0, 10">
+                       Margin="0, 10"
+                       IsEnabled="{Binding CanGoForward}">
                     <Image.Source>
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.ChevronRight}"
@@ -169,12 +166,6 @@
                                               NumberOfTapsRequired="1" />
                     </Image.GestureRecognizers>
                     <Image.Triggers>
-                        <DataTrigger TargetType="Image"
-                                     Binding="{Binding CanGoForward, Mode=Default}"
-                                     Value="True">
-                            <Setter Property="Opacity"
-                                    Value="0.75" />
-                        </DataTrigger>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding CanGoForward,Mode=Default}"
                                      Value="False">
@@ -200,8 +191,10 @@
                     </Image.GestureRecognizers>
                 </Image>
 
-                <Image Grid.Column="3"
+                <Image IsEnabled="{Binding CanGoToHomePage}"
+                       Grid.Column="3"
                        Grid.Row="1"
+                       Opacity="0.75"
                        Margin="0, 10">
                     <Image.Source>
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
@@ -214,6 +207,14 @@
                                               CommandParameter="Home"
                                               NumberOfTapsRequired="1" />
                     </Image.GestureRecognizers>
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding CanGoToHomePage}"
+                                     Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.25" />
+                        </DataTrigger>
+                    </Image.Triggers>
                 </Image>
 
                 <Image Grid.Column="4"
