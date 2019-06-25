@@ -9,5 +9,6 @@
         public const string BookmarkUrl = "BookmarkUrl";
         public const string DisplayAlertMessage = "DisplayAlertMessage";
         public const string ReloadMessage = "ReloadMessage";
+        public const string ResetHomePage = "ResetHomePage";
     }
 }

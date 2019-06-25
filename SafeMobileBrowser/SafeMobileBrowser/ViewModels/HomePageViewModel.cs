@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Rg.Plugins.Popup.Extensions;
+using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Forms;
 
@@ -13,6 +15,8 @@ namespace SafeMobileBrowser.ViewModels
         public static string CurrentUrl { get; private set; }
 
         public static string CurrentTitle { get; private set; }
+
+        private string _baseUrl = DependencyService.Get<IBaseUrl>().GetBaseUrl();
 
         public bool IsSessionAvailable => App.AppSession != null ? true : false;
 
@@ -128,11 +132,15 @@ namespace SafeMobileBrowser.ViewModels
 
         private void GoToHomePage()
         {
-            // Todo: Update iOS url;
-            if (Device.RuntimePlatform == Device.iOS)
-                Url = $"file:///android_asset/startbrowsing.html";
+            var homePageUrl = $"{_baseUrl}index.html";
+            if (string.Equals(Url, homePageUrl))
+            {
+                MessagingCenter.Send(this, MessageCenterConstants.ResetHomePage);
+            }
             else
-                Url = $"file:///android_asset/startbrowsing.html";
+            {
+                Url = homePageUrl;
+            }
         }
 
         private async void ShowPopUpMenu()
@@ -191,7 +199,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             // TODO: Connect using hardcoded response, provide option to authenticate using Authenticator
             await AuthService.ConnectUsingHardcodedResponseAsync();
-            AppService = new Services.AppService();
+            AppService = new AppService();
         }
 
         public void OnTapped(string navigationBarIconString)

@@ -26,7 +26,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             {
                 _webViewClient = GetHybridWebViewClient();
                 Control.SetWebViewClient(_webViewClient);
-                Control.LoadUrl($"{AssetBaseUrl}startbrowsing.html");
+                Control.LoadUrl($"{AssetBaseUrl}index.html");
             }
         }
 

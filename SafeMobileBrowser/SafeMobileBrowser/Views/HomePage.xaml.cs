@@ -44,6 +44,13 @@ namespace SafeMobileBrowser.Views
                 {
                     _viewModel.ReloadCommand.Execute(null);
                 });
+            MessagingCenter.Subscribe<HomePageViewModel>(
+               this,
+               MessageCenterConstants.ResetHomePage,
+               sender =>
+               {
+                   HybridWebViewControl.EvaluateJavaScriptAsync("javascript: resetHomePage()");
+               });
         }
 
         protected override async void OnAppearing()
@@ -75,6 +82,9 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Unsubscribe<MenuPopUpViewModel>(
                 this,
                 MessageCenterConstants.ReloadMessage);
+            MessagingCenter.Unsubscribe<HomePageViewModel>(
+                this,
+                MessageCenterConstants.ResetHomePage);
         }
 
         private void AddWebsiteList()

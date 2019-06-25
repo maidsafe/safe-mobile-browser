@@ -16,12 +16,6 @@ namespace SafeMobileBrowser.Services
             {
                 var files = new List<AssetFileTransferModel>
                 {
-                    // TODO: Update code to transfer the mockvault file
-                    // new AssetFileTransferModel()
-                    // {
-                    //    FileName = "MockVault",
-                    //    TransferLocation = Xamarin.Essentials.FileSystem.CacheDirectory
-                    // },
                     new AssetFileTransferModel()
                     {
                         FileName = "log.toml",
