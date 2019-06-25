@@ -77,6 +77,7 @@
     </None>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
+    <Compile Include="PlatformServices\BaseUrl.cs" />
     <Compile Include="PlatformServices\FileTransferService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
@@ -165,13 +166,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\notfound.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\startbrowsing.html" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\safenetworklogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\SafeMobileBrowser\AssetFiles\index.html">
+      <Link>Resources\index.html</Link>
+    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>

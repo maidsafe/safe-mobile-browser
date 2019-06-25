@@ -6,7 +6,6 @@ using Xamarin.Forms.Xaml;
 
 namespace SafeMobileBrowser.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AuthenticationPage : ContentPage
     {
         AuthenticationPageViewMode _viewModel;

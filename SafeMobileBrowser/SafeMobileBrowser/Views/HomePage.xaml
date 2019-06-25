@@ -232,7 +232,6 @@
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

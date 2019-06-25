@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Android.Webkit;
@@ -14,16 +15,19 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 {
     public class HybridWebViewClient : FormsWebViewClient
     {
+        readonly WeakReference<HybridWebViewRenderer> _renderer;
+
         public HybridWebViewClient(HybridWebViewRenderer renderer)
             : base(renderer)
         {
+            _renderer = new WeakReference<HybridWebViewRenderer>(renderer);
         }
 
         public override WebResourceResponse ShouldInterceptRequest(AWeb.WebView view, IWebResourceRequest request)
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine(request.Url.ToString());
+                Debug.WriteLine(request.Url.ToString());
                 var headers = request.RequestHeaders;
                 if (request.Url.Scheme.ToLower().Contains("http") && !request.Url.ToString().ToLower().Contains("favicon"))
                 {
@@ -67,15 +71,18 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                 if (ex.InnerException != null)
                 {
                     var exception = ex.InnerException as WebFetchException;
-                    System.Diagnostics.Debug.WriteLine("Error Code: " + exception.ErrorCode);
-                    System.Diagnostics.Debug.WriteLine("Error Message: " + exception.Message);
+                    Debug.WriteLine("Error Code: " + exception.ErrorCode);
+                    Debug.WriteLine("Error Message: " + exception.Message);
 
                     if (exception.ErrorCode == WebFetchConstants.NoSuchData ||
                         exception.ErrorCode == WebFetchConstants.NoSuchEntry ||
                         exception.ErrorCode == WebFetchConstants.NoSuchPublicName ||
                         exception.ErrorCode == WebFetchConstants.NoSuchServiceName)
                     {
-                        var htmlString = GetAssetsFileData.ReadHtmlFile("notfound.html");
+                        var htmlString = GetAssetsFileData.ReadHtmlFile("index.html");
+
+                        htmlString = ReplaceHtmlStringContent(htmlString, "Page not found", "ErrorHeading");
+                        htmlString = ReplaceHtmlStringContent(htmlString, exception.Message, "ErrorMessage");
                         byte[] byteArray = Encoding.ASCII.GetBytes(htmlString);
                         MemoryStream stream = new MemoryStream(byteArray);
                         var response = new WebResourceResponse("text/html", "UTF-8", stream);
@@ -84,6 +91,12 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                 }
             }
             return base.ShouldInterceptRequest(view, request);
+        }
+
+        string ReplaceHtmlStringContent(string htmlString, string replaceString, string find)
+        {
+            int index = htmlString.IndexOf(find);
+            return htmlString.Remove(index, find.Length).Insert(index, replaceString);
         }
     }
 }

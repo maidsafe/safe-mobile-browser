@@ -90,6 +90,7 @@
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PlatformServices\BaseUrl.cs" />
     <Compile Include="PlatformServices\FileTransferService.cs" />
     <Compile Include="PlatformServices\GetAssetsFileData.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -102,7 +103,6 @@
     </AndroidAsset>
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +137,6 @@
     <AndroidResource Include="Resources\drawable\safenetworklogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\startbrowsing.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\notfound.html" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\background_with_drawable.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +168,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\fade_out.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\SafeMobileBrowser\AssetFiles\index.html">
+      <Link>Assets\index.html</Link>
+    </AndroidAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />

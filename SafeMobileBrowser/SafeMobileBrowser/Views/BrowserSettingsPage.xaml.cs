@@ -4,7 +4,6 @@ using Xamarin.Forms.Xaml;
 
 namespace SafeMobileBrowser.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BrowserSettingsPage : ContentPage
     {
         BrowserSettingsPageViewModel _viewModel;
