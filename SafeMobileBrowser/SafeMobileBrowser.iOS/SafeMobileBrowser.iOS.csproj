@@ -79,6 +79,7 @@
     <None Include="Info.plist" />
     <Compile Include="PlatformServices\BaseUrl.cs" />
     <Compile Include="PlatformServices\FileTransferService.cs" />
+    <Compile Include="PlatformServices\NativeUriLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
   </ItemGroup>

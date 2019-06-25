@@ -10,7 +10,7 @@ namespace SafeMobileBrowser.iOS.PlatformServices
 {
     class NativeUriLauncher : INativeUriLauncher
     {
-        public Task<bool> LaunchApp(string uri)
+        public Task<bool> OpenUri(string uri)
         {
             var canOpen = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(uri));
 

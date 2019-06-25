@@ -9,7 +9,7 @@ namespace SafeMobileBrowser.Droid.PlatformServices
 {
     class NativeUriLauncher : INativeUriLauncher
     {
-        public Task<bool> LaunchApp(string uri)
+        public Task<bool> OpenUri(string uri)
         {
             bool result = false;
 

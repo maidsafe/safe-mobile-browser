@@ -80,7 +80,7 @@ namespace SafeMobileBrowser.Services
                 else
                     (_, req) = await GenerateEncodedAuthReqAsync();
                 var url = UrlFormat.Format(Constants.AppId, req, true);
-                var appLaunched = await DependencyService.Get<INativeUriLauncher>().LaunchApp(url);
+                var appLaunched = await DependencyService.Get<INativeUriLauncher>().OpenUri(url);
                 if (!appLaunched)
                 {
                     await Application.Current.MainPage.DisplayAlert("Authorisation failed", "The SAFE Authenticator app is required to authorise this application", "OK");
