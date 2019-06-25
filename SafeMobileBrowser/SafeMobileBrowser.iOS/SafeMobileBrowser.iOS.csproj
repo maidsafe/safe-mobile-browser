@@ -75,9 +75,6 @@
     <None Include="..\SafeMobileBrowser\AssetFiles\log.toml">
       <Link>log.toml</Link>
     </None>
-    <None Include="..\SafeMobileBrowser\AssetFiles\MockVault">
-      <Link>MockVault</Link>
-    </None>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="PlatformServices\FileTransferService.cs" />

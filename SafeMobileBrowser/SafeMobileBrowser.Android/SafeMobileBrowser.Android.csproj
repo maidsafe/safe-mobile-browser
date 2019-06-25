@@ -100,9 +100,6 @@
     <AndroidAsset Include="..\SafeMobileBrowser\AssetFiles\log.toml">
       <Link>Assets\log.toml</Link>
     </AndroidAsset>
-    <AndroidAsset Include="..\SafeMobileBrowser\AssetFiles\MockVault">
-      <Link>Assets\MockVault</Link>
-    </AndroidAsset>
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
