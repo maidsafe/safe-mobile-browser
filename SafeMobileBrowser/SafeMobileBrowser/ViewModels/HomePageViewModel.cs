@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Rg.Plugins.Popup.Extensions;
@@ -110,12 +111,12 @@ namespace SafeMobileBrowser.ViewModels
                 if (!address)
                 {
                     CurrentUrl = CurrentTitle = $"safe://{value}";
-                    CanGoToHomePage = false;
+                    CanGoToHomePage = true;
                 }
                 else
                 {
                     CurrentUrl = CurrentTitle = value;
-                    CanGoToHomePage = true;
+                    CanGoToHomePage = false;
                 }
                 OnPropertyChanged(nameof(CanGoToHomePage));
             }
@@ -130,7 +131,7 @@ namespace SafeMobileBrowser.ViewModels
         public HomePageViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            PageLoadCommand = new Command(LoadUrl);
+            PageLoadCommand = new Command<string>(LoadUrl);
             ToolbarItemCommand = new Command<string>(LoadUrl);
             BottomNavbarTapCommand = new Command<string>(OnTapped);
             WebViewNavigatingCommand = new Command<WebNavigatingEventArgs>(OnNavigating);
@@ -142,14 +143,7 @@ namespace SafeMobileBrowser.ViewModels
         private void GoToHomePage()
         {
             var homePageUrl = $"{_baseUrl}index.html";
-            if (string.Equals(Url, homePageUrl))
-            {
-                MessagingCenter.Send(this, MessageCenterConstants.ResetHomePage);
-            }
-            else
-            {
-                Url = homePageUrl;
-            }
+            Url = homePageUrl;
         }
 
         private async void ShowPopUpMenu()
@@ -235,14 +229,11 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
-        public void LoadUrl(string url)
+        public void LoadUrl(string url = null)
         {
-            AddressbarText = url;
-            LoadUrl();
-        }
+            if (url != null)
+                AddressbarText = url;
 
-        private void LoadUrl()
-        {
             if (Device.RuntimePlatform == Device.iOS)
                 Url = $"safe://{AddressbarText}";
             else

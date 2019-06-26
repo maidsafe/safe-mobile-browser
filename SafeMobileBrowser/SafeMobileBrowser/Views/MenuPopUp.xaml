@@ -6,7 +6,6 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  mc:Ignorable="d"
                  x:Class="SafeMobileBrowser.Views.MenuPopUp"
-                 xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
     <ContentPage.Resources>
@@ -28,73 +27,73 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Frame CornerRadius="10"
-               Padding="0"
+               Padding="0, 10, 0, 0"
                BackgroundColor="White"
-               HeightRequest="300"
+               HeightRequest="260"
                WidthRequest="220"
                VerticalOptions="EndAndExpand"
                HorizontalOptions="EndAndExpand">
-            <StackLayout Padding="0, 20, 0, 0"
-                         Margin="0">
+            <StackLayout Margin="0"
+                         Spacing="0">
                 <CollectionView x:Name="MenuPopUpCollection"
+                                Margin="0"
                                 ItemsSource="{Binding PopMenuItems}"
                                 SelectedItem="{Binding SelectedPopMenuItem, Mode=TwoWay}"
                                 SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="25, 5"
-                                  IsEnabled="{Binding IsEnabled}"
+                            <d:Grid Padding="25, 5"
+                                  IsEnabled="{d:Binding IsEnabled}"
                                   HeightRequest="40"
+                                  RowSpacing="0"
                                   ColumnSpacing="10">
-                                <Grid.Triggers>
-                                    <DataTrigger TargetType="Grid"
-                                                 Binding="{Binding IsEnabled}"
+                                <d:Grid.Triggers>
+                                    <d:DataTrigger TargetType="d:Grid"
+                                                 Binding="{d:Binding IsEnabled}"
                                                  Value="False">
-                                        <Setter Property="Opacity"
+                                        <d:Setter
                                                 Value="0.25" />
-                                    </DataTrigger>
-                                </Grid.Triggers>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Aspect="AspectFit"
+                                  </d:DataTrigger>
+                              </d:Grid.Triggers>
+                                <d:Grid.ColumnDefinitions>
+                                    <d:ColumnDefinition Width="*" />
+                                    <d:ColumnDefinition Width="5*" />
+                              </d:Grid.ColumnDefinitions>
+                                <d:Image Aspect="AspectFit"
                                        HeightRequest="20"
                                        VerticalOptions="Center"
                                        WidthRequest="20">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                         Glyph="{Binding MenuItemIcon}"
+                                    <d:Image.Source>
+                                        <d:FontImageSource FontFamily="{d:DynamicResource Key=MaterialFontFamily}"
+                                                         Glyph="{d:Binding MenuItemIcon}"
                                                          Size="30"
                                                          Color="Black" />
-                                    </Image.Source>
-                                </Image>
-                                <Label Grid.Column="1"
+                                  </d:Image.Source>
+                              </d:Image>
+                                <d:Label d:Grid.Column="1"
                                        VerticalOptions="Center"
                                        TextColor="Black"
-                                       Text="{Binding MenuItemTitle}"
+                                       Text="{d:Binding MenuItemTitle}"
                                        FontSize="Medium" />
-                            </Grid>
+                          </d:Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <BoxView HeightRequest="0.5"
                          BackgroundColor="LightGray" />
                 <StackLayout Orientation="Horizontal"
-                             HeightRequest="28"
-                             Padding="8">
+                             Padding="5"
+                             HeightRequest="40">
                     <Image x:Name="refresh"
                            HorizontalOptions="CenterAndExpand"
                            Aspect="AspectFit"
-                           HeightRequest="25"
-                           VerticalOptions="Center"
+                           VerticalOptions="CenterAndExpand"
                            IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
-                           Opacity="0.25"
-                           WidthRequest="25">
+                           Opacity="0.75">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
-                                             Size="30"
+                                             Size="25"
                                              Color="Black" />
                         </Image.Source>
                         <Image.GestureRecognizers>
@@ -102,20 +101,18 @@
                         </Image.GestureRecognizers>
                         <Image.Triggers>
                             <DataTrigger TargetType="Image"
-                                         Binding="{Binding ReloadMenuItem.IsEnabled, Mode=Default}"
-                                         Value="True">
+                                         Binding="{Binding ReloadMenuItem.IsEnabled}"
+                                         Value="False">
                                 <Setter Property="Opacity"
-                                        Value="0.75" />
+                                        Value="0.25" />
                             </DataTrigger>
                         </Image.Triggers>
                     </Image>
-                    
+
                     <Image Aspect="AspectFit"
-                           HeightRequest="25"
                            HorizontalOptions="CenterAndExpand"
-                           VerticalOptions="Center"
-                           WidthRequest="25"
-                           Opacity="0.25"
+                           VerticalOptions="CenterAndExpand"
+                           Opacity="0.75"
                            IsEnabled="{Binding BookmarkMenuItem.IsEnabled}">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
@@ -128,10 +125,10 @@
                         </Image.GestureRecognizers>
                         <Image.Triggers>
                             <DataTrigger TargetType="Image"
-                                         Binding="{Binding BookmarkMenuItem.IsEnabled, Mode=Default}"
-                                         Value="True">
+                                         Binding="{Binding BookmarkMenuItem.IsEnabled}"
+                                         Value="False">
                                 <Setter Property="Opacity"
-                                        Value="0.75" />
+                                        Value="0.25" />
                             </DataTrigger>
                         </Image.Triggers>
                     </Image>
