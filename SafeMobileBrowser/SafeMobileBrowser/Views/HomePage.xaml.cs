@@ -60,8 +60,10 @@ namespace SafeMobileBrowser.Views
             if (_viewModel == null)
             {
                 _viewModel = new HomePageViewModel(Navigation);
-                await _viewModel.InitilizeSessionAsync();
             }
+
+            if (App.AppSession == null)
+                await _viewModel.InitilizeSessionAsync();
 
             BindingContext = _viewModel;
 
