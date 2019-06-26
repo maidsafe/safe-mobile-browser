@@ -10,11 +10,28 @@
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
     <ContentPage.Resources>
-        <Style TargetType="Grid">
+        <Style TargetType="Grid"
+               x:Key="PopupMenuItemGridStyle">
+            <Setter Property="Opacity"
+                    Value="0.75" />
+            <Setter Property="Padding"
+                    Value="25, 5" />
+            <Setter Property="HeightRequest"
+                    Value="40" />
+            <Setter Property="RowSpacing"
+                    Value="0" />
+            <Setter Property="ColumnSpacing"
+                    Value="10" />
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity"
+                                        Value="0.25" />
+                            </VisualState.Setters>
+                        </VisualState>
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
                                 <Setter Property="BackgroundColor"
@@ -24,6 +41,44 @@
                     </VisualStateGroup>
                 </VisualStateGroupList>
             </Setter>
+        </Style>
+        <Style TargetType="Label"
+               x:Key="PopupMenuItemLabelStyle">
+            <Setter Property="TextColor"
+                    Value="Black" />
+            <Setter Property="FontSize"
+                    Value="Medium" />
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
+        </Style>
+        <Style TargetType="Image"
+               x:Key="PopupMenuItemIconStyle">
+            <Setter Property="HeightRequest"
+                    Value="20" />
+            <Setter Property="WidthRequest"
+                    Value="20" />
+            <Setter Property="Aspect"
+                    Value="AspectFit" />
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
+        </Style>
+        <Style TargetType="Image"
+               x:Key="PopupMenuItemHorizontalIconStyle">
+            <Setter Property="HorizontalOptions"
+                    Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions"
+                    Value="CenterAndExpand" />
+            <Setter Property="Aspect"
+                    Value="AspectFit" />
+            <Setter Property="Opacity"
+                    Value="0.75" />
+            <Style.Triggers>
+                <Trigger TargetType="Image"
+                         Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity"
+                            Value="0.25" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -43,26 +98,13 @@
                                 SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="25, 5"
-                                  IsEnabled="{Binding IsEnabled}"
-                                  HeightRequest="40"
-                                  RowSpacing="0"
-                                  ColumnSpacing="10">
-                                <Grid.Triggers>
-                                    <DataTrigger TargetType="Grid"
-                                                 Binding="{Binding IsEnabled}"
-                                                 Value="False">
-                                        <Setter Value="0.25" />
-                                    </DataTrigger>
-                                </Grid.Triggers>
+                            <Grid Style="{StaticResource PopupMenuItemGridStyle}"
+                                  IsEnabled="{Binding IsEnabled}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Aspect="AspectFit"
-                                       HeightRequest="20"
-                                       VerticalOptions="Center"
-                                       WidthRequest="20">
+                                <Image Style="{StaticResource PopupMenuItemIconStyle}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                                          Glyph="{Binding MenuItemIcon}"
@@ -71,10 +113,8 @@
                                     </Image.Source>
                                 </Image>
                                 <Label Grid.Column="1"
-                                       VerticalOptions="Center"
-                                       TextColor="Black"
-                                       Text="{Binding MenuItemTitle}"
-                                       FontSize="Medium" />
+                                       Style="{StaticResource PopupMenuItemLabelStyle}"
+                                       Text="{Binding MenuItemTitle}" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -82,14 +122,10 @@
                 <BoxView HeightRequest="0.5"
                          BackgroundColor="LightGray" />
                 <StackLayout Orientation="Horizontal"
-                             Padding="5"
+                             Padding="10"
                              HeightRequest="40">
-                    <Image x:Name="refresh"
-                           HorizontalOptions="CenterAndExpand"
-                           Aspect="AspectFit"
-                           VerticalOptions="CenterAndExpand"
-                           IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
-                           Opacity="0.75">
+                    <Image Style="{StaticResource PopupMenuItemHorizontalIconStyle}"
+                           IsEnabled="{Binding ReloadMenuItem.IsEnabled}">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
@@ -99,38 +135,19 @@
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RefreshWebViewCommand}" />
                         </Image.GestureRecognizers>
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image"
-                                         Binding="{Binding ReloadMenuItem.IsEnabled}"
-                                         Value="False">
-                                <Setter Property="Opacity"
-                                        Value="0.25" />
-                            </DataTrigger>
-                        </Image.Triggers>
                     </Image>
 
-                    <Image Aspect="AspectFit"
-                           HorizontalOptions="CenterAndExpand"
-                           VerticalOptions="CenterAndExpand"
-                           Opacity="0.75"
+                    <Image Style="{StaticResource PopupMenuItemHorizontalIconStyle}"
                            IsEnabled="{Binding BookmarkMenuItem.IsEnabled}">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
-                                             Size="30"
+                                             Size="25"
                                              Color="Black" />
                         </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ManageBookmarkCommand}" />
                         </Image.GestureRecognizers>
-                        <Image.Triggers>
-                            <DataTrigger TargetType="Image"
-                                         Binding="{Binding BookmarkMenuItem.IsEnabled}"
-                                         Value="False">
-                                <Setter Property="Opacity"
-                                        Value="0.25" />
-                            </DataTrigger>
-                        </Image.Triggers>
                     </Image>
                 </StackLayout>
             </StackLayout>
