@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
     <PackageReference Include="MaidSafe.SafeApp" Version="0.2.1" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.14.0" />
     <PackageReference Include="MimeMapping" Version="1.0.1.12" />

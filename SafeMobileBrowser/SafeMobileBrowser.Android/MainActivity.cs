@@ -1,4 +1,5 @@
 ﻿using System;
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -35,6 +36,7 @@ namespace SafeMobileBrowser.Droid
             XamEffects.Droid.Effects.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+            UserDialogs.Init(() => this);
             LoadApplication(new App());
         }
 

@@ -136,6 +136,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs">
+      <Version>7.0.4</Version>
+    </PackageReference>
     <PackageReference Include="MaidSafe.SafeApp">
       <Version>0.2.1</Version>
     </PackageReference>
