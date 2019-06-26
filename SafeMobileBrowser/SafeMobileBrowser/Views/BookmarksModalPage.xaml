@@ -24,6 +24,19 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
+        <Style TargetType="Image"
+               x:Key="BookmarkRemoveIconStyle">
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
+            <Setter Property="HorizontalOptions"
+                    Value="End" />
+            <Setter Property="HeightRequest"
+                    Value="15" />
+            <Setter Property="WidthRequest"
+                    Value="15" />
+            <Setter Property="Opacity"
+                    Value="0.75" />
+        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
@@ -53,49 +66,42 @@
                 <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
             </StackLayout>
-            <StackLayout Padding="10,5">
-                <CollectionView HorizontalOptions="Start"
-                                SelectionMode="Single"
-                                SelectedItem="{Binding SelectedBookmarkItem, Mode=TwoWay}"
-                                ItemsSource="{Binding Bookmarks}">
-                    <CollectionView.EmptyView>
-                        <Label HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Text="No tabs!" />
-                    </CollectionView.EmptyView>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Padding="5, 10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="4*" />
-                                    <ColumnDefinition Width="2*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding .}"
-                                       VerticalOptions="Center">
-                                </Label>
-                                <Image  Grid.Column="1"
-                                        VerticalOptions="Center"
-                                        HeightRequest="15"
-                                        WidthRequest="15"
-                                        HorizontalOptions="End"
-                                        BackgroundColor="Transparent"
-                                        Opacity="0.75">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                         Glyph="{x:Static Icons:IconFont.Delete}"
-                                                         Size="30"
-                                                         Color="Black" />
-                                    </Image.Source>
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Image.GestureRecognizers>
-                                </Image>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
+            <CollectionView Margin="10, 5"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedBookmarkItem, Mode=TwoWay}"
+                            ItemsSource="{Binding Bookmarks}">
+                <CollectionView.EmptyView>
+                    <Label HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Text="No bookmarks!" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5, 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding .}"
+                                   VerticalOptions="Center">
+                            </Label>
+                            <Image Grid.Column="1"
+                                   Style="{StaticResource BookmarkRemoveIconStyle}">
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                     Glyph="{x:Static Icons:IconFont.Delete}"
+                                                     Size="30"
+                                                     Color="Black" />
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
+                                                          CommandParameter="{Binding .}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
