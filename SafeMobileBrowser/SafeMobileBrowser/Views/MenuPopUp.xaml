@@ -6,6 +6,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  mc:Ignorable="d"
                  x:Class="SafeMobileBrowser.Views.MenuPopUp"
+                 xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
     <ContentPage.Resources>
@@ -42,40 +43,39 @@
                                 SelectionMode="Single">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <d:Grid Padding="25, 5"
-                                  IsEnabled="{d:Binding IsEnabled}"
+                            <Grid Padding="25, 5"
+                                  IsEnabled="{Binding IsEnabled}"
                                   HeightRequest="40"
                                   RowSpacing="0"
                                   ColumnSpacing="10">
-                                <d:Grid.Triggers>
-                                    <d:DataTrigger TargetType="d:Grid"
-                                                 Binding="{d:Binding IsEnabled}"
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid"
+                                                 Binding="{Binding IsEnabled}"
                                                  Value="False">
-                                        <d:Setter
-                                                Value="0.25" />
-                                  </d:DataTrigger>
-                              </d:Grid.Triggers>
-                                <d:Grid.ColumnDefinitions>
-                                    <d:ColumnDefinition Width="*" />
-                                    <d:ColumnDefinition Width="5*" />
-                              </d:Grid.ColumnDefinitions>
-                                <d:Image Aspect="AspectFit"
+                                        <Setter Value="0.25" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Aspect="AspectFit"
                                        HeightRequest="20"
                                        VerticalOptions="Center"
                                        WidthRequest="20">
-                                    <d:Image.Source>
-                                        <d:FontImageSource FontFamily="{d:DynamicResource Key=MaterialFontFamily}"
-                                                         Glyph="{d:Binding MenuItemIcon}"
+                                    <Image.Source>
+                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                         Glyph="{Binding MenuItemIcon}"
                                                          Size="30"
                                                          Color="Black" />
-                                  </d:Image.Source>
-                              </d:Image>
-                                <d:Label d:Grid.Column="1"
+                                    </Image.Source>
+                                </Image>
+                                <Label Grid.Column="1"
                                        VerticalOptions="Center"
                                        TextColor="Black"
-                                       Text="{d:Binding MenuItemTitle}"
+                                       Text="{Binding MenuItemTitle}"
                                        FontSize="Medium" />
-                          </d:Grid>
+                            </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
