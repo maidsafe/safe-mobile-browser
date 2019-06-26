@@ -60,12 +60,11 @@ namespace SafeMobileBrowser.Views
             if (_viewModel == null)
             {
                 _viewModel = new HomePageViewModel(Navigation);
+                BindingContext = _viewModel;
             }
 
             if (App.AppSession == null)
                 await _viewModel.InitilizeSessionAsync();
-
-            BindingContext = _viewModel;
 
             if (Device.RuntimePlatform == Device.Android)
                 AddWebsiteList();

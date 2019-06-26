@@ -157,7 +157,7 @@ namespace SafeMobileBrowser.Services
             {
                 Debug.WriteLine(ex.Message);
                 MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
-                throw new NullReferenceException("Null serialised configuration");
+                throw ex;
             }
         }
 #endif

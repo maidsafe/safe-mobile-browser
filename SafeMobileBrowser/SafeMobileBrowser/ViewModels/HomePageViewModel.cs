@@ -203,20 +203,18 @@ namespace SafeMobileBrowser.ViewModels
 
         internal async Task InitilizeSessionAsync()
         {
-            // TODO: Connect using hardcoded response, provide option to authenticate using Authenticator
-            using (UserDialogs.Instance.Loading("Connecting to SAFE Network"))
+            try
             {
-                try
+                using (UserDialogs.Instance.Loading("Connecting to SAFE Network"))
                 {
                     await AuthService.ConnectUsingHardcodedResponseAsync();
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                    await App.Current.MainPage.DisplayAlert("Connection Failed", "Unable to connect to the SAFE network. Try updating your IP Address on invite server.", "OK");
-                }
             }
-            UserDialogs.Instance.HideLoading();
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await App.Current.MainPage.DisplayAlert("Connection Failed", "Unable to connect to the SAFE network. Try updating your IP Address on invite server.", "OK");
+            }
         }
 
         public void OnTapped(string navigationBarIconString)
