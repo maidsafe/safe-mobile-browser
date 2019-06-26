@@ -2,24 +2,41 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Android.Content;
 using SafeMobileBrowser.Droid.PlatformServices;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 using Application = Android.App.Application;
 
-[assembly: Dependency(typeof(FileTransferService))]
+[assembly: Dependency(typeof(PlatformService))]
 
 namespace SafeMobileBrowser.Droid.PlatformServices
 {
-    public class FileTransferService : IFileTransferService
+    public class PlatformService : IPlatformService
     {
-        public string ConfigFilesPath
+        public string ConfigFilesPath => Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+        public string BaseUrl => "file:///android_asset/";
+
+        public Task<bool> OpenUri(string uri)
         {
-            get
+            bool result;
+            try
             {
-                return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var aUri = Android.Net.Uri.Parse(uri.ToString());
+                var intent = new Intent(Intent.ActionView, aUri);
+#pragma warning disable CS0618 // Type or member is obsolete
+                Forms.Context.StartActivity(intent);
+#pragma warning restore CS0618 // Type or member is obsolete
+                result = true;
             }
+            catch (ActivityNotFoundException)
+            {
+                result = false;
+            }
+
+            return Task.FromResult(result);
         }
 
         public async Task TransferAssetsAsync(List<AssetFileTransferModel> fileList)

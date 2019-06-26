@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Foundation;
 using SafeMobileBrowser.iOS.PlatformServices;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
+using UIKit;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(FileTransferService))]
+[assembly: Dependency(typeof(PlatformService))]
 
 namespace SafeMobileBrowser.iOS.PlatformServices
 {
-    public class FileTransferService : IFileTransferService
+    public class PlatformService : IPlatformService
     {
-        public string ConfigFilesPath
+        public string ConfigFilesPath => Environment.GetFolderPath(Environment.SpecialFolder.Resources);
+
+        public string BaseUrl => NSBundle.MainBundle.BundlePath;
+
+        public Task<bool> OpenUri(string uri)
         {
-            get
-            {
-                // Resources -> /Library
-                return Environment.GetFolderPath(Environment.SpecialFolder.Resources);
-            }
+            var canOpen = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(uri));
+
+            if (!canOpen)
+                return Task.FromResult(false);
+
+            return Task.FromResult(UIApplication.SharedApplication.OpenUrl(new NSUrl(uri)));
         }
 
         public async Task TransferAssetsAsync(List<AssetFileTransferModel> fileList)

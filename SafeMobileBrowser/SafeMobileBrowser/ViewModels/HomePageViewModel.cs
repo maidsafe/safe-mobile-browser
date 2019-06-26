@@ -16,7 +16,7 @@ namespace SafeMobileBrowser.ViewModels
 
         public static string CurrentTitle { get; private set; }
 
-        private readonly string _baseUrl = DependencyService.Get<IBaseUrl>().GetBaseUrl();
+        private readonly string _baseUrl = DependencyService.Get<IPlatformService>().BaseUrl;
 
         public bool IsSessionAvailable => App.AppSession != null;
 

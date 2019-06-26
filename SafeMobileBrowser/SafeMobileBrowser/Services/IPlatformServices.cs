@@ -4,10 +4,14 @@ using SafeMobileBrowser.Models;
 
 namespace SafeMobileBrowser.Services
 {
-    public interface IFileTransferService
+    public interface IPlatformService
     {
         string ConfigFilesPath { get; }
 
+        string BaseUrl { get; }
+
         Task TransferAssetsAsync(List<AssetFileTransferModel> fileList);
+
+        Task<bool> OpenUri(string uri);
     }
 }

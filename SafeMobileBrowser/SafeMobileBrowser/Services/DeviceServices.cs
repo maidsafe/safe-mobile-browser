@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace SafeMobileBrowser.Services
 {
-    public class DeviceServices
+    public static class DeviceServices
     {
         public static async Task TransferAssetFiles()
         {
@@ -23,7 +23,7 @@ namespace SafeMobileBrowser.Services
                     }
                 };
 
-                var fileTransferService = DependencyService.Get<IFileTransferService>();
+                var fileTransferService = DependencyService.Get<IPlatformService>();
                 await fileTransferService.TransferAssetsAsync(files);
                 await Session.SetAdditionalSearchPathAsync(fileTransferService.ConfigFilesPath);
                 await Session.InitLoggingAsync();

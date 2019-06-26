@@ -93,9 +93,7 @@
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="PlatformServices\NativeUriLauncher.cs" />
-    <Compile Include="PlatformServices\BaseUrl.cs" />
-    <Compile Include="PlatformServices\FileTransferService.cs" />
+    <Compile Include="PlatformServices\PlatformService.cs" />
     <Compile Include="PlatformServices\GetAssetsFileData.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
