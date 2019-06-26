@@ -2,11 +2,9 @@
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SafeMobileBrowser.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPopUp : PopupPage
     {
         MenuPopUpViewModel _viewModel;
