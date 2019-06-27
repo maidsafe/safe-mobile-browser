@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Rg.Plugins.Popup.Extensions;
-using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Forms;
@@ -139,8 +137,6 @@ namespace SafeMobileBrowser.ViewModels
             WebViewNavigatedCommand = new Command<WebNavigatedEventArgs>(OnNavigated);
             GoToHomePageCommand = new Command(GoToHomePage);
             MenuCommand = new Command(ShowPopUpMenu);
-            if (AppService == null)
-                AppService = new AppService();
         }
 
         private void GoToHomePage()

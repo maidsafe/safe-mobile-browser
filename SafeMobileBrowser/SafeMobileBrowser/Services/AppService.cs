@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 using SafeApp;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Services;
+using Xamarin.Forms;
+
+[assembly: Dependency(typeof(AppService))]
 
 namespace SafeMobileBrowser.Services
 {

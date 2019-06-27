@@ -90,8 +90,6 @@ namespace SafeMobileBrowser.ViewModels
             Navigation = navigation;
             RefreshWebViewCommand = new Command(RefreshWebView);
             ManageBookmarkCommand = new Command(AddOrRemoveBookmark);
-            if (BookmarkManager == null)
-                BookmarkManager = new BookmarkManager();
             InitaliseMenuItems();
         }
 

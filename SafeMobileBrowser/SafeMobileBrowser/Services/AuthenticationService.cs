@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
@@ -113,15 +114,26 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is AuthIpcMsg ipcMsg)
                     {
-                        Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
-                        AppService.InitialiseSession(session);
-                        BookmarkManager.InitialiseSession(session);
+                        using (UserDialogs.Instance.Loading("Connection to the SAFE Network"))
+                        {
+                            Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
+                            AppService.InitialiseSession(session);
+                            BookmarkManager.InitialiseSession(session);
+                            var bookmarksMDataInfo = await DependencyService.Get<AppService>().GetAccessContainerMdataInfoAsync();
+                            DependencyService.Get<BookmarkManager>().SetMdInfo(bookmarksMDataInfo);
+                            await DependencyService.Get<BookmarkManager>().FetchBookmarks();
+                        }
                     }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Authentication", $"Request not granted", "OK");
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", $"Description: {ex.Message}", "OK");
                 MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
             }
         }

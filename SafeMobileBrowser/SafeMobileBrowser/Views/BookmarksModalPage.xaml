@@ -82,7 +82,7 @@
                                 <ColumnDefinition Width="4*" />
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
-                            <Label Text="{Binding .}"
+                            <Label Text="{Binding}"
                                    VerticalOptions="Center">
                             </Label>
                             <Image Grid.Column="1"
@@ -95,7 +95,7 @@
                                 </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
-                                                          CommandParameter="{Binding .}" />
+                                                          CommandParameter="{Binding}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </Grid>
