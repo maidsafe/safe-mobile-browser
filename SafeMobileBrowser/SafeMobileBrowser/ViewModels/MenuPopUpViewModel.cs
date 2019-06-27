@@ -162,6 +162,12 @@ namespace SafeMobileBrowser.ViewModels
 
             BookmarkMenuItem.MenuItemIcon = CheckIfAlreadyAvailableInBookmark ? IconFont.Bookmark : IconFont.BookmarkOutline;
             BookmarkMenuItem.IsEnabled = AppService.IsSessionAvailable;
+
+            var bookmarksMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
+            bookmarksMenuItem.IsEnabled = AppService.IsSessionAvailable;
+
+            var authenticationMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Authenticate"));
+            authenticationMenuItem.IsEnabled = !AppService.IsSessionAvailable;
         }
 
         internal void CheckIsBookmarkAvailable()
@@ -234,9 +240,6 @@ namespace SafeMobileBrowser.ViewModels
                         if (!AppService.IsSessionAvailable)
                         {
                             await AuthenticationService.RequestNonMockAuthenticationAsync();
-                            SelectedPopMenuItem.IsEnabled = false;
-                            var bookmarksMenuItem = PopMenuItems.Where(p => string.Equals(p.MenuItemTitle, "Bookmarks")).FirstOrDefault();
-                            bookmarksMenuItem.IsEnabled = true;
                         }
                         break;
                     case "Share":
