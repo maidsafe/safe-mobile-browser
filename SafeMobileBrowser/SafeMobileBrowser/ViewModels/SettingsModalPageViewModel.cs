@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Themes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
