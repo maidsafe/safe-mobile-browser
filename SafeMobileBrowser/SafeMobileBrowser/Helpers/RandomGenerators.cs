@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace SafeMobileBrowser.Helpers
 {
-    public class RandomGenerators
+    public static class RandomGenerators
     {
         static readonly Random random = new Random();
 

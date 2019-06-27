@@ -1,6 +1,6 @@
 ﻿namespace SafeMobileBrowser.Helpers
 {
-    public class MessageCenterConstants
+    public static class MessageCenterConstants
     {
         public const string AuthenticationFailed = "AuthFailed";
         public const string Authenticated = "AuthSuccessful";

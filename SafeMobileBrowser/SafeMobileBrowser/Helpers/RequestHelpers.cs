@@ -7,7 +7,7 @@ using SafeMobileBrowser.Models;
 
 namespace SafeMobileBrowser.Helpers
 {
-    public class RequestHelpers
+    public static class RequestHelpers
     {
         // Add safe-auth:// in encoded auth request
         public static string UrlFormat(string encodedString, bool toAuthenticator)
@@ -47,8 +47,6 @@ namespace SafeMobileBrowser.Helpers
 
             var bytes = "bytes=";
             var rangeValues = rangeString.Remove(0, bytes.Length).Split(',');
-
-            // var rangeValues = .Split(',');
 
             foreach (var item in rangeValues)
             {
