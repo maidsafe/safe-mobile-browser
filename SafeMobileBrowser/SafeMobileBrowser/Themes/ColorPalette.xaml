@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="SafeMobileBrowser.Themes.ColorPalette">
+
+    <Color x:Key="DarkRedColor">#D32F2F</Color>
+    <Color x:Key="LightRedColor">#FFCDD2</Color>
+    
+    <Color x:Key="GreySnowLightColor">#eeeeee</Color>
+    <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
+    <Color x:Key="GreySmokeLightColor">#c2c1c1</Color>
+    <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
+    <Color x:Key="GreySmokeDarkColor">#555555</Color>
+
+</ResourceDictionary>

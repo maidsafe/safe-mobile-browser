@@ -1,4 +1,5 @@
 ﻿using SafeApp;
+using SafeMobileBrowser.Themes;
 using SafeMobileBrowser.Views;
 using Xamarin.Forms;
 
@@ -11,7 +12,7 @@ namespace SafeMobileBrowser
         public App()
         {
             InitializeComponent();
-
+            ThemeHelper.LoadTheme();
             MainPage = new NavigationPage(new HomePage()) { BarBackgroundColor = Color.White };
         }
 

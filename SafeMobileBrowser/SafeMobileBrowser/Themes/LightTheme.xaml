@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:themes="clr-namespace:SafeMobileBrowser.Themes"
+                    x:Class="SafeMobileBrowser.Themes.LightTheme">
+
+    <ResourceDictionary.MergedDictionaries>
+        <themes:ColorPalette />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="PrimaryColor">#0078D7</Color>
+    <Color x:Key="SecondaryColor">#FFB900</Color>
+
+    <Color x:Key="PrimaryTextColor">#ffffff</Color>
+    <Color x:Key="SecondaryTextColor">#ffffff</Color>
+
+    <Color x:Key="ContentPageTitleBarColor">#FFFFFF</Color>
+    
+
+</ResourceDictionary>
+

@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Themes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -16,13 +18,37 @@ namespace SafeMobileBrowser.ViewModels
 
         private INavigation _navigation;
 
+        private bool _isDarkThemeEnabled;
+
+        public bool IsDarkThemeEnabled
+        {
+            get => _isDarkThemeEnabled;
+
+            set
+            {
+                SetProperty(ref _isDarkThemeEnabled, value);
+                ThemeHelper.ChangeTheme(value ? AppThemeMode.Dark : AppThemeMode.Light);
+            }
+        }
+
         public SettingsModalPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
             GoBackCommand = new Command(GoBackToHomePage);
             FaqCommand = new Command(ShowNotImplementedDialog);
-
             PrivacyInfoCommand = new Command(ShowNotImplementedDialog);
+            var currentTheme = ThemeHelper.CurrentTheme();
+            switch (currentTheme)
+            {
+                case AppThemeMode.Light:
+                    IsDarkThemeEnabled = false;
+                    break;
+                case AppThemeMode.Dark:
+                    IsDarkThemeEnabled = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void ShowNotImplementedDialog()

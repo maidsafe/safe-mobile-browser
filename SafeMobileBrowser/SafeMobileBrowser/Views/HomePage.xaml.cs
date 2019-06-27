@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
+using SafeMobileBrowser.Themes;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
 
@@ -29,6 +30,14 @@ namespace SafeMobileBrowser.Views
             AddressBarEntry.Focused += EntryFocused;
             AddressBarEntry.Unfocused += EntryUnfocused;
             AddressBarEntry.TextChanged += TextChanged;
+
+            // MessagingCenter.Subscribe<ThemeMessage>(
+            //    this,
+            //    ThemeMessage.ThemeChanged,
+            //    (sender) =>
+            //    {
+            //        _viewModel.ReloadCommand.Execute(null);
+            //    });
 
             MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
                 this,
@@ -77,6 +86,7 @@ namespace SafeMobileBrowser.Views
 
         ~HomePage()
         {
+            // MessagingCenter.Unsubscribe<ThemeMessage>(this, ThemeMessage.ThemeChanged);
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);

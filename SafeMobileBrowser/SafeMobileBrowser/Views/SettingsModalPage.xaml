@@ -10,22 +10,50 @@
              x:Class="SafeMobileBrowser.Views.SettingsModalPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TitleStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+            <Style x:Key="SettingsLabelStyle"
+                   TargetType="Label">
+                <Setter Property="VerticalOptions" 
+                        Value="Center"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+                <Setter Property="FontSize"
+                        Value="20" />
             </Style>
-            <Style x:Key="ItemStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+            <Style x:Key="TitleStyle"
+                   TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="{StaticResource ExtraLargeSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource PrimaryColor}" />
             </Style>
-            <Style x:Key="LogoutStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
+            <Style x:Key="ItemStyle"
+                   TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MediumSize}" />
             </Style>
-            <Style x:Key="BoxViewStyle" TargetType="BoxView">
-                <Setter Property="HeightRequest" Value="0.5" />
-                <Setter Property="Color" Value="{StaticResource GreySmokeMediumColor}" />
+            <Style x:Key="LogoutStyle"
+                   TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="{StaticResource ExtraLargeSize}" />
             </Style>
-            <Style x:Key="ExternalLinkStyle" TargetType="StackLayout">
-                <Setter Property="HeightRequest" Value="40" />
+            <Style x:Key="BoxViewStyle"
+                   TargetType="BoxView">
+                <Setter Property="HeightRequest"
+                        Value="0.5" />
+                <Setter Property="Color"
+                        Value="{StaticResource GreySmokeMediumColor}" />
+            </Style>
+            <Style x:Key="ExternalLinkStyle"
+                   TargetType="StackLayout">
+                <Setter Property="HeightRequest"
+                        Value="40" />     
+            </Style>
+            <Style x:Key="ThemeSwitchStyle"
+                   TargetType="Switch">
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -34,31 +62,27 @@
             <StackLayout Spacing="0">
                 <StackLayout Spacing="0">
                     <StackLayout Orientation="Horizontal"
-                             Spacing="20"
-                             Padding="20, 10"
-                             HeightRequest="34">
+                                 Style="{DynamicResource ModalPageTitleView}">
                         <Image VerticalOptions="Center"
-                           WidthRequest="25"
-                           HeightRequest="25">
+                               WidthRequest="25"
+                               HeightRequest="25">
                             <Image.Source>
                                 <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.ArrowLeft}"
-                                             Size="30"
-                                             Color="Black" />
+                                                 Glyph="{x:Static Icons:IconFont.ArrowLeft}"
+                                                 Size="30"
+                                                 Color="Black" />
                             </Image.Source>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Image.GestureRecognizers>
                         </Image>
                         <Label Text="Settings"
-                           VerticalOptions="Center"
-                           FontSize="20"
-                           FontAttributes="Bold" />
+                               Style="{StaticResource SettingsLabelStyle}" />
                     </StackLayout>
                     <controls:ShadowBoxView ShadowType="Bottom"
-                                        HeightRequest="6" />
+                                            HeightRequest="6" />
                 </StackLayout>
-                <StackLayout Padding="16, 10" 
+                <StackLayout Padding="16, 10"
                              Spacing="15">
                     <Label Text="General"
                            Style="{StaticResource TitleStyle}" />
@@ -74,13 +98,14 @@
                                Style="{StaticResource ItemStyle}"
                                VerticalOptions="Center" />
                         <Switch Grid.Column="1"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                IsToggled="{Binding AppDarkMode}" />
+                                Style="{StaticResource ThemeSwitchStyle}"
+                                IsToggled="{Binding IsDarkThemeEnabled}" />
                     </Grid>
                 </StackLayout>
-                <BoxView Style="{StaticResource BoxViewStyle}" Margin="0,15,0,0"/>
-                <StackLayout Spacing="0" Margin="0,15,0,0">
+                <BoxView Style="{StaticResource BoxViewStyle}"
+                         Margin="0,15,0,0" />
+                <StackLayout Spacing="0"
+                             Margin="0,15,0,0">
                     <Label Text="Help"
                            Margin="16,0,16,10"
                            Style="{StaticResource TitleStyle}" />
