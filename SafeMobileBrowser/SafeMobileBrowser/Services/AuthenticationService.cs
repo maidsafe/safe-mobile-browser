@@ -114,7 +114,7 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is AuthIpcMsg ipcMsg)
                     {
-                        using (UserDialogs.Instance.Loading("Connection to the SAFE Network"))
+                        using (UserDialogs.Instance.Loading("Connecting to the SAFE Network"))
                         {
                             Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
                             AppService.InitialiseSession(session);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using Xamarin.Forms;
@@ -56,12 +58,16 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                await BookmarkManager.DeleteBookmarks(bookmark.ToString());
-                Bookmarks.Remove((string)bookmark);
+                using (UserDialogs.Instance.Toast("Bookmark removed successfully"))
+                {
+                    await BookmarkManager.DeleteBookmarks(bookmark.ToString());
+                    Bookmarks.Remove((string)bookmark);
+                }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Debug.WriteLine(ex);
+                UserDialogs.Instance.Toast("Failed to remove bookmark");
             }
         }
 

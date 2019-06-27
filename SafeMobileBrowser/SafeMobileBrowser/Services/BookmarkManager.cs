@@ -76,7 +76,8 @@ namespace SafeMobileBrowser.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Debug.WriteLine(ex);
+                throw ex;
             }
         }
 
@@ -119,9 +120,9 @@ namespace SafeMobileBrowser.Models
 
         internal async Task DeleteBookmarks(string bookmark)
         {
-            using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
+            try
             {
-                try
+                using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
                 {
                     var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
                     var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
@@ -129,7 +130,7 @@ namespace SafeMobileBrowser.Models
                     var browserState = JObject.Parse(decryptedValue);
                     var bookmarks = (JArray)browserState["bookmarks"];
 
-                    var bookmarkToDelete = bookmarks.Where(b => b["url"].ToString().Equals(bookmark)).FirstOrDefault();
+                    var bookmarkToDelete = bookmarks.FirstOrDefault(b => b["url"].ToString().Equals(bookmark));
 
                     if (bookmarkToDelete != null)
                     {
@@ -148,10 +149,11 @@ namespace SafeMobileBrowser.Models
                     }
                     bookmarksList.Remove(bookmark);
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw ex;
             }
         }
     }

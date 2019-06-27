@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using Rg.Plugins.Popup.Extensions;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
@@ -96,9 +97,13 @@ namespace SafeMobileBrowser.ViewModels
         private void AddOrRemoveBookmark()
         {
             if (CheckIfAlreadyAvailableInBookmark)
+            {
                 RemoveBookmark();
+            }
             else
+            {
                 AddBookmarkToSAFE();
+            }
         }
 
         private void RemoveBookmark()
@@ -108,8 +113,19 @@ namespace SafeMobileBrowser.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    await BookmarkManager.DeleteBookmarks(currentUrl);
-                    CheckIsBookmarkAvailable();
+                    try
+                    {
+                        using (UserDialogs.Instance.Toast("Bookmark removed successfully"))
+                        {
+                            await BookmarkManager.DeleteBookmarks(currentUrl);
+                            CheckIsBookmarkAvailable();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                        UserDialogs.Instance.Toast("Failed to remove bookmark");
+                    }
                 });
             }
             Task.Run(async () =>
@@ -125,8 +141,19 @@ namespace SafeMobileBrowser.ViewModels
             {
                 Task.Run(async () =>
                 {
-                    await BookmarkManager.AddBookmark(currentUrl.Replace("https", "safe"));
-                    CheckIsBookmarkAvailable();
+                    try
+                    {
+                        using (UserDialogs.Instance.Toast("Bookmark added successfully"))
+                        {
+                            await BookmarkManager.AddBookmark(currentUrl.Replace("https", "safe"));
+                            CheckIsBookmarkAvailable();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                        UserDialogs.Instance.Toast("Failed to add bookmark");
+                    }
                 });
             }
             Task.Run(async () =>
