@@ -26,6 +26,7 @@ namespace SafeMobileBrowser.ViewModels
             set
             {
                 SetProperty(ref _isDarkThemeEnabled, value);
+
                 ThemeHelper.ChangeTheme(value ? AppThemeMode.Dark : AppThemeMode.Light);
             }
         }

@@ -23,5 +23,7 @@
     <Color x:Key="ContentPageTitleBarColor">#aaaaaa</Color>
     <Color x:Key="ContentPageBackgoundColor">#121212</Color>
     <Color x:Key="ToolbarIconColor">#aaaaaa</Color>
+    <Color x:Key="BottomNavbarBackgroundColor">#000000</Color>
+    <Color x:Key="BottomNavbarIconColor">#ffffff</Color>
 </ResourceDictionary>
 

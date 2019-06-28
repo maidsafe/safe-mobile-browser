@@ -3,62 +3,74 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:SafeMobileBrowser.Converters">
-    <Application.Resources>
+  <Application.Resources>
 
-        <ResourceDictionary Source="Themes/LightTheme.xaml" />
-        <!--Global Styles-->
-        <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor"
-                    Value="{DynamicResource PrimaryColor}" />
-            <Setter Property="BarTextColor"
-                    Value="{DynamicResource PrimaryTextColor}" />
-        </Style>
+    <ResourceDictionary Source="Themes/LightTheme.xaml" />
+    <!--Global Styles-->
+    <Style TargetType="NavigationPage">
+      <Setter Property="BarBackgroundColor"
+              Value="{DynamicResource PrimaryColor}" />
+      <Setter Property="BarTextColor"
+              Value="{DynamicResource PrimaryTextColor}" />
+    </Style>
 
-        <Style TargetType="StackLayout"
-               x:Key="ModalPageTitleView">
-            <Setter Property="Orientation"
-                    Value="Horizontal" />
-            <Setter Property="Spacing"
-                    Value="20" />
-            <Setter Property="Padding"
-                    Value="20, 10" />
-            <Setter Property="HeightRequest"
-                    Value="34" />
-            <Setter Property="BackgroundColor"
-                    Value="{DynamicResource PrimaryColor}" />
-        </Style>
+    <Style TargetType="StackLayout"
+           x:Key="ModalPageTitleView">
+      <Setter Property="Orientation"
+              Value="Horizontal" />
+      <Setter Property="Spacing"
+              Value="20" />
+      <Setter Property="Padding"
+              Value="20, 10" />
+      <Setter Property="HeightRequest"
+              Value="34" />
+      <Setter Property="BackgroundColor"
+              Value="{DynamicResource PrimaryColor}" />
+    </Style>
 
-        <!-- CONVERTERS -->
-        <converters:BytesToImageConverter x:Key="BytesToImage" />
-        <converters:InverseBoolConverter x:Key="BooleanInverter" />
+    <Style x:Key="ModalPageTitleLabelStyle"
+           TargetType="Label">
+      <Setter Property="VerticalOptions"
+              Value="Center" />
+      <Setter Property="FontAttributes"
+              Value="Bold" />
+      <Setter Property="FontSize"
+              Value="20" />
+      <Setter Property="TextColor"
+              Value="{DynamicResource ContentPageTitleBarColor}" />
+    </Style>
 
-        <!-- SIZES -->
-        <OnPlatform x:Key="SmallSize"
-                    x:TypeArguments="x:Double"
-                    Android="12"
-                    iOS="14" />
+    <!-- CONVERTERS -->
+    <converters:BytesToImageConverter x:Key="BytesToImage" />
+    <converters:InverseBoolConverter x:Key="BooleanInverter" />
 
-        <OnPlatform x:Key="MediumSize"
-                    x:TypeArguments="x:Double"
-                    Android="14"
-                    iOS="16" />
+    <!-- SIZES -->
+    <OnPlatform x:Key="SmallSize"
+                x:TypeArguments="x:Double"
+                Android="12"
+                iOS="14" />
 
-        <OnPlatform x:Key="LargeSize"
-                    x:TypeArguments="x:Double"
-                    Android="16"
-                    iOS="18" />
+    <OnPlatform x:Key="MediumSize"
+                x:TypeArguments="x:Double"
+                Android="14"
+                iOS="16" />
 
-        <OnPlatform x:Key="ExtraLargeSize"
-                    x:TypeArguments="x:Double"
-                    Android="18"
-                    iOS="20" />
+    <OnPlatform x:Key="LargeSize"
+                x:TypeArguments="x:Double"
+                Android="16"
+                iOS="18" />
 
-        <OnPlatform x:Key="MaterialFontFamily"
-                    x:TypeArguments="x:String">
-            <On Platform="iOS"
-                Value="Material Design Icons" />
-            <On Platform="Android"
-                Value="materialdesignicons-webfont.ttf#Material Design Icons" />
-        </OnPlatform>
-    </Application.Resources>
+    <OnPlatform x:Key="ExtraLargeSize"
+                x:TypeArguments="x:Double"
+                Android="18"
+                iOS="20" />
+
+    <OnPlatform x:Key="MaterialFontFamily"
+                x:TypeArguments="x:String">
+      <On Platform="iOS"
+          Value="Material Design Icons" />
+      <On Platform="Android"
+          Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+    </OnPlatform>
+  </Application.Resources>
 </Application>

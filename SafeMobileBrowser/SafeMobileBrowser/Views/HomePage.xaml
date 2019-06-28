@@ -81,7 +81,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static Icons:IconFont.Close}"
                                              Size="30"
-                                             Color="Black" />
+                                             Color="{DynamicResource ToolbarIconColor}" />
                         </Image.Source>
                     </Image>
                 </Grid>
@@ -114,7 +114,7 @@
                                     ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
                                     Source="{Binding Url}" />
 
-            <Grid BackgroundColor="Transparent"
+            <Grid BackgroundColor="{DynamicResource BottomNavbarBackgroundColor}"
                   RowSpacing="0"
                   HeightRequest="55"
                   ColumnSpacing="0"
@@ -143,7 +143,7 @@
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.ChevronLeft}"
                                          Size="30"
-                                         Color="Black" />
+                                         Color="{DynamicResource BottomNavbarIconColor}" />
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
@@ -160,7 +160,7 @@
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.ChevronRight}"
                                          Size="30"
-                                         Color="Black" />
+                                         Color="{DynamicResource BottomNavbarIconColor}" />
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
@@ -176,7 +176,7 @@
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.Magnify}"
                                          Size="30"
-                                         Color="Black" />
+                                         Color="{DynamicResource BottomNavbarIconColor}" />
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
@@ -193,7 +193,7 @@
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.Home}"
                                          Size="30"
-                                         Color="Black" />
+                                         Color="{DynamicResource BottomNavbarIconColor}" />
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"
@@ -209,7 +209,7 @@
                         <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                          Glyph="{x:Static Icons:IconFont.DotsVertical}"
                                          Size="30"
-                                         Color="Black" />
+                                         Color="{DynamicResource BottomNavbarIconColor}" />
                     </Image.Source>
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BottomNavbarTapCommand}"

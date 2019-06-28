@@ -7,7 +7,8 @@
              xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
              mc:Ignorable="d"
              x:Name="BookmarkModalPage"
-             x:Class="SafeMobileBrowser.Views.BookmarksModalPage">
+             x:Class="SafeMobileBrowser.Views.BookmarksModalPage"
+             BackgroundColor="{DynamicResource ContentPageBackgoundColor}">
     <ContentPage.Resources>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -31,20 +32,27 @@
             <Setter Property="HorizontalOptions"
                     Value="End" />
             <Setter Property="HeightRequest"
-                    Value="15" />
+                    Value="25" />
             <Setter Property="WidthRequest"
-                    Value="15" />
+                    Value="25" />
             <Setter Property="Opacity"
                     Value="0.75" />
+        </Style>
+        <Style x:Key="BookmarkUrlStyle"
+               TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="{StaticResource MediumSize}" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource GreySmokeMediumColor}" />
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Spacing="0">
                 <StackLayout Orientation="Horizontal"
-                             Spacing="20"
-                             Padding="20, 10"
-                             HeightRequest="34">
+                             Style="{DynamicResource ModalPageTitleView}">
                     <Image VerticalOptions="Center"
                            WidthRequest="25"
                            HeightRequest="25">
@@ -59,9 +67,7 @@
                         </Image.GestureRecognizers>
                     </Image>
                     <Label Text="Bookmarks"
-                           VerticalOptions="Center"
-                           FontSize="20"
-                           FontAttributes="Bold" />
+                           Style="{DynamicResource ModalPageTitleLabelStyle}" />
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
@@ -83,7 +89,7 @@
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
                             <Label Text="{Binding .}"
-                                   VerticalOptions="Center">
+                                   Style="{DynamicResource BookmarkUrlStyle}">
                             </Label>
                             <Image Grid.Column="1"
                                    Style="{StaticResource BookmarkRemoveIconStyle}">
@@ -91,7 +97,7 @@
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                                      Glyph="{x:Static Icons:IconFont.Delete}"
                                                      Size="30"
-                                                     Color="Black" />
+                                                     Color="{StaticResource GreySmokeMediumColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"

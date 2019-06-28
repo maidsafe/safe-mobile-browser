@@ -11,19 +11,6 @@
              BackgroundColor="{DynamicResource ContentPageBackgoundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="SettingsLabelStyle"
-                   TargetType="Label">
-                <Setter Property="Text"
-                        Value="Settings" />
-                <Setter Property="VerticalOptions"
-                        Value="Center" />
-                <Setter Property="FontAttributes"
-                        Value="Bold" />
-                <Setter Property="FontSize"
-                        Value="20" />
-                <Setter Property="TextColor"
-                        Value="{DynamicResource ContentPageTitleBarColor}" />
-            </Style>
             <Style x:Key="SectionTitleStyle"
                    TargetType="Label">
                 <Setter Property="VerticalOptions"
@@ -72,7 +59,8 @@
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Style="{DynamicResource SettingsLabelStyle}" />
+                        <Label Text="Settings"
+                               Style="{DynamicResource ModalPageTitleLabelStyle}" />
                     </StackLayout>
                     <controls:ShadowBoxView ShadowType="Bottom"
                                             HeightRequest="6" />
@@ -114,7 +102,7 @@
                     <StackLayout Style="{StaticResource ExternalLinkStyle}"
                                  HeightRequest="60">
                         <Label Text="Application Version"
-                               Style="{StaticResource SectionItemStyle}"/>
+                               Style="{StaticResource SectionItemStyle}" />
                         <Label Text="{Binding ApplicationVersion}"
                                Margin="0,5,0,0"
                                VerticalOptions="CenterAndExpand"
