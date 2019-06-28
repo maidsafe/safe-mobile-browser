@@ -2,14 +2,49 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     x:Class="SafeMobileBrowser.Themes.ColorPalette">
-
-    <Color x:Key="DarkRedColor">#D32F2F</Color>
-    <Color x:Key="LightRedColor">#FFCDD2</Color>
     
+    <!-- Universal -->
+    <Color x:Key="White">#ffffff</Color>
     <Color x:Key="GreySnowLightColor">#eeeeee</Color>
-    <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
     <Color x:Key="GreySmokeLightColor">#c2c1c1</Color>
+    <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
     <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
     <Color x:Key="GreySmokeDarkColor">#555555</Color>
-
+    <Color x:Key="WhiteThree">#f5f5f5</Color>
+    <Color x:Key="WhiteFour">#f1f1f1</Color>
+    <Color x:Key="WhiteFive">#fafafa</Color>
+    <Color x:Key="Midnight">#161616</Color>
+    <Color x:Key="AlmostBlackDark">#222222</Color>
+    <Color x:Key="AlmostBlack">#333333</Color>
+    <Color x:Key="CharcoalGrey">#383838</Color>
+    <Color x:Key="GrayishBrown">#494949</Color>
+    <Color x:Key="GreyishBrownTwo">#444444</Color>
+    <Color x:Key="MidGray">#555</Color>
+    <Color x:Key="Grayish">#aaaaaa</Color>
+    <Color x:Key="grayishTwo">#939393</Color>
+    <Color x:Key="grayishThree">#dddddd</Color>
+    <Color x:Key="warmGray">#999999</Color>
+    <Color x:Key="warGreyTwo">#888888</Color>
+    <Color x:Key="warmerGray">#777777</Color>
+    <Color x:Key="silver">#c0c2c9</Color>
+    <Color x:Key="paleBrownishGray">#b0b0b0</Color>
+    <Color x:Key="brownishGray">#5c5c5c</Color>
+    <Color x:Key="brownishGrayTwo">#666666</Color>
+    <Color x:Key="pinkishGrayThree">#cccccc</Color>
+    <Color x:Key="coolGray">#969799</Color>
+    <Color x:Key="subtleGray">#f0f0f0</Color>
+    <Color x:Key="subtleGrayTwo">#d8d8d8</Color>
+    <Color x:Key="whiteSix">#e5e5e5</Color>
+    <Color x:Key="pinkish_grey_two">#c0c0c0</Color>
+    <Color x:Key="brickOrange">#d03a10</Color>
+    <Color x:Key="powderBlue">#50bfff</Color>
+    <Color x:Key="warmBlue">#3f66d5</Color>
+    <Color x:Key="cornflowerBlue">#678fff</Color>
+    <Color x:Key="cornflowerDark">#5078e9</Color>
+    <Color x:Key="skyBlue">#42bffe</Color>
+    <Color x:Key="carolinaBlue">#94b0ff</Color>
+    <Color x:Key="midGreen">#3fa140</Color>
+    <Color x:Key="gunmetal">#494d56</Color>
+    <Color x:Key="DarkRedColor">#D32F2F</Color>
+    <Color x:Key="LightRedColor">#FFCDD2</Color>
 </ResourceDictionary>

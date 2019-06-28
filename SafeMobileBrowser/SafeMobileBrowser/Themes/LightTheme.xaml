@@ -8,14 +8,19 @@
         <themes:ColorPalette />
     </ResourceDictionary.MergedDictionaries>
 
-    <Color x:Key="PrimaryColor">#0078D7</Color>
-    <Color x:Key="SecondaryColor">#FFB900</Color>
+    <Color x:Key="PrimaryColor">#fafafa</Color>
+    <Color x:Key="PrimaryLightColor">#FFFFFF</Color>
+    <Color x:Key="PrimaryDarkColor">#f5f5f5</Color>
 
-    <Color x:Key="PrimaryTextColor">#ffffff</Color>
+    <Color x:Key="SecondaryColor">#1976d2</Color>
+    <Color x:Key="SecondaryLightColor">#62a2ff</Color>
+    <Color x:Key="SecondaryDarkColor">#004ab1</Color>
+    
+    <Color x:Key="PrimaryTextColor">#000000</Color>
     <Color x:Key="SecondaryTextColor">#ffffff</Color>
 
-    <Color x:Key="ContentPageTitleBarColor">#FFFFFF</Color>
-    
-
+    <Color x:Key="ContentPageTitleBarColor">#494949</Color>
+    <Color x:Key="ContentPageBackgoundColor">#f1f1f1</Color>
+    <Color x:Key="ToolbarIconColor">#494949</Color>
 </ResourceDictionary>
 

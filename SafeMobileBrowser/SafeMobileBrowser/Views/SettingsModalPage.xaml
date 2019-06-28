@@ -7,7 +7,8 @@
              xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              mc:Ignorable="d"
-             x:Class="SafeMobileBrowser.Views.SettingsModalPage">
+             x:Class="SafeMobileBrowser.Views.SettingsModalPage"
+             BackgroundColor="{DynamicResource ContentPageBackgoundColor}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="SettingsLabelStyle"
@@ -20,45 +21,42 @@
                         Value="Bold" />
                 <Setter Property="FontSize"
                         Value="20" />
+                <Setter Property="TextColor"
+                        Value="{DynamicResource ContentPageTitleBarColor}" />
             </Style>
-            <Style x:Key="TitleStyle"
+            <Style x:Key="SectionTitleStyle"
                    TargetType="Label">
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
                 <Setter Property="FontSize"
                         Value="{StaticResource ExtraLargeSize}" />
                 <Setter Property="TextColor"
-                        Value="{StaticResource PrimaryColor}" />
+                        Value="{DynamicResource SecondaryDarkColor}" />
             </Style>
-            <Style x:Key="ItemStyle"
+            <Style x:Key="SectionItemStyle"
                    TargetType="Label">
                 <Setter Property="FontSize"
                         Value="{StaticResource MediumSize}" />
-            </Style>
-            <Style x:Key="ExternalLinkStyle"
-                   TargetType="StackLayout">
-                <Setter Property="HeightRequest"
-                        Value="40" />
-            </Style>
-            <Style x:Key="StackLayoutZeroSpacingStyle"
-                   TargetType="StackLayout">
-                <Setter Property="Spacing"
-                        Value="0" />
-            </Style>
-            <Style x:Key="HelpStatementLabelStyle"
-                   BasedOn="{StaticResource ItemStyle}"
-                   TargetType="Label">
-                <Setter Property="Margin"
-                        Value="16,0" />
                 <Setter Property="TextColor"
                         Value="{StaticResource GreySmokeMediumColor}" />
                 <Setter Property="VerticalOptions"
                         Value="CenterAndExpand" />
             </Style>
+            <Style x:Key="ExternalLinkStyle"
+                   TargetType="StackLayout">
+                <Setter Property="HeightRequest"
+                        Value="40" />
+                <Setter Property="Padding"
+                        Value="16, 0" />
+                <Setter Property="XamEffects:TouchEffect.Color"
+                        Value="{StaticResource GreySmokeMediumColor}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Style="{StaticResource StackLayoutZeroSpacingStyle}">
-                <StackLayout Style="{StaticResource StackLayoutZeroSpacingStyle}">
+            <StackLayout Spacing="0">
+                <StackLayout Spacing="0">
                     <StackLayout Orientation="Horizontal"
                                  Style="{DynamicResource ModalPageTitleView}">
                         <Image HeightRequest="25"
@@ -68,30 +66,28 @@
                                 <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                                  Glyph="{x:Static Icons:IconFont.ArrowLeft}"
                                                  Size="30"
-                                                 Color="Black" />
+                                                 Color="{DynamicResource ToolbarIconColor}" />
                             </Image.Source>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Style="{StaticResource SettingsLabelStyle}" />
+                        <Label Style="{DynamicResource SettingsLabelStyle}" />
                     </StackLayout>
                     <controls:ShadowBoxView ShadowType="Bottom"
                                             HeightRequest="6" />
                 </StackLayout>
-                <StackLayout Padding="16,10"
+                <StackLayout Padding="16"
                              Spacing="15">
-                    <Label Text="General" />
+                    <Label Text="General"
+                           Style="{DynamicResource SectionTitleStyle}" />
                     <Grid x:Name="AutoReconnectLayout">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Label Text="Dark Mode"
-                               VerticalOptions="Center" />
+                               Style="{StaticResource SectionItemStyle}" />
                         <Switch Grid.Column="1"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
@@ -101,29 +97,27 @@
                 <BoxView Color="{StaticResource GreySmokeMediumColor}"
                          HeightRequest="0.5"
                          Margin="0,15,0,0" />
-                <StackLayout Spacing="0"
-                             Margin="0,15,0,0">
+                <StackLayout Spacing="0">
                     <Label Text="Help"
-                           Margin="16,0,16,10"
-                           Style="{StaticResource TitleStyle}" />
-                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
-                                 XamEffects:Commands.Tap="{Binding FaqCommand}"
+                           Style="{DynamicResource SectionTitleStyle}"
+                           Margin="16"/>
+                    <StackLayout XamEffects:Commands.Tap="{Binding FaqCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
                         <Label Text="FAQs"
-                               Style="{StaticResource HelpStatementLabelStyle}" />
+                               Style="{StaticResource SectionItemStyle}" />
                     </StackLayout>
-                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
-                                 XamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
+                    <StackLayout XamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
                         <Label Text="Privacy Statement"
-                               Style="{StaticResource HelpStatementLabelStyle}" />
+                               Style="{StaticResource SectionItemStyle}" />
                     </StackLayout>
-                    <StackLayout Margin="16, 10">
+                    <StackLayout Style="{StaticResource ExternalLinkStyle}"
+                                 HeightRequest="60">
                         <Label Text="Application Version"
-                               Style="{StaticResource ItemStyle}" />
+                               Style="{StaticResource SectionItemStyle}"/>
                         <Label Text="{Binding ApplicationVersion}"
                                Margin="0,5,0,0"
-                               HorizontalOptions="Start"
+                               VerticalOptions="CenterAndExpand"
                                TextColor="{StaticResource GreySmokeMediumColor}" />
                     </StackLayout>
                 </StackLayout>

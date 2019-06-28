@@ -9,9 +9,9 @@
         <!--Global Styles-->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor"
-                    Value="{StaticResource PrimaryColor}" />
+                    Value="{DynamicResource PrimaryColor}" />
             <Setter Property="BarTextColor"
-                    Value="{StaticResource PrimaryTextColor}" />
+                    Value="{DynamicResource PrimaryTextColor}" />
         </Style>
 
         <Style TargetType="StackLayout"
@@ -25,7 +25,7 @@
             <Setter Property="HeightRequest"
                     Value="34" />
             <Setter Property="BackgroundColor"
-                    Value="{DynamicResource ContentPageTitleBarColor}" />
+                    Value="{DynamicResource PrimaryColor}" />
         </Style>
 
         <!-- CONVERTERS -->
