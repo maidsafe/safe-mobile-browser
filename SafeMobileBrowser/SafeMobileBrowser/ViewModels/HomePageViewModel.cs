@@ -175,20 +175,17 @@ namespace SafeMobileBrowser.ViewModels
                 }
                 else if (url.StartsWith("https"))
                 {
-                    IsNavigating = true;
                     string newurlText = url.Remove(0, 8).TrimEnd('/');
                     AddressbarText = newurlText;
                 }
                 else if (url.StartsWith("http"))
                 {
-                    IsNavigating = true;
                     string newurlText = url.Remove(0, 7).TrimEnd('/');
                     AddressbarText = newurlText;
                 }
                 else
                 {
                     AddressbarText = url;
-                    IsNavigating = true;
                 }
             }
             catch (Exception ex)
@@ -218,9 +215,11 @@ namespace SafeMobileBrowser.ViewModels
             switch (navigationBarIconString)
             {
                 case "Back":
+                    IsNavigating = true;
                     GoBackCommand.Execute(null);
                     break;
                 case "Forward":
+                    IsNavigating = true;
                     GoForwardCommand.Execute(null);
                     break;
                 case "Focus":
@@ -247,6 +246,8 @@ namespace SafeMobileBrowser.ViewModels
             {
                 if (url != null)
                     AddressbarText = url;
+
+                IsNavigating = true;
 
                 if (Device.RuntimePlatform == Device.iOS)
                     Url = $"safe://{AddressbarText}";
