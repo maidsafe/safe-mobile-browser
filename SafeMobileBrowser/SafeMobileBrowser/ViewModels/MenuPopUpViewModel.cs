@@ -170,7 +170,7 @@ namespace SafeMobileBrowser.ViewModels
 
         internal void UpdatePopMenuItemStates()
         {
-            var shareMenuItem = PopMenuItems.Where(p => string.Equals(p.MenuItemTitle, "Share")).FirstOrDefault();
+            var shareMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Share"));
 
             if (!string.IsNullOrWhiteSpace(HomePageViewModel.CurrentUrl))
             {

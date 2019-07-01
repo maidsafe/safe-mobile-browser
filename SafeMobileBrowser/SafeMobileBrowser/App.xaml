@@ -2,7 +2,9 @@
 <Application x:Class="SafeMobileBrowser.App"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:SafeMobileBrowser.Converters">
+             xmlns:converters="clr-namespace:SafeMobileBrowser.Converters"
+             xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects">
+
     <Application.Resources>
         <!--Global Styles-->
         <Color x:Key="PrimaryColor">#0078D7</Color>
@@ -28,11 +30,6 @@
         <Color x:Key="GreySmokeDarkColor">#555555</Color>
         <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
 
-        <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="BarTextColor" Value="{StaticResource PrimaryTextColor}" />
-        </Style>
-
         <!-- CONVERTERS -->
         <converters:BytesToImageConverter x:Key="BytesToImage" />
         <converters:InverseBoolConverter x:Key="BooleanInverter" />
@@ -57,10 +54,49 @@
                         x:TypeArguments="x:Double"
                         Android="18"
                         iOS="20" />
-        
-        <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
-            <On Platform="iOS" Value="Material Design Icons" />
-            <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+
+        <OnPlatform x:Key="MaterialFontFamily"
+                    x:TypeArguments="x:String">
+            <On Platform="iOS"
+                Value="Material Design Icons" />
+            <On Platform="Android"
+                Value="materialdesignicons-webfont.ttf#Material Design Icons" />
         </OnPlatform>
+        
+        <!-- Control Styles -->
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor"
+                    Value="{StaticResource PrimaryColor}" />
+            <Setter Property="BarTextColor"
+                    Value="{StaticResource PrimaryTextColor}" />
+        </Style>
+        
+        <Style TargetType="XamEffect:BorderView"
+               x:Key="BottomMenubarIconFrameStyle">
+            <Setter Property="XamEffect:TouchEffect.Color"
+                    Value="DarkGray" />
+            <Setter Property="Opacity"
+                    Value="0.75" />
+            <Setter Property="VerticalOptions"
+                    Value="CenterAndExpand" />
+            <Setter Property="Margin"
+                    Value="0, 10" />
+            <Setter Property="BackgroundColor"
+                    Value="Transparent" />
+            <Setter Property="BorderColor"
+                    Value="Transparent" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="CornerRadius"
+                    Value="25" />
+            <Style.Triggers>
+                <Trigger TargetType="XamEffect:BorderView"
+                         Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="Opacity"
+                            Value="0.25" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

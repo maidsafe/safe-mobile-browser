@@ -16,9 +16,9 @@ namespace SafeMobileBrowser.ViewModels
 
         public static string CurrentTitle { get; private set; }
 
-        private string _baseUrl = DependencyService.Get<IBaseUrl>().GetBaseUrl();
+        private readonly string _baseUrl = DependencyService.Get<IBaseUrl>().GetBaseUrl();
 
-        public bool IsSessionAvailable => App.AppSession != null ? true : false;
+        public bool IsSessionAvailable => App.AppSession != null;
 
         public ICommand PageLoadCommand { get; private set; }
 
@@ -239,21 +239,18 @@ namespace SafeMobileBrowser.ViewModels
         public async void LoadUrl(string url = null)
         {
             if (App.AppSession == null)
-            {
                 await InitilizeSessionAsync();
-            }
+
+            // TODO: Possiblity of null session
+            if (url != null)
+                AddressbarText = url;
+
+            IsNavigating = true;
+
+            if (Device.RuntimePlatform == Device.iOS)
+                Url = $"safe://{AddressbarText}";
             else
-            {
-                if (url != null)
-                    AddressbarText = url;
-
-                IsNavigating = true;
-
-                if (Device.RuntimePlatform == Device.iOS)
-                    Url = $"safe://{AddressbarText}";
-                else
-                    Url = $"https://{AddressbarText}";
-            }
+                Url = $"https://{AddressbarText}";
         }
     }
 }

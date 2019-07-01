@@ -6,9 +6,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  mc:Ignorable="d"
                  x:Class="SafeMobileBrowser.Views.MenuPopUp"
-                 xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+                 xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects"
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
+    
     <ContentPage.Resources>
         <Style TargetType="Grid"
                x:Key="PopupMenuItemGridStyle">
@@ -62,25 +63,18 @@
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
-        <Style TargetType="Image"
-               x:Key="PopupMenuItemHorizontalIconStyle">
+        <Style x:Key="PopUpBottomMenubarIconFrameStyle"
+               TargetType="XamEffect:BorderView"
+               BasedOn="{StaticResource BottomMenubarIconFrameStyle}">
+            <Setter Property="WidthRequest"
+                    Value="80" />
+            <Setter Property="Margin"
+                    Value="0" />
             <Setter Property="HorizontalOptions"
                     Value="CenterAndExpand" />
-            <Setter Property="VerticalOptions"
-                    Value="CenterAndExpand" />
-            <Setter Property="Aspect"
-                    Value="AspectFit" />
-            <Setter Property="Opacity"
-                    Value="0.75" />
-            <Style.Triggers>
-                <Trigger TargetType="Image"
-                         Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity"
-                            Value="0.25" />
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Frame CornerRadius="10"
                Padding="0, 10, 0, 0"
@@ -124,31 +118,37 @@
                 <StackLayout Orientation="Horizontal"
                              Padding="10"
                              HeightRequest="40">
-                    <Image Style="{StaticResource PopupMenuItemHorizontalIconStyle}"
-                           IsEnabled="{Binding ReloadMenuItem.IsEnabled}">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
-                                             Size="25"
-                                             Color="Black" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding RefreshWebViewCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
 
-                    <Image Style="{StaticResource PopupMenuItemHorizontalIconStyle}"
-                           IsEnabled="{Binding BookmarkMenuItem.IsEnabled}">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
-                                             Size="25"
-                                             Color="Black" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ManageBookmarkCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+                    <XamEffect:BorderView IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
+                                          XamEffect:TouchEffect.Color="LightGray"
+                                          Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
+                                          XamEffect:Commands.Tap="{Binding RefreshWebViewCommand}"
+                                          Margin="0"
+                                          WidthRequest="80"
+                                          HorizontalOptions="CenterAndExpand">
+                        <Image>
+                            <Image.Source>
+                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                 Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
+                                                 Size="25"
+                                                 Color="Black" />
+                            </Image.Source>
+                        </Image>
+                    </XamEffect:BorderView>
+
+                    <XamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
+                                          XamEffect:TouchEffect.Color="LightGray"
+                                          Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
+                                          XamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
+                        <Image>
+                            <Image.Source>
+                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                 Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
+                                                 Size="25"
+                                                 Color="Black" />
+                            </Image.Source>
+                        </Image>
+                    </XamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
         </Frame>
