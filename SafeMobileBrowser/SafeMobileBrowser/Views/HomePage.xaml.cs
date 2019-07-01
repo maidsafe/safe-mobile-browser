@@ -42,6 +42,7 @@ namespace SafeMobileBrowser.Views
                 MessageCenterConstants.ReloadMessage,
                 (sender) =>
                 {
+                    _viewModel.IsNavigating = true;
                     _viewModel.ReloadCommand.Execute(null);
                 });
             MessagingCenter.Subscribe<HomePageViewModel>(
