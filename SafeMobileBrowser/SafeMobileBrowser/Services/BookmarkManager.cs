@@ -43,10 +43,17 @@ namespace SafeMobileBrowser.Models
             _accesscontainerMdinfo = mdinfo;
         }
 
+        private async void ReconnectBookmarkSession()
+        {
+            if (_session.IsDisconnected)
+                await _session.ReconnectAsync();
+        }
+
         internal async Task AddBookmark(string bookmarkUrl)
         {
             try
             {
+                ReconnectBookmarkSession();
                 using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
                 {
                     var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
@@ -96,6 +103,7 @@ namespace SafeMobileBrowser.Models
             var bookmarks = new List<string>();
             try
             {
+                ReconnectBookmarkSession();
                 using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
                 {
                     var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
@@ -122,6 +130,7 @@ namespace SafeMobileBrowser.Models
         {
             try
             {
+                ReconnectBookmarkSession();
                 using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
                 {
                     var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());

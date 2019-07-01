@@ -58,6 +58,12 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
+                if (!App.IsConnectedToInternet)
+                {
+                    await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                    return;
+                }
+
                 using (UserDialogs.Instance.Toast("Bookmark removed successfully"))
                 {
                     await BookmarkManager.DeleteBookmarks(bookmark.ToString());
@@ -84,7 +90,14 @@ namespace SafeMobileBrowser.ViewModels
                 var mdInfo = await AppService.GetAccessContainerMdataInfoAsync();
                 BookmarkManager.SetMdInfo(mdInfo);
             }
-            await BookmarkManager.FetchBookmarks();
+            if (App.IsConnectedToInternet)
+            {
+                await BookmarkManager.FetchBookmarks();
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("No internet Connection", "Showing previously fetched bookmarks", "Ok");
+            }
             Bookmarks = new ObservableCollection<string>(BookmarkManager.RetrieveBookmarks());
         }
 

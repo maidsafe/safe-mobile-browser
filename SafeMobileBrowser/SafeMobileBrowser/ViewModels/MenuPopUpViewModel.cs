@@ -96,6 +96,11 @@ namespace SafeMobileBrowser.ViewModels
 
         private void AddOrRemoveBookmark()
         {
+            if (!App.IsConnectedToInternet)
+            {
+                App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                return;
+            }
             if (CheckIfAlreadyAvailableInBookmark)
             {
                 RemoveBookmark();
@@ -210,6 +215,11 @@ namespace SafeMobileBrowser.ViewModels
 
         private void RefreshWebView(object obj)
         {
+            if (!App.IsConnectedToInternet)
+            {
+                App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                return;
+            }
             var currentUrl = HomePageViewModel.CurrentUrl;
             if (!string.IsNullOrWhiteSpace(currentUrl))
             {

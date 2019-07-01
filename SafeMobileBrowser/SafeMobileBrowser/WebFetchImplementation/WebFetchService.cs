@@ -18,12 +18,12 @@ namespace SafeMobileBrowser.WebFetchImplementation
             catch (WebFetchException ex)
             {
                 Debug.WriteLine("Error: " + ex.Message);
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Error: " + ex.Message);
-                throw ex;
+                throw;
             }
         }
     }

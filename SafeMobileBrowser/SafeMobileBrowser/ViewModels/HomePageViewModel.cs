@@ -206,7 +206,7 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await App.Current.MainPage.DisplayAlert("Connection Failed", "Unable to connect to the SAFE network. Try updating your IP Address on invite server.", "OK");
+                await App.Current.MainPage.DisplayAlert("Connection failed", "Unable to connect to the SAFE Network. Try updating your IP address on invite server.", "OK");
             }
         }
 
@@ -238,6 +238,11 @@ namespace SafeMobileBrowser.ViewModels
 
         public async void LoadUrl(string url = null)
         {
+            if (!App.IsConnectedToInternet)
+            {
+                await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                return;
+            }
             if (App.AppSession == null)
             {
                 await InitilizeSessionAsync();
