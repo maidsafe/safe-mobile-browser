@@ -73,7 +73,8 @@
                         <Label Text="Dark Mode"
                                Style="{StaticResource ItemStyle}"
                                VerticalOptions="Center" />
-                        <Switch Grid.Column="1"
+                        <Switch Toggled="OnDarkThemeToggled"
+                                Grid.Column="1"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
                                 IsToggled="{Binding AppDarkMode}" />
