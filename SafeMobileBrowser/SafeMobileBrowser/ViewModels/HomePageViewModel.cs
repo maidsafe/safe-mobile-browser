@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Rg.Plugins.Popup.Extensions;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ namespace SafeMobileBrowser.ViewModels
 
         public static string CurrentTitle { get; private set; }
 
-        private readonly string _baseUrl = DependencyService.Get<IPlatformService>().BaseUrl;
+        public string BaseUrl => DependencyService.Get<IPlatformService>().BaseUrl;
 
         public bool IsSessionAvailable => App.AppSession != null;
 
@@ -141,8 +142,7 @@ namespace SafeMobileBrowser.ViewModels
 
         private void GoToHomePage()
         {
-            var homePageUrl = $"{_baseUrl}index.html";
-            Url = homePageUrl;
+            MessagingCenter.Send(this, MessageCenterConstants.GoToHomePage);
         }
 
         private async void ShowPopUpMenu()

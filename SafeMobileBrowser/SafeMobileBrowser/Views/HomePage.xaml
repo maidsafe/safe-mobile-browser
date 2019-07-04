@@ -93,7 +93,7 @@
                                     GoBackCommand="{Binding GoBackCommand, Mode=OneWayToSource}"
                                     GoForwardCommand="{Binding GoForwardCommand, Mode=OneWayToSource}"
                                     ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
-                                    Source="{Binding Url}" />
+                                    Source="{Binding Url, Mode=TwoWay}" />
 
             <Grid BackgroundColor="Transparent"
                   RowSpacing="0"
