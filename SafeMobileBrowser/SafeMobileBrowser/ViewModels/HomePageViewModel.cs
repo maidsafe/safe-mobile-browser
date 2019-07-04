@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Rg.Plugins.Popup.Extensions;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Forms;
@@ -139,10 +140,14 @@ namespace SafeMobileBrowser.ViewModels
             MenuCommand = new Command(ShowPopUpMenu);
         }
 
+        public string BaseUrl
+        {
+            get => _baseUrl;
+        }
+
         private void GoToHomePage()
         {
-            var homePageUrl = $"{_baseUrl}index.html";
-            Url = homePageUrl;
+            MessagingCenter.Send(this, MessageCenterConstants.GoToHomePage);
         }
 
         private async void ShowPopUpMenu()
