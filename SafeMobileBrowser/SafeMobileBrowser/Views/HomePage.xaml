@@ -78,22 +78,27 @@
                      Spacing="0"
                      VerticalOptions="FillAndExpand">
 
-            <controls:AdvancedProgressBar IsRunning="{Binding IsNavigating}"
-                                          IsVisible="{Binding IsNavigating}"
-                                          HeightRequest="5"
-                                          BackgroundColor="Transparent"
-                                          x:Name="AdvancedProgressbar">
-            </controls:AdvancedProgressBar>
+            <Grid VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand"
+                  RowSpacing="0">
+                
+                <controls:HybridWebView x:Name="HybridWebViewControl"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="FillAndExpand"
+                                        CanGoBack="{Binding CanGoBack}"
+                                        CanGoForward="{Binding CanGoForward}"
+                                        GoBackCommand="{Binding GoBackCommand, Mode=OneWayToSource}"
+                                        GoForwardCommand="{Binding GoForwardCommand, Mode=OneWayToSource}"
+                                        ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
+                                        Source="{Binding Url, Mode=TwoWay}" />
 
-            <controls:HybridWebView x:Name="HybridWebViewControl"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand"
-                                    CanGoBack="{Binding CanGoBack}"
-                                    CanGoForward="{Binding CanGoForward}"
-                                    GoBackCommand="{Binding GoBackCommand, Mode=OneWayToSource}"
-                                    GoForwardCommand="{Binding GoForwardCommand, Mode=OneWayToSource}"
-                                    ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
-                                    Source="{Binding Url, Mode=TwoWay}" />
+                <controls:AdvancedProgressBar IsRunning="{Binding IsNavigating}"
+                                              IsVisible="{Binding IsNavigating}"
+                                              VerticalOptions="Start"
+                                              HeightRequest="5"
+                                              BackgroundColor="Transparent"
+                                              x:Name="AdvancedProgressbar" />
+            </Grid>
 
             <Grid BackgroundColor="Transparent"
                   RowSpacing="0"
