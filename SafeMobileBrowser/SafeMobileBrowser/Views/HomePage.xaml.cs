@@ -79,7 +79,8 @@ namespace SafeMobileBrowser.Views
 
             AddressBarEntry.Completed += (s, e) =>
             {
-                _viewModel.PageLoadCommand.Execute(null);
+                if (!string.IsNullOrWhiteSpace(AddressBarEntry.Text))
+                    _viewModel.PageLoadCommand.Execute(null);
             };
         }
 
