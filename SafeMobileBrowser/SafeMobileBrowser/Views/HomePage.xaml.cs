@@ -52,13 +52,6 @@ namespace SafeMobileBrowser.Views
                {
                    HybridWebViewControl.EvaluateJavaScriptAsync("javascript: resetHomePage()");
                });
-            MessagingCenter.Subscribe<HomePageViewModel>(
-                this,
-                MessageCenterConstants.GoToHomePage,
-                (sender) =>
-                {
-                    HybridWebViewControl.Source = $"{_viewModel.BaseUrl}index.html";
-                });
         }
 
         protected override async void OnAppearing()
@@ -85,9 +78,6 @@ namespace SafeMobileBrowser.Views
 
         ~HomePage()
         {
-            MessagingCenter.Unsubscribe<HomePageViewModel>(
-                this,
-                MessageCenterConstants.GoToHomePage);
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);
@@ -145,6 +135,7 @@ namespace SafeMobileBrowser.Views
             SafeLabel.TranslateTo(0, 0, 250, Easing.CubicInOut);
             SafeLabel.FadeTo(100, 250);
             AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
+            _viewModel.AddressBarUnfocusCommand.Execute(null);
         }
 
         private void EntryFocused(object sender, FocusEventArgs e)

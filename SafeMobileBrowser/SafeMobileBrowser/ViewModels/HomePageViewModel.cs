@@ -43,6 +43,8 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand MenuCommand { get; set; }
 
+        public ICommand AddressBarUnfocusCommand { get; set; }
+
         private bool _canGoBack;
 
         public bool CanGoBack
@@ -90,12 +92,11 @@ namespace SafeMobileBrowser.ViewModels
             set { SetProperty(ref _pageLoading, value); }
         }
 
-        private string _url;
+        private WebViewSource _url;
 
-        public string Url
+        public WebViewSource Url
         {
             get => _url;
-
             set => SetProperty(ref _url, value);
         }
 
@@ -138,11 +139,12 @@ namespace SafeMobileBrowser.ViewModels
             WebViewNavigatedCommand = new Command<WebNavigatedEventArgs>(OnNavigated);
             GoToHomePageCommand = new Command(GoToHomePage);
             MenuCommand = new Command(ShowPopUpMenu);
+            AddressBarUnfocusCommand = new Command(RestoreAddressBar);
         }
 
         private void GoToHomePage()
         {
-            MessagingCenter.Send(this, MessageCenterConstants.GoToHomePage);
+            Url = $"{BaseUrl}index.html";
         }
 
         private async void ShowPopUpMenu()
@@ -210,6 +212,18 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
+        public void RestoreAddressBar()
+        {
+            if (string.IsNullOrWhiteSpace(AddressbarText))
+            {
+                var currentSourceUrl = ((UrlWebViewSource)Url).Url;
+                if (currentSourceUrl.Contains("file://"))
+                    AddressbarText = string.Empty;
+                else
+                    AddressbarText = currentSourceUrl.Remove(0, 8).TrimEnd('/');
+            }
+        }
+
         public void OnTapped(string navigationBarIconString)
         {
             switch (navigationBarIconString)
@@ -238,24 +252,29 @@ namespace SafeMobileBrowser.ViewModels
 
         public async void LoadUrl(string url = null)
         {
+            url = url?.Trim() ?? AddressbarText.Trim();
+
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+            else
+                AddressbarText = url;
+
             if (!App.IsConnectedToInternet)
             {
                 await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
                 return;
             }
-            if (App.AppSession == null)
-                await InitilizeSessionAsync();
 
             // TODO: Possiblity of null session
-            if (url != null)
-                AddressbarText = url;
+            if (!IsSessionAvailable)
+                await InitilizeSessionAsync();
 
             IsNavigating = true;
 
             if (Device.RuntimePlatform == Device.iOS)
-                Url = $"safe://{AddressbarText}";
+                Url = $"safe://{url}";
             else
-                Url = $"https://{AddressbarText}";
+                Url = $"https://{url}";
         }
     }
 }
