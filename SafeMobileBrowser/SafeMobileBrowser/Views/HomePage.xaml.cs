@@ -67,8 +67,10 @@ namespace SafeMobileBrowser.Views
             if (App.AppSession == null)
                 await _viewModel.InitilizeSessionAsync();
 
+#if DEV_BUILD
             if (Device.RuntimePlatform == Device.Android)
                 AddWebsiteList();
+#endif
 
             AddressBarEntry.Completed += (s, e) =>
             {
