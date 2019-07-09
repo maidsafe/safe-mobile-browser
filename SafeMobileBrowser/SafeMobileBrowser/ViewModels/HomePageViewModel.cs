@@ -250,12 +250,9 @@ namespace SafeMobileBrowser.ViewModels
             if (!IsSessionAvailable)
                 await InitilizeSessionAsync();
 
-            // TODO: Possiblity of null session
-            if (!IsSessionAvailable)
-                await InitilizeSessionAsync();
-
             IsNavigating = true;
 
+            // TODO: Possiblity of null session
             if (Device.RuntimePlatform == Device.iOS)
                 Url = $"safe://{url}";
             else
