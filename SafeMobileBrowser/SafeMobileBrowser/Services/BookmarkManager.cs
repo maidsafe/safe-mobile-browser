@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -83,8 +82,8 @@ namespace SafeMobileBrowser.Models
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
-                throw ex;
+                Logger.Error(ex);
+                throw;
             }
         }
 
@@ -121,7 +120,7 @@ namespace SafeMobileBrowser.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Logger.Error(ex);
             }
             bookmarksList = bookmarks;
         }
@@ -161,7 +160,7 @@ namespace SafeMobileBrowser.Models
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logger.Error(ex);
                 throw ex;
             }
         }

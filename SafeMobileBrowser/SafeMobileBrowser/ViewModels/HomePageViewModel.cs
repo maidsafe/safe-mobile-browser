@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -50,12 +49,7 @@ namespace SafeMobileBrowser.ViewModels
         public bool CanGoBack
         {
             get => _canGoBack;
-
-            set
-            {
-                _canGoBack = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _canGoBack, value);
         }
 
         private bool _canGoForward;
@@ -63,12 +57,7 @@ namespace SafeMobileBrowser.ViewModels
         public bool CanGoForward
         {
             get => _canGoForward;
-
-            set
-            {
-                _canGoForward = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _canGoForward, value);
         }
 
         private bool _isNavigating;
@@ -76,20 +65,15 @@ namespace SafeMobileBrowser.ViewModels
         public bool IsNavigating
         {
             get => _isNavigating;
-
-            set
-            {
-                _isNavigating = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _isNavigating, value);
         }
 
         private bool _pageLoading;
 
         public bool IsPageLoading
         {
-            get { return _pageLoading; }
-            set { SetProperty(ref _pageLoading, value); }
+            get => _pageLoading;
+            set => SetProperty(ref _pageLoading, value);
         }
 
         private WebViewSource _url;
@@ -108,16 +92,15 @@ namespace SafeMobileBrowser.ViewModels
             set
             {
                 SetProperty(ref _addressbarText, value);
-                var address = string.IsNullOrWhiteSpace(value);
-                if (!address)
-                {
-                    CurrentUrl = CurrentTitle = $"safe://{value}";
-                    CanGoToHomePage = true;
-                }
-                else
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     CurrentUrl = CurrentTitle = value;
                     CanGoToHomePage = false;
+                }
+                else
+                {
+                    CurrentUrl = CurrentTitle = $"safe://{value}";
+                    CanGoToHomePage = true;
                 }
                 OnPropertyChanged(nameof(CanGoToHomePage));
             }
@@ -133,7 +116,6 @@ namespace SafeMobileBrowser.ViewModels
         {
             Navigation = navigation;
             PageLoadCommand = new Command<string>(LoadUrl);
-            ToolbarItemCommand = new Command<string>(LoadUrl);
             BottomNavbarTapCommand = new Command<string>(OnTapped);
             WebViewNavigatingCommand = new Command<WebNavigatingEventArgs>(OnNavigating);
             WebViewNavigatedCommand = new Command<WebNavigatedEventArgs>(OnNavigated);
@@ -157,7 +139,7 @@ namespace SafeMobileBrowser.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -192,7 +174,7 @@ namespace SafeMobileBrowser.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error: {ex.Message}");
+                Logger.Error(ex);
             }
         }
 
@@ -207,7 +189,7 @@ namespace SafeMobileBrowser.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logger.Error(ex);
                 await App.Current.MainPage.DisplayAlert("Connection failed", "Unable to connect to the SAFE Network. Try updating your IP address on invite server.", "OK");
             }
         }
@@ -264,6 +246,9 @@ namespace SafeMobileBrowser.ViewModels
                 await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
                 return;
             }
+
+            if (!IsSessionAvailable)
+                await InitilizeSessionAsync();
 
             // TODO: Possiblity of null session
             if (!IsSessionAvailable)

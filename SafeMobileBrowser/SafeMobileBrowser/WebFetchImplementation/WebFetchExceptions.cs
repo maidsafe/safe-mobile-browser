@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace SafeMobileBrowser.WebFetchImplementation
 {
+#pragma warning disable S3925 // "ISerializable" should be implemented correctly
     public class WebFetchException : Exception
     {
         public int ErrorCode { get; set; }
@@ -32,4 +33,5 @@ namespace SafeMobileBrowser.WebFetchImplementation
             ErrorCode = errorCode;
         }
     }
+#pragma warning restore S3925 // "ISerializable" should be implemented correctly
 }

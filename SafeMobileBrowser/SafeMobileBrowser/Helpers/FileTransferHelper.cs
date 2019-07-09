@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using SafeApp;
 using SafeMobileBrowser.Models;
+using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
-namespace SafeMobileBrowser.Services
+namespace SafeMobileBrowser.Helpers
 {
-    public static class DeviceServices
+    public static class FileTransferHelper
     {
         public static async Task TransferAssetFiles()
         {
@@ -27,11 +27,12 @@ namespace SafeMobileBrowser.Services
                 await fileTransferService.TransferAssetsAsync(files);
                 await Session.SetAdditionalSearchPathAsync(fileTransferService.ConfigFilesPath);
                 await Session.InitLoggingAsync();
-                Debug.WriteLine("Assets transferred");
+                Logger.Info("Assets transferred");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Assets transfer failed: " + ex.Message);
+                Logger.Info("Assets transfer failed");
+                Logger.Error(ex);
             }
         }
     }

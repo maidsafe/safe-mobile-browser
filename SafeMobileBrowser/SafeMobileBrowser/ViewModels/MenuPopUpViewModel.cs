@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -39,11 +38,7 @@ namespace SafeMobileBrowser.ViewModels
         public ObservableCollection<PopUpMenuItem> PopMenuItems
         {
             get => _popMenuItems;
-
-            set
-            {
-                SetProperty(ref _popMenuItems, value);
-            }
+            set => SetProperty(ref _popMenuItems, value);
         }
 
         private PopUpMenuItem _reloadMenuItem;
@@ -51,11 +46,7 @@ namespace SafeMobileBrowser.ViewModels
         public PopUpMenuItem ReloadMenuItem
         {
             get => _reloadMenuItem;
-
-            set
-            {
-                SetProperty(ref _reloadMenuItem, value);
-            }
+            set => SetProperty(ref _reloadMenuItem, value);
         }
 
         private PopUpMenuItem _bookmarkMenuItem;
@@ -63,11 +54,7 @@ namespace SafeMobileBrowser.ViewModels
         public PopUpMenuItem BookmarkMenuItem
         {
             get => _bookmarkMenuItem;
-
-            set
-            {
-                SetProperty(ref _bookmarkMenuItem, value);
-            }
+            set => SetProperty(ref _bookmarkMenuItem, value);
         }
 
         private PopUpMenuItem _selectedPopMenuItem;
@@ -128,7 +115,7 @@ namespace SafeMobileBrowser.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine(ex);
+                        Logger.Error(ex);
                         UserDialogs.Instance.Toast("Failed to remove bookmark");
                     }
                 });
@@ -156,7 +143,7 @@ namespace SafeMobileBrowser.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine(ex);
+                        Logger.Error(ex);
                         UserDialogs.Instance.Toast("Failed to add bookmark");
                     }
                 });
@@ -293,14 +280,14 @@ namespace SafeMobileBrowser.ViewModels
             }
             catch (Exception ex)
             {
+                Logger.Error(ex);
                 MessagingCenter.Send(
                     this,
                     MessageCenterConstants.DisplayAlertMessage,
                     ex.Message);
-                Debug.WriteLine(ex);
             }
 
-            // Todo: delay in popup. Needs refactoring
+            // TODO: delay in popup. Needs refactoring
             await Navigation.PopPopupAsync();
             SelectedPopMenuItem = null;
         }

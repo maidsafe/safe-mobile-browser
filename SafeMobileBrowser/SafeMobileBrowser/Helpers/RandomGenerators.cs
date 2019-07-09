@@ -17,8 +17,7 @@ namespace SafeMobileBrowser.Helpers
 
         public static Color GenerateRandomColor()
         {
-            Color randomColor = Color.FromRgb(random.Next(255), random.Next(255), random.Next(255));
-            return randomColor;
+            return Color.FromRgb(random.Next(255), random.Next(255), random.Next(255));
         }
     }
 }

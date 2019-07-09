@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -36,10 +35,7 @@ namespace SafeMobileBrowser.ViewModels
         public ObservableCollection<string> Bookmarks
         {
             get => _bookmarks;
-            set
-            {
-                SetProperty(ref _bookmarks, value);
-            }
+            set => SetProperty(ref _bookmarks, value);
         }
 
         public BookmarksModalPageViewModel(INavigation navigation)
@@ -72,7 +68,7 @@ namespace SafeMobileBrowser.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Logger.Error(ex);
                 UserDialogs.Instance.Toast("Failed to remove bookmark");
             }
         }
@@ -80,7 +76,10 @@ namespace SafeMobileBrowser.ViewModels
         public async void OpenBookmarkedPage()
         {
             await Navigation.PopModalAsync();
-            MessagingCenter.Send<BookmarksModalPageViewModel, string>(this, MessageCenterConstants.BookmarkUrl, SelectedBookmarkItem.Replace("safe://", string.Empty));
+            MessagingCenter.Send(
+                this,
+                MessageCenterConstants.BookmarkUrl,
+                SelectedBookmarkItem.Replace("safe://", string.Empty));
         }
 
         public async Task GetBookmarks()

@@ -16,11 +16,9 @@ namespace SafeMobileBrowser.Services
         private static MDataInfo _accessContainerMdinfo;
         private static Session _session;
 
-        public Session Session => _session;
+        public bool IsSessionAvailable => _session != null;
 
-        public bool IsSessionAvailable => _session == null ? false : true;
-
-        public bool IsAccessContainerMDataInfoAvailable => _accessContainerMdinfo.Equals(default(MDataInfo)) ? false : true;
+        public bool IsAccessContainerMDataInfoAvailable => !_accessContainerMdinfo.Equals(default(MDataInfo));
 
         public static void InitialiseSession(Session session)
         {
@@ -30,7 +28,7 @@ namespace SafeMobileBrowser.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Logger.Error(ex);
             }
         }
 
@@ -42,11 +40,11 @@ namespace SafeMobileBrowser.Services
             }
             catch (FfiException ex)
             {
-                Debug.WriteLine("Error : " + ex.Message);
+                Logger.Error(ex);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error : " + ex.Message);
+                Logger.Error(ex);
                 throw;
             }
             return _accessContainerMdinfo;

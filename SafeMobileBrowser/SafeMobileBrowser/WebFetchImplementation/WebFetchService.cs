@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 
 namespace SafeMobileBrowser.WebFetchImplementation
 {
-    public class WebFetchService
+    public static class WebFetchService
     {
-        private static readonly WebFetch webFetch = new WebFetch();
+        private static readonly WebFetch webFetch = new WebFetch(App.AppSession);
 
         public static async Task<WebFetchResponse> FetchResourceAsync(string url, WebFetchOptions options = null)
         {
@@ -17,12 +18,12 @@ namespace SafeMobileBrowser.WebFetchImplementation
             }
             catch (WebFetchException ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Logger.Error(ex);
                 throw;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Logger.Error(ex);
                 throw;
             }
         }

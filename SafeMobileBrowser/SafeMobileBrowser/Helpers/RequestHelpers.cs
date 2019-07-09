@@ -9,22 +9,10 @@ namespace SafeMobileBrowser.Helpers
 {
     public static class RequestHelpers
     {
-        // Add safe-auth:// in encoded auth request
-        public static string UrlFormat(string encodedString, bool toAuthenticator)
-        {
-            var scheme = toAuthenticator ? "safe-auth" : $"{Constants.AppId}";
-            return $"{scheme}://{encodedString}";
-        }
-
-        public static string GetRequestData(string url)
-        {
-            return new Uri(url).PathAndQuery.Replace("/", string.Empty);
-        }
-
         // Generating encoded app request using appname, appid, vendor
         public static async Task<(uint, string)> GenerateEncodedAppRequestAsync()
         {
-            Console.WriteLine("Generating application authentication request");
+            Logger.Info("Generating application authentication request");
             var authReq = new AuthReq
             {
                 AppContainer = true,

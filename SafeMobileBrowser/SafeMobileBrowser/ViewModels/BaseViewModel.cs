@@ -1,10 +1,11 @@
-﻿using SafeMobileBrowser.Models;
+﻿using System;
+using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
 namespace SafeMobileBrowser.ViewModels
 {
-    public class BaseViewModel : ObservableObject
+    public class BaseViewModel : ObservableObject, IDisposable
     {
         public BookmarkManager BookmarkManager => DependencyService.Get<BookmarkManager>();
 
@@ -18,6 +19,18 @@ namespace SafeMobileBrowser.ViewModels
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
+        }
+
+        public bool IsNotBusy => !IsBusy;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
         }
     }
 }

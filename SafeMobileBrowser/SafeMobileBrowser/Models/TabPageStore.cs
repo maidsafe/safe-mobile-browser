@@ -16,14 +16,5 @@ namespace SafeMobileBrowser.Models
         {
             TabPages.Add(page);
         }
-
-        public void AddPageScreenShot(string pageTitle, byte[] screenshot)
-        {
-            var tabPage = TabPages.Where(p => p.PageTitle == pageTitle).First();
-            if (tabPage != null)
-            {
-                tabPage.PageScreenShot = screenshot;
-            }
-        }
     }
 }

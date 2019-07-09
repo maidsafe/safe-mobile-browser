@@ -51,7 +51,7 @@ namespace SafeMobileBrowser.Droid
 
         private void HandleAppLaunch(string url)
         {
-            System.Diagnostics.Debug.WriteLine($"Launched via: {url}");
+            Logger.Info($"Launched via: {url}");
             Device.BeginInvokeOnMainThread(
               async () =>
               {
@@ -61,7 +61,7 @@ namespace SafeMobileBrowser.Droid
                   }
                   catch (Exception ex)
                   {
-                      System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                      Logger.Error(ex);
                   }
               });
         }

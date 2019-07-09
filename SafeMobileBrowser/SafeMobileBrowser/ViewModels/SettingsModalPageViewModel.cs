@@ -14,14 +14,13 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand GoBackCommand { get; set; }
 
-        private INavigation _navigation;
+        private readonly INavigation _navigation;
 
         public SettingsModalPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
             GoBackCommand = new Command(GoBackToHomePage);
             FaqCommand = new Command(ShowNotImplementedDialog);
-
             PrivacyInfoCommand = new Command(ShowNotImplementedDialog);
         }
 

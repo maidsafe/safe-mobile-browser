@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using Foundation;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using UIKit;
 using Xamarin.Forms;
@@ -12,14 +12,14 @@ namespace SafeMobileBrowser.iOS
     {
         readonly AuthenticationService authenticationService = new AuthenticationService();
 
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
             Forms.SetFlags("CollectionView_Experimental");
             Rg.Plugins.Popup.Popup.Init();
             XamEffects.iOS.Effects.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            return base.FinishedLaunching(app, options);
+            return base.FinishedLaunching(uiApplication, launchOptions);
         }
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
@@ -30,11 +30,11 @@ namespace SafeMobileBrowser.iOS
                   try
                   {
                       await authenticationService.ProcessAuthenticationResponseAsync(url.ToString());
-                      Debug.WriteLine("IPC Msg Handling Completed");
+                      Logger.Info("IPC Msg Handling Completed");
                   }
                   catch (Exception ex)
                   {
-                      Debug.WriteLine($"Error: {ex.Message}");
+                      Logger.Error(ex);
                   }
               });
             return true;

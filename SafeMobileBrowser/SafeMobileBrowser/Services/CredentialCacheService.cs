@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using SafeMobileBrowser.Helpers;
 using Xamarin.Essentials;
 
 namespace SafeMobileBrowser.Services
 {
-    internal class CredentialCacheService
+    internal static class CredentialCacheService
     {
         private const string AuthRspKey = "UnregisteredAuthResponse";
 
@@ -14,9 +15,9 @@ namespace SafeMobileBrowser.Services
             {
                 SecureStorage.RemoveAll();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore acct not existing
+                Logger.Error(ex);
             }
         }
 

@@ -4,7 +4,6 @@ using SafeApp.MockAuthBindings;
 #endif
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using SafeApp.Utilities;
@@ -92,8 +91,8 @@ namespace SafeMobileBrowser.Services
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw ex;
+                Logger.Error(ex);
+                throw;
             }
         }
 
@@ -102,7 +101,7 @@ namespace SafeMobileBrowser.Services
             try
             {
                 MessagingCenter.Send(this, MessageCenterConstants.ProcessingAuthResponse);
-                var encodedResponse = RequestHelpers.GetRequestData(url);
+                var encodedResponse = UrlFormat.GetRequestData(url);
                 var decodeResponse = await Session.DecodeIpcMessageAsync(encodedResponse);
                 var decodedResponseType = decodeResponse.GetType();
                 if (decodedResponseType == typeof(UnregisteredIpcMsg))
@@ -135,7 +134,7 @@ namespace SafeMobileBrowser.Services
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Logger.Error(ex);
                 await Application.Current.MainPage.DisplayAlert("Error", $"Description: {ex.Message}", "OK");
                 MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
             }
@@ -165,14 +164,14 @@ namespace SafeMobileBrowser.Services
                 }
                 else
                 {
-                    throw new NullReferenceException("Null serialised configuration");
+                    throw new ArgumentNullException(encodedResponse);
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Logger.Error(ex);
                 MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
-                throw ex;
+                throw;
             }
         }
 #endif

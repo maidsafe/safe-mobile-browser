@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SafeApp;
 using SafeMobileBrowser.CustomAsyncCommand;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 
 namespace SafeMobileBrowser.ViewModels
@@ -75,14 +76,17 @@ namespace SafeMobileBrowser.ViewModels
                 else
                 {
                     ProgressText = "Estaiblishing session using cached response";
-                    var authServicec = new AuthenticationService();
                     await AuthService.ConnectUsingStoredSerialisedConfiguration(StoredResponse);
                 }
 #endif
             }
             catch (Exception ex)
             {
+                Logger.Error(ex);
                 await App.Current.MainPage.DisplayAlert("Authentication Failed", ex.Message, "OK");
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }
