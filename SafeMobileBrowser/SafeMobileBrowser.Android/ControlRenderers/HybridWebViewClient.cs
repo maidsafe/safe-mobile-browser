@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Android.Webkit;
@@ -28,7 +27,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
         {
             try
             {
-                Debug.WriteLine(request.Url.ToString());
+                Logger.Info($"Requested Url: {request.Url.ToString()}");
                 var headers = request.RequestHeaders;
                 if (request.Url.Scheme.ToLower().Contains("http") && !request.Url.ToString().ToLower().Contains("favicon"))
                 {
@@ -67,7 +66,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Error: " + ex.Message);
+                Logger.Error(ex);
 
                 if (ex.InnerException != null)
                 {
