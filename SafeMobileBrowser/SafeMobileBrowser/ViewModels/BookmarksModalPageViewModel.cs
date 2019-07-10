@@ -84,20 +84,28 @@ namespace SafeMobileBrowser.ViewModels
 
         public async Task GetBookmarks()
         {
-            if (!AppService.IsAccessContainerMDataInfoAvailable)
+            try
             {
-                var mdInfo = await AppService.GetAccessContainerMdataInfoAsync();
-                BookmarkManager.SetMdInfo(mdInfo);
-            }
-            if (App.IsConnectedToInternet)
-            {
+                Bookmarks = new ObservableCollection<string>(BookmarkManager.RetrieveBookmarks());
+
+                if (!App.IsConnectedToInternet)
+                {
+                    await App.Current.MainPage.DisplayAlert("No internet Connection", "Showing previously fetched bookmarks", "Ok");
+                    return;
+                }
+                if (!AppService.IsAccessContainerMDataInfoAvailable)
+                {
+                    var mdInfo = await AppService.GetAccessContainerMdataInfoAsync();
+                    BookmarkManager.SetMdInfo(mdInfo);
+                }
                 await BookmarkManager.FetchBookmarks();
+                Bookmarks = new ObservableCollection<string>(BookmarkManager.RetrieveBookmarks());
             }
-            else
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("No internet Connection", "Showing previously fetched bookmarks", "Ok");
+                Logger.Error(ex);
+                await App.Current.MainPage.DisplayAlert("Unable to fetch bookmarks", "Showing previously fetched bookmarks", "Ok");
             }
-            Bookmarks = new ObservableCollection<string>(BookmarkManager.RetrieveBookmarks());
         }
 
         private async void GoBackToHomePage()

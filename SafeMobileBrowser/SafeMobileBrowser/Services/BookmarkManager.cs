@@ -121,6 +121,7 @@ namespace SafeMobileBrowser.Models
             catch (Exception ex)
             {
                 Logger.Error(ex);
+                throw;
             }
             bookmarksList = bookmarks;
         }
