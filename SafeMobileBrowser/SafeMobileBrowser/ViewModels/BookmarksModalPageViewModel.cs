@@ -11,6 +11,8 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class BookmarksModalPageViewModel : BaseViewModel
     {
+        TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
+
         public ICommand GoBackCommand { get; set; }
 
         public ICommand DeleteBookmarkCommand { get; set; }
@@ -60,16 +62,14 @@ namespace SafeMobileBrowser.ViewModels
                     return;
                 }
 
-                using (UserDialogs.Instance.Toast("Bookmark removed successfully"))
-                {
-                    await BookmarkManager.DeleteBookmarks(bookmark.ToString());
-                    Bookmarks.Remove((string)bookmark);
-                }
+                await BookmarkManager.DeleteBookmarks(bookmark.ToString());
+                Bookmarks.Remove((string)bookmark);
+                UserDialogs.Instance.Toast("Bookmark removed successfully");
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                UserDialogs.Instance.Toast("Failed to remove bookmark");
+                UserDialogs.Instance.Toast("Failed to remove bookmark", _toastTimeSpan);
             }
         }
 

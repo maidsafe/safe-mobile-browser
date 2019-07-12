@@ -18,6 +18,7 @@ namespace SafeMobileBrowser.ViewModels
     {
         BookmarksModalPage _bookmarksModalPage;
         SettingsModalPage _settingsModalPage;
+        TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
 
         public INavigation Navigation { get; set; }
 
@@ -107,16 +108,13 @@ namespace SafeMobileBrowser.ViewModels
                 {
                     try
                     {
-                        using (UserDialogs.Instance.Toast("Bookmark removed successfully"))
-                        {
-                            await BookmarkManager.DeleteBookmarks(currentUrl);
-                            CheckIsBookmarkAvailable();
-                        }
+                        await BookmarkManager.DeleteBookmarks(currentUrl);
+                        UserDialogs.Instance.Toast("Bookmark removed successfully", _toastTimeSpan);
                     }
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        UserDialogs.Instance.Toast("Failed to remove bookmark");
+                        UserDialogs.Instance.Toast("Failed to remove bookmark", _toastTimeSpan);
                     }
                 });
             }
@@ -135,16 +133,14 @@ namespace SafeMobileBrowser.ViewModels
                 {
                     try
                     {
-                        using (UserDialogs.Instance.Toast("Bookmark added successfully"))
-                        {
-                            await BookmarkManager.AddBookmark(currentUrl.Replace("https", "safe"));
-                            CheckIsBookmarkAvailable();
-                        }
+                        await BookmarkManager.AddBookmark(currentUrl.Replace("https", "safe"));
+                        UserDialogs.Instance.Toast("Bookmark added successfully", _toastTimeSpan);
+                        CheckIsBookmarkAvailable();
                     }
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        UserDialogs.Instance.Toast("Failed to add bookmark");
+                        UserDialogs.Instance.Toast("Failed to add bookmark", _toastTimeSpan);
                     }
                 });
             }
