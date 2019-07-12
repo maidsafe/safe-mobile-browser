@@ -166,6 +166,7 @@ namespace SafeMobileBrowser.Views
 
         public void ClearAddressBar(object sender, EventArgs args)
         {
+            _viewModel.IsAddressBarFocused = true;
             AddressBarEntry.Unfocus();
             AddressBarEntry.Text = string.Empty;
             AddressBarEntry.Focus();
@@ -194,6 +195,7 @@ namespace SafeMobileBrowser.Views
                 AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
             });
             _viewModel.AddressBarUnfocusCommand.Execute(null);
+            _viewModel.IsAddressBarFocused = false;
         }
 
         private void EntryFocused(object sender, FocusEventArgs e)

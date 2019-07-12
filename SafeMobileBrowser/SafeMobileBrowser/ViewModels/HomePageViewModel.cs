@@ -114,6 +114,8 @@ namespace SafeMobileBrowser.ViewModels
 
         public bool IsErrorState { get; set; }
 
+        public bool IsAddressBarFocused { get; set; }
+
         public INavigation Navigation { get; set; }
 
         public HomePageViewModel(INavigation navigation)
@@ -195,7 +197,7 @@ namespace SafeMobileBrowser.ViewModels
 
         public void RestoreAddressBar()
         {
-            if (string.IsNullOrWhiteSpace(AddressbarText))
+            if (string.IsNullOrWhiteSpace(AddressbarText) && !IsAddressBarFocused)
             {
                 var currentSourceUrl = ((UrlWebViewSource)Url).Url;
                 SetAddressBarText(currentSourceUrl);
