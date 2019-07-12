@@ -9,7 +9,7 @@
                  xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects"
                  BackgroundColor="Transparent"
                  HasSystemPadding="True">
-    
+
     <ContentPage.Resources>
         <Style TargetType="Grid"
                x:Key="PopupMenuItemGridStyle">
@@ -23,25 +23,6 @@
                     Value="0" />
             <Setter Property="ColumnSpacing"
                     Value="10" />
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Disabled">
-                            <VisualState.Setters>
-                                <Setter Property="Opacity"
-                                        Value="0.25" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="#F6F6F6" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
         </Style>
         <Style TargetType="Label"
                x:Key="PopupMenuItemLabelStyle">
@@ -74,7 +55,7 @@
                     Value="CenterAndExpand" />
         </Style>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Frame CornerRadius="10"
                Padding="0, 10, 0, 0"
@@ -94,6 +75,15 @@
                         <DataTemplate>
                             <Grid Style="{StaticResource PopupMenuItemGridStyle}"
                                   IsEnabled="{Binding IsEnabled}">
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid"
+                                                 x:Name="trigger"
+                                                 Binding="{Binding IsEnabled}"
+                                                 Value="false">
+                                        <Setter Property="Opacity"
+                                                Value="0.25" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
