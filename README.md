@@ -13,15 +13,16 @@ The SAFE Mobile Browser is a mobile web browser for the SAFE Network.
 ## Table of Contents
 
 1. [Overview](#Overview)
-2. [Features](#Features)
-3. [Supported platforms](#Documentation)
-4. [Development](#Development)
+2. [Supported platforms](#Documentation)
+3. [Features](#Features)
+4. [User Guide](#User-Guide)
+5. [Development](#Development)
     * [Project Structure](#Project-structure)
     * [Tools required](#Tools-required)
-5. [Contributing](#Contributing)
-6. [Copyrights](#Copyrights)
-7. [Further Help](#Further-Help)
-8. [License](#License)
+6. [Contributing](#Contributing)
+7. [Copyrights](#Copyrights)
+8. [Further Help](#Further-Help)
+9. [License](#License)
 
 ## Overview
 
@@ -29,19 +30,41 @@ The SAFE Mobile Browser is a cross-platform mobile (Android, iOS) browser, built
 
 The app currently uses the [MaidSafe.SafeApp](https://www.nuget.org/packages/MaidSafe.SafeApp/) NuGet package to fetch the content from the network.
 
-## Features
-
-* Fetch static websites from the SAFE Network.
-* Manage bookmarks.
-
-### Screenshots
-
-Add some screenshots here.
-
 ## Supported platforms
 
 * Android 5.1+ (armeabi-v7a, x86_64)
 * iOS 11+ (ARM64, x64)
+
+## Features
+
+* Fetch static websites from the SAFE Network.
+* Bookmarks (sync with SAFE Desktop Browser).
+
+## User Guide
+
+### Installation
+
+The latest version of the SAFE Mobile browser for the Android mobile phones can be download from the [Release](/releases/latest) tab. For iOS users can build the latest version from the master branch. Check [development section](#Development) for build instruction.
+
+### Browsing SAFE websites
+
+Once installed, mobile browser can be used to browse the websites hosted on Alpha-2 network.
+
+***Note:** Make sure to whitelist/update your IP address on [invite server](https://invite.maidsafe.net) before you start browsering.*
+
+| Browser launch page |Fetching website from the SAFE Network |
+|:---:|:---:|
+|<img src="docs/screenshots/launch-browser.gif"  width="250" alt="mobile-browser-homepage" />| <img src="docs/screenshots/load-website.gif"  width="250" alt="mobile-browser-homepage" /> |
+
+</div>
+
+### Working with bookmarks
+
+To use bookmarks feature in mobile browser, we need to authenticate the app using [SAFE mobile Authenticator app](https://github.com/maidsafe/safe-authenticator-mobile).
+
+| Authenticate | Add bookmark | Remove bookmark | Manage bookmarks |
+|:---:|:---:|:--:|:--:|
+|<img src="docs/screenshots/authentication.gif"  width="250" alt="mobile-browser-homepage" />| <img src="docs/screenshots/add-bookmark.gif"  width="250" alt="mobile-browser-homepage" /> | <img src="docs/screenshots/remove-bookmark.gif"  width="250" alt="mobile-browser-homepage" /> | <img src="docs/screenshots/manage-bookmarks.gif"  width="250" alt="mobile-browser-homepage" /> |
 
 ## Development
 
