@@ -114,7 +114,11 @@ namespace SafeMobileBrowser.Models
 
                     foreach (var item in bookmarksArray)
                     {
-                        bookmarks.Add(item["url"].ToString());
+                        var bookmark = item["url"].ToString();
+                        if (bookmark != "safe-auth://home/#/login")
+                        {
+                            bookmarks.Add(bookmark);
+                        }
                     }
                 }
             }
