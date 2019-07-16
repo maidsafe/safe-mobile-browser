@@ -13,7 +13,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
 
         private bool _isAnimationRunning = false;
 
-        public UIColor BackGroundProgressBarColor { get; set; } = UIColor.FromRGB(33, 150, 243);
+        public UIColor BackGroundProgressBarColor { get; set; } = UIColor.White;
 
         public UIColor ProgressBarColor { get; set; } = UIColor.FromRGB(33, 150, 243);
 
