@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
+using Xamarin.Essentials;
 
 namespace SafeMobileBrowser.WebFetchImplementation
 {
@@ -49,7 +50,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
 
                 var htmlString = await FileHelper.ReadAssetFileContentAsync("index.html");
                 if (ex.ErrorCode == -11 &&
-                    Xamarin.Essentials.Connectivity.NetworkAccess != Xamarin.Essentials.NetworkAccess.Internet)
+                    Connectivity.NetworkAccess != NetworkAccess.Internet)
                 {
                     htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "No internet access");
                     htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", "Please connect to the internet");

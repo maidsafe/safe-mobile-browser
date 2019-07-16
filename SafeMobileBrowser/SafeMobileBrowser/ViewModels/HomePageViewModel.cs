@@ -173,7 +173,10 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await App.Current.MainPage.DisplayAlert("Connection failed", "Unable to connect to the SAFE Network. Try updating your IP address on invite server.", "OK");
+                await App.Current.MainPage.DisplayAlert(
+                    "Connection failed",
+                    "Unable to connect to the SAFE Network. Try updating your IP address on invite server.",
+                    "OK");
             }
         }
 
@@ -232,29 +235,38 @@ namespace SafeMobileBrowser.ViewModels
 
         public async void LoadUrl(string url = null)
         {
-            url = url?.Trim().ToLower() ?? AddressbarText.Trim().ToLower();
-
-            if (string.IsNullOrWhiteSpace(url))
-                return;
-            else
-                AddressbarText = url;
-
-            if (!App.IsConnectedToInternet)
+            try
             {
-                await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
-                return;
+                url = url?.Trim().ToLower() ?? AddressbarText.Trim().ToLower();
+
+                if (string.IsNullOrWhiteSpace(url))
+                    return;
+                else
+                    AddressbarText = url;
+
+                if (!App.IsConnectedToInternet)
+                {
+                    await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                    return;
+                }
+
+                if (!IsSessionAvailable)
+                {
+                    MessagingCenter.Send(this, MessageCenterConstants.ResetHomePage);
+                    return;
+                }
+
+                IsNavigating = true;
+
+                if (Device.RuntimePlatform == Device.iOS)
+                    Url = $"safe://{url}";
+                else
+                    Url = $"https://{url}";
             }
-
-            if (!IsSessionAvailable)
-                await InitilizeSessionAsync();
-
-            IsNavigating = true;
-
-            // TODO: Possiblity of null session
-            if (Device.RuntimePlatform == Device.iOS)
-                Url = $"safe://{url}";
-            else
-                Url = $"https://{url}";
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
         }
     }
 }
