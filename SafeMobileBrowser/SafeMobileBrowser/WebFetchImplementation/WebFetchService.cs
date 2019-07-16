@@ -57,7 +57,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 else
                 {
                     htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "Error occured");
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", ex.Message);
+                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", "Unable to fetch data");
                 }
                 return new WebFetchResponse
                 {
