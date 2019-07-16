@@ -12,30 +12,33 @@ namespace SafeMobileBrowser.Helpers
 {
     public static class FileHelper
     {
-        public static async Task TransferAssetFiles()
+        public static async Task<bool> TransferAssetFilesAndInitLoggingAsync()
         {
             try
             {
+                var fileTransferService = DependencyService.Get<IPlatformService>();
+
                 var files = new List<AssetFileTransferModel>
                 {
                     new AssetFileTransferModel()
                     {
                         FileName = "log.toml",
-                        TransferLocation = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+                        TransferLocation = fileTransferService.ConfigFilesPath
                     }
                 };
 
-                var fileTransferService = DependencyService.Get<IPlatformService>();
                 await fileTransferService.TransferAssetsAsync(files);
+                Logger.Info("Assets transferred");
                 await Session.SetAdditionalSearchPathAsync(fileTransferService.ConfigFilesPath);
                 await Session.InitLoggingAsync();
-                Logger.Info("Assets transferred");
+                return true;
             }
             catch (Exception ex)
             {
                 Logger.Info("Assets transfer failed");
                 Logger.Error(ex);
             }
+            return false;
         }
 
         public static async Task<string> ReadAssetFileContentAsync(string fileName)

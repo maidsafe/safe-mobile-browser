@@ -11,6 +11,7 @@ namespace SafeMobileBrowser.Views
     {
         List<string> _websiteList;
         HomePageViewModel _viewModel;
+        bool _isLogInitialised;
 
         public HomePage()
         {
@@ -57,6 +58,11 @@ namespace SafeMobileBrowser.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            if (!_isLogInitialised)
+            {
+                _isLogInitialised = await FileHelper.TransferAssetFilesAndInitLoggingAsync();
+            }
 
             if (_viewModel == null)
             {
