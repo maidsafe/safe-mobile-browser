@@ -167,16 +167,16 @@ namespace SafeMobileBrowser.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Connecting to SAFE Network"))
                 {
-                    await AuthService.ConnectUsingHardcodedResponseAsync();
+                    await AuthService.ConnectUsingStoredSerialisedConfiguration();
                 }
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
                 await App.Current.MainPage.DisplayAlert(
-                    "Connection failed",
-                    "Unable to connect to the SAFE Network. Try updating your IP address on invite server.",
-                    "OK");
+                   "Connection failed",
+                   "Unable to connect to the SAFE Network. Try updating your IP address on invite server.",
+                   "OK");
             }
         }
 

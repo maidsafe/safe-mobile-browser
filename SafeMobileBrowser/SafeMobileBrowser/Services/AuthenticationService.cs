@@ -139,12 +139,7 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-        public async Task ConnectUsingHardcodedResponseAsync()
-        {
-            await ConnectUsingStoredSerialisedConfiguration(Constants.HardCodedAuthResponse);
-        }
-
-        public async Task ConnectUsingStoredSerialisedConfiguration(string encodedResponse)
+        public async Task ConnectUsingStoredSerialisedConfiguration(string encodedResponse = Constants.HardCodedAuthResponse)
         {
             try
             {

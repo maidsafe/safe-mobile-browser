@@ -29,6 +29,10 @@ namespace SafeMobileBrowser.Views
             AddressBarEntry.Focused += EntryFocused;
             AddressBarEntry.Unfocused += EntryUnfocused;
             AddressBarEntry.TextChanged += TextChanged;
+            AddressBarEntry.Completed += (s, e) =>
+            {
+                _viewModel.PageLoadCommand.Execute(null);
+            };
 
             MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
                 this,
@@ -78,11 +82,6 @@ namespace SafeMobileBrowser.Views
             if (Device.RuntimePlatform == Device.Android)
                 AddWebsiteList();
 #endif
-
-            AddressBarEntry.Completed += (s, e) =>
-            {
-                _viewModel.PageLoadCommand.Execute(null);
-            };
         }
 
         ~HomePage()

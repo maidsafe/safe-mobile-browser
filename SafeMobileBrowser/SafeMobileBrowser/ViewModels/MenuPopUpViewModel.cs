@@ -244,10 +244,6 @@ namespace SafeMobileBrowser.ViewModels
                                 _bookmarksModalPage = new BookmarksModalPage();
                             await Navigation.PushModalAsync(_bookmarksModalPage);
                         }
-                        else
-                        {
-                            throw new Exception("Please authenticate");
-                        }
                         break;
                     case "Authenticate":
                         if (!AppService.IsSessionAvailable)
