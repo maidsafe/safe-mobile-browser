@@ -154,6 +154,9 @@ namespace SafeMobileBrowser.ViewModels
             {
                 string url = args.Url.ToString();
                 SetAddressBarText(url);
+
+                if (!IsNavigating)
+                    IsNavigating = true;
             }
             catch (Exception ex)
             {
