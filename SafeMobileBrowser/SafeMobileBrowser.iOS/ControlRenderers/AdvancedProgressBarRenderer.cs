@@ -21,6 +21,8 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
             {
                 _linearProgressBarView = new LinearProgressBar(Frame);
                 SetNativeControl(_linearProgressBarView);
+
+                UpdateProgressBar();
             }
         }
 
@@ -29,12 +31,15 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
             base.OnElementPropertyChanged(sender, e);
 
             if (e.PropertyName == AdvancedProgressBar.IsRunningProperty.PropertyName)
-            {
-                if (Element.IsRunning)
-                    _linearProgressBarView.StartAnimation();
-                else
-                    _linearProgressBarView.StopAnimation();
-            }
+                UpdateProgressBar();
+        }
+
+        private void UpdateProgressBar()
+        {
+            if (Element.IsRunning)
+                _linearProgressBarView.StartAnimation();
+            else
+                _linearProgressBarView.StopAnimation();
         }
     }
 }
