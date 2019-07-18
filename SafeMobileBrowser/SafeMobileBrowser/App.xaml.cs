@@ -1,4 +1,5 @@
 ﻿using SafeApp;
+using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -25,7 +26,10 @@ namespace SafeMobileBrowser
             if (e.NetworkAccess == NetworkAccess.Internet)
             {
                 IsConnectedToInternet = true;
-                AppSession?.ReconnectAsync();
+                if (App.AppSession == null)
+                    MessagingCenter.Send(this, MessageCenterConstants.InitialiseSession);
+                else
+                    AppSession.ReconnectAsync();
             }
             else
             {

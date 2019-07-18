@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Foundation;
+using SafariServices;
+using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.iOS.PlatformServices;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
@@ -43,6 +45,16 @@ namespace SafeMobileBrowser.iOS.PlatformServices
                     reader.Close();
                 }
             }
+        }
+
+        public void LaunchNativeEmbeddedBrowser(string url)
+        {
+            var destination = new NSUrl(url);
+            var sfViewController = new SFSafariViewController(destination);
+
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var controller = window.RootViewController;
+            controller.PresentViewController(sfViewController, true, null);
         }
     }
 }

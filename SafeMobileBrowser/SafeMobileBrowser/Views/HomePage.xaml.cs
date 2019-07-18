@@ -74,6 +74,13 @@ namespace SafeMobileBrowser.Views
                {
                    UpdateHTMLPageToShowError();
                });
+            MessagingCenter.Subscribe<App>(
+               this,
+               MessageCenterConstants.InitialiseSession,
+               async (sender) =>
+               {
+                   await _viewModel.InitilizeSessionAsync();
+               });
         }
 
         private void UpdateHTMLPageToShowError()
@@ -129,6 +136,9 @@ namespace SafeMobileBrowser.Views
 
         ~HomePage()
         {
+            MessagingCenter.Unsubscribe<App>(
+                this,
+                MessageCenterConstants.InitialiseSession);
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);

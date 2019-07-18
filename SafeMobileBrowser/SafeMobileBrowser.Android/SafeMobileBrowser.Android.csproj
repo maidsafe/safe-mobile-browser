@@ -96,7 +96,6 @@
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="PlatformServices\AndroidNativeBrowserService.cs" />
     <Compile Include="PlatformServices\PlatformService.cs" />
     <Compile Include="PlatformServices\GetAssetsFileData.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

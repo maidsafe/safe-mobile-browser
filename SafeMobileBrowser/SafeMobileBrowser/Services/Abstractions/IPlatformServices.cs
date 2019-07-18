@@ -13,5 +13,7 @@ namespace SafeMobileBrowser.Services
         Task TransferAssetsAsync(List<AssetFileTransferModel> fileList);
 
         Task<bool> OpenUri(string uri);
+
+        void LaunchNativeEmbeddedBrowser(string url);
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Android.Content;
+using Android.Support.CustomTabs;
+using Plugin.CurrentActivity;
 using SafeMobileBrowser.Droid.PlatformServices;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
@@ -26,9 +28,7 @@ namespace SafeMobileBrowser.Droid.PlatformServices
             {
                 var aUri = Android.Net.Uri.Parse(uri.ToString());
                 var intent = new Intent(Intent.ActionView, aUri);
-#pragma warning disable CS0618 // Type or member is obsolete
-                Forms.Context.StartActivity(intent);
-#pragma warning restore CS0618 // Type or member is obsolete
+                CrossCurrentActivity.Current.AppContext.StartActivity(intent);
                 result = true;
             }
             catch (ActivityNotFoundException)
@@ -52,6 +52,30 @@ namespace SafeMobileBrowser.Droid.PlatformServices
                     }
                     reader.Close();
                 }
+            }
+        }
+
+        public void LaunchNativeEmbeddedBrowser(string url)
+        {
+            var activity = CrossCurrentActivity.Current.Activity;
+
+            if (activity == null)
+            {
+                return;
+            }
+
+            var customTabsActivityManager = new CustomTabsActivityManager(activity);
+
+            customTabsActivityManager.CustomTabsServiceConnected += (name, client) =>
+            {
+                customTabsActivityManager.LaunchUrl(url);
+            };
+
+            if (!customTabsActivityManager.BindService())
+            {
+                var uri = Android.Net.Uri.Parse(url);
+                var intent = new Intent(Intent.ActionView, uri);
+                activity.StartActivity(intent);
             }
         }
     }

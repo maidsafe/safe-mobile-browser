@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -7,6 +8,8 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class SettingsModalPageViewModel : BaseViewModel
     {
+        public IPlatformService OpenNativeBrowserService => DependencyService.Get<IPlatformService>();
+
         public ICommand FaqCommand { get; }
 
         public ICommand PrivacyInfoCommand { get; }

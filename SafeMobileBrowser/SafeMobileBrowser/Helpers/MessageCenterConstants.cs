@@ -13,5 +13,6 @@
         public const string ShowErrorPage = "ShowErrorPage";
         public const string UpdateErrorMsg = "UpdateErrorMsg";
         public const string GoToHomePage = "GoToHomePage";
+        public const string InitialiseSession = "InitialiseSession";
     }
 }

@@ -79,7 +79,6 @@
     </Content>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
-    <Compile Include="PlatformServices\IOSNativeBrowserService.cs" />
     <Compile Include="PlatformServices\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />

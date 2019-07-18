@@ -26,6 +26,6 @@
 
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";
-        public const string FaqUrl = "https://safenetforum.org/t/most-wanted-app-for-the-safe-network/";
+        public const string FaqUrl = "https://safenetforum.org/t/faqs-safe-mobile-browser/";
     }
 }
