@@ -52,18 +52,55 @@ namespace SafeMobileBrowser.Views
                 });
             MessagingCenter.Subscribe<HomePageViewModel>(
                this,
-               MessageCenterConstants.ResetHomePage,
-               async sender =>
+               MessageCenterConstants.ShowErrorPage,
+               (sender) =>
                {
-                   HybridWebViewControl.Source = $"{_viewModel.BaseUrl}/index.html";
-                   await Device.InvokeOnMainThreadAsync(async () =>
+                   if (((UrlWebViewSource)HybridWebViewControl.Source).Url != _viewModel.WelcomePageUrl)
                    {
-                       await HybridWebViewControl.EvaluateJavaScriptAsync("javascript: ChangePageContent" +
-                           "('Failed'," +
-                           "'Not connect to the SAFE Network', " +
-                           "true)");
-                   });
+                       HybridWebViewControl.Source = _viewModel.WelcomePageUrl;
+                   }
+                   else
+                   {
+                       UpdateHTMLPageToShowError();
+                       _viewModel.IsErrorState = false;
+                       if (_viewModel.IsNavigating)
+                           _viewModel.IsNavigating = false;
+                   }
                });
+            MessagingCenter.Subscribe<HomePageViewModel>(
+               this,
+               MessageCenterConstants.UpdateErrorMsg,
+               (sender) =>
+               {
+                   UpdateHTMLPageToShowError();
+               });
+        }
+
+        private void UpdateHTMLPageToShowError()
+        {
+            var errorData = GenerateErrorMessage(_viewModel.ErrorType);
+            var jsToEvaluate = $"javascript: ChangePageContent (" +
+            $"'{errorData.Item1}'," +
+            $"'{errorData.Item2}'," +
+            $" true)";
+
+            Logger.Info(jsToEvaluate);
+            HybridWebViewControl.Eval(jsToEvaluate);
+        }
+
+        private (string, string) GenerateErrorMessage(string errorType)
+        {
+            switch (errorType)
+            {
+                case ErrorConstants.InvalidUrl:
+                    return (ErrorConstants.InvalidUrlTitle, ErrorConstants.InvalidUrlMsg);
+                case ErrorConstants.SessionNotAvailable:
+                    return (ErrorConstants.SessionNotAvailableTitle, ErrorConstants.SessionNotAvailableMsg);
+                case ErrorConstants.NoInternetConnection:
+                    return (ErrorConstants.NoInternetConnectionTitle, ErrorConstants.NoInternetConnectionMsg);
+                default:
+                    return (ErrorConstants.NoInternetConnectionTitle, ErrorConstants.NoInternetConnectionMsg);
+            }
         }
 
         protected override async void OnAppearing()
@@ -100,7 +137,10 @@ namespace SafeMobileBrowser.Views
                 MessageCenterConstants.ReloadMessage);
             MessagingCenter.Unsubscribe<HomePageViewModel>(
                 this,
-                MessageCenterConstants.ResetHomePage);
+                MessageCenterConstants.ShowErrorPage);
+            MessagingCenter.Unsubscribe<HomePageViewModel>(
+                this,
+                MessageCenterConstants.UpdateErrorMsg);
         }
 
         private void AddWebsiteList()

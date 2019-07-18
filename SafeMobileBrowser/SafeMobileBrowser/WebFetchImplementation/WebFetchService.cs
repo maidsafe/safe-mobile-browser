@@ -29,19 +29,19 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 ex.ErrorCode == WebFetchConstants.NoSuchServiceName ||
                 ex.ErrorCode == WebFetchConstants.FileNotFound)
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "Page not found");
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", ex.Message);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.PageNotFound);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ex.Message);
                 }
                 else
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "Error occured");
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", ex.Message);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.ErrorOccured);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ex.Message);
                 }
 
                 return new WebFetchResponse
                 {
                     Data = Encoding.ASCII.GetBytes(htmlString),
-                    MimeType = "text/html"
+                    MimeType = ErrorConstants.ErrorPageMimeType
                 };
             }
             catch (FfiException ex)
@@ -52,18 +52,18 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 if (ex.ErrorCode == -11 &&
                     Connectivity.NetworkAccess != NetworkAccess.Internet)
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "No internet access");
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", "Please connect to the internet");
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.NoInternetConnectionTitle);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ErrorConstants.NoInternetConnectionMsg);
                 }
                 else
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorHeading", "Error occured");
-                    htmlString = ReplaceHtmlStringContent(htmlString, "ErrorMessage", "Unable to fetch data");
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.ErrorOccured);
+                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ErrorConstants.UnableToFetchDataMsg);
                 }
                 return new WebFetchResponse
                 {
                     Data = Encoding.ASCII.GetBytes(htmlString),
-                    MimeType = "text/html"
+                    MimeType = ErrorConstants.ErrorPageMimeType
                 };
             }
             catch (Exception ex)

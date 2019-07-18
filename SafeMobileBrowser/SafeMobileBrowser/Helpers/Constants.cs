@@ -19,5 +19,9 @@
             "ZREAAAAAAAAAAAGEZTQLRWHAXDCOBZFYZTMORVGQ4DGEQAAAAAAAAAAAYTGOBOGY4C4MJYHEXDGOB2GU2DQMYSAAAAAAAAAAAD" +
             "CMZYFY3DQLRRHA4S4MZZHI2TIOBTCEAAAAAAAAAAANBWFYYTAMJOGUXDCNZZHI2TIOBTAFVRKAAAAAAAAAIHAAAAAAAAAAAGC3" +
             "DQNBQV6MQAAA";
+
+        public const string ConnectingProgressText = "Connecting to the SAFE Network";
+        public const string BookmarkRemovedSuccessfully = "Bookmark removed successfully";
+        public const string BookmarkAddedSuccessfully = "Bookmark added successfully";
     }
 }

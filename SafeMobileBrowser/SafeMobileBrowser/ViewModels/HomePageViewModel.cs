@@ -12,11 +12,13 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class HomePageViewModel : BaseViewModel
     {
+        private MenuPopUp _menuPopUp;
+
         public static string CurrentUrl { get; private set; }
 
         public static string CurrentTitle { get; private set; }
 
-        public string BaseUrl => DependencyService.Get<IPlatformService>().BaseUrl;
+        public string WelcomePageUrl => $"{DependencyService.Get<IPlatformService>().BaseUrl}/index.html";
 
         public bool IsSessionAvailable => App.AppSession != null;
 
@@ -108,7 +110,9 @@ namespace SafeMobileBrowser.ViewModels
 
         public bool CanGoToHomePage { get; set; }
 
-        private MenuPopUp _menuPopUp;
+        public string ErrorType { get; private set; }
+
+        public bool IsErrorState { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -126,7 +130,7 @@ namespace SafeMobileBrowser.ViewModels
 
         private void GoToHomePage()
         {
-            Url = $"{BaseUrl}/index.html";
+            Url = WelcomePageUrl;
         }
 
         private async void ShowPopUpMenu()
@@ -145,6 +149,12 @@ namespace SafeMobileBrowser.ViewModels
 
         private void OnNavigated(WebNavigatedEventArgs obj)
         {
+            if (IsErrorState)
+            {
+                MessagingCenter.Send(this, MessageCenterConstants.UpdateErrorMsg);
+                IsErrorState = false;
+            }
+
             IsNavigating = false;
         }
 
@@ -168,7 +178,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                using (UserDialogs.Instance.Loading("Connecting to SAFE Network"))
+                using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                 {
                     await AuthService.ConnectUsingStoredSerialisedConfiguration();
                 }
@@ -177,8 +187,8 @@ namespace SafeMobileBrowser.ViewModels
             {
                 Logger.Error(ex);
                 await App.Current.MainPage.DisplayAlert(
-                   "Connection failed",
-                   "Unable to connect to the SAFE Network. Try updating your IP address on invite server.",
+                   ErrorConstants.ConnectionFailedTitle,
+                   ErrorConstants.ConnectionFailedMsg,
                    "OK");
             }
         }
@@ -194,7 +204,7 @@ namespace SafeMobileBrowser.ViewModels
 
         internal void SetAddressBarText(string url)
         {
-            if (url.StartsWith("file://"))
+            if (url.StartsWith("file://") && !IsErrorState)
             {
                 AddressbarText = string.Empty;
             }
@@ -236,7 +246,7 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
-        public async void LoadUrl(string url = null)
+        public void LoadUrl(string url = null)
         {
             try
             {
@@ -249,27 +259,58 @@ namespace SafeMobileBrowser.ViewModels
 
                 if (!App.IsConnectedToInternet)
                 {
-                    await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                    TriggerErrorState(ErrorConstants.NoInternetConnection);
                     return;
                 }
 
                 if (!IsSessionAvailable)
                 {
-                    MessagingCenter.Send(this, MessageCenterConstants.ResetHomePage);
+                    TriggerErrorState(ErrorConstants.SessionNotAvailable);
                     return;
                 }
 
+                if (Device.RuntimePlatform == Device.iOS)
+                    url = $"safe://{url}";
+                else
+                    url = $"https://{url}";
+
+                if (!IsValidUri(url))
+                    return;
+
                 IsNavigating = true;
 
-                if (Device.RuntimePlatform == Device.iOS)
-                    Url = $"safe://{url}";
-                else
-                    Url = $"https://{url}";
+                Url = url;
+            }
+            catch (UriFormatException ex)
+            {
+                Logger.Error(ex);
+                TriggerErrorState(ErrorConstants.InvalidUrl);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
             }
+        }
+
+        private bool IsValidUri(string url)
+        {
+            try
+            {
+                Uri.TryCreate(url, UriKind.Absolute, out Uri uri);
+                return true;
+            }
+            catch (UriFormatException ex)
+            {
+                Logger.Error(ex);
+                throw;
+            }
+        }
+
+        private void TriggerErrorState(string errorType)
+        {
+            IsErrorState = true;
+            ErrorType = errorType;
+            MessagingCenter.Send(this, MessageCenterConstants.ShowErrorPage);
         }
     }
 }

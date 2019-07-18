@@ -59,13 +59,16 @@ namespace SafeMobileBrowser.ViewModels
             {
                 if (!App.IsConnectedToInternet)
                 {
-                    await App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                    await App.Current.MainPage.DisplayAlert(
+                        ErrorConstants.NoInternetConnectionTitle,
+                        ErrorConstants.NoInternetConnectionMsg,
+                        "Ok");
                     return;
                 }
 
                 await BookmarkManager.DeleteBookmarks(bookmark.ToString());
                 Bookmarks.Remove((string)bookmark);
-                UserDialogs.Instance.Toast("Bookmark removed successfully");
+                UserDialogs.Instance.Toast(Constants.BookmarkRemovedSuccessfully);
             }
             catch (Exception ex)
             {
@@ -90,7 +93,10 @@ namespace SafeMobileBrowser.ViewModels
 
                 if (!App.IsConnectedToInternet)
                 {
-                    await App.Current.MainPage.DisplayAlert("No internet Connection", "Showing previously fetched bookmarks", "Ok");
+                    await App.Current.MainPage.DisplayAlert(
+                        ErrorConstants.NoInternetConnectionTitle,
+                        ErrorConstants.BookmarkFetchFailedMsg,
+                        "Ok");
                     return;
                 }
                 if (!AppService.IsAccessContainerMDataInfoAvailable)
@@ -104,7 +110,10 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await App.Current.MainPage.DisplayAlert("Unable to fetch bookmarks", "Showing previously fetched bookmarks", "Ok");
+                await App.Current.MainPage.DisplayAlert(
+                    ErrorConstants.BookmarkFetchFailedTitle,
+                    ErrorConstants.BookmarkFetchFailedMsg,
+                    "Ok");
             }
         }
 

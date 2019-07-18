@@ -73,7 +73,10 @@ namespace SafeMobileBrowser.ViewModels
         {
             if (!App.IsConnectedToInternet)
             {
-                App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                App.Current.MainPage.DisplayAlert(
+                    ErrorConstants.NoInternetConnectionTitle,
+                    ErrorConstants.NoInternetConnectionMsg,
+                    "Ok");
                 return;
             }
             if (CheckIfAlreadyAvailableInBookmark)
@@ -96,12 +99,12 @@ namespace SafeMobileBrowser.ViewModels
                     try
                     {
                         await BookmarkManager.DeleteBookmarks(currentUrl);
-                        UserDialogs.Instance.Toast("Bookmark removed successfully", _toastTimeSpan);
+                        UserDialogs.Instance.Toast(Constants.BookmarkRemovedSuccessfully, _toastTimeSpan);
                     }
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        UserDialogs.Instance.Toast("Failed to remove bookmark", _toastTimeSpan);
+                        UserDialogs.Instance.Toast(ErrorConstants.FailedtoRemoveBookmark, _toastTimeSpan);
                     }
                 });
             }
@@ -121,13 +124,13 @@ namespace SafeMobileBrowser.ViewModels
                     try
                     {
                         await BookmarkManager.AddBookmark(currentUrl);
-                        UserDialogs.Instance.Toast("Bookmark added successfully", _toastTimeSpan);
+                        UserDialogs.Instance.Toast(Constants.BookmarkAddedSuccessfully, _toastTimeSpan);
                         CheckIsBookmarkAvailable();
                     }
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        UserDialogs.Instance.Toast("Failed to add bookmark", _toastTimeSpan);
+                        UserDialogs.Instance.Toast(ErrorConstants.FailedtoAddBookmark, _toastTimeSpan);
                     }
                 });
             }
@@ -187,7 +190,10 @@ namespace SafeMobileBrowser.ViewModels
         {
             if (!App.IsConnectedToInternet)
             {
-                App.Current.MainPage.DisplayAlert("No internet connection", "Please connect to the internet", "Ok");
+                App.Current.MainPage.DisplayAlert(
+                    ErrorConstants.NoInternetConnectionTitle,
+                    ErrorConstants.NoInternetConnectionMsg,
+                    "Ok");
                 return;
             }
             var currentUrl = HomePageViewModel.CurrentUrl;

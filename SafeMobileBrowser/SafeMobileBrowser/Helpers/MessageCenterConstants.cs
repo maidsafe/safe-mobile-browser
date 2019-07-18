@@ -10,6 +10,8 @@
         public const string DisplayAlertMessage = "DisplayAlertMessage";
         public const string ReloadMessage = "ReloadMessage";
         public const string ResetHomePage = "ResetHomePage";
+        public const string ShowErrorPage = "ShowErrorPage";
+        public const string UpdateErrorMsg = "UpdateErrorMsg";
         public const string GoToHomePage = "GoToHomePage";
     }
 }
