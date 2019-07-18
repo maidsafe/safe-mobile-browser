@@ -183,22 +183,24 @@ namespace SafeMobileBrowser.Views
             }
         }
 
-        private void EntryUnfocused(object sender, FocusEventArgs e)
+        private async void EntryUnfocused(object sender, FocusEventArgs e)
         {
-            AddressBarButton.IsVisible = false;
-            AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicInOut);
-            SafeLabel.TranslateTo(0, 0, 250, Easing.CubicInOut);
-            SafeLabel.FadeTo(100, 250);
-            AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
+            await Device.InvokeOnMainThreadAsync(() =>
+            {
+                AddressBarButton.IsVisible = false;
+                SafeLabel.ScaleTo(1, 250, Easing.CubicOut);
+                SafeLabel.FadeTo(100, 250);
+                AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicOut);
+                AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
+            });
             _viewModel.AddressBarUnfocusCommand.Execute(null);
         }
 
         private void EntryFocused(object sender, FocusEventArgs e)
         {
             SafeLabel.FadeTo(0, 250);
-            SafeLabel.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
+            SafeLabel.ScaleTo(0, 250, Easing.CubicIn);
             AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
-            AddressBarEntry.WidthRequest += SafeLabel.WidthRequest;
             if (AddressBarEntry.Text.Length > 0)
             {
                 AddressBarEntry.SelectionLength = AddressBarEntry.Text.Length;
