@@ -296,7 +296,9 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                Uri.TryCreate(url, UriKind.Absolute, out Uri uri);
+                // Trying to generate a new Uri object from the string url.
+                // If failed it will show an invalid url page.
+                var uri = new Uri(url);
                 return true;
             }
             catch (UriFormatException ex)
