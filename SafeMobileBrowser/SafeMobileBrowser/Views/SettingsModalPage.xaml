@@ -79,6 +79,7 @@
                                 Grid.Column="1"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
+                                x:Name="AppThemeChangeSwitch"
                                 IsToggled="{Binding AppDarkMode}" />
                     </Grid>
                 </StackLayout>

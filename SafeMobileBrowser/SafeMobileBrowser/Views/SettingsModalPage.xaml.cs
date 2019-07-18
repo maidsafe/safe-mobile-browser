@@ -30,6 +30,7 @@ namespace SafeMobileBrowser.Views
             if (toggledEventArgs.Value)
             {
                 DisplayAlert("Dark Mode", "Coming soon", "Ok");
+                AppThemeChangeSwitch.IsToggled = false;
             }
         }
     }
