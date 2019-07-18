@@ -23,5 +23,9 @@
         public const string ConnectingProgressText = "Connecting to the SAFE Network";
         public const string BookmarkRemovedSuccessfully = "Bookmark removed successfully";
         public const string BookmarkAddedSuccessfully = "Bookmark added successfully";
+
+        // URL
+        public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";
+        public const string FaqUrl = "https://safenetforum.org/t/most-wanted-app-for-the-safe-network/";
     }
 }

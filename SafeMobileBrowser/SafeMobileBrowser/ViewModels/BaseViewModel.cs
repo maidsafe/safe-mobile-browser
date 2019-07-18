@@ -1,4 +1,5 @@
 ﻿using System;
+using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
@@ -12,6 +13,8 @@ namespace SafeMobileBrowser.ViewModels
         public AppService AppService => DependencyService.Get<AppService>();
 
         public AuthenticationService AuthService => DependencyService.Get<AuthenticationService>();
+
+        public INativeBrowserService OpenNativeBrowserService => DependencyService.Get<INativeBrowserService>();
 
         bool isBusy = false;
 

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using SafeMobileBrowser.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -20,13 +21,14 @@ namespace SafeMobileBrowser.ViewModels
         {
             _navigation = navigation;
             GoBackCommand = new Command(GoBackToHomePage);
-            FaqCommand = new Command(ShowNotImplementedDialog);
-            PrivacyInfoCommand = new Command(ShowNotImplementedDialog);
-        }
-
-        private void ShowNotImplementedDialog()
-        {
-            Application.Current.MainPage.DisplayAlert("Feature", "This feature not available yet.", "OK");
+            FaqCommand = new Command(() =>
+            {
+                OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.FaqUrl);
+            });
+            PrivacyInfoCommand = new Command(() =>
+            {
+                OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
+            });
         }
 
         private async void GoBackToHomePage()
