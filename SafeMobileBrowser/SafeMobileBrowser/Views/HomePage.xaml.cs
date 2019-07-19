@@ -128,6 +128,9 @@ namespace SafeMobileBrowser.Views
             if (App.AppSession == null)
                 await _viewModel.InitilizeSessionAsync();
 
+            if (App.AppSession != null && App.AppSession.IsDisconnected)
+                await App.AppSession.ReconnectAsync();
+
 #if DEV_BUILD
             if (Device.RuntimePlatform == Device.Android)
                 AddWebsiteList();
