@@ -48,7 +48,10 @@ namespace SafeMobileBrowser.Views
                 (sender) =>
                 {
                     _viewModel.IsNavigating = true;
-                    _viewModel.ReloadCommand.Execute(null);
+                    if (((UrlWebViewSource)HybridWebViewControl.Source).Url != _viewModel.WelcomePageUrl)
+                        _viewModel.ReloadCommand.Execute(null);
+                    else
+                        _viewModel.LoadUrl(_viewModel.AddressbarText);
                 });
             MessagingCenter.Subscribe<HomePageViewModel>(
                this,
