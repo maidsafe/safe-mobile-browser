@@ -54,19 +54,17 @@ namespace SafeMobileBrowser.Models
             try
             {
                 ReconnectBookmarkSession();
-                using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
+                var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
+                var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
+                var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
+                var entryValue = CreateBrowserStateJsonString(bookmarkUrl, decryptedValue);
+                var encryptedValue = await _session.MDataInfoActions.EncryptEntryValueAsync(_accesscontainerMdinfo, entryValue);
+                using (var mutateEntriesHandle = await _session.MDataEntryActions.NewAsync())
                 {
-                    var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
-                    var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
-                    var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
-                    var entryValue = CreateBrowserStateJsonString(bookmarkUrl, decryptedValue);
-                    var encryptedValue = await _session.MDataInfoActions.EncryptEntryValueAsync(_accesscontainerMdinfo, entryValue);
-                    using (var mutateEntriesHandle = await _session.MDataEntryActions.NewAsync())
-                    {
-                        await _session.MDataEntryActions.UpdateAsync(mutateEntriesHandle, encryptedKey, encryptedValue, version + 1);
-                        await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
-                    }
+                    await _session.MDataEntryActions.UpdateAsync(mutateEntriesHandle, encryptedKey, encryptedValue, version + 1);
+                    await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
                 }
+
                 _bookmarksList.Add(bookmarkUrl);
             }
             catch (FfiException ex)
@@ -136,24 +134,22 @@ namespace SafeMobileBrowser.Models
             {
                 ReconnectBookmarkSession();
                 var bookmarks = new List<string>();
-                using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
+                var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
+                var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
+
+                var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
+                var browserState = JObject.Parse(decryptedValue);
+                var bookmarksArray = (JArray)browserState["bookmarks"];
+
+                foreach (var item in bookmarksArray)
                 {
-                    var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
-                    var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
-
-                    var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
-                    var browserState = JObject.Parse(decryptedValue);
-                    var bookmarksArray = (JArray)browserState["bookmarks"];
-
-                    foreach (var item in bookmarksArray)
+                    var bookmark = item["url"].ToString();
+                    if (bookmark != "safe-auth://home/#/login")
                     {
-                        var bookmark = item["url"].ToString();
-                        if (bookmark != "safe-auth://home/#/login")
-                        {
-                            bookmarks.Add(bookmark);
-                        }
+                        bookmarks.Add(bookmark);
                     }
                 }
+
                 _bookmarksList = bookmarks;
             }
             catch (FfiException ex)
@@ -174,33 +170,30 @@ namespace SafeMobileBrowser.Models
             try
             {
                 ReconnectBookmarkSession();
-                using (var entriesHandle = await _session.MDataEntries.GetHandleAsync(_accesscontainerMdinfo))
+                var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
+                var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
+                var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
+                var browserState = JObject.Parse(decryptedValue);
+                var bookmarks = (JArray)browserState["bookmarks"];
+
+                var bookmarkToDelete = bookmarks.FirstOrDefault(b => b["url"].ToString().Equals(bookmark));
+
+                if (bookmarkToDelete != null)
                 {
-                    var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
-                    var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
-                    var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
-                    var browserState = JObject.Parse(decryptedValue);
-                    var bookmarks = (JArray)browserState["bookmarks"];
+                    bookmarks.Remove(bookmarkToDelete);
+                    browserState.Remove("bookmarks");
+                    browserState.Add("bookmarks", bookmarks);
 
-                    var bookmarkToDelete = bookmarks.FirstOrDefault(b => b["url"].ToString().Equals(bookmark));
+                    var newbrowserState = JsonConvert.SerializeObject(browserState);
 
-                    if (bookmarkToDelete != null)
+                    var encryptedValue = await _session.MDataInfoActions.EncryptEntryValueAsync(_accesscontainerMdinfo, newbrowserState.ToUtfBytes());
+                    using (var mutateEntriesHandle = await _session.MDataEntryActions.NewAsync())
                     {
-                        bookmarks.Remove(bookmarkToDelete);
-                        browserState.Remove("bookmarks");
-                        browserState.Add("bookmarks", bookmarks);
-
-                        var newbrowserState = JsonConvert.SerializeObject(browserState);
-
-                        var encryptedValue = await _session.MDataInfoActions.EncryptEntryValueAsync(_accesscontainerMdinfo, newbrowserState.ToUtfBytes());
-                        using (var mutateEntriesHandle = await _session.MDataEntryActions.NewAsync())
-                        {
-                            await _session.MDataEntryActions.UpdateAsync(mutateEntriesHandle, encryptedKey, encryptedValue, version + 1);
-                            await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
-                        }
+                        await _session.MDataEntryActions.UpdateAsync(mutateEntriesHandle, encryptedKey, encryptedValue, version + 1);
+                        await _session.MData.MutateEntriesAsync(_accesscontainerMdinfo, mutateEntriesHandle);
                     }
-                    _bookmarksList.Remove(bookmark);
                 }
+                _bookmarksList.Remove(bookmark);
             }
             catch (Exception ex)
             {
