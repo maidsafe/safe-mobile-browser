@@ -227,23 +227,30 @@ namespace SafeMobileBrowser.ViewModels
             switch (navigationBarIconString)
             {
                 case "Back":
-                    IsNavigating = true;
-                    GoBackCommand.Execute(null);
+                    if (CanGoBack)
+                    {
+                        IsNavigating = true;
+                        GoBackCommand.Execute(null);
+                    }
                     break;
                 case "Forward":
-                    IsNavigating = true;
-                    GoForwardCommand.Execute(null);
+                    if (CanGoForward)
+                    {
+                        IsNavigating = true;
+                        GoForwardCommand.Execute(null);
+                    }
                     break;
                 case "Focus":
                     AddressBarFocusCommand.Execute(null);
                     break;
                 case "Home":
-                    GoToHomePage();
+                    if (CanGoToHomePage)
+                    {
+                        GoToHomePage();
+                    }
                     break;
                 case "Menu":
                     ShowPopUpMenu();
-                    break;
-                default:
                     break;
             }
         }

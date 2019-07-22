@@ -258,7 +258,7 @@ namespace SafeMobileBrowser.ViewModels
                         }
                         break;
                     case "Share":
-                        if (HomePageViewModel.CurrentTitle != null && !HomePageViewModel.CurrentTitle.StartsWith("file://"))
+                        if (!string.IsNullOrWhiteSpace(HomePageViewModel.CurrentUrl) && HomePageViewModel.CurrentUrl.StartsWith("safe://"))
                         {
                             await Share.RequestAsync(new ShareTextRequest
                             {
