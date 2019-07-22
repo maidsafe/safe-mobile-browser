@@ -48,9 +48,11 @@ namespace SafeMobileBrowser
             // Handle when your app sleeps
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             // Handle when your app resumes
+            if (Device.RuntimePlatform == Device.iOS && AppSession != null && AppSession.IsDisconnected)
+                await AppSession.ReconnectAsync();
         }
     }
 }
