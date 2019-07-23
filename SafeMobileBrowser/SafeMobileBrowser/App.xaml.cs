@@ -1,5 +1,4 @@
-﻿using System;
-using SafeApp;
+﻿using SafeApp;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
@@ -22,15 +21,14 @@ namespace SafeMobileBrowser
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
 
-        async void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             if (e.NetworkAccess == NetworkAccess.Internet)
             {
                 IsConnectedToInternet = true;
-                if (App.AppSession == null)
-                    MessagingCenter.Send(this, MessageCenterConstants.InitialiseSession);
-                else
-                    await AppSession.ReconnectAsync();
+                MessagingCenter.Send(
+                    this,
+                    AppSession == null ? MessageCenterConstants.InitialiseSession : MessageCenterConstants.SessionReconnect);
             }
             else
             {
@@ -48,11 +46,11 @@ namespace SafeMobileBrowser
             // Handle when your app sleeps
         }
 
-        protected override async void OnResume()
+        protected override void OnResume()
         {
             // Handle when your app resumes
             if (Device.RuntimePlatform == Device.iOS && AppSession != null && AppSession.IsDisconnected)
-                await AppSession.ReconnectAsync();
+                MessagingCenter.Send(this, MessageCenterConstants.SessionReconnect);
         }
     }
 }

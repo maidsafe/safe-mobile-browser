@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
@@ -81,6 +82,13 @@ namespace SafeMobileBrowser.Views
                {
                    await _viewModel.InitilizeSessionAsync();
                });
+            MessagingCenter.Subscribe<App>(
+                this,
+                MessageCenterConstants.SessionReconnect,
+                async (sender) =>
+                {
+                    await ReconnectSessionAsync();
+                });
         }
 
         private void UpdateHTMLPageToShowError()
@@ -129,7 +137,7 @@ namespace SafeMobileBrowser.Views
                 await _viewModel.InitilizeSessionAsync();
 
             if (App.AppSession != null && App.AppSession.IsDisconnected)
-                await App.AppSession.ReconnectAsync();
+                await ReconnectSessionAsync();
 
 #if DEV_BUILD
             if (Device.RuntimePlatform == Device.Android)
@@ -137,11 +145,30 @@ namespace SafeMobileBrowser.Views
 #endif
         }
 
+        private async Task ReconnectSessionAsync()
+        {
+            try
+            {
+                using (Acr.UserDialogs.UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
+                {
+                    await App.AppSession.ReconnectAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                await DisplayAlert(ErrorConstants.ConnectionFailedTitle, ErrorConstants.ConnectionFailedMsg, "OK");
+            }
+        }
+
         ~HomePage()
         {
             MessagingCenter.Unsubscribe<App>(
                 this,
                 MessageCenterConstants.InitialiseSession);
+            MessagingCenter.Unsubscribe<App>(
+                this,
+                MessageCenterConstants.SessionReconnect);
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);

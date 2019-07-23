@@ -14,5 +14,6 @@
         public const string UpdateErrorMsg = "UpdateErrorMsg";
         public const string GoToHomePage = "GoToHomePage";
         public const string InitialiseSession = "InitialiseSession";
+        public const string SessionReconnect = "SessionReconnect";
     }
 }
