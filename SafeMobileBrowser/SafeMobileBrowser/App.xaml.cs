@@ -49,8 +49,12 @@ namespace SafeMobileBrowser
         protected override void OnResume()
         {
             // Handle when your app resumes
-            if (Device.RuntimePlatform == Device.iOS && AppSession != null && AppSession.IsDisconnected)
-                MessagingCenter.Send(this, MessageCenterConstants.SessionReconnect);
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                MessagingCenter.Send(
+                    this,
+                    AppSession == null ? MessageCenterConstants.InitialiseSession : MessageCenterConstants.SessionReconnect);
+            }
         }
     }
 }
