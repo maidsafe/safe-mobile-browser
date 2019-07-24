@@ -116,26 +116,44 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is AuthIpcMsg ipcMsg)
                     {
-                        using (UserDialogs.Instance.Loading("Connecting to the SAFE Network"))
+                        using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                         {
                             Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
                             AppService.InitialiseSession(session);
                             BookmarkManager.InitialiseSession(session);
-                            var bookmarksMDataInfo = await DependencyService.Get<AppService>().GetAccessContainerMdataInfoAsync();
+                            var bookmarksMDataInfo =
+                                await DependencyService.Get<AppService>().GetAccessContainerMdataInfoAsync();
                             DependencyService.Get<BookmarkManager>().SetMdInfo(bookmarksMDataInfo);
                             await DependencyService.Get<BookmarkManager>().FetchBookmarks();
                         }
                     }
                 }
             }
+            catch (FfiException ex)
+            {
+                Logger.Error(ex);
+                if (ex.ErrorCode != -106)
+                {
+                    if (ex.Message.Contains("AuthDenied"))
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                            ErrorConstants.AuthenticationFailedTitle,
+                            ErrorConstants.RequestDeniedMsg,
+                            "OK");
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                            ErrorConstants.AuthenticationFailedTitle,
+                            ErrorConstants.AuthenticationFailedMsg,
+                            "OK");
+                    }
+                }
+            }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                if (ex.Message.Contains("AuthDenied"))
-                    await Application.Current.MainPage.DisplayAlert("Authentication", $"Request not granted", "OK");
-                else
-                    await Application.Current.MainPage.DisplayAlert("Authentication", "Authentication Failed", "OK");
-                MessagingCenter.Send(this, MessageCenterConstants.AuthenticationFailed);
+                await Application.Current.MainPage.DisplayAlert("Authentication", "Authentication Failed", "OK");
             }
         }
 

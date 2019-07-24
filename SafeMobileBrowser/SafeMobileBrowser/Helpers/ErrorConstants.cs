@@ -25,6 +25,7 @@ namespace SafeMobileBrowser.Helpers
         public const string FailedtoAddBookmark = "Failed to add bookmark";
         public const string PageNotFound = "Page not found";
         public const string ErrorOccured = "Error occured";
+        public const string AuthenticationFailedTitle = "Authentication failed";
 
         // Error Messages
         public const string SessionNotAvailableMsg = "You are not connected to the SAFE Network.";
@@ -33,5 +34,7 @@ namespace SafeMobileBrowser.Helpers
         public const string ConnectionFailedMsg = "Could not connect to the SAFE Network. Try updating your IP address on invite server.";
         public const string BookmarkFetchFailedMsg = "Showing previously fetched bookmarks";
         public const string UnableToFetchDataMsg = "Unable to fetch data from the network.";
+        public const string RequestDeniedMsg = "Request not granted";
+        public const string AuthenticationFailedMsg = "Authentication failed";
     }
 }
