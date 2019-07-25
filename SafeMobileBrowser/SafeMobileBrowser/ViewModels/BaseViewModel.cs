@@ -13,12 +13,12 @@ namespace SafeMobileBrowser.ViewModels
 
         public AuthenticationService AuthService => DependencyService.Get<AuthenticationService>();
 
-        bool isBusy = false;
+        bool _isBusy;
 
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
 
         public bool IsNotBusy => !IsBusy;

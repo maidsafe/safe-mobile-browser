@@ -94,10 +94,10 @@ namespace SafeMobileBrowser.Views
         private void UpdateHTMLPageToShowError()
         {
             var errorData = GenerateErrorMessage(_viewModel.ErrorType);
-            var jsToEvaluate = $"javascript: ChangePageContent (" +
+            var jsToEvaluate = "javascript: ChangePageContent (" +
             $"'{errorData.Item1}'," +
             $"'{errorData.Item2}'," +
-            $" true)";
+            " true)";
 
             Logger.Info(jsToEvaluate);
             HybridWebViewControl.Eval(jsToEvaluate);
@@ -230,7 +230,7 @@ namespace SafeMobileBrowser.Views
             {
                 AddressBarButton.IsVisible = false;
                 SafeLabel.ScaleTo(1, 250, Easing.CubicOut);
-                SafeLabel.FadeTo(100, 250);
+                SafeLabel.FadeTo(100);
                 AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicOut);
                 AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
             });
@@ -240,7 +240,7 @@ namespace SafeMobileBrowser.Views
 
         private void EntryFocused(object sender, FocusEventArgs e)
         {
-            SafeLabel.FadeTo(0, 250);
+            SafeLabel.FadeTo(0);
             SafeLabel.ScaleTo(0, 250, Easing.CubicIn);
             AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
             if (AddressBarEntry.Text.Length > 0)

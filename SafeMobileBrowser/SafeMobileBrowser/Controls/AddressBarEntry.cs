@@ -14,8 +14,8 @@ namespace SafeMobileBrowser.Controls
 
         public ICommand AddressBarFocusCommand
         {
-            get { return (ICommand)GetValue(AddressBarFocusCommandProperty); }
-            set { SetValue(AddressBarFocusCommandProperty, value); }
+            get => (ICommand)GetValue(AddressBarFocusCommandProperty);
+            set => SetValue(AddressBarFocusCommandProperty, value);
         }
 
         public AddressBarEntry()

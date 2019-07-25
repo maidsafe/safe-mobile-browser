@@ -1,5 +1,4 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.Droid.ControlRenderers;
 using Xamarin.Forms;

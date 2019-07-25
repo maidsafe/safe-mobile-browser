@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
-             xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              mc:Ignorable="d"
              x:Name="BookmarkModalPage"
              x:Class="SafeMobileBrowser.Views.BookmarksModalPage"
@@ -60,7 +60,7 @@
                            HeightRequest="25">
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.ArrowLeft}"
+                                             Glyph="{x:Static icons:IconFont.ArrowLeft}"
                                              Size="30"
                                              Color="{StaticResource BookmarkDeleteIconColor}" />
                         </Image.Source>
@@ -94,7 +94,7 @@
                                    HorizontalOptions="End">
                                 <Image.Source>
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                     Glyph="{x:Static Icons:IconFont.Delete}"
+                                                     Glyph="{x:Static icons:IconFont.Delete}"
                                                      Size="30"
                                                      Color="{StaticResource BookmarkDeleteIconColor}" />
                                 </Image.Source>

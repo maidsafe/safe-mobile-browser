@@ -2,7 +2,6 @@
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SafeMobileBrowser.Views
 {

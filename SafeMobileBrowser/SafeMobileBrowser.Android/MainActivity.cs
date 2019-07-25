@@ -22,7 +22,7 @@ namespace SafeMobileBrowser.Droid
             DataScheme = Constants.AppId)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        readonly AuthenticationService authenticationService = new AuthenticationService();
+        private readonly AuthenticationService _authenticationService = new AuthenticationService();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,7 +57,7 @@ namespace SafeMobileBrowser.Droid
               {
                   try
                   {
-                      await authenticationService.ProcessAuthenticationResponseAsync(url);
+                      await _authenticationService.ProcessAuthenticationResponseAsync(url);
                   }
                   catch (Exception ex)
                   {

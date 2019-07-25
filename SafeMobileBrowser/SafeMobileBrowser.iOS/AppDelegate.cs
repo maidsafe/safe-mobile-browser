@@ -10,7 +10,7 @@ namespace SafeMobileBrowser.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
-        readonly AuthenticationService authenticationService = new AuthenticationService();
+        private readonly AuthenticationService _authenticationService = new AuthenticationService();
 
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
@@ -29,7 +29,7 @@ namespace SafeMobileBrowser.iOS
               {
                   try
                   {
-                      await authenticationService.ProcessAuthenticationResponseAsync(url.ToString());
+                      await _authenticationService.ProcessAuthenticationResponseAsync(url.ToString());
                       Logger.Info("IPC Msg Handling Completed");
                   }
                   catch (Exception ex)

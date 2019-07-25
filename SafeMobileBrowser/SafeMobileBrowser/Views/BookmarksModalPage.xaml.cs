@@ -26,7 +26,7 @@ namespace SafeMobileBrowser.Views
 
         protected override void OnDisappearing()
         {
-            // This will remove the exisitng items from the collectionview.
+            // This will remove the existing items from the collection view.
             // Once we have next XF version we can remove this.
             BindingContext = null;
             Device.BeginInvokeOnMainThread(() =>

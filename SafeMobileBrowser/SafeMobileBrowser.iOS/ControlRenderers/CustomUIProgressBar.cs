@@ -11,7 +11,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
 
         private readonly UIView _progressBarIndicator;
 
-        private bool _isAnimationRunning = false;
+        private bool _isAnimationRunning;
 
         public UIColor BackGroundProgressBarColor { get; set; } = UIColor.White;
 
@@ -50,12 +50,12 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
                 WidthForLinearBar = _screenSize.Width;
             }
 
-            if (UIDeviceOrientationExtensions.IsLandscape(UIDevice.CurrentDevice.Orientation))
+            if (UIDevice.CurrentDevice.Orientation.IsLandscape())
             {
                 Frame = new CGRect(Frame.X, Frame.Y, WidthForLinearBar, Frame.Height);
             }
 
-            if (UIDeviceOrientationExtensions.IsPortrait(UIDevice.CurrentDevice.Orientation))
+            if (UIDevice.CurrentDevice.Orientation.IsPortrait())
             {
                 Frame = new CGRect(Frame.X, Frame.Y, WidthForLinearBar, Frame.Height);
             }
@@ -68,7 +68,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
             if (!_isAnimationRunning)
             {
                 _isAnimationRunning = true;
-                UIView.Animate(
+                Animate(
                     0.5,
                     0,
                     UIViewAnimationOptions.TransitionFlipFromLeft,
@@ -88,7 +88,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
         {
             _isAnimationRunning = false;
 
-            UIView.Animate(0.5, () =>
+            Animate(0.5, () =>
             {
                 _progressBarIndicator.Frame = new CGRect(0, 0, WidthForLinearBar, 0);
                 Frame = new CGRect(0, Frame.Y, WidthForLinearBar, 0);
@@ -104,7 +104,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
         {
             _progressBarIndicator.Frame = new CGRect(0, 0, 0, HeightForLinearBar);
 
-            UIView.Animate(
+            Animate(
                 0.5,
                 0,
                 UIViewAnimationOptions.TransitionFlipFromLeft,
@@ -114,7 +114,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
                 },
                 null);
 
-            UIView.Animate(
+            Animate(
                 0.4,
                 0.4,
                 UIViewAnimationOptions.TransitionFlipFromLeft,

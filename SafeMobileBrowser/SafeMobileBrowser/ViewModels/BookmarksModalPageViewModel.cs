@@ -4,14 +4,13 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using SafeMobileBrowser.Helpers;
-using SafeMobileBrowser.Models;
 using Xamarin.Forms;
 
 namespace SafeMobileBrowser.ViewModels
 {
     public class BookmarksModalPageViewModel : BaseViewModel
     {
-        TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
+        readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
 
         public ICommand GoBackCommand { get; set; }
 
@@ -45,7 +44,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             Navigation = navigation;
             GoBackCommand = new Command(GoBackToHomePage);
-            DeleteBookmarkCommand = new Command(async (object obj) =>
+            DeleteBookmarkCommand = new Command(async obj =>
             {
                 await RemoveBookmark(obj);
             });
@@ -59,7 +58,7 @@ namespace SafeMobileBrowser.ViewModels
             {
                 if (!App.IsConnectedToInternet)
                 {
-                    await App.Current.MainPage.DisplayAlert(
+                    await Application.Current.MainPage.DisplayAlert(
                         ErrorConstants.NoInternetConnectionTitle,
                         ErrorConstants.NoInternetConnectionMsg,
                         "Ok");
@@ -93,7 +92,7 @@ namespace SafeMobileBrowser.ViewModels
 
                 if (!App.IsConnectedToInternet)
                 {
-                    await App.Current.MainPage.DisplayAlert(
+                    await Application.Current.MainPage.DisplayAlert(
                         ErrorConstants.NoInternetConnectionTitle,
                         ErrorConstants.BookmarkFetchFailedMsg,
                         "Ok");
@@ -110,7 +109,7 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await App.Current.MainPage.DisplayAlert(
+                await Application.Current.MainPage.DisplayAlert(
                     ErrorConstants.BookmarkFetchFailedTitle,
                     ErrorConstants.BookmarkFetchFailedMsg,
                     "Ok");

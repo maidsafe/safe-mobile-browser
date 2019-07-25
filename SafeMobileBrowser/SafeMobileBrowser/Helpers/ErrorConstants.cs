@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SafeMobileBrowser.Helpers
+﻿namespace SafeMobileBrowser.Helpers
 {
     public static class ErrorConstants
     {

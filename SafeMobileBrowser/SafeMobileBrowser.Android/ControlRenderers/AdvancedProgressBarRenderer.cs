@@ -40,10 +40,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
         private void UpdateProgressBar()
         {
             var progressbar = (AdvancedProgressBar)Element;
-            if (progressbar.IsRunning)
-                Control.Indeterminate = true;
-            else
-                Control.Indeterminate = false;
+            Control.Indeterminate = progressbar.IsRunning;
         }
     }
 }

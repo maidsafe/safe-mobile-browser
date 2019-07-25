@@ -4,6 +4,7 @@ using SafeApp;
 using SafeMobileBrowser.CustomAsyncCommand;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
+using Xamarin.Forms;
 
 namespace SafeMobileBrowser.ViewModels
 {
@@ -15,8 +16,8 @@ namespace SafeMobileBrowser.ViewModels
 
         public string ProgressText
         {
-            get { return _progressText; }
-            set { SetProperty(ref _progressText, value); }
+            get => _progressText;
+            set => SetProperty(ref _progressText, value);
         }
 
         public string StoredResponse { get; private set; }
@@ -41,10 +42,7 @@ namespace SafeMobileBrowser.ViewModels
 
         private void SetAuthenticationButtonText()
         {
-            if (StoredResponse == null)
-                AuthenticationButtonText = "Authorise";
-            else
-                AuthenticationButtonText = "Connect";
+            AuthenticationButtonText = StoredResponse == null ? "Authorise" : "Connect";
         }
 
         private bool CanExecute()
@@ -83,7 +81,7 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await App.Current.MainPage.DisplayAlert("Authentication Failed", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Authentication Failed", ex.Message, "OK");
             }
             finally
             {

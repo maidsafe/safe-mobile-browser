@@ -6,7 +6,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  mc:Ignorable="d"
                  x:Class="SafeMobileBrowser.Views.MenuPopUp"
-                 xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects"
+                 xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects"
                  BackgroundColor="Transparent"
                  x:Name="MenuPopUpPage"
                  HasSystemPadding="True">
@@ -46,7 +46,7 @@
                     Value="Center" />
         </Style>
         <Style x:Key="PopUpBottomMenubarIconFrameStyle"
-               TargetType="XamEffect:BorderView"
+               TargetType="xamEffect:BorderView"
                BasedOn="{StaticResource BottomMenubarIconFrameStyle}">
             <Setter Property="WidthRequest"
                     Value="80" />
@@ -72,9 +72,9 @@
                         <DataTemplate>
                             <Grid Style="{StaticResource PopupMenuItemGridStyle}"
                                   IsEnabled="{Binding IsEnabled}"
-                                  XamEffect:Commands.Tap="{Binding Source={x:Reference MenuPopUpPage}, Path=BindingContext.PopupMenuItemTappedCommand}"
-                                  XamEffect:Commands.TapParameter="{Binding MenuItemTitle}"
-                                  XamEffect:TouchEffect.Color="LightGray">
+                                  xamEffect:Commands.Tap="{Binding Source={x:Reference MenuPopUpPage}, Path=BindingContext.PopupMenuItemTappedCommand}"
+                                  xamEffect:Commands.TapParameter="{Binding MenuItemTitle}"
+                                  xamEffect:TouchEffect.Color="LightGray">
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid"
                                                  Binding="{Binding IsEnabled}"
@@ -108,10 +108,10 @@
                              Padding="10"
                              HeightRequest="30">
 
-                    <XamEffect:BorderView IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
-                                          XamEffect:TouchEffect.Color="LightGray"
+                    <xamEffect:BorderView IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
+                                          xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
-                                          XamEffect:Commands.Tap="{Binding RefreshWebViewCommand}"
+                                          xamEffect:Commands.Tap="{Binding RefreshWebViewCommand}"
                                           Margin="0"
                                           WidthRequest="80"
                                           HorizontalOptions="CenterAndExpand">
@@ -123,12 +123,12 @@
                                                  Color="{StaticResource NavigationIconColor}" />
                             </Image.Source>
                         </Image>
-                    </XamEffect:BorderView>
+                    </xamEffect:BorderView>
 
-                    <XamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
-                                          XamEffect:TouchEffect.Color="LightGray"
+                    <xamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
+                                          xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
-                                          XamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
+                                          xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
                         <Image>
                             <Image.Source>
                                 <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
@@ -137,7 +137,7 @@
                                                  Color="{StaticResource NavigationIconColor}" />
                             </Image.Source>
                         </Image>
-                    </XamEffect:BorderView>
+                    </xamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
         </Frame>

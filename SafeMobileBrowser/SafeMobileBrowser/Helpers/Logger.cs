@@ -137,7 +137,7 @@ namespace SafeMobileBrowser.Helpers
             }
             catch (Exception exc)
             {
-                RegisteredService.Log(LogType.INFO, string.Format("An error occured formatting the logging message: [{0}]", format), exc);
+                RegisteredService.Log(LogType.INFO, $"An error occured formatting the logging message: [{format}]", exc);
             }
 
             if (parameters[parameters.Length - 1] is Exception ex)

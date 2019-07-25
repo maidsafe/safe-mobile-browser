@@ -9,10 +9,7 @@
         public string MenuItemIcon
         {
             get => _menuItemIcon;
-            set
-            {
-                SetProperty(ref _menuItemIcon, value);
-            }
+            set => SetProperty(ref _menuItemIcon, value);
         }
 
         private bool _isEnabled;
@@ -21,10 +18,7 @@
         {
             get => _isEnabled;
 
-            set
-            {
-                SetProperty(ref _isEnabled, value);
-            }
+            set => SetProperty(ref _isEnabled, value);
         }
     }
 }

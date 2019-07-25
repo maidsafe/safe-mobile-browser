@@ -49,25 +49,25 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                         };
 
                         var task = WebFetchService.FetchResourceAsync(urlToFetch, options);
-                        var saferesponse = task.WaitAndUnwrapException();
+                        var safeResponse = task.WaitAndUnwrapException();
 
-                        var stream = new MemoryStream(saferesponse.Data);
-                        var response = new WebResourceResponse(saferesponse.MimeType, "UTF-8", stream);
+                        var stream = new MemoryStream(safeResponse.Data);
+                        var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         response.SetStatusCodeAndReasonPhrase(206, "Partial Content");
                         response.ResponseHeaders = new Dictionary<string, string>
                             {
                                 { "Accept-Ranges", "bytes" },
-                                { "content-type", saferesponse.MimeType },
-                                { "Content-Range", saferesponse.Headers["Content-Range"] },
-                                { "Content-Length", saferesponse.Headers["Content-Length"] },
+                                { "content-type", safeResponse.MimeType },
+                                { "Content-Range", safeResponse.Headers["Content-Range"] },
+                                { "Content-Length", safeResponse.Headers["Content-Length"] },
                             };
                         return response;
                     }
                     else
                     {
-                        var saferesponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
-                        var stream = new MemoryStream(saferesponse.Data);
-                        var response = new WebResourceResponse(saferesponse.MimeType, "UTF-8", stream);
+                        var safeResponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
+                        var stream = new MemoryStream(safeResponse.Data);
+                        var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         return response;
                     }
                 }

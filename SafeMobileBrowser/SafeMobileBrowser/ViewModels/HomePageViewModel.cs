@@ -24,8 +24,6 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand PageLoadCommand { get; private set; }
 
-        public ICommand ToolbarItemCommand { get; private set; }
-
         public Command BottomNavbarTapCommand { get; set; }
 
         public ICommand GoBackCommand { get; set; }
@@ -68,14 +66,6 @@ namespace SafeMobileBrowser.ViewModels
         {
             get => _isNavigating;
             set => SetProperty(ref _isNavigating, value);
-        }
-
-        private bool _pageLoading;
-
-        public bool IsPageLoading
-        {
-            get => _pageLoading;
-            set => SetProperty(ref _pageLoading, value);
         }
 
         private WebViewSource _url;
@@ -164,7 +154,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                string url = args.Url.ToString();
+                var url = args.Url;
                 SetAddressBarText(url);
 
                 if (!IsNavigating)
@@ -188,7 +178,7 @@ namespace SafeMobileBrowser.ViewModels
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await App.Current.MainPage.DisplayAlert(
+                await Application.Current.MainPage.DisplayAlert(
                    ErrorConstants.ConnectionFailedTitle,
                    ErrorConstants.ConnectionFailedMsg,
                    "OK");
@@ -278,10 +268,7 @@ namespace SafeMobileBrowser.ViewModels
                     return;
                 }
 
-                if (Device.RuntimePlatform == Device.iOS)
-                    url = $"safe://{url}";
-                else
-                    url = $"https://{url}";
+                url = Device.RuntimePlatform == Device.iOS ? $"safe://{url}" : $"https://{url}";
 
                 if (!IsValidUri(url))
                     return;

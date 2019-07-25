@@ -3,7 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:SafeMobileBrowser.Converters"
-             xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects">
+             xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects">
 
     <Application.Resources>
         <!--Global Styles-->
@@ -51,24 +51,28 @@
 
         <!-- SIZES -->
         <OnPlatform x:Key="SmallSize"
-                    x:TypeArguments="x:Double"
-                    Android="12"
-                    iOS="14" />
+                    x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="14" />
+            <On Platform="Android" Value="12" />
+        </OnPlatform>
 
         <OnPlatform x:Key="MediumSize"
-                    x:TypeArguments="x:Double"
-                    Android="14"
-                    iOS="16" />
+                    x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="16" />
+            <On Platform="Android" Value="14" />
+        </OnPlatform>
 
         <OnPlatform x:Key="LargeSize"
-                    x:TypeArguments="x:Double"
-                    Android="16"
-                    iOS="18" />
+                    x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="18" />
+            <On Platform="Android" Value="16" />
+        </OnPlatform>
 
         <OnPlatform x:Key="ExtraLargeSize"
-                    x:TypeArguments="x:Double"
-                    Android="18"
-                    iOS="20" />
+                    x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="20" />
+            <On Platform="Android" Value="18" />
+        </OnPlatform>
 
         <OnPlatform x:Key="MaterialFontFamily"
                     x:TypeArguments="x:String">
@@ -87,13 +91,14 @@
         </Style>
 
         <OnPlatform x:Key="FrameCornerRadius"
-                    x:TypeArguments="x:Double"
-                    iOS="10"
-                    Android="25" />
+                    x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="10" />
+            <On Platform="Android" Value="25" />
+        </OnPlatform>
 
-        <Style TargetType="XamEffect:BorderView"
+        <Style TargetType="xamEffect:BorderView"
                x:Key="BottomMenubarIconFrameStyle">
-            <Setter Property="XamEffect:TouchEffect.Color"
+            <Setter Property="xamEffect:TouchEffect.Color"
                     Value="DarkGray" />
             <Setter Property="Opacity"
                     Value="0.75" />
@@ -110,7 +115,7 @@
             <Setter Property="CornerRadius"
                     Value="{StaticResource FrameCornerRadius}" />
             <Style.Triggers>
-                <Trigger TargetType="XamEffect:BorderView"
+                <Trigger TargetType="xamEffect:BorderView"
                          Property="IsEnabled"
                          Value="False">
                     <Setter Property="Opacity"

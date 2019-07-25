@@ -12,8 +12,8 @@ namespace SafeMobileBrowser.Controls
 
         public bool IsRunning
         {
-            get { return (bool)GetValue(IsRunningProperty); }
-            set { SetValue(IsRunningProperty, value); }
+            get => (bool)GetValue(IsRunningProperty);
+            set => SetValue(IsRunningProperty, value);
         }
     }
 }

@@ -16,9 +16,9 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class MenuPopUpViewModel : BaseViewModel
     {
-        BookmarksModalPage _bookmarksModalPage;
-        SettingsModalPage _settingsModalPage;
-        TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
+        private readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
+        private BookmarksModalPage _bookmarksModalPage;
+        private SettingsModalPage _settingsModalPage;
 
         public INavigation Navigation { get; set; }
 
@@ -73,7 +73,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             if (!App.IsConnectedToInternet)
             {
-                App.Current.MainPage.DisplayAlert(
+                Application.Current.MainPage.DisplayAlert(
                     ErrorConstants.NoInternetConnectionTitle,
                     ErrorConstants.NoInternetConnectionMsg,
                     "Ok");
@@ -190,7 +190,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             if (!App.IsConnectedToInternet)
             {
-                App.Current.MainPage.DisplayAlert(
+                Application.Current.MainPage.DisplayAlert(
                     ErrorConstants.NoInternetConnectionTitle,
                     ErrorConstants.NoInternetConnectionMsg,
                     "Ok");

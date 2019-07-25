@@ -9,7 +9,7 @@ namespace SafeMobileBrowser.Helpers
 {
     public static class RequestHelpers
     {
-        // Generating encoded app request using appname, appid, vendor
+        // Generating encoded app request using app name, appid, vendor
         public static async Task<(uint, string)> GenerateEncodedAppRequestAsync()
         {
             Logger.Info("Generating application authentication request");
@@ -31,7 +31,7 @@ namespace SafeMobileBrowser.Helpers
 
         public static List<ByteRange> RangeStringToArray(string rangeString)
         {
-            List<ByteRange> byteRanges = new List<ByteRange>();
+            var byteRanges = new List<ByteRange>();
 
             var bytes = "bytes=";
             var rangeValues = rangeString.Remove(0, bytes.Length).Split(',');
@@ -39,22 +39,22 @@ namespace SafeMobileBrowser.Helpers
             foreach (var item in rangeValues)
             {
                 var part = item.Split('-');
-                var rangeitem = new ByteRange();
+                var byteRange = new ByteRange();
 
                 if (part.Length == 2)
                 {
                     if (part[1] == string.Empty)
                     {
-                        rangeitem.End = 0;
+                        byteRange.End = 0;
                     }
                     else
                     {
-                        rangeitem.End = (ulong)Convert.ToInt32(part[1]);
+                        byteRange.End = (ulong)Convert.ToInt32(part[1]);
                     }
                 }
-                rangeitem.Start = (ulong)Convert.ToInt32(part[0]);
+                byteRange.Start = (ulong)Convert.ToInt32(part[0]);
 
-                byteRanges.Add(rangeitem);
+                byteRanges.Add(byteRange);
             }
 
             return byteRanges;

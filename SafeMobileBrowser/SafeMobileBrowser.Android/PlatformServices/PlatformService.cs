@@ -26,7 +26,7 @@ namespace SafeMobileBrowser.Droid.PlatformServices
             bool result;
             try
             {
-                var aUri = Android.Net.Uri.Parse(uri.ToString());
+                var aUri = Android.Net.Uri.Parse(uri);
                 var intent = new Intent(Intent.ActionView, aUri);
                 intent.AddFlags(ActivityFlags.ClearTask);
                 intent.AddFlags(ActivityFlags.NewTask);

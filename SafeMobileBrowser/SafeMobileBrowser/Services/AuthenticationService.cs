@@ -74,7 +74,7 @@ namespace SafeMobileBrowser.Services
         {
             try
             {
-                var req = string.Empty;
+                string req;
                 if (isUnregistered)
                     (_, req) = await Session.EncodeUnregisteredRequestAsync(Constants.AppId);
                 else

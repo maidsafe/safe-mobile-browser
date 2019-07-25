@@ -8,12 +8,12 @@ using Newtonsoft.Json.Linq;
 using SafeApp;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
-using SafeMobileBrowser.Models;
+using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(BookmarkManager))]
 
-namespace SafeMobileBrowser.Models
+namespace SafeMobileBrowser.Services
 {
     public class BookmarkManager
     {

@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Foundation;
 using SafariServices;
-using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.iOS.PlatformServices;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;

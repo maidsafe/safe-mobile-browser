@@ -42,39 +42,39 @@ namespace SafeMobileBrowser.Controls
 
         public ICommand GoBackCommand
         {
-            get { return (ICommand)GetValue(GoBackCommandProperty); }
-            set { SetValue(GoBackCommandProperty, value); }
+            get => (ICommand)GetValue(GoBackCommandProperty);
+            set => SetValue(GoBackCommandProperty, value);
         }
 
         public ICommand GoForwardCommand
         {
-            get { return (ICommand)GetValue(GoForwardCommandProperty); }
-            set { SetValue(GoForwardCommandProperty, value); }
+            get => (ICommand)GetValue(GoForwardCommandProperty);
+            set => SetValue(GoForwardCommandProperty, value);
         }
 
         public ICommand ReloadCommand
         {
-            get { return (ICommand)GetValue(ReloadCommandProperty); }
-            set { SetValue(ReloadCommandProperty, value); }
+            get => (ICommand)GetValue(ReloadCommandProperty);
+            set => SetValue(ReloadCommandProperty, value);
         }
 
         public ICommand NavigatingCommand
         {
-            get { return (ICommand)GetValue(NavigatedCommandProperty); }
-            set { SetValue(NavigatedCommandProperty, value); }
+            get => (ICommand)GetValue(NavigatedCommandProperty);
+            set => SetValue(NavigatedCommandProperty, value);
         }
 
         public ICommand NavigatedCommand
         {
-            get { return (ICommand)GetValue(NavigatedCommandProperty); }
-            set { SetValue(NavigatedCommandProperty, value); }
+            get => (ICommand)GetValue(NavigatedCommandProperty);
+            set => SetValue(NavigatedCommandProperty, value);
         }
 
         public HybridWebView()
         {
-            GoBackCommand = new Command(() => GoBack());
-            GoForwardCommand = new Command(() => GoForward());
-            ReloadCommand = new Command(() => Reload());
+            GoBackCommand = new Command(GoBack);
+            GoForwardCommand = new Command(GoForward);
+            ReloadCommand = new Command(Reload);
         }
     }
 }

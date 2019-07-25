@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:XamEffects="clr-namespace:XamEffects;assembly=XamEffects"
-             xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+             xmlns:xamEffects="clr-namespace:XamEffects;assembly=XamEffects"
+             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
@@ -49,7 +49,7 @@
                                HeightRequest="25">
                             <Image.Source>
                                 <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{x:Static Icons:IconFont.ArrowLeft}"
+                                                 Glyph="{x:Static icons:IconFont.ArrowLeft}"
                                                  Size="30"
                                                  Color="{StaticResource NavigationIconColor}" />
                             </Image.Source>
@@ -91,8 +91,8 @@
                            Margin="16,0,16,10"
                            Style="{StaticResource TitleStyle}" />
 
-                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
-                                 XamEffects:Commands.Tap="{Binding FaqCommand}"
+                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                                 xamEffects:Commands.Tap="{Binding FaqCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
                         <Label Text="FAQs"
@@ -101,8 +101,8 @@
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
 
-                    <StackLayout XamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
-                                 XamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
+                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                                 xamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
                         <Label Text="Privacy statement"

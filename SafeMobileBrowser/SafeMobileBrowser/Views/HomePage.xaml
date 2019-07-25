@@ -6,13 +6,12 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
              BackgroundColor="White"
-             xmlns:XamEffect="clr-namespace:XamEffects;assembly=XamEffects"
-             xmlns:Icons="clr-namespace:SafeMobileBrowser.Models"
+             xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects"
+             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              Padding="0">
 
     <NavigationPage.TitleView>
-        <StackLayout x:Name="stackLayout"
-                     Padding="10,3"
+        <StackLayout Padding="10,3"
                      HorizontalOptions="FillAndExpand"
                      Orientation="Horizontal"
                      VerticalOptions="Start">
@@ -76,7 +75,7 @@
                         </Image.GestureRecognizers>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.Close}"
+                                             Glyph="{x:Static icons:IconFont.Close}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
@@ -138,84 +137,85 @@
                 <controls:ShadowBoxView ShadowType="Top"
                                         Grid.ColumnSpan="5" />
 
-                <XamEffect:BorderView Grid.Row="1"
+                <xamEffect:BorderView Grid.Row="1"
+                                      Grid.Column="0"
                                       IsEnabled="{Binding CanGoBack}"
-                                      XamEffect:TouchEffect.Color="LightGray"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
-                                      XamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
-                                      XamEffect:Commands.TapParameter="Back">
+                                      xamEffect:TouchEffect.Color="LightGray"
+                                      xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
+                                      xamEffect:Commands.TapParameter="Back">
                     <Image>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.ChevronLeft}"
+                                             Glyph="{x:Static icons:IconFont.ChevronLeft}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
-                </XamEffect:BorderView>
+                </xamEffect:BorderView>
 
-                <XamEffect:BorderView Grid.Column="1"
+                <xamEffect:BorderView Grid.Column="1"
                                       Grid.Row="1"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
                                       IsEnabled="{Binding CanGoForward}"
-                                      XamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
-                                      XamEffect:Commands.TapParameter="Forward"
-                                      XamEffect:TouchEffect.Color="LightGray">
+                                      xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
+                                      xamEffect:Commands.TapParameter="Forward"
+                                      xamEffect:TouchEffect.Color="LightGray">
                     <Image>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.ChevronRight}"
+                                             Glyph="{x:Static icons:IconFont.ChevronRight}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
-                </XamEffect:BorderView>
+                </xamEffect:BorderView>
 
-                <XamEffect:BorderView Grid.Column="2"
+                <xamEffect:BorderView Grid.Column="2"
                                       Grid.Row="1"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
-                                      XamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
-                                      XamEffect:Commands.TapParameter="Focus">
+                                      xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
+                                      xamEffect:Commands.TapParameter="Focus">
                     <Image>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.Magnify}"
+                                             Glyph="{x:Static icons:IconFont.Magnify}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
-                </XamEffect:BorderView>
+                </xamEffect:BorderView>
 
-                <XamEffect:BorderView Grid.Column="3"
+                <xamEffect:BorderView Grid.Column="3"
                                       Grid.Row="1"
                                       IsEnabled="{Binding CanGoToHomePage}"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
-                                      XamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
-                                      XamEffect:Commands.TapParameter="Home">
+                                      xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
+                                      xamEffect:Commands.TapParameter="Home">
                     <Image>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.Home}"
+                                             Glyph="{x:Static icons:IconFont.Home}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
-                </XamEffect:BorderView>
+                </xamEffect:BorderView>
 
-                <XamEffect:BorderView Grid.Column="4"
+                <xamEffect:BorderView Grid.Column="4"
                                       Grid.Row="1"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
-                                      XamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
-                                      XamEffect:Commands.TapParameter="Menu">
+                                      xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
+                                      xamEffect:Commands.TapParameter="Menu">
                     <Image>
                         <Image.Source>
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static Icons:IconFont.DotsVertical}"
+                                             Glyph="{x:Static icons:IconFont.DotsVertical}"
                                              Size="30"
                                              Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
-                </XamEffect:BorderView>
+                </xamEffect:BorderView>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
