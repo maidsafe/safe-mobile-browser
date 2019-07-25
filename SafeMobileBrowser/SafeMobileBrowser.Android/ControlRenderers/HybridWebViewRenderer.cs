@@ -25,6 +25,12 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             {
                 _webViewClient = GetHybridWebViewClient();
                 Control.SetWebViewClient(_webViewClient);
+                Control.Settings.SetSupportZoom(true);
+                if (Control.Settings.SupportZoom())
+                {
+                    Control.Settings.BuiltInZoomControls = true;
+                    Control.Settings.DisplayZoomControls = false;
+                }
                 Control.LoadUrl($"{AssetBaseUrl}index.html");
             }
         }
