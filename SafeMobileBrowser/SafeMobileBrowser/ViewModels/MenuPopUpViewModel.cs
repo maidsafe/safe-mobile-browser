@@ -230,7 +230,7 @@ namespace SafeMobileBrowser.ViewModels
                 await OnPopupMenuItemSelection(selectedMenuItemTitle);
             });
 
-            if (Device.RuntimePlatform == Device.iOS && selectedMenuItemTitle != "Share")
+            if (Device.RuntimePlatform == Device.Android || selectedMenuItemTitle != "Share")
                 await Navigation.PopPopupAsync(false);
         }
 
