@@ -229,7 +229,9 @@ namespace SafeMobileBrowser.ViewModels
             {
                 await OnPopupMenuItemSelection(selectedMenuItemTitle);
             });
-            await Navigation.PopPopupAsync(false);
+
+            if (Device.RuntimePlatform == Device.iOS && selectedMenuItemTitle != "Share")
+                await Navigation.PopPopupAsync(false);
         }
 
         private async Task OnPopupMenuItemSelection(string selectedMenuItemTitle)
