@@ -18,7 +18,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
             {
                 if (App.AppSession.IsDisconnected)
                 {
-                    throw new WebFetchException(ErrorConstants.SessionNotAvailableMsg);
+                    throw new WebFetchException(ErrorConstants.ConnectionFailedMsg);
                 }
 
                 return await webFetch.FetchAsync(url, options);
