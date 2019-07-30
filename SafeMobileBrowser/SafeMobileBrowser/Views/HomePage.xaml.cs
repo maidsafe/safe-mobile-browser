@@ -43,6 +43,13 @@ namespace SafeMobileBrowser.Views
                 {
                     _viewModel.LoadUrl(args);
                 });
+            MessagingCenter.Subscribe<App, string>(
+                this,
+                MessageCenterConstants.LoadSafeWebsite,
+                (sender, args) =>
+                {
+                    _viewModel.LoadUrl(args);
+                });
             MessagingCenter.Subscribe<MenuPopUpViewModel>(
                 this,
                 MessageCenterConstants.ReloadMessage,
@@ -87,7 +94,8 @@ namespace SafeMobileBrowser.Views
                 MessageCenterConstants.SessionReconnect,
                 async (sender) =>
                 {
-                    await ReconnectSessionAsync();
+                    if (App.AppSession.IsDisconnected)
+                        await ReconnectSessionAsync();
                 });
         }
 
@@ -169,6 +177,9 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Unsubscribe<App>(
                 this,
                 MessageCenterConstants.SessionReconnect);
+            MessagingCenter.Unsubscribe<App>(
+                this,
+                MessageCenterConstants.LoadSafeWebsite);
             MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
                 this,
                 MessageCenterConstants.BookmarkUrl);

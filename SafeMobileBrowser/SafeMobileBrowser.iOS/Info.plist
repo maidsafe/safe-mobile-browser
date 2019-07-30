@@ -43,10 +43,10 @@
 			<string>SafeMobileBrowser</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>net.maidsafe.mobilebrowser</string>
+				<string>safe</string>
 			</array>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleURLSchemes</key>

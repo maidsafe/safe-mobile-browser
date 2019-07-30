@@ -29,7 +29,15 @@ namespace SafeMobileBrowser.iOS
               {
                   try
                   {
-                      await _authenticationService.ProcessAuthenticationResponseAsync(url.ToString());
+                      var opendUrl = url.ToString();
+                      if (opendUrl.ToLower().StartsWith("safe://"))
+                      {
+                          MessagingCenter.Send((App)Xamarin.Forms.Application.Current, MessageCenterConstants.LoadSafeWebsite, opendUrl);
+                      }
+                      else if (opendUrl.StartsWith(Constants.AppId))
+                      {
+                          await _authenticationService.ProcessAuthenticationResponseAsync(opendUrl);
+                      }
                       Logger.Info("IPC Msg Handling Completed");
                   }
                   catch (Exception ex)
