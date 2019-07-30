@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
@@ -13,10 +14,14 @@ namespace SafeMobileBrowser.Views
         List<string> _websiteList;
         HomePageViewModel _viewModel;
         bool _isLogInitialised;
+        string _launchUrl;
 
-        public HomePage()
+        public HomePage([Optional]string url)
         {
             InitializeComponent();
+
+            if (Device.RuntimePlatform == Device.iOS && !string.IsNullOrWhiteSpace(url) && url.StartsWith("safe://"))
+                _launchUrl = url;
 
             HybridWebViewControl.Navigating += (s, e) =>
             {
@@ -142,7 +147,15 @@ namespace SafeMobileBrowser.Views
             }
 
             if (App.AppSession == null)
+            {
                 await _viewModel.InitilizeSessionAsync();
+
+                if (!string.IsNullOrWhiteSpace(_launchUrl))
+                {
+                    _viewModel.LoadUrl(_launchUrl);
+                    _launchUrl = null;
+                }
+            }
 
             if (App.AppSession != null && App.AppSession.IsDisconnected)
                 await ReconnectSessionAsync();

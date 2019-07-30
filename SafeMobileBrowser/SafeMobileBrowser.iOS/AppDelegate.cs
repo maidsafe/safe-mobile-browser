@@ -18,7 +18,17 @@ namespace SafeMobileBrowser.iOS
             Rg.Plugins.Popup.Popup.Init();
             XamEffects.iOS.Effects.Init();
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+
+            if (launchOptions != null)
+            {
+                var url = launchOptions["UIApplicationLaunchOptionsURLKey"] as NSUrl;
+                LoadApplication(new App(url.ToString()));
+            }
+            else
+            {
+                LoadApplication(new App());
+            }
+
             return base.FinishedLaunching(uiApplication, launchOptions);
         }
 

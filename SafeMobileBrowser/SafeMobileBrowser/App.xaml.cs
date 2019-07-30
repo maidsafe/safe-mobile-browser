@@ -1,4 +1,5 @@
-﻿using SafeApp;
+﻿using System.Runtime.InteropServices;
+using SafeApp;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
@@ -12,11 +13,11 @@ namespace SafeMobileBrowser
 
         public static bool IsConnectedToInternet { get; set; }
 
-        public App()
+        public App([Optional]string url)
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new HomePage()) { BarBackgroundColor = Color.White };
+            MainPage = new NavigationPage(new HomePage(url)) { BarBackgroundColor = Color.White };
             IsConnectedToInternet = Connectivity.NetworkAccess == NetworkAccess.Internet;
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
