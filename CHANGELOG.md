@@ -1,3 +1,24 @@
+## 0.1.1 - (2019-07-31)
+
+### Features
+
+* Open safe url in browser from any app in iOS (#145) ([76b2af7](https://github.com/ravinderjangra/safe-mobile-browser/commit/76b2af7)), closes [#145](https://github.com/ravinderjangra/safe-mobile-browser/issues/145)
+* Zooming in and out in Android  (#142) ([dea9f98](https://github.com/ravinderjangra/safe-mobile-browser/commit/dea9f98)), closes [#142](https://github.com/ravinderjangra/safe-mobile-browser/issues/142)
+
+### Bug Fixes
+
+* Update webfetch to load content from url with long path ([e0a998b](https://github.com/ravinderjangra/safe-mobile-browser/commit/e0a998b))
+* Share option in popup menu in iOS (#140) ([72c5aa3](https://github.com/ravinderjangra/safe-mobile-browser/commit/72c5aa3)), closes [#140](https://github.com/ravinderjangra/safe-mobile-browser/issues/140)
+* Strip url schema from address bar (#136) ([0be4c4b](https://github.com/ravinderjangra/safe-mobile-browser/commit/0be4c4b)), closes [#136](https://github.com/ravinderjangra/safe-mobile-browser/issues/136)
+* Check if the Sessions is not disconnected when fetching the web page (#148) ([b1c9584](https://github.com/ravinderjangra/safe-mobile-browser/commit/b1c9584)), closes [#148](https://github.com/ravinderjangra/safe-mobile-browser/issues/148)
+* Refactor browser code using resharper (#132) ([1f78142](https://github.com/ravinderjangra/safe-mobile-browser/commit/1f78142)), closes [#132](https://github.com/ravinderjangra/safe-mobile-browser/issues/132)
+* chore/browser: update MaidSafe.SafeApp package version (#138) ([5326e51](https://github.com/ravinderjangra/safe-mobile-browser/commit/5326e51)), closes [#138](https://github.com/ravinderjangra/safe-mobile-browser/issues/138)
+
+### Known Issues
+
+* Changing the device orientation while loaading the web page may cause app to freeze or crash.
+* Changing the device network connection between whitelisted and non-whilelisted IP network may cause app to feeze.
+
 ## 0.1.0 - (2019-07-24)
 
 * Integrate address bar (#25) ([8c0daa5](https://github.com/ravinderjangra/SafeMobileBrowser/commit/8c0daa5)), closes [#25](https://github.com/ravinderjangra/SafeMobileBrowser/issues/25)
