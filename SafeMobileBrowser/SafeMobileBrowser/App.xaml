@@ -6,11 +6,14 @@
              xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects">
 
     <Application.Resources>
+
+        <ResourceDictionary Source="Themes/LightTheme.xaml" />
+
         <!--Global Styles-->
-        <Color x:Key="PrimaryColor">#0078D7</Color>
+        <!--<Color x:Key="PrimaryColor">#0078D7</Color>
         <Color x:Key="SecondaryColor">#FFB900</Color>
 
-        <Color x:Key="PrimaryTextColor">#ffffff</Color>
+        <Color x:Key="PrimaryTextColor">#000000</Color>
         <Color x:Key="SecondaryTextColor">#1d1d1d</Color>
 
         <Color x:Key="ModalPageTitleIconColor">#1d1d1d</Color>
@@ -22,6 +25,13 @@
         <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
         <Color x:Key="GreySmokeDarkColor">#555555</Color>
         <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
+
+        <Color x:Key="ContentPageBackgroundColor">#ffffff</Color>
+        <Color x:Key="SafeLabelTextColor">#1B5E20</Color>
+
+        <Color x:Key="GrayFlippedColor">#757575</Color>
+        <Color x:Key="GrayUnFippedColor">#E0E0E0</Color>
+        <Color x:Key="FrameBackgroundColor">#F1F1F1</Color>-->
 
         <Style TargetType="StackLayout"
                x:Key="ModalPageTitleView">
@@ -42,7 +52,7 @@
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="TextColor"
-                    Value="{StaticResource SecondaryTextColor}" />
+                    Value="{DynamicResource SecondaryTextColor}" />
         </Style>
 
         <!-- CONVERTERS -->
@@ -85,9 +95,9 @@
         <!-- Control Styles -->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor"
-                    Value="{StaticResource PrimaryColor}" />
+                    Value="{DynamicResource ContentPageBackgroundColor}" />
             <Setter Property="BarTextColor"
-                    Value="{StaticResource PrimaryTextColor}" />
+                    Value="{DynamicResource ContentPageBackgroundColor}" />
         </Style>
 
         <OnPlatform x:Key="FrameCornerRadius"

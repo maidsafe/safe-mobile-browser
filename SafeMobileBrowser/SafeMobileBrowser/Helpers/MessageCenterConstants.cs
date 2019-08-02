@@ -16,5 +16,6 @@
         public const string InitialiseSession = "InitialiseSession";
         public const string SessionReconnect = "SessionReconnect";
         public const string LoadSafeWebsite = "LoadSafeWebsite";
+        public const string UpdateWelcomePageTheme = "UpdateWelcomePageTheme";
     }
 }

@@ -8,6 +8,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
+             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
              mc:Ignorable="d"
              x:Class="SafeMobileBrowser.Views.SettingsModalPage"
              ios:Page.UseSafeArea="true">
@@ -18,7 +19,7 @@
                 <Setter Property="FontSize"
                         Value="{StaticResource ExtraLargeSize}" />
                 <Setter Property="TextColor"
-                        Value="{StaticResource PrimaryColor}" />
+                        Value="{DynamicResource PrimaryColor}" />
             </Style>
             <Style x:Key="ItemStyle"
                    TargetType="Label">
@@ -30,7 +31,7 @@
                 <Setter Property="HeightRequest"
                         Value="0.5" />
                 <Setter Property="Color"
-                        Value="{StaticResource GreySmokeMediumColor}" />
+                        Value="{DynamicResource GreySmokeMediumColor}" />
             </Style>
             <Style x:Key="ExternalLinkStyle"
                    TargetType="StackLayout">
@@ -51,7 +52,7 @@
                                 <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                                  Glyph="{x:Static icons:IconFont.ArrowLeft}"
                                                  Size="30"
-                                                 Color="{StaticResource NavigationIconColor}" />
+                                                 Color="{DynamicResource NavigationIconColor}" />
                             </Image.Source>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
@@ -75,8 +76,7 @@
                         <Label Text="Dark Mode"
                                Style="{StaticResource ItemStyle}"
                                VerticalOptions="Center" />
-                        <Switch Toggled="OnDarkThemeToggled"
-                                Grid.Column="1"
+                        <Switch Grid.Column="1"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
                                 x:Name="AppThemeChangeSwitch"
@@ -91,7 +91,7 @@
                            Margin="16,0,16,10"
                            Style="{StaticResource TitleStyle}" />
 
-                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                    <StackLayout xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
                                  xamEffects:Commands.Tap="{Binding FaqCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
@@ -101,7 +101,7 @@
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
 
-                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                    <StackLayout xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
                                  xamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
@@ -117,7 +117,7 @@
                         <Label Text="{Binding ApplicationVersion}"
                                Margin="0,5,0,0"
                                Style="{StaticResource ItemStyle}"
-                               TextColor="{StaticResource GreySmokeMediumColor}"
+                               TextColor="{DynamicResource GreySmokeMediumColor}"
                                HorizontalOptions="Start" />
                     </StackLayout>
                 </StackLayout>

@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
-             BackgroundColor="White"
+             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
              xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects"
              xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              Padding="0">
@@ -17,7 +17,7 @@
                      VerticalOptions="Start">
 
             <Frame Padding="5,2"
-                   BackgroundColor="#F1F1F1"
+                   BackgroundColor="{DynamicResource FrameBackgroundColor}"
                    CornerRadius="10"
                    HasShadow="False"
                    HorizontalOptions="FillAndExpand">
@@ -35,7 +35,7 @@
                            BackgroundColor="Transparent"
                            FontSize="14"
                            Text="safe://"
-                           TextColor="DarkGreen"
+                           TextColor="{DynamicResource SafeLabelTextColor}"
                            VerticalOptions="Center" />
 
                     <controls:AddressBarEntry x:Name="AddressBarEntry"
@@ -43,13 +43,13 @@
                                               FontSize="14"
                                               HorizontalOptions="FillAndExpand"
                                               Placeholder="enter url"
-                                              PlaceholderColor="DarkGray"
+                                              PlaceholderColor="{DynamicResource GrayFlippedColor}"
                                               VerticalOptions="Center"
                                               IsSpellCheckEnabled="False"
                                               IsTextPredictionEnabled="False"
                                               Text="{Binding AddressbarText}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}"
-                                              ios:Entry.CursorColor="{StaticResource PrimaryColor}">
+                                              ios:Entry.CursorColor="{DynamicResource PrimaryColor}">
                         <controls:AddressBarEntry.Margin>
                             <OnPlatform x:TypeArguments="Thickness">
                                 <On Platform="iOS" Value="2,0,0,0" />
@@ -77,7 +77,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.Close}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </Grid>
@@ -144,7 +144,7 @@
                                       Grid.Column="0"
                                       IsEnabled="{Binding CanGoBack}"
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
-                                      xamEffect:TouchEffect.Color="LightGray"
+                                      xamEffect:TouchEffect.Color="{DynamicResource GrayUnFippedColor}"
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Back">
                     <Image>
@@ -152,7 +152,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.ChevronLeft}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </xamEffect:BorderView>
@@ -169,7 +169,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.ChevronRight}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </xamEffect:BorderView>
@@ -184,7 +184,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.Magnify}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </xamEffect:BorderView>
@@ -200,7 +200,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.Home}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </xamEffect:BorderView>
@@ -215,7 +215,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.DotsVertical}"
                                              Size="30"
-                                             Color="{StaticResource NavigationIconColor}" />
+                                             Color="{DynamicResource NavigationIconColor}" />
                         </Image.Source>
                     </Image>
                 </xamEffect:BorderView>

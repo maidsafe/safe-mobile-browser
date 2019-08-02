@@ -17,7 +17,7 @@ namespace SafeMobileBrowser
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new HomePage(url)) { BarBackgroundColor = Color.White };
+            MainPage = new NavigationPage(new HomePage(url));
             IsConnectedToInternet = Connectivity.NetworkAccess == NetworkAccess.Internet;
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }

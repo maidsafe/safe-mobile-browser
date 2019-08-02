@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
+             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
              xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              mc:Ignorable="d"
              x:Name="BookmarkModalPage"
@@ -45,7 +46,7 @@
             <Setter Property="FontSize"
                     Value="{StaticResource MediumSize}" />
             <Setter Property="TextColor"
-                    Value="{StaticResource GreySmokeDarkColor}" />
+                    Value="{DynamicResource GreySmokeDarkColor}" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
@@ -54,6 +55,7 @@
         <StackLayout>
             <StackLayout Spacing="0">
                 <StackLayout Orientation="Horizontal"
+                             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                              Style="{StaticResource ModalPageTitleView}">
                     <Image VerticalOptions="Center"
                            WidthRequest="25"
@@ -62,7 +64,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.ArrowLeft}"
                                              Size="30"
-                                             Color="{StaticResource BookmarkDeleteIconColor}" />
+                                             Color="{DynamicResource BookmarkDeleteIconColor}" />
                         </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
@@ -96,7 +98,7 @@
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                                      Glyph="{x:Static icons:IconFont.Delete}"
                                                      Size="30"
-                                                     Color="{StaticResource BookmarkDeleteIconColor}" />
+                                                     Color="{DynamicResource BookmarkDeleteIconColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"

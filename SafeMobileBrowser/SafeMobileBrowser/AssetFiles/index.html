@@ -76,6 +76,13 @@
             }
         }
 
+		function ChangeBackgroundColor(theme) {
+			if  (theme === '0')
+				document.body.style.backgroundColor = "#111";
+			else
+				document.body.style.backgroundColor = "#eee";
+		}
+
         function setWelcomePage() {
             if (document.getElementById("heading").innerHTML === 'ErrorHeading') {
                 ChangePageContent("Welcome", "Start browsing on the SAFE Network.", false);

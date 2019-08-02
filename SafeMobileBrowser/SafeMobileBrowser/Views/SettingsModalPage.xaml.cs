@@ -24,13 +24,9 @@ namespace SafeMobileBrowser.Views
             BindingContext = _viewModel;
         }
 
-        public void OnDarkThemeToggled(object sender, ToggledEventArgs toggledEventArgs)
+        public void OnToggled(object sender, ToggledEventArgs args)
         {
-            if (toggledEventArgs.Value)
-            {
-                DisplayAlert("Dark Mode", "Coming soon", "Ok");
-                AppThemeChangeSwitch.IsToggled = false;
-            }
+            _viewModel.ToggleThemeCommand.Execute(args.Value);
         }
     }
 }
