@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using SafeApp;
 using SafeMobileBrowser.Helpers;
+using SafeMobileBrowser.Themes;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ namespace SafeMobileBrowser
         public App([Optional]string url)
         {
             InitializeComponent();
-
+            ThemeHelper.LoadTheme();
             MainPage = new NavigationPage(new HomePage(url));
             IsConnectedToInternet = Connectivity.NetworkAccess == NetworkAccess.Internet;
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;

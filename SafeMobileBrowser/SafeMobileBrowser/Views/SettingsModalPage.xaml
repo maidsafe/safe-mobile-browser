@@ -80,7 +80,7 @@
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
                                 x:Name="AppThemeChangeSwitch"
-                                IsToggled="{Binding AppDarkMode}" />
+                                IsToggled="{Binding AppDarkMode, Mode=OneWayToSource}" />
                     </Grid>
                 </StackLayout>
                 <BoxView Style="{StaticResource BoxViewStyle}"

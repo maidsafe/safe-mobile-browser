@@ -31,8 +31,12 @@ namespace SafeMobileBrowser.ViewModels
             get => _appDarkMode;
             set
             {
-                SetProperty(ref _appDarkMode, value);
-                ThemeHelper.ToggleTheme(value ? ThemeHelper.AppThemeMode.Dark : ThemeHelper.AppThemeMode.Light);
+                var theme = Preferences.Get("CurrentAppTheme", 0) == 0 ? false : true;
+                if (value != theme)
+                {
+                    SetProperty(ref _appDarkMode, value);
+                    ThemeHelper.ToggleTheme(value ? ThemeHelper.AppThemeMode.Dark : ThemeHelper.AppThemeMode.Light);
+                }
             }
         }
 
@@ -49,7 +53,6 @@ namespace SafeMobileBrowser.ViewModels
                 OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
             });
 
-            // ToggleThemeCommand = new Command<bool>(ToggleTheme);
             var currentTheme = ThemeHelper.CurrentTheme();
             switch (currentTheme)
             {
@@ -59,16 +62,8 @@ namespace SafeMobileBrowser.ViewModels
                 case ThemeHelper.AppThemeMode.Dark:
                     AppDarkMode = true;
                     break;
-                default:
-                    break;
             }
         }
-
-        // private void ToggleTheme(bool obj)
-        // {
-        //    AppDarkMode = obj;
-        //    ThemeHelper.ToggleTheme(obj ? ThemeHelper.AppThemeMode.Dark : ThemeHelper.AppThemeMode.Light);
-        // }
 
         private async void GoBackToHomePage()
         {
