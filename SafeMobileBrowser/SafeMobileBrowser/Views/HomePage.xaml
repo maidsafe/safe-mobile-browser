@@ -100,12 +100,14 @@
                 <controls:HybridWebView x:Name="HybridWebViewControl"
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="FillAndExpand"
+                                        Source="{Binding Url, Mode=TwoWay}"
                                         CanGoBack="{Binding CanGoBack}"
                                         CanGoForward="{Binding CanGoForward}"
-                                        GoBackCommand="{Binding GoBackCommand, Mode=OneWayToSource}"
-                                        GoForwardCommand="{Binding GoForwardCommand, Mode=OneWayToSource}"
-                                        ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
-                                        Source="{Binding Url, Mode=TwoWay}" />
+                                        GoBackCommand="{Binding GoBackCommand}"
+                                        GoForwardCommand="{Binding GoForwardCommand}"
+                                        ReloadCommand="{Binding ReloadCommand}"
+                                        NavigatingCommand="{Binding WebViewNavigatingCommand}"
+                                        NavigatedCommand="{Binding WebViewNavigatedCommand}" />
 
                 <controls:AdvancedProgressBar IsRunning="{Binding IsNavigating}"
                                               IsVisible="{Binding IsNavigating}"

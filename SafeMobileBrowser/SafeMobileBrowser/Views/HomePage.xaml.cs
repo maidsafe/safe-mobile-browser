@@ -23,23 +23,10 @@ namespace SafeMobileBrowser.Views
             if (Device.RuntimePlatform == Device.iOS && !string.IsNullOrWhiteSpace(url) && url.StartsWith("safe://"))
                 _launchUrl = url;
 
-            HybridWebViewControl.Navigating += (s, e) =>
-            {
-                _viewModel.WebViewNavigatingCommand.Execute(e);
-            };
-
-            HybridWebViewControl.Navigated += (s, e) =>
-            {
-                _viewModel.WebViewNavigatedCommand.Execute(e);
-            };
-
-            AddressBarEntry.Focused += EntryFocused;
-            AddressBarEntry.Unfocused += EntryUnfocused;
-            AddressBarEntry.TextChanged += TextChanged;
-            AddressBarEntry.Completed += (s, e) =>
-            {
-                _viewModel.PageLoadCommand.Execute(null);
-            };
+            AddressBarEntry.Focused += AddressBarEntryFocused;
+            AddressBarEntry.Unfocused += AddressBarEntryUnfocused;
+            AddressBarEntry.TextChanged += AddressBarEntryTextChanged;
+            AddressBarEntry.Completed += AddressBarTextChangeCompleted;
 
             MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
                 this,
@@ -182,6 +169,78 @@ namespace SafeMobileBrowser.Views
             }
         }
 
+        private void AddWebsiteList()
+        {
+            if (ToolbarItems.Count != 0)
+                return;
+
+            if (_websiteList == null)
+                _websiteList = WebsiteList.GetWebsiteList();
+
+            foreach (var url in _websiteList)
+            {
+                var item = new ToolbarItem
+                {
+                    Order = ToolbarItemOrder.Secondary,
+                    Text = url,
+                    CommandParameter = url
+                };
+                item.SetBinding(MenuItem.CommandProperty, new Binding(nameof(_viewModel.PageLoadCommand)));
+                ToolbarItems.Add(item);
+            }
+        }
+
+        public void ClearAddressBar(object sender, EventArgs args)
+        {
+            _viewModel.IsAddressBarFocused = true;
+            AddressBarEntry.Unfocus();
+            AddressBarEntry.Text = string.Empty;
+            AddressBarEntry.Focus();
+        }
+
+        private void AddressBarEntryTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length > 0 && AddressBarEntry.IsFocused)
+            {
+                AddressBarButton.IsVisible = true;
+            }
+            else
+            {
+                AddressBarButton.IsVisible = false;
+            }
+        }
+
+        private async void AddressBarEntryUnfocused(object sender, FocusEventArgs e)
+        {
+            _viewModel.AddressBarUnfocusCommand.Execute(null);
+            await Device.InvokeOnMainThreadAsync(() =>
+            {
+                AddressBarButton.IsVisible = false;
+                SafeLabel.ScaleTo(1, 250, Easing.CubicOut);
+                SafeLabel.FadeTo(100);
+                AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicOut);
+                AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
+            });
+            _viewModel.IsAddressBarFocused = false;
+        }
+
+        private void AddressBarEntryFocused(object sender, FocusEventArgs e)
+        {
+            SafeLabel.FadeTo(0);
+            SafeLabel.ScaleTo(0, 250, Easing.CubicIn);
+            AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
+            if (AddressBarEntry.Text?.Length > 0)
+            {
+                AddressBarEntry.SelectionLength = AddressBarEntry.Text.Length;
+                AddressBarButton.IsVisible = true;
+            }
+        }
+
+        private void AddressBarTextChangeCompleted(object sender, EventArgs e)
+        {
+            _viewModel.PageLoadCommand.Execute(null);
+        }
+
         ~HomePage()
         {
             MessagingCenter.Unsubscribe<App>(
@@ -205,73 +264,6 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Unsubscribe<HomePageViewModel>(
                 this,
                 MessageCenterConstants.UpdateErrorMsg);
-        }
-
-        private void AddWebsiteList()
-        {
-            if (_websiteList == null)
-                _websiteList = WebsiteList.GetWebsiteList();
-
-            if (ToolbarItems.Count == 0)
-            {
-                foreach (var url in _websiteList)
-                {
-                    var item = new ToolbarItem
-                    {
-                        Order = ToolbarItemOrder.Secondary,
-                        Text = url,
-                        CommandParameter = url
-                    };
-                    item.SetBinding(MenuItem.CommandProperty, new Binding(nameof(_viewModel.PageLoadCommand)));
-                    ToolbarItems.Add(item);
-                }
-            }
-        }
-
-        public void ClearAddressBar(object sender, EventArgs args)
-        {
-            _viewModel.IsAddressBarFocused = true;
-            AddressBarEntry.Unfocus();
-            AddressBarEntry.Text = string.Empty;
-            AddressBarEntry.Focus();
-        }
-
-        private void TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (e.NewTextValue.Length > 0 && AddressBarEntry.IsFocused)
-            {
-                AddressBarButton.IsVisible = true;
-            }
-            else
-            {
-                AddressBarButton.IsVisible = false;
-            }
-        }
-
-        private async void EntryUnfocused(object sender, FocusEventArgs e)
-        {
-            _viewModel.AddressBarUnfocusCommand.Execute(null);
-            await Device.InvokeOnMainThreadAsync(() =>
-            {
-                AddressBarButton.IsVisible = false;
-                SafeLabel.ScaleTo(1, 250, Easing.CubicOut);
-                SafeLabel.FadeTo(100);
-                AddressBarEntry.TranslateTo(0, 0, 250, Easing.CubicOut);
-                AddressBarEntry.WidthRequest -= SafeLabel.WidthRequest;
-            });
-            _viewModel.IsAddressBarFocused = false;
-        }
-
-        private void EntryFocused(object sender, FocusEventArgs e)
-        {
-            SafeLabel.FadeTo(0);
-            SafeLabel.ScaleTo(0, 250, Easing.CubicIn);
-            AddressBarEntry.TranslateTo(-SafeLabel.Width, 0, 250, Easing.CubicIn);
-            if (AddressBarEntry.Text.Length > 0)
-            {
-                AddressBarEntry.SelectionLength = AddressBarEntry.Text.Length;
-                AddressBarButton.IsVisible = true;
-            }
         }
     }
 }

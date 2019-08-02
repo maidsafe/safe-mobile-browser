@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Acr.UserDialogs;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
-using SafeMobileBrowser.Models;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
 
@@ -166,9 +165,7 @@ namespace SafeMobileBrowser.Services
                     var decodeResult = await Session.DecodeIpcMessageAsync(encodedResponse);
                     if (decodeResult.GetType() == typeof(UnregisteredIpcMsg))
                     {
-                        var ipcMsg = decodeResult as UnregisteredIpcMsg;
-
-                        if (ipcMsg != null)
+                        if (decodeResult is UnregisteredIpcMsg ipcMsg)
                         {
                             App.AppSession = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
                         }

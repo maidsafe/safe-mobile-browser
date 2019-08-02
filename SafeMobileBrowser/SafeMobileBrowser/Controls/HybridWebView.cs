@@ -31,14 +31,14 @@ namespace SafeMobileBrowser.Controls
             typeof(ICommand),
             typeof(HybridWebView),
             null,
-            BindingMode.OneWayToSource);
+            BindingMode.Default);
 
         public static readonly BindableProperty NavigatedCommandProperty = BindableProperty.Create(
             nameof(NavigatedCommand),
             typeof(ICommand),
             typeof(HybridWebView),
             null,
-            BindingMode.OneWayToSource);
+            BindingMode.Default);
 
         public ICommand GoBackCommand
         {
@@ -60,8 +60,8 @@ namespace SafeMobileBrowser.Controls
 
         public ICommand NavigatingCommand
         {
-            get => (ICommand)GetValue(NavigatedCommandProperty);
-            set => SetValue(NavigatedCommandProperty, value);
+            get => (ICommand)GetValue(NavigatingCommandProperty);
+            set => SetValue(NavigatingCommandProperty, value);
         }
 
         public ICommand NavigatedCommand
@@ -75,6 +75,14 @@ namespace SafeMobileBrowser.Controls
             GoBackCommand = new Command(GoBack);
             GoForwardCommand = new Command(GoForward);
             ReloadCommand = new Command(Reload);
+            Navigated += (s, e) =>
+            {
+                NavigatedCommand?.Execute(e);
+            };
+            Navigating += (s, e) =>
+            {
+                NavigatingCommand?.Execute(e);
+            };
         }
     }
 }
