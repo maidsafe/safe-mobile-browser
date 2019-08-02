@@ -51,9 +51,28 @@ namespace SafeMobileBrowser.iOS.PlatformServices
             var destination = new NSUrl(url);
             var sfViewController = new SFSafariViewController(destination);
 
-            var window = UIApplication.SharedApplication.KeyWindow;
-            var controller = window.RootViewController;
+            var controller = GetVisibleViewController();
             controller.PresentViewController(sfViewController, true, null);
+        }
+
+        UIViewController GetVisibleViewController()
+        {
+            var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+
+            if (rootController.PresentedViewController == null)
+                return rootController;
+
+            if (rootController.PresentedViewController is UINavigationController)
+            {
+                return ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
+            }
+
+            if (rootController.PresentedViewController is UITabBarController)
+            {
+                return ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
+            }
+
+            return rootController.PresentedViewController;
         }
     }
 }
