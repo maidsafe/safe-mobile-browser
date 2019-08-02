@@ -2,6 +2,10 @@
 {
     public static class ErrorConstants
     {
+        public const int SessionNotAvailableError = 100;
+        public const int ConnectionFailedError = 101;
+        public const int NoInternetConnectionError = 102;
+
         public const string SessionNotAvailable = "SessionNotAvailable";
         public const string InvalidUrl = "InvalidUrl";
         public const string NoInternetConnection = "NoInternetConnection";

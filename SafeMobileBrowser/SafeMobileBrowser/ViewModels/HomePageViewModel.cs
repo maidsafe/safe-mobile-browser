@@ -261,21 +261,8 @@ namespace SafeMobileBrowser.ViewModels
                     return;
 
                 SetAddressBarText(url);
-                url = AddressbarText;
 
-                if (!App.IsConnectedToInternet)
-                {
-                    TriggerErrorState(ErrorConstants.NoInternetConnection);
-                    return;
-                }
-
-                if (!IsSessionAvailable)
-                {
-                    TriggerErrorState(ErrorConstants.SessionNotAvailable);
-                    return;
-                }
-
-                url = Device.RuntimePlatform == Device.iOS ? $"safe://{url}" : $"https://{url}";
+                url = Device.RuntimePlatform == Device.iOS ? $"safe://{AddressbarText}" : $"https://{AddressbarText}";
 
                 if (!IsValidUri(url))
                     return;

@@ -10,42 +10,74 @@ namespace SafeMobileBrowser.WebFetchImplementation
 {
     public static class WebFetchService
     {
-        private static readonly WebFetch webFetch = new WebFetch(App.AppSession);
+        private static readonly WebFetch WebFetch = new WebFetch(App.AppSession);
 
         public static async Task<WebFetchResponse> FetchResourceAsync(string url, WebFetchOptions options = null)
         {
             try
             {
-                if (App.AppSession.IsDisconnected)
+                if (!App.IsConnectedToInternet)
                 {
-                    throw new WebFetchException(ErrorConstants.ConnectionFailedMsg);
+                    throw new WebFetchException(
+                        ErrorConstants.NoInternetConnectionError,
+                        ErrorConstants.NoInternetConnection);
                 }
 
-                return await webFetch.FetchAsync(url, options);
+                if (WebFetch == null)
+                {
+                    throw new WebFetchException(
+                        ErrorConstants.SessionNotAvailableError,
+                        ErrorConstants.SessionNotAvailable);
+                }
+
+                if (App.AppSession.IsDisconnected)
+                {
+                    throw new WebFetchException(
+                        ErrorConstants.ConnectionFailedError,
+                        ErrorConstants.ConnectionFailed);
+                }
+
+                return await WebFetch.FetchAsync(url, options);
             }
             catch (WebFetchException ex)
             {
                 Logger.Error(ex);
 
-                var htmlString = await FileHelper.ReadAssetFileContentAsync("index.html");
-                if (ex.ErrorCode == WebFetchConstants.NoSuchData ||
-                ex.ErrorCode == WebFetchConstants.NoSuchEntry ||
-                ex.ErrorCode == WebFetchConstants.NoSuchPublicName ||
-                ex.ErrorCode == WebFetchConstants.NoSuchServiceName ||
-                ex.ErrorCode == WebFetchConstants.FileNotFound)
+                string htmlErrorPageString;
+                switch (ex.ErrorCode)
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.PageNotFound);
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ex.Message);
-                }
-                else
-                {
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.ErrorOccured);
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ex.Message);
+                    case WebFetchConstants.NoSuchData:
+                    case WebFetchConstants.NoSuchEntry:
+                    case WebFetchConstants.NoSuchPublicName:
+                    case WebFetchConstants.NoSuchServiceName:
+                    case WebFetchConstants.FileNotFound:
+                        htmlErrorPageString = await CreateHtmlErrorPage(ErrorConstants.PageNotFound, ex.Message);
+                        break;
+                    case ErrorConstants.SessionNotAvailableError:
+                        htmlErrorPageString = await CreateHtmlErrorPage(
+                            ErrorConstants.SessionNotAvailableTitle,
+                            ErrorConstants.SessionNotAvailableMsg);
+                        break;
+                    case ErrorConstants.ConnectionFailedError:
+                        htmlErrorPageString = await CreateHtmlErrorPage(
+                            ErrorConstants.ConnectionFailed,
+                            ErrorConstants.ConnectionFailedMsg);
+                        break;
+                    case ErrorConstants.NoInternetConnectionError:
+                        htmlErrorPageString = await CreateHtmlErrorPage(
+                            ErrorConstants.NoInternetConnectionTitle,
+                            ErrorConstants.NoInternetConnectionMsg);
+                        break;
+                    default:
+                        htmlErrorPageString = await CreateHtmlErrorPage(
+                            ErrorConstants.ErrorOccured,
+                            ex.Message);
+                        break;
                 }
 
                 return new WebFetchResponse
                 {
-                    Data = Encoding.ASCII.GetBytes(htmlString),
+                    Data = Encoding.ASCII.GetBytes(htmlErrorPageString),
                     MimeType = ErrorConstants.ErrorPageMimeType
                 };
             }
@@ -53,21 +85,23 @@ namespace SafeMobileBrowser.WebFetchImplementation
             {
                 Logger.Error(ex);
 
-                var htmlString = await FileHelper.ReadAssetFileContentAsync("index.html");
+                string htmlErrorPageString;
                 if (ex.ErrorCode == -11 &&
                     Connectivity.NetworkAccess != NetworkAccess.Internet)
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.NoInternetConnectionTitle);
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ErrorConstants.NoInternetConnectionMsg);
+                    htmlErrorPageString = await CreateHtmlErrorPage(
+                        ErrorConstants.NoInternetConnectionTitle,
+                        ErrorConstants.NoInternetConnectionMsg);
                 }
                 else
                 {
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, ErrorConstants.ErrorOccured);
-                    htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, ErrorConstants.UnableToFetchDataMsg);
+                    htmlErrorPageString = await CreateHtmlErrorPage(
+                        ErrorConstants.ErrorOccured,
+                        ErrorConstants.UnableToFetchDataMsg);
                 }
                 return new WebFetchResponse
                 {
-                    Data = Encoding.ASCII.GetBytes(htmlString),
+                    Data = Encoding.ASCII.GetBytes(htmlErrorPageString),
                     MimeType = ErrorConstants.ErrorPageMimeType
                 };
             }
@@ -76,6 +110,14 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 Logger.Error(ex);
                 throw;
             }
+        }
+
+        public static async Task<string> CreateHtmlErrorPage(string errorTitle, string errorMessage)
+        {
+            var htmlString = await FileHelper.ReadAssetFileContentAsync("index.html");
+            htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorHeadingText, errorTitle);
+            htmlString = ReplaceHtmlStringContent(htmlString, ErrorConstants.ErrorMessageText, errorMessage);
+            return htmlString;
         }
 
         public static string ReplaceHtmlStringContent(string htmlString, string find, string replaceString)

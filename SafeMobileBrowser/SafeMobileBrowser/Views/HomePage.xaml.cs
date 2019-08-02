@@ -122,12 +122,8 @@ namespace SafeMobileBrowser.Views
             {
                 case ErrorConstants.InvalidUrl:
                     return (ErrorConstants.InvalidUrlTitle, ErrorConstants.InvalidUrlMsg);
-                case ErrorConstants.SessionNotAvailable:
-                    return (ErrorConstants.SessionNotAvailableTitle, ErrorConstants.SessionNotAvailableMsg);
-                case ErrorConstants.NoInternetConnection:
-                    return (ErrorConstants.NoInternetConnectionTitle, ErrorConstants.NoInternetConnectionMsg);
                 default:
-                    return (ErrorConstants.NoInternetConnectionTitle, ErrorConstants.NoInternetConnectionMsg);
+                    return (ErrorConstants.ErrorOccured, ErrorConstants.UnableToFetchDataMsg);
             }
         }
 
