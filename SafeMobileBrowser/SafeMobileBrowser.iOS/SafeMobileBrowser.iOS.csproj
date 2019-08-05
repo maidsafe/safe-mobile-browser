@@ -65,9 +65,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ControlRenderers\AdvancedProgressBarRenderer.cs" />
     <Compile Include="ControlRenderers\CustomEntryRenderer.cs" />
-    <Compile Include="ControlRenderers\CustomUIProgressBar.cs" />
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\SafeSchemaHandler.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
