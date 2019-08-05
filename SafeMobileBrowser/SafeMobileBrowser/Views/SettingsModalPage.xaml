@@ -47,7 +47,7 @@
             <StackLayout Spacing="0">
                 <StackLayout Spacing="0">
                     <StackLayout Style="{StaticResource ModalPageTitleView}">
-                        <Image VerticalOptions="Center"
+                        <!--<Image VerticalOptions="Center"
                                WidthRequest="25"
                                HeightRequest="25">
                             <Image.Source>
@@ -59,7 +59,15 @@
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                             </Image.GestureRecognizers>
-                        </Image>
+                        </Image>-->
+                        <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                               Text="{x:Static icons:IconFont.ArrowLeft}"
+                               FontSize="30"
+                               TextColor="{DynamicResource NavigationIconColor}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Label Text="Settings"
                                Style="{StaticResource ModalPageTitleLabelStyle}" />
                     </StackLayout>

@@ -57,7 +57,7 @@
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                              Style="{StaticResource ModalPageTitleView}">
-                    <Image VerticalOptions="Center"
+                    <!--<Image VerticalOptions="Center"
                            WidthRequest="25"
                            HeightRequest="25">
                         <Image.Source>
@@ -69,7 +69,16 @@
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Image.GestureRecognizers>
-                    </Image>
+                    </Image>-->
+                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                           VerticalOptions="Center"
+                           Text="{x:Static icons:IconFont.ArrowLeft}"
+                           FontSize="30"
+                           TextColor="{DynamicResource BookmarkDeleteIconColor}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label Text="Bookmarks"
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                 </StackLayout>
@@ -92,7 +101,7 @@
                                    Style="{StaticResource BookmarkUrlStyle}"
                                    HorizontalOptions="StartAndExpand">
                             </Label>
-                            <Image Style="{StaticResource BookmarkRemoveIconStyle}"
+                            <!--<Image Style="{StaticResource BookmarkRemoveIconStyle}"
                                    HorizontalOptions="End">
                                 <Image.Source>
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
@@ -104,7 +113,16 @@
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
                                                           CommandParameter="{Binding}" />
                                 </Image.GestureRecognizers>
-                            </Image>
+                            </Image>-->
+                            <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                                   Text="{x:Static icons:IconFont.Delete}"
+                                   FontSize="30"
+                                   TextColor="{DynamicResource BookmarkDeleteIconColor}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
+                                                          CommandParameter="{Binding}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
