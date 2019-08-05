@@ -70,5 +70,7 @@
 	</dict>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1.1</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Mobile browser need to access to the photo library</string>
 </dict>
 </plist>
