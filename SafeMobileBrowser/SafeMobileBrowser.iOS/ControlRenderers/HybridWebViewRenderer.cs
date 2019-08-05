@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Foundation;
 using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.iOS.ControlRenderers;
@@ -46,6 +47,16 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
             var nsBaseUri = new NSUrl($"file://{BaseUrl}");
 
             ((WKWebView)NativeView).LoadFileUrl(nsFileUri, nsBaseUri);
+        }
+
+        public override void ObserveValue(NSString keyPath, NSObject ofObject, NSDictionary change, IntPtr context)
+        {
+            base.ObserveValue(keyPath, ofObject, change, context);
+
+            if (keyPath == "estimatedProgress")
+            {
+                ((HybridWebView) Element).ContentLoadProgress = ((WKWebView)NativeView).EstimatedProgress;
+            }
         }
     }
 }

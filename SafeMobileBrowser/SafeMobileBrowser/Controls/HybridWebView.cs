@@ -40,6 +40,19 @@ namespace SafeMobileBrowser.Controls
             null,
             BindingMode.OneWayToSource);
 
+        public static readonly BindableProperty ContentLoadProgressProperty = BindableProperty.Create(
+            nameof(ContentLoadProgress),
+            typeof(double),
+            typeof(HybridWebView),
+            default(double),
+            BindingMode.TwoWay);
+
+        public double ContentLoadProgress
+        {
+            get => (double)GetValue(ContentLoadProgressProperty);
+            set => SetValue(ContentLoadProgressProperty, value);
+        }
+
         public ICommand GoBackCommand
         {
             get => (ICommand)GetValue(GoBackCommandProperty);

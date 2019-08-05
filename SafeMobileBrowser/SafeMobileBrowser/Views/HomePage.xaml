@@ -107,12 +107,13 @@
                                         ReloadCommand="{Binding ReloadCommand, Mode=OneWayToSource}"
                                         Source="{Binding Url, Mode=TwoWay}" />
 
-                <controls:AdvancedProgressBar IsRunning="{Binding IsNavigating}"
-                                              IsVisible="{Binding IsNavigating}"
-                                              VerticalOptions="Start"
-                                              HeightRequest="5"
-                                              BackgroundColor="Transparent"
-                                              x:Name="AdvancedProgressbar" />
+                <ProgressBar x:Name="AdvancedProgressbar"
+                             IsVisible="{Binding IsNavigating}"
+                             VerticalOptions="Start"
+                             HeightRequest="5"
+                             BackgroundColor="WhiteSmoke"
+                             ProgressColor="{DynamicResource PrimaryColor}"
+                             Progress="{Binding Source={x:Reference HybridWebViewControl}, Path=ContentLoadProgress}" />
             </Grid>
 
             <Grid BackgroundColor="Transparent"

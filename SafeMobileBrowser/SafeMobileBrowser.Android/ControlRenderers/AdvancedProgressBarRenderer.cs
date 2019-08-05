@@ -2,6 +2,7 @@
 using Android.Content;
 using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.Droid.ControlRenderers;
+using SafeMobileBrowser.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -16,31 +17,14 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
         {
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<ProgressBar> e)
-        {
-            base.OnElementChanged(e);
-
-            if (Control != null)
-            {
-                Control.ScaleY = 4;
-                UpdateProgressBar();
-            }
-        }
-
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (e.PropertyName == AdvancedProgressBar.IsRunningProperty.PropertyName)
+            if (e.PropertyName == ProgressBar.ProgressProperty.PropertyName)
             {
-                UpdateProgressBar();
+                Logger.Info($"Load Progress: {Element.Progress}");
             }
-        }
-
-        private void UpdateProgressBar()
-        {
-            var progressbar = (AdvancedProgressBar)Element;
-            Control.Indeterminate = progressbar.IsRunning;
         }
     }
 }

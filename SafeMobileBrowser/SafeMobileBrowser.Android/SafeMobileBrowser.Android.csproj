@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="ControlRenderers\AdvancedProgressBarRenderer.cs" />
     <Compile Include="ControlRenderers\CustomEntryRenderer.cs" />
+    <Compile Include="ControlRenderers\HybridWebViewChromeClient.cs" />
     <Compile Include="ControlRenderers\HybridWebViewClient.cs" />
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
