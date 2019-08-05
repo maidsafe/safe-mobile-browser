@@ -49,8 +49,8 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
         {
             if (NativeView == null || Element == null)
                 return;
-
-            var path = Path.Combine(BaseUrl, "index.html");
+            var theme = Xamarin.Essentials.Preferences.Get("CurrentAppTheme", 0);
+            var path = Path.Combine(BaseUrl, $"index.html?{theme}");
             var nsFileUri = new NSUrl($"file://{path}");
             var nsBaseUri = new NSUrl($"file://{BaseUrl}");
 

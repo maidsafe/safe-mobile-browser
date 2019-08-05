@@ -43,7 +43,7 @@
                                               FontSize="14"
                                               HorizontalOptions="FillAndExpand"
                                               Placeholder="enter url"
-                                              PlaceholderColor="{DynamicResource GrayFlippedColor}"
+                                              PlaceholderColor="{DynamicResource GreySmokeMediumColor}"
                                               VerticalOptions="Center"
                                               IsSpellCheckEnabled="False"
                                               IsTextPredictionEnabled="False"

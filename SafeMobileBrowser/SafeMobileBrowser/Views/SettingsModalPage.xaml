@@ -25,6 +25,8 @@
                    TargetType="Label">
                 <Setter Property="FontSize"
                         Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{DynamicResource PrimaryTextColor}" />
             </Style>
             <Style x:Key="BoxViewStyle"
                    TargetType="BoxView">

@@ -84,12 +84,14 @@
 			}
 		}
 
-        function setWelcomePage() {
+        function setWelcomePage(theme) {
             if (document.getElementById("heading").innerHTML === 'ErrorHeading') {
                 ChangePageContent("Welcome", "Start browsing on the SAFE Network.", false);
             } else {
                 document.getElementById("safelogo").style.display = "none";
             }
+			var query = window.location.search.replace(/^\?/, "");
+			ChangeBackgroundColor(query);
         }
 
         function resetHomePage() {
