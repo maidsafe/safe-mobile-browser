@@ -71,6 +71,6 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1.1</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Mobile browser need to access to the photo library</string>
+	<string>Mobile browser needs access to the photo library to download/upload image(s).</string>
 </dict>
 </plist>
