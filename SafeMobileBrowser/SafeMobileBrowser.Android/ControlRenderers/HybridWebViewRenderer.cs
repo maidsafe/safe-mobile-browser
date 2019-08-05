@@ -40,16 +40,6 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             }
         }
 
-        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            base.OnElementPropertyChanged(sender, e);
-
-            if (e.PropertyName == HybridWebView.ContentLoadProgressProperty.PropertyName)
-            {
-                Logger.Info($"Content Load progress: {((HybridWebView)Element).ContentLoadProgress}");
-            }
-        }
-
         private HybridWebViewClient GetHybridWebViewClient()
         {
             return new HybridWebViewClient(this);
