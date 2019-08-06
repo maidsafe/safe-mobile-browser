@@ -91,10 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlRenderers\CustomEntryRenderer.cs" />
-    <Compile Include="ControlRenderers\HybridWebViewChromeClient.cs" />
+    <Compile Include="ControlRenderers\FontImageSourceHandler.cs" />
     <Compile Include="ControlRenderers\HybridWebViewClient.cs" />
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
+    <Compile Include="ControlRenderers\FontExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PlatformServices\PlatformService.cs" />
     <Compile Include="PlatformServices\GetAssetsFileData.cs" />
