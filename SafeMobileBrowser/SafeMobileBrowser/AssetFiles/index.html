@@ -79,8 +79,14 @@
 		function ChangeBackgroundColor(theme) {
 			if  (theme === "0") {
 				document.body.style.background = "#eee";
+				document.getElementById("errorHead").style.color = "black";
+				document.getElementById("message").style.color = "black";
+                document.getElementById("heading").style.color = "black";
 			} else {
 				document.body.style.background = "#111";
+				document.getElementById("errorHead").style.color = "white";
+				document.getElementById("message").style.color = "gray";
+                document.getElementById("heading").style.color = "gray";
 			}
 		}
 

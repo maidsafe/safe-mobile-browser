@@ -34,14 +34,12 @@
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
-        <Style TargetType="Image"
+        <Style TargetType="Label"
                x:Key="PopupMenuItemIconStyle">
             <Setter Property="HeightRequest"
                     Value="20" />
             <Setter Property="WidthRequest"
                     Value="20" />
-            <Setter Property="Aspect"
-                    Value="AspectFit" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
@@ -88,8 +86,9 @@
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
                                 <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                                       Style="{DynamicResource PopupMenuItemIconStyle}"
                                        Text="{Binding MenuItemIcon}"
-                                       FontSize="30"
+                                       FontSize="20"
                                        TextColor="{DynamicResource NavigationIconColor}" />
                                 <Label Grid.Column="1"
                                        Style="{StaticResource PopupMenuItemLabelStyle}"

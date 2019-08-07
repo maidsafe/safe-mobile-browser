@@ -11,7 +11,6 @@
 
         <Color x:Key="PrimaryColor">#0078D7</Color>
         <Color x:Key="SecondaryColor">#FFB900</Color>
-        <Color x:Key="SafeLabelTextColor">#1B5E20</Color>
 
         <Style TargetType="StackLayout"
                x:Key="ModalPageTitleView">

@@ -89,6 +89,15 @@ namespace SafeMobileBrowser.Views
                     if (App.AppSession.IsDisconnected)
                         await ReconnectSessionAsync();
                 });
+            MessagingCenter.Subscribe<App>(
+                this,
+                MessageCenterConstants.UpdateWelcomePageTheme,
+                async (sender) =>
+                {
+                    var theme = Xamarin.Essentials.Preferences.Get("CurrentAppTheme", 0);
+                    var jsToEvaluate = "ChangeBackgroundColor (" + $"'{theme}'" + ")";
+                    _ = await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
+                });
         }
 
         private void UpdateHTMLPageToShowError()
@@ -239,6 +248,9 @@ namespace SafeMobileBrowser.Views
 
         ~HomePage()
         {
+            MessagingCenter.Unsubscribe<App>(
+               this,
+               MessageCenterConstants.UpdateWelcomePageTheme);
             MessagingCenter.Unsubscribe<App>(
                 this,
                 MessageCenterConstants.InitialiseSession);
