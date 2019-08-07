@@ -4,10 +4,6 @@
                     xmlns:themes="clr-namespace:SafeMobileBrowser.Themes"
                     x:Class="SafeMobileBrowser.Themes.LightTheme">
 
-    <ResourceDictionary.MergedDictionaries>
-        <themes:ColorPalette />
-    </ResourceDictionary.MergedDictionaries>
-
     <Color x:Key="PrimaryTextColor">#000000</Color>
     <Color x:Key="SecondaryTextColor">#1d1d1d</Color>
 

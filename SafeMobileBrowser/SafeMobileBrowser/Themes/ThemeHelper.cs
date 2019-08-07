@@ -31,9 +31,17 @@ namespace SafeMobileBrowser.Themes
                 {
                     case AppThemeMode.Light:
                         mergedDictionaries.Add(new LightTheme());
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DependencyService.Get<IStatusBarStyleManager>().SetLightTheme();
+                        });
                         break;
                     case AppThemeMode.Dark:
                         mergedDictionaries.Add(new DarkTheme());
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DependencyService.Get<IStatusBarStyleManager>().SetDarkTheme();
+                        });
                         break;
                     default:
                         mergedDictionaries.Add(new LightTheme());

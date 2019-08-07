@@ -69,6 +69,7 @@
     <Compile Include="ControlRenderers\HybridWebViewRenderer.cs" />
     <Compile Include="ControlRenderers\SafeSchemaHandler.cs" />
     <Compile Include="ControlRenderers\ShadowBoxViewRenderer.cs" />
+    <Compile Include="ControlRenderers\StatusBarStyleManager.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
