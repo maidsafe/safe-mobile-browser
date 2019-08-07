@@ -87,14 +87,6 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
-                                <!--<Image Style="{StaticResource PopupMenuItemIconStyle}">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                         Glyph="{Binding MenuItemIcon}"
-                                                         Size="30"
-                                                         Color="{DynamicResource NavigationIconColor}" />
-                                    </Image.Source>
-                                </Image>-->
                                 <Label FontFamily="{DynamicResource MaterialFontFamily}"
                                        Text="{Binding MenuItemIcon}"
                                        FontSize="30"
@@ -119,14 +111,6 @@
                                           Margin="0"
                                           WidthRequest="80"
                                           HorizontalOptions="CenterAndExpand">
-                        <!--<Image>
-                            <Image.Source>
-                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
-                                                 Size="25"
-                                                 Color="{DynamicResource NavigationIconColor}" />
-                            </Image.Source>
-                        </Image>-->
                         <Label FontFamily="{DynamicResource MaterialFontFamily}"
                                Margin="30,0,0,0"
                                Text="{Binding ReloadMenuItem.MenuItemIcon}"
@@ -138,14 +122,6 @@
                                           xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
-                        <!--<Image>
-                            <Image.Source>
-                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
-                                                 Size="25"
-                                                 Color="{DynamicResource NavigationIconColor}" />
-                            </Image.Source>
-                        </Image>-->
                         <Label FontFamily="{DynamicResource MaterialFontFamily}"
                                Margin="30,0,0,0"
                                Text="{Binding BookmarkMenuItem.MenuItemIcon}"

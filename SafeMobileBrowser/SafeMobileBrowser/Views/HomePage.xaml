@@ -48,6 +48,7 @@
                                               IsSpellCheckEnabled="False"
                                               IsTextPredictionEnabled="False"
                                               Text="{Binding AddressbarText}"
+                                              TextColor="{DynamicResource SecondaryTextColor}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}"
                                               ios:Entry.CursorColor="{DynamicResource PrimaryColor}">
                         <controls:AddressBarEntry.Margin>

@@ -46,7 +46,7 @@
             <Setter Property="FontSize"
                     Value="{StaticResource MediumSize}" />
             <Setter Property="TextColor"
-                    Value="{DynamicResource GreySmokeDarkColor}" />
+                    Value="{DynamicResource SecondaryTextColor}" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
@@ -57,24 +57,11 @@
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                              Style="{StaticResource ModalPageTitleView}">
-                    <!--<Image VerticalOptions="Center"
-                           WidthRequest="25"
-                           HeightRequest="25">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:IconFont.ArrowLeft}"
-                                             Size="30"
-                                             Color="{DynamicResource BookmarkDeleteIconColor}" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>-->
                     <Label FontFamily="{DynamicResource MaterialFontFamily}"
                            VerticalOptions="Center"
                            Text="{x:Static icons:IconFont.ArrowLeft}"
                            FontSize="30"
-                           TextColor="{DynamicResource BookmarkDeleteIconColor}">
+                           TextColor="{DynamicResource NavigationIconColor}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
@@ -101,23 +88,10 @@
                                    Style="{StaticResource BookmarkUrlStyle}"
                                    HorizontalOptions="StartAndExpand">
                             </Label>
-                            <!--<Image Style="{StaticResource BookmarkRemoveIconStyle}"
-                                   HorizontalOptions="End">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                     Glyph="{x:Static icons:IconFont.Delete}"
-                                                     Size="30"
-                                                     Color="{DynamicResource BookmarkDeleteIconColor}" />
-                                </Image.Source>
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
-                                                          CommandParameter="{Binding}" />
-                                </Image.GestureRecognizers>
-                            </Image>-->
                             <Label FontFamily="{DynamicResource MaterialFontFamily}"
                                    Text="{x:Static icons:IconFont.Delete}"
                                    FontSize="30"
-                                   TextColor="{DynamicResource BookmarkDeleteIconColor}">
+                                   TextColor="{DynamicResource SecondaryTextColor}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
                                                           CommandParameter="{Binding}" />

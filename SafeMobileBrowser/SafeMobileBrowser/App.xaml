@@ -13,30 +13,6 @@
         <Color x:Key="SecondaryColor">#FFB900</Color>
         <Color x:Key="SafeLabelTextColor">#1B5E20</Color>
 
-        <!--Global Styles-->
-        <!--<Color x:Key="PrimaryColor">#0078D7</Color>
-        <Color x:Key="SecondaryColor">#FFB900</Color>
-
-        <Color x:Key="PrimaryTextColor">#000000</Color>
-        <Color x:Key="SecondaryTextColor">#1d1d1d</Color>
-
-        <Color x:Key="ModalPageTitleIconColor">#1d1d1d</Color>
-        <Color x:Key="NavigationIconColor">#000000</Color>
-        <Color x:Key="BookmarkDeleteIconColor">#555555</Color>
-
-        <Color x:Key="GreySnowLightColor">#eeeeee</Color>
-        <Color x:Key="GreySmokeLightColor">#c2c1c1</Color>
-        <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
-        <Color x:Key="GreySmokeDarkColor">#555555</Color>
-        <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
-
-        <Color x:Key="ContentPageBackgroundColor">#ffffff</Color>
-        <Color x:Key="SafeLabelTextColor">#1B5E20</Color>
-
-        <Color x:Key="GrayFlippedColor">#757575</Color>
-        <Color x:Key="GrayUnFippedColor">#E0E0E0</Color>
-        <Color x:Key="FrameBackgroundColor">#F1F1F1</Color>-->
-
         <Style TargetType="StackLayout"
                x:Key="ModalPageTitleView">
             <Setter Property="Orientation"
@@ -56,7 +32,7 @@
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="TextColor"
-                    Value="{DynamicResource SecondaryTextColor}" />
+                    Value="{DynamicResource PrimaryTextColor}" />
         </Style>
 
         <!-- CONVERTERS -->
