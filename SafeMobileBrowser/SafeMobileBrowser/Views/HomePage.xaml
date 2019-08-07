@@ -3,6 +3,7 @@
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
              BackgroundColor="White"
@@ -50,6 +51,7 @@
                                               Text="{Binding AddressbarText}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}"
                                               ios:Entry.CursorColor="{StaticResource PrimaryColor}">
+
                         <controls:AddressBarEntry.Margin>
                             <OnPlatform x:TypeArguments="Thickness">
                                 <On Platform="iOS" Value="2,0,0,0" />
@@ -107,7 +109,9 @@
                                         GoForwardCommand="{Binding GoForwardCommand}"
                                         ReloadCommand="{Binding ReloadCommand}"
                                         NavigatingCommand="{Binding WebViewNavigatingCommand}"
-                                        NavigatedCommand="{Binding WebViewNavigatedCommand}" />
+                                        NavigatedCommand="{Binding WebViewNavigatedCommand}"
+                                        android:WebView.EnableZoomControls="true"
+                                        android:WebView.DisplayZoomControls="False" />
 
                 <ProgressBar x:Name="AdvancedProgressbar"
                              IsVisible="{Binding IsNavigating}"
