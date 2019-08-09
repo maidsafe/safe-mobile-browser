@@ -72,7 +72,7 @@
                                   IsEnabled="{Binding IsEnabled}"
                                   xamEffect:Commands.Tap="{Binding Source={x:Reference MenuPopUpPage}, Path=BindingContext.PopupMenuItemTappedCommand}"
                                   xamEffect:Commands.TapParameter="{Binding MenuItemTitle}"
-                                  xamEffect:TouchEffect.Color="{DynamicResource GrayUnFippedColor}">
+                                  xamEffect:TouchEffect.Color="{DynamicResource SecondaryGrayColor}">
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid"
                                                  Binding="{Binding IsEnabled}"
@@ -98,13 +98,13 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
                 <BoxView HeightRequest="0.5"
-                         BackgroundColor="{DynamicResource GrayUnFippedColor}" />
+                         BackgroundColor="{DynamicResource BoxViewSyleColor}" />
                 <StackLayout Orientation="Horizontal"
                              Padding="10"
                              HeightRequest="30">
 
                     <xamEffect:BorderView IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
-                                          xamEffect:TouchEffect.Color="{DynamicResource GrayUnFippedColor}"
+                                          xamEffect:TouchEffect.Color="{DynamicResource SecondaryGrayColor}"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding RefreshWebViewCommand}"
                                           Margin="0"

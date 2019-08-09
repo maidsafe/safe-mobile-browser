@@ -18,10 +18,10 @@
     <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
     <Color x:Key="GreySmokeDarkColor">#555555</Color>
     <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
-
+    <Color x:Key="BoxViewSyleColor">#555555</Color>
     <Color x:Key="ContentPageBackgroundColor">#212121</Color>
-    <Color x:Key="GrayFlippedColor">#E0E0E0</Color>
-    <Color x:Key="GrayUnFippedColor">#757575</Color>
+    <Color x:Key="PrimaryGrayColor">#E0E0E0</Color>
+    <Color x:Key="SecondaryGrayColor">#757575</Color>
     <Color x:Key="FrameBackgroundColor">#5e5e5e</Color>
 </ResourceDictionary>
 

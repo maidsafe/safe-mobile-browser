@@ -33,7 +33,7 @@
                 <Setter Property="HeightRequest"
                         Value="0.5" />
                 <Setter Property="Color"
-                        Value="{DynamicResource GreySmokeMediumColor}" />
+                        Value="{DynamicResource BoxViewSyleColor}" />
             </Style>
             <Style x:Key="ExternalLinkStyle"
                    TargetType="StackLayout">
