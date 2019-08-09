@@ -31,16 +31,16 @@ namespace SafeMobileBrowser.Themes
                 {
                     case AppThemeMode.Light:
                         mergedDictionaries.Add(new LightTheme());
-                        DependencyService.Get<IStatusBarStyleManager>().SetLightTheme();
                         break;
                     case AppThemeMode.Dark:
                         mergedDictionaries.Add(new DarkTheme());
-                        DependencyService.Get<IStatusBarStyleManager>().SetDarkTheme();
                         break;
                     default:
                         mergedDictionaries.Add(new LightTheme());
                         break;
                 }
+
+                DependencyService.Get<INativeThemeManager>().ChangeAppTheme(theme);
                 MessagingCenter.Send((App)Application.Current, MessageCenterConstants.UpdateWelcomePageTheme);
             }
         }
@@ -58,7 +58,7 @@ namespace SafeMobileBrowser.Themes
         /// </summary>
         public static void LoadTheme()
         {
-            AppThemeMode currentTheme = CurrentTheme();
+            var currentTheme = CurrentTheme();
             ToggleTheme(currentTheme);
         }
 
