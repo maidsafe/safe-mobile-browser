@@ -18,7 +18,6 @@
     <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
 
     <Color x:Key="ContentPageBackgroundColor">#ffffff</Color>
-
     <Color x:Key="GrayFlippedColor">#757575</Color>
     <Color x:Key="GrayUnFippedColor">#E0E0E0</Color>
     <Color x:Key="FrameBackgroundColor">#F1F1F1</Color>

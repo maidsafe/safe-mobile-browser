@@ -114,7 +114,7 @@
                              IsVisible="{Binding IsNavigating}"
                              VerticalOptions="Start"
                              HeightRequest="5"
-                             BackgroundColor="WhiteSmoke"
+                             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                              ProgressColor="{DynamicResource PrimaryColor}"
                              Progress="{Binding Source={x:Reference HybridWebViewControl}, Path=ContentLoadProgress}" />
             </Grid>

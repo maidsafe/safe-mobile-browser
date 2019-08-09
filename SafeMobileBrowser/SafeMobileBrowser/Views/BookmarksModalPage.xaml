@@ -79,7 +79,8 @@
                 <CollectionView.EmptyView>
                     <Label HorizontalOptions="Center"
                            VerticalOptions="Center"
-                           Text="No bookmarks!" />
+                           Text="No bookmarks!" 
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
