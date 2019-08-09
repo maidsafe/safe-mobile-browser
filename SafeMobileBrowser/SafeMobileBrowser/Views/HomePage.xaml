@@ -139,6 +139,7 @@
                 </Grid.ColumnDefinitions>
 
                 <controls:ShadowBoxView ShadowType="Top"
+                                        IsVisible="{DynamicResource IsLightTheme}"
                                         Grid.ColumnSpan="5" />
 
                 <xamEffect:BorderView Grid.Row="1"

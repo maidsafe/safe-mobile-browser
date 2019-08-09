@@ -22,6 +22,8 @@
                     Value="20, 10" />
             <Setter Property="HeightRequest"
                     Value="34" />
+            <Setter Property="BackgroundColor"
+                    Value="{DynamicResource ContentPageBackgroundColor}" />
         </Style>
 
         <Style x:Key="ModalPageTitleLabelStyle"

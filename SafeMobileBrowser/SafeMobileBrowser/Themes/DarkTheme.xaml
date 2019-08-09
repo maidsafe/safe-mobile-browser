@@ -4,6 +4,8 @@
                     xmlns:themes="clr-namespace:SafeMobileBrowser.Themes"
                     x:Class="SafeMobileBrowser.Themes.DarkTheme">
 
+    <x:Boolean x:Key="IsLightTheme">false</x:Boolean>
+
     <!-- Dark theme primary colors -->
     <Color x:Key="PrimaryTextColor">#ffffff</Color>
     <Color x:Key="SecondaryTextColor">#cccaca</Color>
@@ -20,6 +22,7 @@
     <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
     <Color x:Key="BoxViewSyleColor">#555555</Color>
     <Color x:Key="ContentPageBackgroundColor">#212121</Color>
+    <Color x:Key="ModalPageBackgroundColor">#121212</Color>
     <Color x:Key="PrimaryGrayColor">#E0E0E0</Color>
     <Color x:Key="SecondaryGrayColor">#757575</Color>
     <Color x:Key="FrameBackgroundColor">#5e5e5e</Color>

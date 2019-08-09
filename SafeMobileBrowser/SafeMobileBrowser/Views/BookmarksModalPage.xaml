@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
-             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
+             BackgroundColor="{DynamicResource ModalPageBackgroundColor}"
              xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              mc:Ignorable="d"
              x:Name="BookmarkModalPage"
@@ -55,7 +55,6 @@
         <StackLayout>
             <StackLayout Spacing="0">
                 <StackLayout Orientation="Horizontal"
-                             BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                              Style="{StaticResource ModalPageTitleView}">
                     <Label FontFamily="{DynamicResource MaterialFontFamily}"
                            VerticalOptions="Center"
@@ -70,6 +69,7 @@
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"
+                                        IsVisible="{DynamicResource IsLightTheme}"
                                         HeightRequest="6" />
             </StackLayout>
             <CollectionView Margin="0"
