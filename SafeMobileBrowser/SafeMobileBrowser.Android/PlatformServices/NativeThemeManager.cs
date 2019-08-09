@@ -16,26 +16,30 @@ namespace SafeMobileBrowser.Droid.PlatformServices
             switch (theme)
             {
                 case ThemeHelper.AppThemeMode.Light:
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        var currentWindow = GetCurrentWindow();
+                        currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
+                        currentWindow.SetStatusBarColor(Android.Graphics.Color.White);
+                        if (!Xamarin.Essentials.Preferences.Get("AppOpenedNow", false))
                         {
-                            var currentWindow = GetCurrentWindow();
-                            currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-                            currentWindow.SetStatusBarColor(Android.Graphics.Color.White);
-                        });
-                    }
+                            CrossCurrentActivity.Current.Activity.SetTheme(Resource.Style.MainTheme);
+                        }
+                        Xamarin.Essentials.Preferences.Set("AppOpenedNow", false);
+                    });
                     break;
                 case ThemeHelper.AppThemeMode.Dark:
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        var currentWindow = GetCurrentWindow();
+                        currentWindow.DecorView.SystemUiVisibility = 0;
+                        currentWindow.SetStatusBarColor(Android.Graphics.Color.ParseColor("#212121"));
+                        if (!Xamarin.Essentials.Preferences.Get("AppOpenedNow", false))
                         {
-                            var currentWindow = GetCurrentWindow();
-                            currentWindow.DecorView.SystemUiVisibility = 0;
-                            currentWindow.SetStatusBarColor(Android.Graphics.Color.ParseColor("#212121"));
-                        });
-                    }
+                            CrossCurrentActivity.Current.Activity.SetTheme(Resource.Style.MainDarkTheme);
+                        }
+                        Xamarin.Essentials.Preferences.Set("AppOpenedNow", false);
+                    });
                     break;
             }
         }
