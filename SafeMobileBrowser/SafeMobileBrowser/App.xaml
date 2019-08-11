@@ -78,7 +78,7 @@
             <Setter Property="BarBackgroundColor"
                     Value="{DynamicResource ContentPageBackgroundColor}" />
             <Setter Property="BarTextColor"
-                    Value="{DynamicResource ContentPageBackgroundColor}" />
+                    Value="{DynamicResource PrimaryTextColor}" />
         </Style>
 
         <OnPlatform x:Key="FrameCornerRadius"

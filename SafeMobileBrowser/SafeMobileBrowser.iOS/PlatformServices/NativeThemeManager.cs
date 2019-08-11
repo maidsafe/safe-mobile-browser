@@ -1,4 +1,5 @@
-﻿using SafeMobileBrowser.iOS.PlatformServices;
+﻿using Foundation;
+using SafeMobileBrowser.iOS.PlatformServices;
 using SafeMobileBrowser.Themes;
 using UIKit;
 using Xamarin.Forms;
