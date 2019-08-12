@@ -64,7 +64,8 @@
                 <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
             </StackLayout>
-            <CollectionView ItemsSource="{Binding LogFiles}">
+            <CollectionView ItemsSource="{Binding LogFiles}"
+                            VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal" Padding="10">

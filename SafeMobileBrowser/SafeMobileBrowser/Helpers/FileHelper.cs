@@ -30,7 +30,7 @@ namespace SafeMobileBrowser.Helpers
                 await fileTransferService.TransferAssetsAsync(files);
                 Logger.Info("Assets transferred");
                 await Session.SetAdditionalSearchPathAsync(fileTransferService.ConfigFilesPath);
-                await Session.InitLoggingAsync();
+                await Session.InitLoggingAsync($"log-{DateTime.Now.ToString("MMddyyyy-HHmm")}.log");
                 return true;
             }
             catch (Exception ex)
