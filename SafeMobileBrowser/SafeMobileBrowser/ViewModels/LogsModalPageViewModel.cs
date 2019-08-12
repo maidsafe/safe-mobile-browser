@@ -21,7 +21,9 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand CopyLogFileContentCommand { get; }
 
-        public ICommand DeleteLogFilecommand { get; }
+        public ICommand DeleteLogFileCommand { get; }
+
+        public ICommand DeleteAllLogFileCommand { get; }
 
         private ObservableCollection<string> _logFiles;
 
@@ -38,12 +40,13 @@ namespace SafeMobileBrowser.ViewModels
                 _navigation = navigation;
                 GoBackCommand = new Command(GoBackToHomePage);
                 CopyLogFileContentCommand = new Command<string>(CopyLogFileContent);
-                DeleteLogFilecommand = new Command<string>(DeleteLogFile);
+                DeleteLogFileCommand = new Command<string>(DeleteLogFile);
+                DeleteAllLogFileCommand = new Command(DeleteAllLogFilesAsync);
 
                 if (LogFiles == null)
                     LogFiles = new ObservableCollection<string>();
 
-                var files = Directory.GetFiles(_logFilesPath, "*.log");
+                var files = Directory.GetFiles(_logFilesPath, "*.log").Reverse();
                 if (!files.Any())
                     return;
 
@@ -90,6 +93,46 @@ namespace SafeMobileBrowser.ViewModels
             {
                 Logger.Error(ex);
                 UserDialogs.Instance.Toast(ErrorConstants.FailedToCopyLogFileContent);
+            }
+        }
+
+        private async void DeleteAllLogFilesAsync()
+        {
+            try
+            {
+                var response = await Application.Current.MainPage.DisplayAlert(
+                     Constants.DeleteLogFilesAlertTitle,
+                     Constants.DeleteLogFilesAlertMsg,
+                     "Yes",
+                     "No");
+
+                if (!response)
+                    return;
+
+                var directory = new DirectoryInfo(_logFilesPath);
+                var lastModifiedFile = directory.GetFiles("*.log")
+                    .OrderByDescending(f => f.LastWriteTime)
+                    .FirstOrDefault()
+                    ?.Name;
+
+                foreach (var file in LogFiles)
+                {
+                    if (file == lastModifiedFile)
+                        continue;
+
+                    var logFileToDelete = Path.Combine(_logFilesPath, $"{file}.{_logFileExtension}");
+                    File.Delete(logFileToDelete);
+                }
+
+                LogFiles.Clear();
+                LogFiles.Add(lastModifiedFile);
+
+                UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                UserDialogs.Instance.Toast(ErrorConstants.FailedToDeleteLogFile);
             }
         }
 

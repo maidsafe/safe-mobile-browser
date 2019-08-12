@@ -25,6 +25,9 @@
         public const string BookmarkAddedSuccessfully = "Bookmark added successfully";
         public const string LogFileContentReadSuccessfully = "Log file content copied to clipboard";
         public const string LogFileDeleteSuccessfully = "Log file deleted";
+        public const string DeleteLogFilesAlertTitle = "Delete log files";
+        public const string DeleteLogFilesAlertMsg = "This will delete all the log files except the lastest one " +
+                                                     "which is currently used by the app";
 
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";

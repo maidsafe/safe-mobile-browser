@@ -58,8 +58,24 @@
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Image.GestureRecognizers>
                     </Image>
+                    
                     <Label Text="Logs"
+                           HorizontalOptions="StartAndExpand"
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
+                    <Image VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           WidthRequest="25"
+                           HeightRequest="25">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:IconFont.Delete}"
+                                             Size="30"
+                                             Color="{StaticResource NavigationIconColor}" />
+                        </Image.Source>
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DeleteAllLogFileCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
@@ -75,26 +91,26 @@
                                    HorizontalOptions="End">
                                 <Image.Source>
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{x:Static icons:IconFont.ContentCopy}"
-                                                 Size="30"
-                                                 Color="{StaticResource ActionIconColor}" />
+                                                     Glyph="{x:Static icons:IconFont.ContentCopy}"
+                                                     Size="30"
+                                                     Color="{StaticResource ActionIconColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding}"
-                                                      Command="{Binding Path=BindingContext.CopyLogFileContentCommand, Source={x:Reference LogsModelPage}}" />
+                                                          Command="{Binding Path=BindingContext.CopyLogFileContentCommand, Source={x:Reference LogsModelPage}}" />
                                 </Image.GestureRecognizers>
                             </Image>
                             <Image Style="{StaticResource ActionIconStyle}"
                                    HorizontalOptions="End">
                                 <Image.Source>
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{x:Static icons:IconFont.Delete}"
-                                                 Size="30"
-                                                 Color="{StaticResource ActionIconColor}" />
+                                                     Glyph="{x:Static icons:IconFont.Delete}"
+                                                     Size="30"
+                                                     Color="{StaticResource ActionIconColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteLogFilecommand, Source={x:Reference LogsModelPage}}"
-                                                      CommandParameter="{Binding}" />
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteLogFileCommand, Source={x:Reference LogsModelPage}}"
+                                                          CommandParameter="{Binding}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>
