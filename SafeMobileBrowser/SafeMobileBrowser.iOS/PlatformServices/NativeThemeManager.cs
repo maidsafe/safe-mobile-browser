@@ -17,27 +17,18 @@ namespace SafeMobileBrowser.iOS.PlatformServices
                 case ThemeHelper.AppThemeMode.Light:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default, false);
-                        GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+                        UIView statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+                        statusBar.BackgroundColor = UIColor.White;
                     });
                     break;
                 case ThemeHelper.AppThemeMode.Dark:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
-                        GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+                        UIView statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
+                        statusBar.BackgroundColor = UIColor.FromRGB(33, 33, 33);
                     });
                     break;
             }
-        }
-
-        UIViewController GetCurrentViewController()
-        {
-            var window = UIApplication.SharedApplication.KeyWindow;
-            var vc = window.RootViewController;
-            while (vc.PresentedViewController != null)
-                vc = vc.PresentedViewController;
-            return vc;
         }
     }
 }
