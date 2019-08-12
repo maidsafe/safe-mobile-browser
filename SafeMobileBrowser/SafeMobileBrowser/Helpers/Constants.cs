@@ -23,6 +23,8 @@
         public const string ConnectingProgressText = "Connecting to the SAFE Network";
         public const string BookmarkRemovedSuccessfully = "Bookmark removed successfully";
         public const string BookmarkAddedSuccessfully = "Bookmark added successfully";
+        public const string LogFileContentReadSuccessfully = "Log file content copied to clipboard";
+        public const string LogFileDeleteSuccessfully = "Log file deleted";
 
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";

@@ -26,6 +26,8 @@
         public const string PageNotFound = "Page not found";
         public const string ErrorOccured = "Error occured";
         public const string AuthenticationFailedTitle = "Authentication failed";
+        public const string FailedToDeleteLogFile = "Failed to delete log file";
+        public const string FailedToCopyLogFileContent = "Failed to copy log file content";
 
         // Error Messages
         public const string SessionNotAvailableMsg = "You are not connected to the SAFE Network.";

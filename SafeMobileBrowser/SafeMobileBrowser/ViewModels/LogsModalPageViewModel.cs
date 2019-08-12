@@ -65,12 +65,12 @@ namespace SafeMobileBrowser.ViewModels
                 var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}.{_logFileExtension}");
                 File.Delete(logFileToDelete);
                 LogFiles.Remove(fileName);
-                UserDialogs.Instance.Toast("Log file deleted");
+                UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                UserDialogs.Instance.Toast("Failed to delete log file");
+                UserDialogs.Instance.Toast(ErrorConstants.FailedToDeleteLogFile);
             }
         }
 
@@ -84,12 +84,12 @@ namespace SafeMobileBrowser.ViewModels
                 {
                     await Clipboard.SetTextAsync(logFileText);
                 });
-                UserDialogs.Instance.Toast("Log file content copied to clipboard");
+                UserDialogs.Instance.Toast(Constants.LogFileContentReadSuccessfully);
             }
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                UserDialogs.Instance.Toast("Failed to copy log file content");
+                UserDialogs.Instance.Toast(ErrorConstants.FailedToCopyLogFileContent);
             }
         }
 
