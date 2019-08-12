@@ -10,7 +10,7 @@ namespace SafeMobileBrowser.iOS.PlatformServices
 {
     public class NativeThemeManager : INativeThemeManager
     {
-        public void ChangeAppTheme(ThemeHelper.AppThemeMode theme)
+        public void ChangeAppTheme(ThemeHelper.AppThemeMode theme, bool onOpened)
         {
             switch (theme)
             {

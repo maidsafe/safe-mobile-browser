@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Themes;

@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Views;
+﻿using Android.Views;
 using Plugin.CurrentActivity;
 using SafeMobileBrowser.Droid.PlatformServices;
 using SafeMobileBrowser.Themes;
@@ -11,7 +10,7 @@ namespace SafeMobileBrowser.Droid.PlatformServices
 {
     public class NativeThemeManager : INativeThemeManager
     {
-        public void ChangeAppTheme(ThemeHelper.AppThemeMode theme)
+        public void ChangeAppTheme(ThemeHelper.AppThemeMode theme, bool onOpened)
         {
             switch (theme)
             {
@@ -21,11 +20,10 @@ namespace SafeMobileBrowser.Droid.PlatformServices
                         var currentWindow = GetCurrentWindow();
                         currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
                         currentWindow.SetStatusBarColor(Android.Graphics.Color.White);
-                        if (!Xamarin.Essentials.Preferences.Get("AppOpenedNow", false))
+                        if (!onOpened)
                         {
                             CrossCurrentActivity.Current.Activity.SetTheme(Resource.Style.MainTheme);
                         }
-                        Xamarin.Essentials.Preferences.Set("AppOpenedNow", false);
                     });
                     break;
                 case ThemeHelper.AppThemeMode.Dark:
@@ -34,11 +32,10 @@ namespace SafeMobileBrowser.Droid.PlatformServices
                         var currentWindow = GetCurrentWindow();
                         currentWindow.DecorView.SystemUiVisibility = 0;
                         currentWindow.SetStatusBarColor(Android.Graphics.Color.ParseColor("#212121"));
-                        if (!Xamarin.Essentials.Preferences.Get("AppOpenedNow", false))
+                        if (!onOpened)
                         {
                             CrossCurrentActivity.Current.Activity.SetTheme(Resource.Style.MainDarkTheme);
                         }
-                        Xamarin.Essentials.Preferences.Set("AppOpenedNow", false);
                     });
                     break;
             }

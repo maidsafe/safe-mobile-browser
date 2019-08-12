@@ -16,7 +16,6 @@ namespace SafeMobileBrowser
 
         public App([Optional]string url)
         {
-            Xamarin.Essentials.Preferences.Set("AppOpenedNow", true);
             InitializeComponent();
             ThemeHelper.LoadTheme();
             MainPage = new NavigationPage(new HomePage(url));

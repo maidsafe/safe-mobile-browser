@@ -17,7 +17,7 @@ namespace SafeMobileBrowser.Themes
         /// This also updates the local key storage value for the selected theme.
         /// </summary>
         /// <param name="theme"></param>
-        public static void ToggleTheme(AppThemeMode theme)
+        public static void ToggleTheme(AppThemeMode theme, bool onOpened = false)
         {
             var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             if (mergedDictionaries != null)
@@ -40,7 +40,7 @@ namespace SafeMobileBrowser.Themes
                         break;
                 }
 
-                DependencyService.Get<INativeThemeManager>().ChangeAppTheme(theme);
+                DependencyService.Get<INativeThemeManager>().ChangeAppTheme(theme, onOpened);
                 MessagingCenter.Send((App)Application.Current, MessageCenterConstants.UpdateWelcomePageTheme);
             }
         }
@@ -59,7 +59,7 @@ namespace SafeMobileBrowser.Themes
         public static void LoadTheme()
         {
             var currentTheme = CurrentTheme();
-            ToggleTheme(currentTheme);
+            ToggleTheme(currentTheme, true);
         }
 
         /// <summary>
