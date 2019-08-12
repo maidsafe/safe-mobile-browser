@@ -15,7 +15,7 @@
 
         <Color x:Key="ModalPageTitleIconColor">#1d1d1d</Color>
         <Color x:Key="NavigationIconColor">#000000</Color>
-        <Color x:Key="BookmarkDeleteIconColor">#555555</Color>
+        <Color x:Key="ActionIconColor">#555555</Color>
 
         <Color x:Key="GreySnowLightColor">#eeeeee</Color>
         <Color x:Key="GreySmokeLightColor">#c2c1c1</Color>

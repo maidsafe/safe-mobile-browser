@@ -8,9 +8,9 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
+             ios:Page.UseSafeArea="true"
              mc:Ignorable="d"
-             x:Class="SafeMobileBrowser.Views.SettingsModalPage"
-             ios:Page.UseSafeArea="true">
+             x:Class="SafeMobileBrowser.Views.SettingsModalPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="TitleStyle"
@@ -63,11 +63,13 @@
                     <controls:ShadowBoxView ShadowType="Bottom"
                                             HeightRequest="6" />
                 </StackLayout>
-                <StackLayout Padding="16, 10"
+                <StackLayout Margin="0, 10"
                              Spacing="15">
                     <Label Text="General"
+                           Margin="16,0,16,10"
                            Style="{StaticResource TitleStyle}" />
-                    <Grid x:Name="AutoReconnectLayout">
+                    <Grid x:Name="AutoReconnectLayout"
+                          Margin="16,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -82,6 +84,16 @@
                                 x:Name="AppThemeChangeSwitch"
                                 IsToggled="{Binding AppDarkMode}" />
                     </Grid>
+
+                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
+                                 xamEffects:Commands.Tap="{Binding OpenLogsPageCommand}"
+                                 Style="{StaticResource ExternalLinkStyle}">
+
+                        <Label Text="App logs"
+                               Margin="16,0"
+                               Style="{StaticResource ItemStyle}"
+                               VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
                 </StackLayout>
                 <BoxView Style="{StaticResource BoxViewStyle}"
                          Margin="0,15,0,0" />

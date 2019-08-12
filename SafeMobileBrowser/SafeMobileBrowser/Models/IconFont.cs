@@ -30,5 +30,6 @@
         public const string BookmarkOutline = "\uf0c3";
         public const string Settings = "\uf493";
         public const string Delete = "\uf1c0";
+        public const string ContentCopy = "\uf18f";
     }
 }

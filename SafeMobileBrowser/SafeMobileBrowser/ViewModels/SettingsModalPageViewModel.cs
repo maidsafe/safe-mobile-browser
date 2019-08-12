@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
+using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,9 +15,11 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand PrivacyInfoCommand { get; }
 
+        public ICommand OpenLogsPageCommand { get; }
+
         public string ApplicationVersion => AppInfo.VersionString;
 
-        public ICommand GoBackCommand { get; set; }
+        public ICommand GoBackCommand { get; }
 
         private readonly INavigation _navigation;
 
@@ -32,6 +35,7 @@ namespace SafeMobileBrowser.ViewModels
             {
                 OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
             });
+            OpenLogsPageCommand = new Command(() => { navigation.PushModalAsync(new LogsModalPage()); });
         }
 
         private async void GoBackToHomePage()

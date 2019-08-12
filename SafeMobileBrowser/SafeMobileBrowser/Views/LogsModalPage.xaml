@@ -3,14 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
+             xmlns:icons="clr-namespace:SafeMobileBrowser.Models;assembly=SafeMobileBrowser"
+             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls;assembly=SafeMobileBrowser"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
-             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
+             ios:Page.UseSafeArea="true"
              mc:Ignorable="d"
-             x:Name="BookmarkModalPage"
-             x:Class="SafeMobileBrowser.Views.BookmarksModalPage"
-             ios:Page.UseSafeArea="true">
+             x:Class="SafeMobileBrowser.Views.LogsModalPage"
+             x:Name="LogsModelPage">
     <ContentPage.Resources>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -28,7 +28,7 @@
             </Setter>
         </Style>
         <Style TargetType="Image"
-               x:Key="BookmarkRemoveIconStyle">
+               x:Key="ActionIconStyle">
             <Setter Property="VerticalOptions"
                     Value="Center" />
             <Setter Property="HorizontalOptions"
@@ -40,21 +40,11 @@
             <Setter Property="Opacity"
                     Value="0.75" />
         </Style>
-        <Style x:Key="BookmarkUrlStyle"
-               TargetType="Label">
-            <Setter Property="FontSize"
-                    Value="{StaticResource MediumSize}" />
-            <Setter Property="TextColor"
-                    Value="{StaticResource GreySmokeDarkColor}" />
-            <Setter Property="VerticalOptions"
-                    Value="Center" />
-        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Spacing="0">
             <StackLayout Spacing="0">
-                <StackLayout Orientation="Horizontal"
-                             Style="{StaticResource ModalPageTitleView}">
+                <StackLayout Style="{StaticResource ModalPageTitleView}">
                     <Image VerticalOptions="Center"
                            WidthRequest="25"
                            HeightRequest="25">
@@ -62,50 +52,56 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.ArrowLeft}"
                                              Size="30"
-                                             Color="{StaticResource ActionIconColor}" />
+                                             Color="{StaticResource NavigationIconColor}" />
                         </Image.Source>
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Image.GestureRecognizers>
                     </Image>
-                    <Label Text="Bookmarks"
+                    <Label Text="Logs"
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"
                                         HeightRequest="6" />
             </StackLayout>
-            <CollectionView Margin="0"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding SelectedBookmarkItem, Mode=TwoWay}"
-                            ItemsSource="{Binding Bookmarks}">
-                <CollectionView.EmptyView>
-                    <Label HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           Text="No bookmarks!" />
-                </CollectionView.EmptyView>
+            <CollectionView ItemsSource="{Binding LogFiles}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="15, 10" Orientation="Horizontal">
-                            <Label Text="{Binding}"
-                                   Style="{StaticResource BookmarkUrlStyle}"
-                                   HorizontalOptions="StartAndExpand">
-                            </Label>
-                            <Image Style="{StaticResource BookmarkRemoveIconStyle}"
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Label Text="{Binding .}"
+                                   HorizontalOptions="StartAndExpand" />
+                            <Image Style="{StaticResource ActionIconStyle}"
                                    HorizontalOptions="End">
                                 <Image.Source>
                                     <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                     Glyph="{x:Static icons:IconFont.Delete}"
-                                                     Size="30"
-                                                     Color="{StaticResource ActionIconColor}" />
+                                                 Glyph="{x:Static icons:IconFont.ContentCopy}"
+                                                 Size="30"
+                                                 Color="{StaticResource ActionIconColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
-                                                          CommandParameter="{Binding}" />
+                                    <TapGestureRecognizer CommandParameter="{Binding}"
+                                                      Command="{Binding Path=BindingContext.CopyLogFileContentCommand, Source={x:Reference LogsModelPage}}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Style="{StaticResource ActionIconStyle}"
+                                   HorizontalOptions="End">
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
+                                                 Glyph="{x:Static icons:IconFont.Delete}"
+                                                 Size="30"
+                                                 Color="{StaticResource ActionIconColor}" />
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteLogFilecommand, Source={x:Reference LogsModelPage}}"
+                                                      CommandParameter="{Binding}" />
                                 </Image.GestureRecognizers>
                             </Image>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label Text="No logs files!!!" HorizontalOptions="Center" Margin="10" />
+                </CollectionView.EmptyView>
             </CollectionView>
         </StackLayout>
     </ContentPage.Content>
