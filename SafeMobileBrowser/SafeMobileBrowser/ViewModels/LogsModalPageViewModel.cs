@@ -66,6 +66,17 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
+                var directory = new DirectoryInfo(_logFilesPath);
+                var lastModifiedFile = directory.GetFiles("*.log")
+                    .OrderByDescending(f => f.LastWriteTime)
+                    .FirstOrDefault()
+                    ?.Name
+                    .Replace(".log", string.Empty);
+                if (lastModifiedFile == fileName)
+                {
+                    UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
+                    return;
+                }
                 var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}.{_logFileExtension}");
                 File.Delete(logFileToDelete);
                 LogFiles.Remove(fileName);
@@ -101,6 +112,12 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
+                if (LogFiles.Count < 2)
+                {
+                    UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
+                    return;
+                }
+
                 var response = await Application.Current.MainPage.DisplayAlert(
                      Constants.DeleteLogFilesAlertTitle,
                      Constants.DeleteLogFilesAlertMsg,

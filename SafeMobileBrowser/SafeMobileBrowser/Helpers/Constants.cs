@@ -29,6 +29,8 @@
         public const string DeleteLogFilesAlertMsg = "This will delete all the log files except the lastest one " +
                                                      "which is currently used by the app";
 
+        public const string CurrentLogFile = "Current log file cannot be deleted";
+
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";
         public const string FaqUrl = "https://safenetforum.org/t/safe-mobile-browser-faqs/";
