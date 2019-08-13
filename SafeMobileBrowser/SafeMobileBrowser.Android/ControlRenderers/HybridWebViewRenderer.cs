@@ -36,8 +36,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                     Control.Settings.BuiltInZoomControls = true;
                     Control.Settings.DisplayZoomControls = false;
                 }
-                var theme = Xamarin.Essentials.Preferences.Get("CurrentAppTheme", 0);
-                Control.LoadUrl($"{AssetBaseUrl}index.html?{theme}");
+                Control.LoadUrl($"{AssetBaseUrl}index.html");
             }
         }
 
