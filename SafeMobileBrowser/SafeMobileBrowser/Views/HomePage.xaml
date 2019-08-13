@@ -149,11 +149,8 @@
                                       xamEffect:TouchEffect.Color="{DynamicResource GrayUnFippedColor}"
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Back">
-                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                           Margin="20,0,0,0"
-                           Text="{x:Static icons:IconFont.ChevronLeft}"
-                           FontSize="30"
-                           TextColor="{DynamicResource NavigationIconColor}" />
+                    <Label Style="{DynamicResource BottomNavigationIconStyle}"
+                           Text="{x:Static icons:IconFont.ChevronLeft}" />
                 </xamEffect:BorderView>
 
                 <xamEffect:BorderView Grid.Column="1"
@@ -163,11 +160,8 @@
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Forward"
                                       xamEffect:TouchEffect.Color="LightGray">
-                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                           Margin="20,0,0,0"
-                           Text="{x:Static icons:IconFont.ChevronRight}"
-                           FontSize="30"
-                           TextColor="{DynamicResource NavigationIconColor}" />
+                    <Label Style="{DynamicResource BottomNavigationIconStyle}"
+                           Text="{x:Static icons:IconFont.ChevronRight}" />
                 </xamEffect:BorderView>
 
                 <xamEffect:BorderView Grid.Column="2"
@@ -175,11 +169,8 @@
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Focus">
-                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                           Margin="20,0,0,0"
-                           Text="{x:Static icons:IconFont.Magnify}"
-                           FontSize="30"
-                           TextColor="{DynamicResource NavigationIconColor}" />
+                    <Label Style="{DynamicResource BottomNavigationIconStyle}"
+                           Text="{x:Static icons:IconFont.Magnify}" />
                 </xamEffect:BorderView>
 
                 <xamEffect:BorderView Grid.Column="3"
@@ -189,11 +180,8 @@
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Home">
 
-                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                           Margin="20,0,0,0"
-                           Text="{x:Static icons:IconFont.Home}"
-                           FontSize="30"
-                           TextColor="{DynamicResource NavigationIconColor}" />
+                    <Label Style="{DynamicResource BottomNavigationIconStyle}"
+                           Text="{x:Static icons:IconFont.Home}" />
                 </xamEffect:BorderView>
 
                 <xamEffect:BorderView Grid.Column="4"
@@ -201,11 +189,9 @@
                                       Style="{StaticResource BottomMenubarIconFrameStyle}"
                                       xamEffect:Commands.Tap="{Binding BottomNavbarTapCommand}"
                                       xamEffect:Commands.TapParameter="Menu">
-                    <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                           Margin="20,0,0,0"
+                    <Label Style="{DynamicResource BottomNavigationIconStyle}"
                            Text="{x:Static icons:IconFont.DotsVertical}"
-                           FontSize="30"
-                           TextColor="{DynamicResource NavigationIconColor}" />
+ />
                 </xamEffect:BorderView>
             </Grid>
         </StackLayout>

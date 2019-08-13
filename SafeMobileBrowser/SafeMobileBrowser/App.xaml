@@ -36,6 +36,23 @@
                     Value="{DynamicResource PrimaryTextColor}" />
         </Style>
 
+        <Style TargetType="Label"
+               x:Key="NavigationIconStyle">
+            <Setter Property="FontFamily"
+                    Value="{DynamicResource MaterialFontFamily}" />
+            <Setter Property="TextColor"
+                    Value="{DynamicResource NavigationIconColor}" />
+        </Style>
+
+        <Style TargetType="Label"
+               BasedOn="{StaticResource NavigationIconStyle}"
+               x:Key="BottomNavigationIconStyle">
+            <Setter Property="FontSize"
+                    Value="30" />
+            <Setter Property="Margin"
+                    Value="20,0,0,0" />
+        </Style>
+
         <!-- CONVERTERS -->
         <converters:BytesToImageConverter x:Key="BytesToImage" />
         <converters:InverseBoolConverter x:Key="BooleanInverter" />

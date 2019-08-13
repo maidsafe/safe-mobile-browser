@@ -85,7 +85,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
-                                <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                                <Label FontFamily="{DynamicResource MaterialFontFamily}" 
                                        Style="{DynamicResource PopupMenuItemIconStyle}"
                                        Text="{Binding MenuItemIcon}"
                                        FontSize="20"
@@ -110,22 +110,20 @@
                                           Margin="0"
                                           WidthRequest="80"
                                           HorizontalOptions="CenterAndExpand">
-                        <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                        <Label Style="{DynamicResource NavigationIconStyle}"
                                Margin="30,0,0,0"
                                Text="{Binding ReloadMenuItem.MenuItemIcon}"
-                               FontSize="25"
-                               TextColor="{DynamicResource NavigationIconColor}" />
+                               FontSize="25" />
                     </xamEffect:BorderView>
 
                     <xamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
                                           xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
-                        <Label FontFamily="{DynamicResource MaterialFontFamily}"
+                        <Label Style="{DynamicResource NavigationIconStyle}"
                                Margin="30,0,0,0"
                                Text="{Binding BookmarkMenuItem.MenuItemIcon}"
-                               FontSize="25"
-                               TextColor="{DynamicResource NavigationIconColor}" />
+                               FontSize="25"/>
                     </xamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
