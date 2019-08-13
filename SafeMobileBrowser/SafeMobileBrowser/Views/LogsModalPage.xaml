@@ -64,6 +64,7 @@
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                     <Image VerticalOptions="Center"
                            HorizontalOptions="End"
+                           IsEnabled="{Binding IsDeleteAllFilesButtonEnabled}"
                            WidthRequest="25"
                            HeightRequest="25">
                         <Image.Source>
@@ -75,6 +76,14 @@
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding DeleteAllLogFileCommand}" />
                         </Image.GestureRecognizers>
+                        <Image.Triggers>
+                            <DataTrigger  TargetType="Image"
+                                          Binding="{Binding IsDeleteAllFilesButtonEnabled}"
+                                          Value="False">
+                                <Setter Property="Opacity"
+                                        Value="0.25" />
+                            </DataTrigger>
+                        </Image.Triggers>
                     </Image>
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"

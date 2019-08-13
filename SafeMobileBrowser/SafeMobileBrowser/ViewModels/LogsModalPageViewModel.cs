@@ -15,8 +15,9 @@ namespace SafeMobileBrowser.ViewModels
     {
         private readonly string _logFilesPath = DependencyService.Get<IPlatformService>().ConfigFilesPath;
         private readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
-        private readonly string _logFileExtension = "log";
+        private readonly string _logFileExtension = ".log";
         private readonly INavigation _navigation;
+        private readonly string _lastModifiedFile;
 
         public ICommand GoBackCommand { get; }
 
@@ -34,7 +35,13 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _logFiles, value);
         }
 
-        private string lastModifiedFile;
+        private bool _isDeleteAllFilesButtonEnabled;
+
+        public bool IsDeleteAllFilesButtonEnabled
+        {
+            get => _isDeleteAllFilesButtonEnabled;
+            set => SetProperty(ref _isDeleteAllFilesButtonEnabled, value);
+        }
 
         public LogsModalPageViewModel(INavigation navigation)
         {
@@ -49,21 +56,22 @@ namespace SafeMobileBrowser.ViewModels
                 if (LogFiles == null)
                     LogFiles = new ObservableCollection<string>();
 
-                var files = Directory.GetFiles(_logFilesPath, "*.log").Reverse();
+                var logFileDirectory = new DirectoryInfo(_logFilesPath);
+                var files = logFileDirectory.GetFiles("*.log")
+                    .Where(f => f.Name.StartsWith("log-"))
+                    .OrderByDescending(f => f.LastWriteTime);
+
                 if (!files.Any())
                     return;
 
-                var directory = new DirectoryInfo(_logFilesPath);
+                if (files.Count() > 1)
+                    IsDeleteAllFilesButtonEnabled = true;
 
-                lastModifiedFile = directory.GetFiles("*.log")
-                   .OrderByDescending(f => f.LastWriteTime)
-                   .FirstOrDefault()
-                   ?.Name
-                   .Replace(".log", string.Empty);
+                _lastModifiedFile = files.FirstOrDefault().Name.Replace(_logFileExtension, string.Empty);
 
                 foreach (var file in files)
                 {
-                    LogFiles.Add(Path.GetFileNameWithoutExtension(file));
+                    LogFiles.Add(file.Name.Replace(_logFileExtension, string.Empty));
                 }
             }
             catch (Exception ex)
@@ -76,14 +84,19 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                if (lastModifiedFile == fileName)
+                if (_lastModifiedFile == fileName)
                 {
                     UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
                     return;
                 }
-                var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}.{_logFileExtension}");
+
+                var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}{_logFileExtension}");
                 File.Delete(logFileToDelete);
                 LogFiles.Remove(fileName);
+
+                if (LogFiles.Count < 2)
+                    IsDeleteAllFilesButtonEnabled = false;
+
                 UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully, _toastTimeSpan);
             }
             catch (Exception ex)
@@ -97,7 +110,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                var logFileToReadContent = Path.Combine(_logFilesPath, $"{fileName}.{_logFileExtension}");
+                var logFileToReadContent = Path.Combine(_logFilesPath, $"{fileName}{_logFileExtension}");
                 var logFileText = File.ReadAllText(logFileToReadContent);
                 Device.InvokeOnMainThreadAsync(async () =>
                 {
@@ -116,12 +129,6 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                if (LogFiles.Count < 2)
-                {
-                    UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
-                    return;
-                }
-
                 var response = await Application.Current.MainPage.DisplayAlert(
                      Constants.DeleteLogFilesAlertTitle,
                      Constants.DeleteLogFilesAlertMsg,
@@ -133,9 +140,9 @@ namespace SafeMobileBrowser.ViewModels
 
                 foreach (var file in LogFiles)
                 {
-                    if (file != lastModifiedFile)
+                    if (file != _lastModifiedFile)
                     {
-                        var logFileToDelete = Path.Combine(_logFilesPath, $"{file}.{_logFileExtension}");
+                        var logFileToDelete = Path.Combine(_logFilesPath, $"{file}{_logFileExtension}");
                         File.Delete(logFileToDelete);
                     }
                 }
@@ -155,8 +162,10 @@ namespace SafeMobileBrowser.ViewModels
                         }
                     }
 
-                    LogFiles.Add(lastModifiedFile);
+                    LogFiles.Add(_lastModifiedFile);
                 });
+
+                IsDeleteAllFilesButtonEnabled = false;
 
                 UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully, _toastTimeSpan);
             }
