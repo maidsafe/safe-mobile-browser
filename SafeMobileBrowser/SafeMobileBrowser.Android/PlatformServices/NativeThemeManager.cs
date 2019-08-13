@@ -12,12 +12,12 @@ namespace SafeMobileBrowser.Droid.PlatformServices
     {
         public void ChangeAppTheme(ThemeHelper.AppThemeMode theme, bool isAppLaunched)
         {
+            var currentWindow = GetCurrentWindow();
             switch (theme)
             {
                 case ThemeHelper.AppThemeMode.Light:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        var currentWindow = GetCurrentWindow();
                         currentWindow.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
                         currentWindow.SetStatusBarColor(Android.Graphics.Color.White);
                         if (!isAppLaunched)
@@ -29,7 +29,6 @@ namespace SafeMobileBrowser.Droid.PlatformServices
                 case ThemeHelper.AppThemeMode.Dark:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        var currentWindow = GetCurrentWindow();
                         currentWindow.DecorView.SystemUiVisibility = 0;
                         currentWindow.SetStatusBarColor(Android.Graphics.Color.ParseColor("#212121"));
                         if (!isAppLaunched)
