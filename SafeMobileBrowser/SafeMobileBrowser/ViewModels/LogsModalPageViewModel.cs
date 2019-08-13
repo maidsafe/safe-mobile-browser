@@ -34,6 +34,8 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _logFiles, value);
         }
 
+        private string lastModifiedFile;
+
         public LogsModalPageViewModel(INavigation navigation)
         {
             try
@@ -51,6 +53,14 @@ namespace SafeMobileBrowser.ViewModels
                 if (!files.Any())
                     return;
 
+                var directory = new DirectoryInfo(_logFilesPath);
+
+                lastModifiedFile = directory.GetFiles("*.log")
+                   .OrderByDescending(f => f.LastWriteTime)
+                   .FirstOrDefault()
+                   ?.Name
+                   .Replace(".log", string.Empty);
+
                 foreach (var file in files)
                 {
                     LogFiles.Add(Path.GetFileNameWithoutExtension(file));
@@ -66,12 +76,6 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                var directory = new DirectoryInfo(_logFilesPath);
-                var lastModifiedFile = directory.GetFiles("*.log")
-                    .OrderByDescending(f => f.LastWriteTime)
-                    .FirstOrDefault()
-                    ?.Name
-                    .Replace(".log", string.Empty);
                 if (lastModifiedFile == fileName)
                 {
                     UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
@@ -126,13 +130,6 @@ namespace SafeMobileBrowser.ViewModels
 
                 if (!response)
                     return;
-
-                var directory = new DirectoryInfo(_logFilesPath);
-                var lastModifiedFile = directory.GetFiles("*.log")
-                    .OrderByDescending(f => f.LastWriteTime)
-                    .FirstOrDefault()
-                    ?.Name
-                    .Replace(".log", string.Empty);
 
                 foreach (var file in LogFiles)
                 {
