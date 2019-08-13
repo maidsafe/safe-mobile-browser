@@ -25,7 +25,7 @@ namespace SafeMobileBrowser.Themes
                 mergedDictionaries.Clear();
 
                 // Update local key value with the new theme you select.
-                Xamarin.Essentials.Preferences.Set("CurrentAppTheme", (int)theme);
+                Xamarin.Essentials.Preferences.Set(Constants.AppThemePreferenceKey, theme == AppThemeMode.Dark);
 
                 switch (theme)
                 {
@@ -68,7 +68,11 @@ namespace SafeMobileBrowser.Themes
         /// <returns></returns>
         public static AppThemeMode CurrentTheme()
         {
-            return (AppThemeMode)Xamarin.Essentials.Preferences.Get("CurrentAppTheme", (int)AppThemeMode.Light);
+            bool isDarkTheme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
+            if (isDarkTheme)
+                return AppThemeMode.Dark;
+            else
+                return AppThemeMode.Light;
         }
     }
 }

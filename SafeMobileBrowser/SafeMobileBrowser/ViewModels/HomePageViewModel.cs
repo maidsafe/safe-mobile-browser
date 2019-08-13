@@ -146,8 +146,8 @@ namespace SafeMobileBrowser.ViewModels
                 MessagingCenter.Send(this, MessageCenterConstants.UpdateErrorMsg);
                 IsErrorState = false;
             }
-            if (string.IsNullOrEmpty(CurrentUrl))
-                MessagingCenter.Send((App)Application.Current, MessageCenterConstants.UpdateWelcomePageTheme);
+
+            MessagingCenter.Send((App)Application.Current, MessageCenterConstants.UpdateWelcomePageTheme);
             IsNavigating = false;
         }
 
