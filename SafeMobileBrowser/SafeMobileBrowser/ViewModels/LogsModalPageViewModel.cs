@@ -17,7 +17,6 @@ namespace SafeMobileBrowser.ViewModels
         private readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
         private readonly string _logFileExtension = ".log";
         private readonly INavigation _navigation;
-        private readonly string _lastModifiedFile;
 
         public ICommand GoBackCommand { get; }
 
@@ -35,12 +34,12 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _logFiles, value);
         }
 
-        private bool _isDeleteAllFilesButtonEnabled;
+        private string _lastModifiedFile;
 
-        public bool IsDeleteAllFilesButtonEnabled
+        public string LastModifiedFile
         {
-            get => _isDeleteAllFilesButtonEnabled;
-            set => SetProperty(ref _isDeleteAllFilesButtonEnabled, value);
+            get => _lastModifiedFile;
+            set => SetProperty(ref _lastModifiedFile, value);
         }
 
         public LogsModalPageViewModel(INavigation navigation)
@@ -51,7 +50,7 @@ namespace SafeMobileBrowser.ViewModels
                 GoBackCommand = new Command(GoBackToHomePage);
                 CopyLogFileContentCommand = new Command<string>(CopyLogFileContent);
                 DeleteLogFileCommand = new Command<string>(DeleteLogFile);
-                DeleteAllLogFileCommand = new Command(DeleteAllLogFilesAsync);
+                DeleteAllLogFileCommand = new Command(DeleteAllLogFilesAsync, () => LogFiles.Count > 1);
 
                 if (LogFiles == null)
                     LogFiles = new ObservableCollection<string>();
@@ -64,10 +63,7 @@ namespace SafeMobileBrowser.ViewModels
                 if (!files.Any())
                     return;
 
-                if (files.Count() > 1)
-                    IsDeleteAllFilesButtonEnabled = true;
-
-                _lastModifiedFile = files.FirstOrDefault().Name.Replace(_logFileExtension, string.Empty);
+                LastModifiedFile = files.FirstOrDefault().Name.Replace(_logFileExtension, string.Empty);
 
                 foreach (var file in files)
                 {
@@ -84,7 +80,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                if (_lastModifiedFile == fileName)
+                if (LastModifiedFile == fileName)
                 {
                     UserDialogs.Instance.Toast(Constants.CurrentLogFile, _toastTimeSpan);
                     return;
@@ -93,9 +89,6 @@ namespace SafeMobileBrowser.ViewModels
                 var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}{_logFileExtension}");
                 File.Delete(logFileToDelete);
                 LogFiles.Remove(fileName);
-
-                if (LogFiles.Count < 2)
-                    IsDeleteAllFilesButtonEnabled = false;
 
                 UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully, _toastTimeSpan);
             }
@@ -140,7 +133,7 @@ namespace SafeMobileBrowser.ViewModels
 
                 foreach (var file in LogFiles)
                 {
-                    if (file != _lastModifiedFile)
+                    if (file != LastModifiedFile)
                     {
                         var logFileToDelete = Path.Combine(_logFilesPath, $"{file}{_logFileExtension}");
                         File.Delete(logFileToDelete);
@@ -162,10 +155,8 @@ namespace SafeMobileBrowser.ViewModels
                         }
                     }
 
-                    LogFiles.Add(_lastModifiedFile);
+                    LogFiles.Add(LastModifiedFile);
                 });
-
-                IsDeleteAllFilesButtonEnabled = false;
 
                 UserDialogs.Instance.Toast(Constants.LogFileDeleteSuccessfully, _toastTimeSpan);
             }

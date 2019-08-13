@@ -10,7 +10,7 @@
              ios:Page.UseSafeArea="true"
              mc:Ignorable="d"
              x:Class="SafeMobileBrowser.Views.LogsModalPage"
-             x:Name="LogsModelPage">
+             x:Name="LogsModalPageReference">
     <ContentPage.Resources>
         <Style TargetType="StackLayout">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -37,8 +37,6 @@
                     Value="25" />
             <Setter Property="WidthRequest"
                     Value="25" />
-            <Setter Property="Opacity"
-                    Value="0.75" />
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -58,13 +56,12 @@
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Image.GestureRecognizers>
                     </Image>
-                    
+
                     <Label Text="Logs"
                            HorizontalOptions="StartAndExpand"
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                     <Image VerticalOptions="Center"
                            HorizontalOptions="End"
-                           IsEnabled="{Binding IsDeleteAllFilesButtonEnabled}"
                            WidthRequest="25"
                            HeightRequest="25">
                         <Image.Source>
@@ -78,8 +75,8 @@
                         </Image.GestureRecognizers>
                         <Image.Triggers>
                             <DataTrigger  TargetType="Image"
-                                          Binding="{Binding IsDeleteAllFilesButtonEnabled}"
-                                          Value="False">
+                                          Binding="{Binding LogFiles.Count}"
+                                          Value="1">
                                 <Setter Property="Opacity"
                                         Value="0.25" />
                             </DataTrigger>
@@ -93,7 +90,8 @@
                             VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Padding="10">
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="10">
                             <Label Text="{Binding .}"
                                    HorizontalOptions="StartAndExpand" />
                             <Image Style="{StaticResource ActionIconStyle}"
@@ -106,7 +104,7 @@
                                 </Image.Source>
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding}"
-                                                          Command="{Binding Path=BindingContext.CopyLogFileContentCommand, Source={x:Reference LogsModelPage}}" />
+                                                          Command="{Binding Path=BindingContext.CopyLogFileContentCommand, Source={x:Reference LogsModalPageReference}}" />
                                 </Image.GestureRecognizers>
                             </Image>
                             <Image Style="{StaticResource ActionIconStyle}"
@@ -118,7 +116,7 @@
                                                      Color="{StaticResource ActionIconColor}" />
                                 </Image.Source>
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteLogFileCommand, Source={x:Reference LogsModelPage}}"
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteLogFileCommand, Source={x:Reference LogsModalPageReference}}"
                                                           CommandParameter="{Binding}" />
                                 </Image.GestureRecognizers>
                             </Image>
@@ -126,7 +124,9 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
-                    <Label Text="No logs files!!!" HorizontalOptions="Center" Margin="10" />
+                    <Label Text="No logs files!!!"
+                           HorizontalOptions="Center"
+                           Margin="10" />
                 </CollectionView.EmptyView>
             </CollectionView>
         </StackLayout>
