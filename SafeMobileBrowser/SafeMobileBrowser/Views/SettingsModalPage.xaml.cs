@@ -11,7 +11,7 @@ namespace SafeMobileBrowser.Views
         public SettingsModalPage()
         {
             InitializeComponent();
-            AppThemeChangeSwitch.IsToggled = ThemeHelper.CurrentTheme() == 0 ? false : true;
+            AppThemeChangeSwitch.IsToggled = ThemeHelper.CurrentTheme() == ThemeHelper.AppThemeMode.Dark;
         }
 
         protected override void OnAppearing()

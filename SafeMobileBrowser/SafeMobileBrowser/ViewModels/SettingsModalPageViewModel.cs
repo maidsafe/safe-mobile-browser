@@ -30,7 +30,7 @@ namespace SafeMobileBrowser.ViewModels
             get => _appDarkMode;
             set
             {
-                var theme = Preferences.Get("CurrentAppTheme", 0) == 0 ? false : true;
+                var theme = Preferences.Get(Constants.AppThemePreferenceKey, false);
                 if (value != theme)
                 {
                     SetProperty(ref _appDarkMode, value);
