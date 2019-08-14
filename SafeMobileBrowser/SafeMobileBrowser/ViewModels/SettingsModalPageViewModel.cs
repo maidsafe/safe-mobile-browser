@@ -2,6 +2,7 @@
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
+using SafeMobileBrowser.Themes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -16,12 +17,28 @@ namespace SafeMobileBrowser.ViewModels
         public ICommand PrivacyInfoCommand { get; }
 
         public ICommand OpenLogsPageCommand { get; }
+        public ICommand ToggleThemeCommand { get; }
 
         public string ApplicationVersion => AppInfo.VersionString;
 
         public ICommand GoBackCommand { get; }
 
         private readonly INavigation _navigation;
+
+        private bool _appDarkMode;
+
+        public bool AppDarkMode
+        {
+            get => _appDarkMode;
+            set
+            {
+                if (value != _appDarkMode)
+                {
+                    SetProperty(ref _appDarkMode, value);
+                    ThemeHelper.ToggleTheme(value ? ThemeHelper.AppThemeMode.Dark : ThemeHelper.AppThemeMode.Light);
+                }
+            }
+        }
 
         public SettingsModalPageViewModel(INavigation navigation)
         {
@@ -36,6 +53,17 @@ namespace SafeMobileBrowser.ViewModels
                 OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
             });
             OpenLogsPageCommand = new Command(() => { navigation.PushModalAsync(new LogsModalPage()); });
+
+            var currentTheme = ThemeHelper.CurrentTheme();
+            switch (currentTheme)
+            {
+                case ThemeHelper.AppThemeMode.Light:
+                    AppDarkMode = false;
+                    break;
+                case ThemeHelper.AppThemeMode.Dark:
+                    AppDarkMode = true;
+                    break;
+            }
         }
 
         private async void GoBackToHomePage()
