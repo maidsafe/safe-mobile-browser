@@ -12,7 +12,6 @@
     <Color x:Key="SafeLabelTextColor">#18cc26</Color>
 
     <Color x:Key="ModalPageTitleIconColor">#cccaca</Color>
-    <Color x:Key="NavigationIconColor">#f2f2f2</Color>
     <Color x:Key="BookmarkDeleteIconColor">#555555</Color>
 
     <Color x:Key="GreySnowLightColor">#eeeeee</Color>
