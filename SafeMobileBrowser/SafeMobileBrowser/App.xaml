@@ -41,7 +41,7 @@
             <Setter Property="FontFamily"
                     Value="{DynamicResource MaterialFontFamily}" />
             <Setter Property="TextColor"
-                    Value="{DynamicResource SecondaryTextColor}" />
+                    Value="{DynamicResource NavigationIconColor}" />
         </Style>
 
         <Style TargetType="Label"
@@ -49,7 +49,7 @@
             <Setter Property="FontFamily"
                     Value="{DynamicResource MaterialFontFamily}" />
             <Setter Property="TextColor"
-                    Value="{DynamicResource NavigationIconColor}" />
+                    Value="{DynamicResource SecondaryTextColor}" />
         </Style>
 
         <Style TargetType="Label"
