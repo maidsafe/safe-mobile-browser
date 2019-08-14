@@ -74,5 +74,9 @@
 	<string>0.1.1</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Mobile browser needs access to the photo library to download/upload image(s).</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>

@@ -1,4 +1,5 @@
-﻿using SafeMobileBrowser.ViewModels;
+﻿using SafeMobileBrowser.Themes;
+using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
 
 namespace SafeMobileBrowser.Views
@@ -10,6 +11,7 @@ namespace SafeMobileBrowser.Views
         public SettingsModalPage()
         {
             InitializeComponent();
+            AppThemeChangeSwitch.IsToggled = ThemeHelper.CurrentTheme() == ThemeHelper.AppThemeMode.Dark;
         }
 
         protected override void OnAppearing()
@@ -19,17 +21,7 @@ namespace SafeMobileBrowser.Views
             if (_viewModel == null)
             {
                 _viewModel = new SettingsModalPageViewModel(Navigation);
-            }
-
-            BindingContext = _viewModel;
-        }
-
-        public void OnDarkThemeToggled(object sender, ToggledEventArgs toggledEventArgs)
-        {
-            if (toggledEventArgs.Value)
-            {
-                DisplayAlert("Dark Mode", "Coming soon", "Ok");
-                AppThemeChangeSwitch.IsToggled = false;
+                BindingContext = _viewModel;
             }
         }
     }

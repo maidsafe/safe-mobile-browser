@@ -28,23 +28,34 @@
         <Style TargetType="Label"
                x:Key="PopupMenuItemLabelStyle">
             <Setter Property="TextColor"
-                    Value="Black" />
+                    Value="{DynamicResource PrimaryTextColor}" />
             <Setter Property="FontSize"
                     Value="Medium" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
-        <Style TargetType="Image"
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
                x:Key="PopupMenuItemIconStyle">
+            <Setter Property="FontSize"
+                    Value="20" />
             <Setter Property="HeightRequest"
                     Value="20" />
             <Setter Property="WidthRequest"
                     Value="20" />
-            <Setter Property="Aspect"
-                    Value="AspectFit" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
+
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
+               x:Key="PopUpBottomMenuBarIconStyle">
+            <Setter Property="Margin"
+                    Value="30,0,0,0" />
+            <Setter Property="FontSize"
+                    Value="25" />
+        </Style>
+        
         <Style x:Key="PopUpBottomMenubarIconFrameStyle"
                TargetType="xamEffect:BorderView"
                BasedOn="{StaticResource BottomMenubarIconFrameStyle}">
@@ -60,7 +71,7 @@
     <ContentPage.Content>
         <Frame CornerRadius="10"
                Padding="0, 10, 0, 0"
-               BackgroundColor="White"
+               BackgroundColor="{DynamicResource ContentPageBackgroundColor}"
                HeightRequest="260"
                WidthRequest="220"
                VerticalOptions="EndAndExpand"
@@ -74,7 +85,7 @@
                                   IsEnabled="{Binding IsEnabled}"
                                   xamEffect:Commands.Tap="{Binding Source={x:Reference MenuPopUpPage}, Path=BindingContext.PopupMenuItemTappedCommand}"
                                   xamEffect:Commands.TapParameter="{Binding MenuItemTitle}"
-                                  xamEffect:TouchEffect.Color="LightGray">
+                                  xamEffect:TouchEffect.Color="{DynamicResource SecondaryGrayColor}">
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid"
                                                  Binding="{Binding IsEnabled}"
@@ -87,14 +98,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Style="{StaticResource PopupMenuItemIconStyle}">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                         Glyph="{Binding MenuItemIcon}"
-                                                         Size="30"
-                                                         Color="{StaticResource NavigationIconColor}" />
-                                    </Image.Source>
-                                </Image>
+                                <Label Style="{DynamicResource PopupMenuItemIconStyle}"
+                                       Text="{Binding MenuItemIcon}" />
                                 <Label Grid.Column="1"
                                        Style="{StaticResource PopupMenuItemLabelStyle}"
                                        Text="{Binding MenuItemTitle}" />
@@ -103,40 +108,28 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
                 <BoxView HeightRequest="0.5"
-                         BackgroundColor="LightGray" />
+                         BackgroundColor="{DynamicResource BoxViewSyleColor}" />
                 <StackLayout Orientation="Horizontal"
                              Padding="10"
                              HeightRequest="30">
 
                     <xamEffect:BorderView IsEnabled="{Binding ReloadMenuItem.IsEnabled}"
-                                          xamEffect:TouchEffect.Color="LightGray"
+                                          xamEffect:TouchEffect.Color="{DynamicResource SecondaryGrayColor}"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding RefreshWebViewCommand}"
                                           Margin="0"
                                           WidthRequest="80"
                                           HorizontalOptions="CenterAndExpand">
-                        <Image>
-                            <Image.Source>
-                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{Binding ReloadMenuItem.MenuItemIcon}"
-                                                 Size="25"
-                                                 Color="{StaticResource NavigationIconColor}" />
-                            </Image.Source>
-                        </Image>
+                        <Label Style="{DynamicResource PopUpBottomMenuBarIconStyle}"
+                               Text="{Binding ReloadMenuItem.MenuItemIcon}" />
                     </xamEffect:BorderView>
 
                     <xamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
                                           xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
-                        <Image>
-                            <Image.Source>
-                                <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                 Glyph="{Binding BookmarkMenuItem.MenuItemIcon}"
-                                                 Size="25"
-                                                 Color="{StaticResource NavigationIconColor}" />
-                            </Image.Source>
-                        </Image>
+                        <Label Style="{DynamicResource PopUpBottomMenuBarIconStyle}"
+                               Text="{Binding BookmarkMenuItem.MenuItemIcon}"/>
                     </xamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
