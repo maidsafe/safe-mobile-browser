@@ -53,6 +53,7 @@ namespace SafeMobileBrowser.ViewModels
             {
                 OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
             });
+
             OpenLogsPageCommand = new Command(() => { navigation.PushModalAsync(new LogsModalPage()); });
 
             var currentTheme = ThemeHelper.CurrentTheme();
