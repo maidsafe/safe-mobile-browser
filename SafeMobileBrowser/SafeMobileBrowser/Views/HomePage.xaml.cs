@@ -53,7 +53,7 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Subscribe<HomePageViewModel>(
                this,
                MessageCenterConstants.ShowErrorPage,
-               (sender) =>
+               async (sender) =>
                {
                    if (((UrlWebViewSource)HybridWebViewControl.Source).Url != _viewModel.WelcomePageUrl)
                    {
@@ -61,7 +61,7 @@ namespace SafeMobileBrowser.Views
                    }
                    else
                    {
-                       UpdateHTMLPageToShowError();
+                       await UpdateHTMLPageToShowErrorAsync();
                        _viewModel.IsErrorState = false;
                        if (_viewModel.IsNavigating)
                            _viewModel.IsNavigating = false;
@@ -70,9 +70,9 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Subscribe<HomePageViewModel>(
                this,
                MessageCenterConstants.UpdateErrorMsg,
-               (sender) =>
+               async (sender) =>
                {
-                   UpdateHTMLPageToShowError();
+                   await UpdateHTMLPageToShowErrorAsync();
                });
             MessagingCenter.Subscribe<App>(
                this,
@@ -100,16 +100,15 @@ namespace SafeMobileBrowser.Views
                 });
         }
 
-        private void UpdateHTMLPageToShowError()
+        private async Task UpdateHTMLPageToShowErrorAsync()
         {
             var errorData = GenerateErrorMessage(_viewModel.ErrorType);
-            var jsToEvaluate = "javascript: ChangePageContent (" +
+            var jsToEvaluate = "ChangePageContent (" +
             $"'{errorData.Item1}'," +
             $"'{errorData.Item2}'," +
             " true)";
 
-            Logger.Info(jsToEvaluate);
-            HybridWebViewControl.Eval(jsToEvaluate);
+            await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
         }
 
         private (string, string) GenerateErrorMessage(string errorType)

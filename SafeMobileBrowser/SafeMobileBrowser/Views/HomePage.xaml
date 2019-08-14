@@ -51,21 +51,22 @@
                                               Text="{Binding AddressbarText}"
                                               TextColor="{DynamicResource SecondaryTextColor}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}"
-                                              ios:Entry.CursorColor="{DynamicResource PrimaryColor}">
-                        <controls:AddressBarEntry.Margin>
-                            <OnPlatform x:TypeArguments="Thickness">
-                                <On Platform="iOS" Value="2,0,0,0" />
-                                <On Platform="Android" Value="-3,0,0,0" />
-                            </OnPlatform>
-                        </controls:AddressBarEntry.Margin>
-                        <controls:AddressBarEntry.Keyboard>
-                            <Keyboard x:FactoryMethod="Create">
-                                <x:Arguments>
-                                    <KeyboardFlags>CapitalizeNone</KeyboardFlags>
-                                </x:Arguments>
-                            </Keyboard>
-                        </controls:AddressBarEntry.Keyboard>
-                    </controls:AddressBarEntry>
+                                              ios:Entry.CursorColor="{DynamicResource PrimaryColor}" />
+                    <controls:AddressBarEntry.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS"
+                                Value="2,0,0,0" />
+                            <On Platform="Android"
+                                Value="-3,0,0,0" />
+                        </OnPlatform>
+                    </controls:AddressBarEntry.Margin>
+                    <controls:AddressBarEntry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeNone</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </controls:AddressBarEntry.Keyboard>
 
                     <Image x:Name="AddressBarButton"
                            IsVisible="False"
@@ -79,7 +80,7 @@
                             <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:IconFont.Close}"
                                              Size="30"
-                                             Color="{DynamicResource NavigationIconColor}" />
+                                             Color="{DynamicResource PrimaryTextColor}" />
                         </Image.Source>
                     </Image>
                 </Grid>

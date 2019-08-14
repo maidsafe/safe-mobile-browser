@@ -10,7 +10,6 @@
     <Color x:Key="SecondaryTextColor">#1d1d1d</Color>
     <Color x:Key="SafeLabelTextColor">#1B5E20</Color>
     <Color x:Key="ModalPageTitleIconColor">#1d1d1d</Color>
-    <Color x:Key="NavigationIconColor">#000000</Color>
     <Color x:Key="BookmarkDeleteIconColor">#555555</Color>
 
     <Color x:Key="GreySnowLightColor">#eeeeee</Color>

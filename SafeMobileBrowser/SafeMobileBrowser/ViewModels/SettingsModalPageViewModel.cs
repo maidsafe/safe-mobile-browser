@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
-using SafeMobileBrowser.Views;
 using SafeMobileBrowser.Themes;
+using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -17,6 +17,7 @@ namespace SafeMobileBrowser.ViewModels
         public ICommand PrivacyInfoCommand { get; }
 
         public ICommand OpenLogsPageCommand { get; }
+
         public ICommand ToggleThemeCommand { get; }
 
         public string ApplicationVersion => AppInfo.VersionString;
