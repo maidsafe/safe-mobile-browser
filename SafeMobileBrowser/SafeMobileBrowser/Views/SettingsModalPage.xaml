@@ -47,8 +47,7 @@
             <StackLayout Spacing="0">
                 <StackLayout Spacing="0">
                     <StackLayout Style="{StaticResource ModalPageTitleView}">
-                        <Label Style="{DynamicResource NavigationIconStyle}"
-                               FontSize="30"
+                        <Label Style="{DynamicResource TopNavigationIconStyle}"
                                Text="{x:Static icons:IconFont.ArrowLeft}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding GoBackCommand}" />

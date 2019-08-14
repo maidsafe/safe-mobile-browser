@@ -37,7 +37,15 @@
         </Style>
 
         <Style TargetType="Label"
-               x:Key="NavigationIconStyle">
+               x:Key="PrimaryActionIconStyle">
+            <Setter Property="FontFamily"
+                    Value="{DynamicResource MaterialFontFamily}" />
+            <Setter Property="TextColor"
+                    Value="{DynamicResource SecondaryTextColor}" />
+        </Style>
+
+        <Style TargetType="Label"
+               x:Key="SecondaryActionIconStyle">
             <Setter Property="FontFamily"
                     Value="{DynamicResource MaterialFontFamily}" />
             <Setter Property="TextColor"
@@ -45,7 +53,14 @@
         </Style>
 
         <Style TargetType="Label"
-               BasedOn="{StaticResource NavigationIconStyle}"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
+               x:Key="TopNavigationIconStyle">
+            <Setter Property="FontSize"
+                    Value="30" />
+        </Style>
+        
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
                x:Key="BottomNavigationIconStyle">
             <Setter Property="FontSize"
                     Value="30" />

@@ -28,18 +28,11 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
-        <Style TargetType="Image"
+        <Style TargetType="Label"
+               BasedOn="{StaticResource SecondaryActionIconStyle}"
                x:Key="BookmarkRemoveIconStyle">
-            <Setter Property="VerticalOptions"
-                    Value="Center" />
-            <Setter Property="HorizontalOptions"
-                    Value="End" />
-            <Setter Property="HeightRequest"
-                    Value="25" />
-            <Setter Property="WidthRequest"
-                    Value="25" />
-            <Setter Property="Opacity"
-                    Value="0.75" />
+            <Setter Property="FontSize"
+                    Value="30" />
         </Style>
         <Style x:Key="BookmarkUrlStyle"
                TargetType="Label">
@@ -56,10 +49,9 @@
             <StackLayout Spacing="0">
                 <StackLayout Orientation="Horizontal"
                              Style="{StaticResource ModalPageTitleView}">
-                    <Label Style="{DynamicResource NavigationIconStyle}"
+                    <Label Style="{DynamicResource TopNavigationIconStyle}"
                            VerticalOptions="Center"
-                           Text="{x:Static icons:IconFont.ArrowLeft}"
-                           FontSize="30">
+                           Text="{x:Static icons:IconFont.ArrowLeft}" >
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
@@ -88,10 +80,8 @@
                                    Style="{StaticResource BookmarkUrlStyle}"
                                    HorizontalOptions="StartAndExpand">
                             </Label>
-                            <Label FontFamily="{DynamicResource MaterialFontFamily}"
-                                   Text="{x:Static icons:IconFont.Delete}"
-                                   FontSize="30"
-                                   TextColor="{DynamicResource SecondaryTextColor}">
+                            <Label Text="{x:Static icons:IconFont.Delete}"
+                                   Style="{StaticResource BookmarkRemoveIconStyle}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
                                                           CommandParameter="{Binding}" />

@@ -35,7 +35,10 @@
                     Value="Center" />
         </Style>
         <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
                x:Key="PopupMenuItemIconStyle">
+            <Setter Property="FontSize"
+                    Value="20" />
             <Setter Property="HeightRequest"
                     Value="20" />
             <Setter Property="WidthRequest"
@@ -43,6 +46,16 @@
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
+
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
+               x:Key="PopUpBottomMenuBarIconStyle">
+            <Setter Property="Margin"
+                    Value="30,0,0,0" />
+            <Setter Property="FontSize"
+                    Value="25" />
+        </Style>
+        
         <Style x:Key="PopUpBottomMenubarIconFrameStyle"
                TargetType="xamEffect:BorderView"
                BasedOn="{StaticResource BottomMenubarIconFrameStyle}">
@@ -85,11 +98,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
-                                <Label FontFamily="{DynamicResource MaterialFontFamily}" 
-                                       Style="{DynamicResource PopupMenuItemIconStyle}"
-                                       Text="{Binding MenuItemIcon}"
-                                       FontSize="20"
-                                       TextColor="{DynamicResource NavigationIconColor}" />
+                                <Label Style="{DynamicResource PopupMenuItemIconStyle}"
+                                       Text="{Binding MenuItemIcon}" />
                                 <Label Grid.Column="1"
                                        Style="{StaticResource PopupMenuItemLabelStyle}"
                                        Text="{Binding MenuItemTitle}" />
@@ -110,20 +120,16 @@
                                           Margin="0"
                                           WidthRequest="80"
                                           HorizontalOptions="CenterAndExpand">
-                        <Label Style="{DynamicResource NavigationIconStyle}"
-                               Margin="30,0,0,0"
-                               Text="{Binding ReloadMenuItem.MenuItemIcon}"
-                               FontSize="25" />
+                        <Label Style="{DynamicResource PopUpBottomMenuBarIconStyle}"
+                               Text="{Binding ReloadMenuItem.MenuItemIcon}" />
                     </xamEffect:BorderView>
 
                     <xamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
                                           xamEffect:TouchEffect.Color="LightGray"
                                           Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
                                           xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
-                        <Label Style="{DynamicResource NavigationIconStyle}"
-                               Margin="30,0,0,0"
-                               Text="{Binding BookmarkMenuItem.MenuItemIcon}"
-                               FontSize="25"/>
+                        <Label Style="{DynamicResource PopUpBottomMenuBarIconStyle}"
+                               Text="{Binding BookmarkMenuItem.MenuItemIcon}"/>
                     </xamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
