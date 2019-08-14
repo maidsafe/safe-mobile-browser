@@ -6,22 +6,11 @@
              xmlns:xamEffect="clr-namespace:XamEffects;assembly=XamEffects">
 
     <Application.Resources>
-        <!--Global Styles-->
+
+        <ResourceDictionary Source="Themes/LightTheme.xaml" />
+
         <Color x:Key="PrimaryColor">#0078D7</Color>
         <Color x:Key="SecondaryColor">#FFB900</Color>
-
-        <Color x:Key="PrimaryTextColor">#ffffff</Color>
-        <Color x:Key="SecondaryTextColor">#1d1d1d</Color>
-
-        <Color x:Key="ModalPageTitleIconColor">#1d1d1d</Color>
-        <Color x:Key="NavigationIconColor">#000000</Color>
-        <Color x:Key="BookmarkDeleteIconColor">#555555</Color>
-
-        <Color x:Key="GreySnowLightColor">#eeeeee</Color>
-        <Color x:Key="GreySmokeLightColor">#c2c1c1</Color>
-        <Color x:Key="GreySmokeMediumColor">#8b8b8b</Color>
-        <Color x:Key="GreySmokeDarkColor">#555555</Color>
-        <Color x:Key="GreySnowMediumColor">#e4e4e4</Color>
 
         <Style TargetType="StackLayout"
                x:Key="ModalPageTitleView">
@@ -33,6 +22,8 @@
                     Value="20, 10" />
             <Setter Property="HeightRequest"
                     Value="34" />
+            <Setter Property="BackgroundColor"
+                    Value="{DynamicResource ContentPageBackgroundColor}" />
         </Style>
 
         <Style x:Key="ModalPageTitleLabelStyle"
@@ -42,7 +33,39 @@
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="TextColor"
-                    Value="{StaticResource SecondaryTextColor}" />
+                    Value="{DynamicResource PrimaryTextColor}" />
+        </Style>
+
+        <Style TargetType="Label"
+               x:Key="PrimaryActionIconStyle">
+            <Setter Property="FontFamily"
+                    Value="{DynamicResource MaterialFontFamily}" />
+            <Setter Property="TextColor"
+                    Value="{DynamicResource NavigationIconColor}" />
+        </Style>
+
+        <Style TargetType="Label"
+               x:Key="SecondaryActionIconStyle">
+            <Setter Property="FontFamily"
+                    Value="{DynamicResource MaterialFontFamily}" />
+            <Setter Property="TextColor"
+                    Value="{DynamicResource SecondaryTextColor}" />
+        </Style>
+
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
+               x:Key="TopNavigationIconStyle">
+            <Setter Property="FontSize"
+                    Value="30" />
+        </Style>
+        
+        <Style TargetType="Label"
+               BasedOn="{StaticResource PrimaryActionIconStyle}"
+               x:Key="BottomNavigationIconStyle">
+            <Setter Property="FontSize"
+                    Value="30" />
+            <Setter Property="Margin"
+                    Value="20,0,0,0" />
         </Style>
 
         <!-- CONVERTERS -->
@@ -85,9 +108,9 @@
         <!-- Control Styles -->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor"
-                    Value="{StaticResource PrimaryColor}" />
+                    Value="{DynamicResource ContentPageBackgroundColor}" />
             <Setter Property="BarTextColor"
-                    Value="{StaticResource PrimaryTextColor}" />
+                    Value="{DynamicResource PrimaryTextColor}" />
         </Style>
 
         <OnPlatform x:Key="FrameCornerRadius"

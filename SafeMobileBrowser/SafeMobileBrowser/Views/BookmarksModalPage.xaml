@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
+             BackgroundColor="{DynamicResource ModalPageBackgroundColor}"
              xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
              mc:Ignorable="d"
              x:Name="BookmarkModalPage"
@@ -27,25 +28,18 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
-        <Style TargetType="Image"
+        <Style TargetType="Label"
+               BasedOn="{StaticResource SecondaryActionIconStyle}"
                x:Key="BookmarkRemoveIconStyle">
-            <Setter Property="VerticalOptions"
-                    Value="Center" />
-            <Setter Property="HorizontalOptions"
-                    Value="End" />
-            <Setter Property="HeightRequest"
-                    Value="25" />
-            <Setter Property="WidthRequest"
-                    Value="25" />
-            <Setter Property="Opacity"
-                    Value="0.75" />
+            <Setter Property="FontSize"
+                    Value="30" />
         </Style>
         <Style x:Key="BookmarkUrlStyle"
                TargetType="Label">
             <Setter Property="FontSize"
                     Value="{StaticResource MediumSize}" />
             <Setter Property="TextColor"
-                    Value="{StaticResource GreySmokeDarkColor}" />
+                    Value="{DynamicResource SecondaryTextColor}" />
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
@@ -55,23 +49,18 @@
             <StackLayout Spacing="0">
                 <StackLayout Orientation="Horizontal"
                              Style="{StaticResource ModalPageTitleView}">
-                    <Image VerticalOptions="Center"
-                           WidthRequest="25"
-                           HeightRequest="25">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:IconFont.ArrowLeft}"
-                                             Size="30"
-                                             Color="{StaticResource BookmarkDeleteIconColor}" />
-                        </Image.Source>
-                        <Image.GestureRecognizers>
+                    <Label Style="{DynamicResource TopNavigationIconStyle}"
+                           VerticalOptions="Center"
+                           Text="{x:Static icons:IconFont.ArrowLeft}" >
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                        </Image.GestureRecognizers>
-                    </Image>
+                        </Label.GestureRecognizers>
+                    </Label>
                     <Label Text="Bookmarks"
                            Style="{StaticResource ModalPageTitleLabelStyle}" />
                 </StackLayout>
                 <controls:ShadowBoxView ShadowType="Bottom"
+                                        IsVisible="{DynamicResource IsLightTheme}"
                                         HeightRequest="6" />
             </StackLayout>
             <CollectionView Margin="0"
@@ -81,7 +70,8 @@
                 <CollectionView.EmptyView>
                     <Label HorizontalOptions="Center"
                            VerticalOptions="Center"
-                           Text="No bookmarks!" />
+                           Text="No bookmarks!" 
+                           TextColor="{DynamicResource PrimaryTextColor}"/>
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -90,19 +80,13 @@
                                    Style="{StaticResource BookmarkUrlStyle}"
                                    HorizontalOptions="StartAndExpand">
                             </Label>
-                            <Image Style="{StaticResource BookmarkRemoveIconStyle}"
-                                   HorizontalOptions="End">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                                     Glyph="{x:Static icons:IconFont.Delete}"
-                                                     Size="30"
-                                                     Color="{StaticResource BookmarkDeleteIconColor}" />
-                                </Image.Source>
-                                <Image.GestureRecognizers>
+                            <Label Text="{x:Static icons:IconFont.Delete}"
+                                   Style="{StaticResource BookmarkRemoveIconStyle}">
+                                <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.DeleteBookmarkCommand, Source={x:Reference BookmarkModalPage}}"
                                                           CommandParameter="{Binding}" />
-                                </Image.GestureRecognizers>
-                            </Image>
+                                </Label.GestureRecognizers>
+                            </Label>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
