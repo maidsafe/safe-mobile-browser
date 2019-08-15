@@ -17,7 +17,7 @@ namespace SafeMobileBrowser.ViewModels
         public ICommand PrivacyInfoCommand { get; }
 
         public ICommand OpenLogsPageCommand { get; }
-
+        
         public ICommand ToggleThemeCommand { get; }
 
         public string ApplicationVersion => AppInfo.VersionString;
@@ -53,6 +53,7 @@ namespace SafeMobileBrowser.ViewModels
             {
                 OpenNativeBrowserService.LaunchNativeEmbeddedBrowser(Constants.PrivacyInfoUrl);
             });
+            
             OpenLogsPageCommand = new Command(() => { navigation.PushModalAsync(new LogsModalPage()); });
 
             var currentTheme = ThemeHelper.CurrentTheme();
