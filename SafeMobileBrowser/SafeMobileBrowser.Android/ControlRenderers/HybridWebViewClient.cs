@@ -35,7 +35,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             try
             {
                 Logger.Info($"Requested Url: {request.Url.ToString()}");
-                var urlToFetch = request.Url.ToString();
+                var urlToFetch = request.Url.ToString().Replace(Constants.BufferText, string.Empty);
                 var isHttpRequest = request.Url.Scheme == "https";
                 if (isHttpRequest && !urlToFetch.Contains("favicon"))
                 {

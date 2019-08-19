@@ -205,6 +205,11 @@ namespace SafeMobileBrowser.ViewModels
                 return;
             }
 
+            if (url.Contains(Constants.BufferText))
+            {
+                url = url.Replace(Constants.BufferText, string.Empty);
+            }
+
             if (url.StartsWith("safe://"))
             {
                 newUrlText = url.Replace("safe://", string.Empty).TrimEnd('/');
@@ -269,6 +274,13 @@ namespace SafeMobileBrowser.ViewModels
                     return;
 
                 IsNavigating = true;
+
+                string[] hostNames = AddressbarText.Split('.');
+
+                if (Device.RuntimePlatform == Device.Android && int.TryParse(hostNames[hostNames.Length - 1], out int _))
+                {
+                    url = $"{url}buffer-text";
+                }
 
                 Url = url;
             }
