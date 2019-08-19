@@ -51,22 +51,23 @@
                                               Text="{Binding AddressbarText}"
                                               TextColor="{DynamicResource SecondaryTextColor}"
                                               AddressBarFocusCommand="{Binding AddressBarFocusCommand, Mode=OneWayToSource}"
-                                              ios:Entry.CursorColor="{DynamicResource PrimaryColor}" />
-                    <controls:AddressBarEntry.Margin>
-                        <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="iOS"
-                                Value="2,0,0,0" />
-                            <On Platform="Android"
-                                Value="-3,0,0,0" />
-                        </OnPlatform>
-                    </controls:AddressBarEntry.Margin>
-                    <controls:AddressBarEntry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeNone</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </controls:AddressBarEntry.Keyboard>
+                                              ios:Entry.CursorColor="{DynamicResource PrimaryColor}">
+                        <controls:AddressBarEntry.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="iOS"
+                                    Value="2,0,0,0" />
+                                <On Platform="Android"
+                                    Value="-3,0,0,0" />
+                            </OnPlatform>
+                        </controls:AddressBarEntry.Margin>
+                        <controls:AddressBarEntry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeNone</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </controls:AddressBarEntry.Keyboard>
+                    </controls:AddressBarEntry>
 
                     <Label x:Name="AddressBarButton"
                            Style="{StaticResource PrimaryActionIconStyle}"
