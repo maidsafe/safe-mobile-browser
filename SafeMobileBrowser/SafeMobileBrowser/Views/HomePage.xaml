@@ -68,21 +68,19 @@
                         </Keyboard>
                     </controls:AddressBarEntry.Keyboard>
 
-                    <Image x:Name="AddressBarButton"
+                    <Label x:Name="AddressBarButton"
+                           Style="{StaticResource PrimaryActionIconStyle}"
+                           Text="{x:Static icons:IconFont.Close}"
+                           FontSize="25"
+                           HeightRequest="20"
+                           Margin="3"
                            IsVisible="False"
                            Grid.Column="2"
-                           HeightRequest="20"
                            HorizontalOptions="End">
-                        <Image.GestureRecognizers>
+                        <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ClearAddressBar" />
-                        </Image.GestureRecognizers>
-                        <Image.Source>
-                            <FontImageSource FontFamily="{DynamicResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:IconFont.Close}"
-                                             Size="30"
-                                             Color="{DynamicResource PrimaryTextColor}" />
-                        </Image.Source>
-                    </Image>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
             </Frame>
 
