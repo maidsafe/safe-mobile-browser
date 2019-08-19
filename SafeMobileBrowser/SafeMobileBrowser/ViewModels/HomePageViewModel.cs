@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -277,7 +278,7 @@ namespace SafeMobileBrowser.ViewModels
 
                 string[] hostNames = AddressbarText.Split('.');
 
-                if (Device.RuntimePlatform == Device.Android && int.TryParse(hostNames[hostNames.Length - 1], out int _))
+                if (Device.RuntimePlatform == Device.Android && Regex.IsMatch(hostNames[hostNames.Length - 1], @"^\d+$"))
                 {
                     url = $"{url}buffer-text";
                 }
