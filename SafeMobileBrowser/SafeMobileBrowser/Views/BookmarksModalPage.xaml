@@ -43,6 +43,17 @@
             <Setter Property="VerticalOptions"
                     Value="Center" />
         </Style>
+        <Style x:Key="EmptyViewLabelStyle"
+               TargetType="Label">
+            <Setter Property="TextColor"
+                    Value="{StaticResource GreySmokeMediumColor}" />
+            <Setter Property="Text"
+                    Value="No Bookmarks" />
+            <Setter Property="HorizontalOptions"
+                    Value="Center" />
+            <Setter Property="VerticalOptions"
+                    Value="Center" />
+        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
@@ -68,10 +79,7 @@
                             SelectedItem="{Binding SelectedBookmarkItem, Mode=TwoWay}"
                             ItemsSource="{Binding Bookmarks}">
                 <CollectionView.EmptyView>
-                    <Label HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           Text="No bookmarks!" 
-                           TextColor="{DynamicResource PrimaryTextColor}"/>
+                    <Label Style="{StaticResource EmptyViewLabelStyle}" />
                 </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
