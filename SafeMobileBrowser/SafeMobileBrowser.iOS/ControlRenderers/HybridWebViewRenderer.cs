@@ -35,6 +35,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
 
             if (NativeView != null)
             {
+                ((WKWebView)NativeView).AllowsBackForwardNavigationGestures = true;
                 _progressObserver = NativeView.AddObserver("estimatedProgress", NSKeyValueObservingOptions.New, ProgressObserverAction);
                 SetSource();
             }
