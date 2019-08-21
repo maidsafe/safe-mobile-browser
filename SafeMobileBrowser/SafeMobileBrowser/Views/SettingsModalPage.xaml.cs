@@ -6,7 +6,7 @@ namespace SafeMobileBrowser.Views
 {
     public partial class SettingsModalPage : ContentPage
     {
-        SettingsModalPageViewModel _viewModel;
+        private SettingsModalPageViewModel _viewModel;
 
         public SettingsModalPage()
         {
@@ -18,11 +18,11 @@ namespace SafeMobileBrowser.Views
         {
             base.OnAppearing();
 
-            if (_viewModel == null)
-            {
-                _viewModel = new SettingsModalPageViewModel(Navigation);
-                BindingContext = _viewModel;
-            }
+            if (_viewModel != null)
+                return;
+
+            _viewModel = new SettingsModalPageViewModel(Navigation);
+            BindingContext = _viewModel;
         }
     }
 }

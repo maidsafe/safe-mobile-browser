@@ -13,7 +13,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
 {
     public class HybridWebViewRenderer : WkWebViewRenderer
     {
-        IDisposable _progressObserver;
+        private IDisposable _progressObserver;
 
         public static WKWebViewConfiguration GetHybridWKWebViewConfiguration()
         {
@@ -50,7 +50,7 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
         {
             if (NativeView == null || Element == null)
                 return;
-            var path = Path.Combine(BaseUrl, $"index.html");
+            var path = Path.Combine(BaseUrl, "index.html");
             var nsFileUri = new NSUrl($"file://{path}");
             var nsBaseUri = new NSUrl($"file://{BaseUrl}");
 

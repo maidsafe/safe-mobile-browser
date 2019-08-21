@@ -7,7 +7,7 @@ namespace SafeMobileBrowser.Views
 {
     public partial class MenuPopUp : PopupPage
     {
-        MenuPopUpViewModel _viewModel;
+        private MenuPopUpViewModel _viewModel;
 
         public MenuPopUp()
         {

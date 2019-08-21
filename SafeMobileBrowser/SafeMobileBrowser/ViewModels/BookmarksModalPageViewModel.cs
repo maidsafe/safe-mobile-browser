@@ -10,7 +10,7 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class BookmarksModalPageViewModel : BaseViewModel
     {
-        readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
+        private readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
 
         public ICommand GoBackCommand { get; set; }
 

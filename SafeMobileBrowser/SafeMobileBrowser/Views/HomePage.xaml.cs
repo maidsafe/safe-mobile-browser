@@ -11,10 +11,10 @@ namespace SafeMobileBrowser.Views
 {
     public partial class HomePage : ContentPage
     {
-        List<string> _websiteList;
-        HomePageViewModel _viewModel;
-        bool _isLogInitialised;
-        string _launchUrl;
+        private List<string> _websiteList;
+        private HomePageViewModel _viewModel;
+        private bool _isLogInitialised;
+        private string _launchUrl;
 
         public HomePage([Optional]string url)
         {
@@ -96,7 +96,7 @@ namespace SafeMobileBrowser.Views
                 {
                     var theme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
                     var jsToEvaluate = "ChangeBackgroundColor (" + $"'{theme.ToString()}'" + ")";
-                    _ = await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
+                    await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
                 });
         }
 

@@ -104,19 +104,19 @@ namespace SafeMobileBrowser.WebFetchImplementation
         /// <returns>MDataInfo for the service MData</returns>
         public async Task<MDataInfo> GetContainerFromPublicId(string pubName, string serviceName)
         {
-            var serviceInfo = (default(List<byte>), default(ulong));
+            (List<byte>, ulong) serviceInfo;
             try
             {
                 // Fetch mdata entry value for service
                 var address = await SafeApp.Misc.Crypto.Sha3HashAsync(pubName.ToUtfBytes());
                 var servicesContainer = new MDataInfo
                 {
-                    TypeTag = WebFetchConstants.DNSTagType,
+                    TypeTag = WebFetchConstants.DnsTagType,
                     Name = address.ToArray()
                 };
                 serviceInfo = await _session.MData.GetValueAsync(
                     servicesContainer,
-                    (string.IsNullOrWhiteSpace(serviceName) ? WebFetchConstants.DefaultSerive : serviceName).ToUtfBytes());
+                    (string.IsNullOrWhiteSpace(serviceName) ? WebFetchConstants.DefaultService : serviceName).ToUtfBytes());
             }
             catch (FfiException ex)
             {
@@ -151,7 +151,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
 
                 serviceMd = new MDataInfo
                 {
-                    TypeTag = WebFetchConstants.WWWTagType,
+                    TypeTag = WebFetchConstants.WwwTagType,
                     Name = serviceInfo.Item1.ToArray()
                 };
             }
@@ -167,7 +167,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
         /// <returns>WebFile</returns>
         public async Task<WebFile> TryDifferentPaths(MDataInfo fileMdInfo, string initialPath)
         {
-            void HandleNFSFetchException(FfiException exception)
+            void HandleNfsFetchException(FfiException exception)
             {
                 Logger.Error(exception);
                 if (exception.ErrorCode != WebFetchConstants.FileNotFound)
@@ -184,7 +184,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
             catch (Exception ex)
             {
                 if (ex.GetType() == typeof(FfiException))
-                    HandleNFSFetchException((FfiException)ex);
+                    HandleNfsFetchException((FfiException)ex);
             }
 
             if (file == null && initialPath.StartsWith("/"))
@@ -197,7 +197,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 catch (Exception ex)
                 {
                     if (ex.GetType() == typeof(FfiException))
-                        HandleNFSFetchException((FfiException)ex);
+                        HandleNfsFetchException((FfiException)ex);
                 }
             }
 
@@ -211,7 +211,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 catch (Exception ex)
                 {
                     if (ex.GetType() == typeof(FfiException))
-                        HandleNFSFetchException((FfiException)ex);
+                        HandleNfsFetchException((FfiException)ex);
                 }
             }
 
@@ -226,7 +226,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 catch (Exception ex)
                 {
                     if (ex.GetType() == typeof(FfiException))
-                        HandleNFSFetchException((FfiException)ex);
+                        HandleNfsFetchException((FfiException)ex);
 
                     throw new WebFetchException(WebFetchConstants.FileNotFound, WebFetchConstants.FileNotFoundMessage);
                 }
@@ -244,7 +244,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
         /// <param name="fileMdInfo">Opened file's MdInfo</param>
         /// <param name="openedFile">Open file</param>
         /// <param name="options">WebFetch options (ex. range to read)</param>
-        /// <returns>Data as List<byte>, startIndex, endIndex, and size</returns>
+        /// <returns>Data as List &lt; byte &gt;, startIndex, endIndex, and size</returns>
         public async Task<(List<byte>, ulong, ulong, ulong)> ReadContentFromFile(
             MDataInfo fileMdInfo,
             WebFile openedFile,
@@ -252,31 +252,31 @@ namespace SafeMobileBrowser.WebFetchImplementation
         {
             try
             {
-                var filehandle = await _session.NFS.FileOpenAsync(fileMdInfo, openedFile.File, SafeApp.Misc.NFS.OpenMode.Read);
-                var filesize = await _session.NFS.FileSizeAsync(filehandle);
+                var fileHandle = await _session.NFS.FileOpenAsync(fileMdInfo, openedFile.File, SafeApp.Misc.NFS.OpenMode.Read);
+                var fileSize = await _session.NFS.FileSizeAsync(fileHandle);
 
                 if (options == null)
                 {
-                    var filedata = await _session.NFS.FileReadAsync(filehandle, 0, filesize - 1);
-                    return (filedata, 0, filesize - 1, filesize);
+                    var fileData = await _session.NFS.FileReadAsync(fileHandle, 0, fileSize - 1);
+                    return (fileData, 0, fileSize - 1, fileSize);
                 }
                 else
                 {
-                    var partStartIndex = (ulong)(options?.Range[0].Start > 0 ? options?.Range[0].Start : 0);
-                    var partendIndex = 0UL;
+                    var partStartIndex = options.Range[0].Start > 0 ? options.Range[0].Start : 0;
+                    ulong partEndIndex;
 
-                    if (options?.Range[0].End > 0)
+                    if (options.Range[0].End > 0)
                     {
-                        partendIndex = (ulong)options?.Range[0].End;
+                        partEndIndex = options.Range[0].End;
                     }
                     else
                     {
-                        partendIndex = filesize - 1;
+                        partEndIndex = fileSize - 1;
                     }
 
-                    var partSize = partendIndex - partStartIndex + 1;
-                    var filedata = await _session.NFS.FileReadAsync(filehandle, partStartIndex, partSize);
-                    return (filedata, partStartIndex, partendIndex, partSize);
+                    var partSize = partEndIndex - partStartIndex + 1;
+                    var fileData = await _session.NFS.FileReadAsync(fileHandle, partStartIndex, partSize);
+                    return (fileData, partStartIndex, partEndIndex, partSize);
                 }
             }
             catch (Exception ex)

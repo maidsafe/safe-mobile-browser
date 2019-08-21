@@ -7,7 +7,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 {
     public class HybridWebViewChromeClient : FormsWebChromeClient
     {
-        readonly WeakReference<HybridWebViewRenderer> _renderer;
+        private readonly WeakReference<HybridWebViewRenderer> _renderer;
 
         public HybridWebViewChromeClient(HybridWebViewRenderer renderer)
         {
@@ -18,7 +18,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
         {
             base.OnProgressChanged(view, newProgress);
 
-            _renderer.TryGetTarget(out HybridWebViewRenderer renderer);
+            _renderer.TryGetTarget(out var renderer);
 
             if (renderer != null)
             {

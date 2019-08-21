@@ -21,9 +21,7 @@ namespace SafeMobileBrowser.ViewModels
 
         public string WelcomePageUrl => $"{DependencyService.Get<IPlatformService>().BaseUrl}/index.html";
 
-        public bool IsSessionAvailable => App.AppSession != null;
-
-        public ICommand PageLoadCommand { get; private set; }
+        public ICommand PageLoadCommand { get; }
 
         public Command BottomNavbarTapCommand { get; set; }
 

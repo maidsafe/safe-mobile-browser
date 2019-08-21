@@ -18,8 +18,6 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand OpenLogsPageCommand { get; }
 
-        public ICommand ToggleThemeCommand { get; }
-
         public string ApplicationVersion => AppInfo.VersionString;
 
         public ICommand GoBackCommand { get; }

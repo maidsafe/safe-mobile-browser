@@ -12,7 +12,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 {
     public class HybridWebViewClient : FormsWebViewClient
     {
-        readonly WeakReference<HybridWebViewRenderer> _renderer;
+        private readonly WeakReference<HybridWebViewRenderer> _renderer;
 
         public HybridWebViewClient(HybridWebViewRenderer renderer)
             : base(renderer)

@@ -5,7 +5,7 @@ namespace SafeMobileBrowser.Views
 {
     public partial class BookmarksModalPage : ContentPage
     {
-        BookmarksModalPageViewModel _viewModel;
+        private BookmarksModalPageViewModel _viewModel;
 
         public BookmarksModalPage()
         {

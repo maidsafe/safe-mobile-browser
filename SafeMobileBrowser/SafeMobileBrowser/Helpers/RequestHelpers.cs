@@ -9,6 +9,8 @@ namespace SafeMobileBrowser.Helpers
 {
     public static class RequestHelpers
     {
+        private const string Bytes = "bytes=";
+
         // Generating encoded app request using app name, appid, vendor
         public static async Task<(uint, string)> GenerateEncodedAppRequestAsync()
         {
@@ -32,9 +34,7 @@ namespace SafeMobileBrowser.Helpers
         public static List<ByteRange> RangeStringToArray(string rangeString)
         {
             var byteRanges = new List<ByteRange>();
-
-            var bytes = "bytes=";
-            var rangeValues = rangeString.Remove(0, bytes.Length).Split(',');
+            var rangeValues = rangeString.Remove(0, Bytes.Length).Split(',');
 
             foreach (var item in rangeValues)
             {

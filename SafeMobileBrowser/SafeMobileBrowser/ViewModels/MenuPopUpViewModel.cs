@@ -148,7 +148,7 @@ namespace SafeMobileBrowser.ViewModels
 
         internal void UpdatePopMenuItemStates()
         {
-            var shareMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Share"));
+            var shareMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Share"));
 
             if (!string.IsNullOrWhiteSpace(HomePageViewModel.CurrentUrl))
             {
@@ -166,10 +166,10 @@ namespace SafeMobileBrowser.ViewModels
             BookmarkMenuItem.MenuItemIcon = CheckIfAlreadyAvailableInBookmark ? IconFont.Bookmark : IconFont.BookmarkOutline;
             BookmarkMenuItem.IsEnabled = AppService.IsSessionAvailable;
 
-            var bookmarksMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
+            var bookmarksMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
             bookmarksMenuItem.IsEnabled = AppService.IsSessionAvailable;
 
-            var authenticationMenuItem = PopMenuItems.FirstOrDefault(p => string.Equals(p.MenuItemTitle, "Authenticate"));
+            var authenticationMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Authenticate"));
             authenticationMenuItem.IsEnabled = !AppService.IsSessionAvailable;
         }
 

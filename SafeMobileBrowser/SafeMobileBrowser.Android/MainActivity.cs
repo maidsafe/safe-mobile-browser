@@ -27,10 +27,7 @@ namespace SafeMobileBrowser.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             var theme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
-            if (theme)
-                SetTheme(Resource.Style.MainDarkTheme);
-            else
-                SetTheme(Resource.Style.MainTheme);
+            SetTheme(theme ? Resource.Style.MainDarkTheme : Resource.Style.MainTheme);
             Forms.SetFlags("CollectionView_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;

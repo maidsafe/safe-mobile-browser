@@ -6,7 +6,7 @@ namespace SafeMobileBrowser.Controls
     {
         None = 0,
         Top,
-        Bottom,
+        Bottom
     }
 
     public class ShadowBoxView : BoxView

@@ -2,15 +2,15 @@
 {
     public static class WebFetchConstants
     {
-        // webfetch typetag and path constants
-        public const int DNSTagType = 15001;
-        public const int WWWTagType = 15002;
-        public const int NFSFileStartIndex = 0;
-        public const int NFSFileEndIndex = 0;
+        // Type tags and path constants used in web fetch
+        public const int DnsTagType = 15001;
+        public const int WwwTagType = 15002;
+        public const int NfsFileStartIndex = 0;
+        public const int NfsFileEndIndex = 0;
         public const string IndexFileName = "index.html";
-        public const string DefaultSerive = "www";
+        public const string DefaultService = "www";
 
-        // webfetch error codes
+        // Error codes used in web fetch service
         public const int NoSuchPublicName = 1000;
         public const int NoSuchServiceName = 1001;
         public const int NullUrl = 1006;
@@ -19,7 +19,7 @@
         public const int NoSuchEntry = -106;
         public const int FileNotFound = -301;
 
-        // webfetch error messages
+        // Error Messages used in web fetch service
         public const string NoSuchPublicNameMessage = "No such public name exists.";
         public const string NoSuchServiceNameMessage = "No such service name exists.";
         public const string NullUrlMessage = "Provided url is null or empty.";

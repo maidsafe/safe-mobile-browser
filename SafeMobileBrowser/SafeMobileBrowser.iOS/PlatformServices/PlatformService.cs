@@ -24,10 +24,7 @@ namespace SafeMobileBrowser.iOS.PlatformServices
         {
             var canOpen = UIApplication.SharedApplication.CanOpenUrl(new NSUrl(uri));
 
-            if (!canOpen)
-                return Task.FromResult(false);
-
-            return Task.FromResult(UIApplication.SharedApplication.OpenUrl(new NSUrl(uri)));
+            return Task.FromResult(canOpen && UIApplication.SharedApplication.OpenUrl(new NSUrl(uri)));
         }
 
         public async Task TransferAssetsAsync(List<AssetFileTransferModel> fileList)
@@ -55,24 +52,21 @@ namespace SafeMobileBrowser.iOS.PlatformServices
             controller.PresentViewController(sfViewController, true, null);
         }
 
-        UIViewController GetVisibleViewController()
+        private static UIViewController GetVisibleViewController()
         {
             var rootController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
-            if (rootController.PresentedViewController == null)
-                return rootController;
-
-            if (rootController.PresentedViewController is UINavigationController)
+            switch (rootController.PresentedViewController)
             {
-                return ((UINavigationController)rootController.PresentedViewController).VisibleViewController;
+                case null:
+                    return rootController;
+                case UINavigationController controller:
+                    return controller.VisibleViewController;
+                case UITabBarController controller:
+                    return controller.SelectedViewController;
+                default:
+                    return rootController.PresentedViewController;
             }
-
-            if (rootController.PresentedViewController is UITabBarController)
-            {
-                return ((UITabBarController)rootController.PresentedViewController).SelectedViewController;
-            }
-
-            return rootController.PresentedViewController;
         }
     }
 }

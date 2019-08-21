@@ -23,7 +23,7 @@ namespace SafeMobileBrowser.Helpers
                     if (_registeredService == null)
                     {
                         _registeredService = new ConsoleLoggingService();
-                        _registeredService.Log(LogType.WARNING, "No logging service was registered.  Falling back to console logging.");
+                        _registeredService.Log(LogType.Warning, "No logging service was registered.  Falling back to console logging.");
                     }
                 }
 
@@ -59,7 +59,7 @@ namespace SafeMobileBrowser.Helpers
         /// <param name="parameters">Parameters to write.</param>
         public static void Debug(params object[] parameters)
         {
-            Log(LogType.DEBUG, parameters);
+            Log(LogType.Debug, parameters);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace SafeMobileBrowser.Helpers
         /// <param name="parameters">Parameters to write.</param>
         public static void Warn(params object[] parameters)
         {
-            Log(LogType.WARNING, parameters);
+            Log(LogType.Warning, parameters);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace SafeMobileBrowser.Helpers
         /// <param name="parameters">Parameters to write.</param>
         public static void Error(params object[] parameters)
         {
-            Log(LogType.ERROR, parameters);
+            Log(LogType.Error, parameters);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace SafeMobileBrowser.Helpers
         /// <param name="parameters">Parameters to write.</param>
         public static void Fatal(params object[] parameters)
         {
-            Log(LogType.FATAL, parameters);
+            Log(LogType.Fatal, parameters);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace SafeMobileBrowser.Helpers
         /// <param name="parameters">Parameters to write.</param>
         public static void Info(params object[] parameters)
         {
-            Log(LogType.INFO, parameters);
+            Log(LogType.Info, parameters);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace SafeMobileBrowser.Helpers
             }
             catch (Exception exc)
             {
-                RegisteredService.Log(LogType.INFO, $"An error occured formatting the logging message: [{format}]", exc);
+                RegisteredService.Log(LogType.Info, $"An error occured formatting the logging message: [{format}]", exc);
             }
 
             if (parameters[parameters.Length - 1] is Exception ex)

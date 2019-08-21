@@ -9,10 +9,7 @@ namespace SafeMobileBrowser.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                return null;
-
-            return ImageSource.FromStream(() => new MemoryStream((byte[])value));
+            return value == null ? null : ImageSource.FromStream(() => new MemoryStream((byte[])value));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>

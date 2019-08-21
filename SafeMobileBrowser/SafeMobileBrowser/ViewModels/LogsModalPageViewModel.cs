@@ -13,9 +13,9 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class LogsModalPageViewModel : BaseViewModel
     {
+        private const string LogFileExtension = ".log";
         private readonly string _logFilesPath = DependencyService.Get<IPlatformService>().ConfigFilesPath;
         private readonly TimeSpan _toastTimeSpan = TimeSpan.FromSeconds(1.5);
-        private readonly string _logFileExtension = ".log";
         private readonly INavigation _navigation;
 
         public ICommand GoBackCommand { get; }
@@ -58,16 +58,17 @@ namespace SafeMobileBrowser.ViewModels
                 var logFileDirectory = new DirectoryInfo(_logFilesPath);
                 var files = logFileDirectory.GetFiles("*.log")
                     .Where(f => f.Name.StartsWith("log-"))
-                    .OrderByDescending(f => f.LastWriteTime);
+                    .OrderByDescending(f => f.LastWriteTime)
+                    .ToList();
 
                 if (!files.Any())
                     return;
 
-                LastModifiedFile = files.FirstOrDefault().Name.Replace(_logFileExtension, string.Empty);
+                LastModifiedFile = files.FirstOrDefault()?.Name.Replace(LogFileExtension, string.Empty);
 
                 foreach (var file in files)
                 {
-                    LogFiles.Add(file.Name.Replace(_logFileExtension, string.Empty));
+                    LogFiles.Add(file.Name.Replace(LogFileExtension, string.Empty));
                 }
             }
             catch (Exception ex)
@@ -86,7 +87,7 @@ namespace SafeMobileBrowser.ViewModels
                     return;
                 }
 
-                var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}{_logFileExtension}");
+                var logFileToDelete = Path.Combine(_logFilesPath, $"{fileName}{LogFileExtension}");
                 File.Delete(logFileToDelete);
                 LogFiles.Remove(fileName);
 
@@ -103,7 +104,7 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                var logFileToReadContent = Path.Combine(_logFilesPath, $"{fileName}{_logFileExtension}");
+                var logFileToReadContent = Path.Combine(_logFilesPath, $"{fileName}{LogFileExtension}");
                 var logFileText = File.ReadAllText(logFileToReadContent);
                 Device.InvokeOnMainThreadAsync(async () =>
                 {
@@ -135,7 +136,7 @@ namespace SafeMobileBrowser.ViewModels
                 {
                     if (file != LastModifiedFile)
                     {
-                        var logFileToDelete = Path.Combine(_logFilesPath, $"{file}{_logFileExtension}");
+                        var logFileToDelete = Path.Combine(_logFilesPath, $"{file}{LogFileExtension}");
                         File.Delete(logFileToDelete);
                     }
                 }

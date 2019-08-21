@@ -11,6 +11,7 @@ namespace SafeMobileBrowser.iOS
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
         private readonly AuthenticationService _authenticationService = new AuthenticationService();
+        private NSUrl _launchUrl;
 
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
@@ -21,13 +22,10 @@ namespace SafeMobileBrowser.iOS
 
             if (launchOptions != null)
             {
-                var url = launchOptions["UIApplicationLaunchOptionsURLKey"] as NSUrl;
-                LoadApplication(new App(url.ToString()));
+                _launchUrl = launchOptions["UIApplicationLaunchOptionsURLKey"] as NSUrl;
             }
-            else
-            {
-                LoadApplication(new App());
-            }
+
+            LoadApplication(_launchUrl == null ? new App() : new App(_launchUrl.ToString()));
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }
@@ -39,14 +37,14 @@ namespace SafeMobileBrowser.iOS
               {
                   try
                   {
-                      var opendUrl = url.ToString();
-                      if (opendUrl.ToLower().StartsWith("safe://"))
+                      var launchUrl = url.ToString();
+                      if (launchUrl.ToLower().StartsWith("safe://"))
                       {
-                          MessagingCenter.Send((App)Xamarin.Forms.Application.Current, MessageCenterConstants.LoadSafeWebsite, opendUrl);
+                          MessagingCenter.Send((App)Xamarin.Forms.Application.Current, MessageCenterConstants.LoadSafeWebsite, launchUrl);
                       }
-                      else if (opendUrl.StartsWith(Constants.AppId))
+                      else if (launchUrl.StartsWith(Constants.AppId))
                       {
-                          await _authenticationService.ProcessAuthenticationResponseAsync(opendUrl);
+                          await _authenticationService.ProcessAuthenticationResponseAsync(launchUrl);
                       }
                       Logger.Info("IPC Msg Handling Completed");
                   }

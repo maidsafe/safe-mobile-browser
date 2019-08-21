@@ -4,11 +4,11 @@ namespace SafeMobileBrowser.Services
 {
     public enum LogType
     {
-        DEBUG,
-        INFO,
-        WARNING,
-        ERROR,
-        FATAL
+        Debug,
+        Info,
+        Warning,
+        Error,
+        Fatal
     }
 
     public interface ILoggingService

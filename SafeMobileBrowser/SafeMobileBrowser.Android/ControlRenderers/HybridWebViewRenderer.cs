@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-using Android.Content;
+﻿using Android.Content;
 using SafeMobileBrowser.Controls;
 using SafeMobileBrowser.Droid.ControlRenderers;
-using SafeMobileBrowser.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -12,8 +10,8 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 {
     public class HybridWebViewRenderer : WebViewRenderer
     {
-        HybridWebViewClient _webViewClient;
-        HybridWebViewChromeClient _webViewChromeClient;
+        private HybridWebViewClient _webViewClient;
+        private HybridWebViewChromeClient _webViewChromeClient;
 
         public HybridWebViewRenderer(Context context)
             : base(context)

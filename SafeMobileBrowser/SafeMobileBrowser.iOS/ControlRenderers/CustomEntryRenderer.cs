@@ -15,11 +15,11 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
         {
             base.OnElementPropertyChanged(sender, e);
 
-            if (Control != null)
-            {
-                Control.Layer.BorderWidth = 0;
-                Control.BorderStyle = UITextBorderStyle.None;
-            }
+            if (Control == null)
+                return;
+
+            Control.Layer.BorderWidth = 0;
+            Control.BorderStyle = UITextBorderStyle.None;
         }
     }
 }

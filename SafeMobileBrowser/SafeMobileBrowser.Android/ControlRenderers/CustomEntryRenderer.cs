@@ -21,14 +21,14 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
         {
             base.OnElementChanged(e);
 
-            if (Control != null)
-            {
-                GradientDrawable gd = new GradientDrawable();
-                gd.SetColor(global::Android.Graphics.Color.Transparent);
-                Control.SetBackground(gd);
-                Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
-                Control.SetPadding(Control.PaddingLeft, 0, Control.PaddingRight, 0);
-            }
+            if (Control == null)
+                return;
+
+            var gd = new GradientDrawable();
+            gd.SetColor(global::Android.Graphics.Color.Transparent);
+            Control.SetBackground(gd);
+            Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
+            Control.SetPadding(Control.PaddingLeft, 0, Control.PaddingRight, 0);
         }
     }
 }

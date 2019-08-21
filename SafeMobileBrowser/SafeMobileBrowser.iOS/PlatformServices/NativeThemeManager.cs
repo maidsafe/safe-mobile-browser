@@ -10,9 +10,9 @@ namespace SafeMobileBrowser.iOS.PlatformServices
 {
     public class NativeThemeManager : INativeThemeManager
     {
-        private UIColor darkStatusBarColor = UIColor.FromRGB(33, 33, 33);
-        private UIColor lightStatusBarColor = UIColor.White;
-        private NSString statusBarKey = new NSString("statusBar");
+        private readonly UIColor _darkStatusBarColor = UIColor.FromRGB(33, 33, 33);
+        private readonly UIColor _lightStatusBarColor = UIColor.White;
+        private readonly NSString _statusBarKey = new NSString("statusBar");
 
         public void ChangeAppTheme(ThemeHelper.AppThemeMode theme, bool isAppLaunched)
         {
@@ -21,15 +21,15 @@ namespace SafeMobileBrowser.iOS.PlatformServices
                 case ThemeHelper.AppThemeMode.Light:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        UIView statusBar = UIApplication.SharedApplication.ValueForKey(statusBarKey) as UIView;
-                        statusBar.BackgroundColor = lightStatusBarColor;
+                        if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
+                            statusBar.BackgroundColor = _lightStatusBarColor;
                     });
                     break;
                 case ThemeHelper.AppThemeMode.Dark:
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        UIView statusBar = UIApplication.SharedApplication.ValueForKey(statusBarKey) as UIView;
-                        statusBar.BackgroundColor = darkStatusBarColor;
+                        if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
+                            statusBar.BackgroundColor = _darkStatusBarColor;
                     });
                     break;
             }

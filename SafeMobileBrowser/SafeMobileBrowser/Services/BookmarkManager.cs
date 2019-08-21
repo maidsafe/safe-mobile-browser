@@ -135,7 +135,7 @@ namespace SafeMobileBrowser.Services
                 ReconnectBookmarkSession();
                 var bookmarks = new List<string>();
                 var encryptedKey = await _session.MDataInfoActions.EncryptEntryKeyAsync(_accesscontainerMdinfo, Constants.AppStateMdEntryKey.ToUtfBytes());
-                var (value, version) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
+                var (value, _) = await _session.MData.GetValueAsync(_accesscontainerMdinfo, encryptedKey);
 
                 var decryptedValue = (await _session.MDataInfoActions.DecryptAsync(_accesscontainerMdinfo, value)).ToUtfString();
                 var browserState = JObject.Parse(decryptedValue);
