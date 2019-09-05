@@ -1,3 +1,37 @@
+## 0.2.0 - (2019-09-05)
+
+### Features
+
+* Enable app dark theme :tada: features for Android and iOS (#175) ([25e744f](https://github.com/maidsafe/safe-mobile-browser/commit/25e744f)), closes [#175](https://github.com/maidsafe/safe-mobile-browser/issues/175) [#158](https://github.com/maidsafe/safe-mobile-browser/issues/158) [#158](https://github.com/maidsafe/safe-mobile-browser/issues/158)
+* Update progress bar to show content load %age instead of indeterminate progress ([dc524c6](https://github.com/maidsafe/safe-mobile-browser/commit/dc524c6)), closes [#159](https://github.com/maidsafe/safe-mobile-browser/issues/159)
+* Add image download context menu for Android (#170) ([538834b](https://github.com/maidsafe/safe-mobile-browser/commit/538834b)), closes [#170](https://github.com/maidsafe/safe-mobile-browser/issues/170)
+* Enable back and forward navigation gestures on iOS (#177) ([f38d906](https://github.com/maidsafe/safe-mobile-browser/commit/f38d906)), closes [#177](https://github.com/maidsafe/safe-mobile-browser/issues/177)
+* Enable landscape mode in iOS (#164) ([dfc8225](https://github.com/maidsafe/safe-mobile-browser/commit/dfc8225)), closes [#164](https://github.com/maidsafe/safe-mobile-browser/issues/164)
+* Add feature to show, copy, & delete log files from settings page (#168) ([1ad61a2](https://github.com/maidsafe/safe-mobile-browser/commit/1ad61a2)), closes [#168](https://github.com/maidsafe/safe-mobile-browser/issues/168)
+
+### Bug Fixes
+
+* Update bookmarks page 'no bookmarks text' (#176) ([7aceb1f](https://github.com/maidsafe/safe-mobile-browser/commit/7aceb1f)), closes [#176](https://github.com/maidsafe/safe-mobile-browser/issues/176)
+* Update info.plist to allow photo download from webpage on iOS devices (#160) ([e22e391](https://github.com/maidsafe/safe-mobile-browser/commit/e22e391)), closes [#160](https://github.com/maidsafe/safe-mobile-browser/issues/160)
+* Fix loading of numeric websites on Android devices  (#174) ([313a54f](https://github.com/maidsafe/safe-mobile-browser/commit/313a54f)), closes [#174](https://github.com/maidsafe/safe-mobile-browser/issues/174)
+* Refactored code to show error pages from webfetch (#155) ([c02b62e](https://github.com/maidsafe/safe-mobile-browser/commit/c02b62e)), closes [#155](https://github.com/maidsafe/safe-mobile-browser/issues/155)
+* Fixed iOS settings page to open FAQ, and Privacy page links (#153) ([01b610d](https://github.com/maidsafe/safe-mobile-browser/commit/01b610d)), closes [#153](https://github.com/maidsafe/safe-mobile-browser/issues/153)
+
+### Other Changes
+
+* Update MaidSafe.SafeApp package to v0.2.3 (#183) ([8c1e3b4](https://github.com/maidsafe/safe-mobile-browser/commit/8c1e3b4)), closes [#183](https://github.com/maidsafe/safe-mobile-browser/issues/183)
+* Code refactoring for uniformality (#178) ([3ade46d](https://github.com/maidsafe/safe-mobile-browser/commit/3ade46d)), closes [#178](https://github.com/maidsafe/safe-mobile-browser/issues/178)
+* Remove authentication page and unnecessary default images (#162) ([8d8244c](https://github.com/maidsafe/safe-mobile-browser/commit/8d8244c)), closes [#162](https://github.com/maidsafe/safe-mobile-browser/issues/162)
+* Update hybridwebview to use commands (#156) ([eabfb95](https://github.com/maidsafe/safe-mobile-browser/commit/eabfb95)), closes [#156](https://github.com/maidsafe/safe-mobile-browser/issues/156)
+* Use Xamarin.Forms inbuild zoom feature (#165) ([c3322d0](https://github.com/maidsafe/safe-mobile-browser/commit/c3322d0)), closes [#165](https://github.com/maidsafe/safe-mobile-browser/issues/165)
+* Update README to include AppCenter links (#179) ([95a112e](https://github.com/maidsafe/safe-mobile-browser/commit/95a112e)), closes [#179](https://github.com/maidsafe/safe-mobile-browser/issues/179)
+* Update licensing to mention GPL3 (#166) ([5b2378b](https://github.com/maidsafe/safe-mobile-browser/commit/5b2378b)), closes [#166](https://github.com/maidsafe/safe-mobile-browser/issues/166)
+
+### Known Issues
+
+* Mobile browser (iOS) may not be able to connect to the SAFE Network when using cellular data.
+* Changing the device network connection between whitelisted and non-whilelisted IP network may cause app to feeze.
+
 ## 0.1.1 - (2019-07-31)
 
 ### Features
