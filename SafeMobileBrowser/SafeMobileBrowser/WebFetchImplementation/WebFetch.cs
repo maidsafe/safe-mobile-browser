@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MimeMapping;
 using SafeApp;
 using SafeApp.Utilities;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
+using Xamarin.Forms;
 
 namespace SafeMobileBrowser.WebFetchImplementation
 {
@@ -78,21 +80,33 @@ namespace SafeMobileBrowser.WebFetchImplementation
             if (string.IsNullOrWhiteSpace(url))
                 throw new WebFetchException(WebFetchConstants.NullUrl, WebFetchConstants.NullUrlMessage);
 
-            var parsedUrl = new Uri(url);
-            var hostname = parsedUrl.Host;
+            if (
+                Device.RuntimePlatform == Device.Android 
+                && Regex.IsMatch(url.Replace("https://", string.Empty).Replace("/", string.Empty), @"^\d+$"))
+            {
+                var mdataInfo = await GetContainerFromPublicId(
+                                                                url
+                                                                .Replace("https://", string.Empty)
+                                                                .Replace("/", string.Empty), "www");
+                return (mdataInfo, string.Empty);
+            }
+            else
+            {
+                var parsedUrl = new Uri(url);
+                var hostname = parsedUrl.Host;
 
-            var hostParts = hostname.Split('.').ToList();
-            var publicName = hostParts.Last();
-            hostParts.Remove(publicName);
-            var serviceName = string.Join(".", hostParts);
+                var hostParts = hostname.Split('.').ToList();
+                var publicName = hostParts.Last();
+                hostParts.Remove(publicName);
+                var serviceName = string.Join(".", hostParts);
 
-            // let's decompose and normalise the path
-            var path = parsedUrl.AbsolutePath == "/" ? string.Empty : parsedUrl.AbsolutePath;
-            var parsedPath = string.IsNullOrEmpty(path) ? string.Empty : System.Web.HttpUtility.UrlDecode(path);
+                // let's decompose and normalise the path
+                var path = parsedUrl.AbsolutePath == "/" ? string.Empty : parsedUrl.AbsolutePath;
+                var parsedPath = string.IsNullOrEmpty(path) ? string.Empty : System.Web.HttpUtility.UrlDecode(path);
 
-            var mdataInfo = await GetContainerFromPublicId(publicName, serviceName);
-
-            return (mdataInfo, parsedPath);
+                var mdataInfo = await GetContainerFromPublicId(publicName, serviceName);
+                return (mdataInfo, parsedPath);
+            }
         }
 
         /// <summary>
