@@ -80,13 +80,15 @@ namespace SafeMobileBrowser.WebFetchImplementation
             if (string.IsNullOrWhiteSpace(url))
                 throw new WebFetchException(WebFetchConstants.NullUrl, WebFetchConstants.NullUrlMessage);
 
-            if (
-                Device.RuntimePlatform == Device.Android
-                && Regex.IsMatch(url.Replace("https://", string.Empty).Replace("/", string.Empty), @"^\d+$"))
+            if (Device.RuntimePlatform == Device.Android)
             {
-                url = url.Replace("https://", "https://www.");
-            }
+                var urlCheck = url.Replace("https://", string.Empty);
+                var firstSlash = urlCheck.IndexOf('/');
+                var host = urlCheck.Substring(0, firstSlash);
 
+                if (int.TryParse(host, out _))
+                    url = $"https://www.{urlCheck}";
+            }
             var parsedUrl = new Uri(url);
             var hostname = parsedUrl.Host;
 
