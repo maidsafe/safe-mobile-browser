@@ -23,7 +23,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         ErrorConstants.NoInternetConnection);
                 }
 
-                if (WebFetch == null)
+                if (App.AppSession == null)
                 {
                     throw new WebFetchException(
                         ErrorConstants.SessionNotAvailableError,
