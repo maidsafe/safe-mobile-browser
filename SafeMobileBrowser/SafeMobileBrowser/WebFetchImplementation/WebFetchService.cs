@@ -60,7 +60,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         break;
                     case ErrorConstants.ConnectionFailedError:
                         htmlErrorPageString = await CreateHtmlErrorPage(
-                            ErrorConstants.ConnectionFailed,
+                            ErrorConstants.ConnectionFailedTitle,
                             ErrorConstants.ConnectionFailedMsg);
                         break;
                     case ErrorConstants.NoInternetConnectionError:
