@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.0.4" />
-    <PackageReference Include="MaidSafe.SafeApp" Version="0.2.3" />
     <PackageReference Include="MimeMapping" Version="1.0.1.12" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
@@ -24,12 +23,13 @@
     <PackageReference Include="Xamarin.Forms" Version="4.3.0.778476-pre1" />
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.2.0.608146-pre1" />
     <PackageReference Include="XamEffects" Version="1.6.3" />  
+    <PackageReference Include="MaidSafe.SafeApp" Version="0.3.0-rc1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\BookmarksModalPage.xaml.cs">
-      <DependentUpon>BookmarksModalPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Remove="Services\BookmarkManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Views\SettingsModalPage.xaml.cs">
       <DependentUpon>SettingsModalPage.xaml</DependentUpon>
     </Compile>
@@ -51,9 +51,6 @@
     <EmbeddedResource Update="Views\MenuPopUp.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BookmarksModalPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\SecondPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -66,9 +63,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\AuthenticationPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Update="Views\BookmarksModalPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Update="Views\BrowserSettingsPage.xaml">

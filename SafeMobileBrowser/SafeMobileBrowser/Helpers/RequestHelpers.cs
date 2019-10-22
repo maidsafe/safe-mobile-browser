@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SafeApp;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeMobileBrowser.Models;
 
 namespace SafeMobileBrowser.Helpers

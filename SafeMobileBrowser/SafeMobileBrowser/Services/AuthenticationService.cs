@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
@@ -107,7 +107,7 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is UnregisteredIpcMsg ipcMsg)
                     {
-                        App.AppSession = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
+                        App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
                         MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
                     }
                 }
@@ -117,13 +117,8 @@ namespace SafeMobileBrowser.Services
                     {
                         using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                         {
-                            Session session = await Session.AppRegisteredAsync(Constants.AppId, ipcMsg.AuthGranted);
+                            Session session = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
                             AppService.InitialiseSession(session);
-                            BookmarkManager.InitialiseSession(session);
-                            var bookmarksMDataInfo =
-                                await DependencyService.Get<AppService>().GetAccessContainerMdataInfoAsync();
-                            DependencyService.Get<BookmarkManager>().SetMdInfo(bookmarksMDataInfo);
-                            await DependencyService.Get<BookmarkManager>().FetchBookmarks();
                         }
                     }
                 }
@@ -160,21 +155,7 @@ namespace SafeMobileBrowser.Services
         {
             try
             {
-                if (!string.IsNullOrEmpty(encodedResponse))
-                {
-                    var decodeResult = await Session.DecodeIpcMessageAsync(encodedResponse);
-                    if (decodeResult.GetType() == typeof(UnregisteredIpcMsg))
-                    {
-                        if (decodeResult is UnregisteredIpcMsg ipcMsg)
-                        {
-                            App.AppSession = await Session.AppUnregisteredAsync(ipcMsg.SerialisedCfg);
-                        }
-                    }
-                }
-                else
-                {
-                    throw new ArgumentNullException(encodedResponse);
-                }
+                App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
             }
             catch (Exception ex)
             {

@@ -28,13 +28,6 @@ namespace SafeMobileBrowser.Views
             AddressBarEntry.TextChanged += AddressBarEntryTextChanged;
             AddressBarEntry.Completed += AddressBarTextChangeCompleted;
 
-            MessagingCenter.Subscribe<BookmarksModalPageViewModel, string>(
-                this,
-                MessageCenterConstants.BookmarkUrl,
-                (sender, args) =>
-                {
-                    _viewModel.LoadUrl(args);
-                });
             MessagingCenter.Subscribe<App, string>(
                 this,
                 MessageCenterConstants.LoadSafeWebsite,
@@ -163,7 +156,7 @@ namespace SafeMobileBrowser.Views
             {
                 using (Acr.UserDialogs.UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                 {
-                    await App.AppSession.ReconnectAsync();
+                    // await App.AppSession.ReconnectAsync();
                 }
             }
             catch (Exception ex)
@@ -259,9 +252,6 @@ namespace SafeMobileBrowser.Views
             MessagingCenter.Unsubscribe<App>(
                 this,
                 MessageCenterConstants.LoadSafeWebsite);
-            MessagingCenter.Unsubscribe<BookmarksModalPageViewModel, string>(
-                this,
-                MessageCenterConstants.BookmarkUrl);
             MessagingCenter.Unsubscribe<MenuPopUpViewModel>(
                 this,
                 MessageCenterConstants.ReloadMessage);

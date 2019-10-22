@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SafeApp;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;

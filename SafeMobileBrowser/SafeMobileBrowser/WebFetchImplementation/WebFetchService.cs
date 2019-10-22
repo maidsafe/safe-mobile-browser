@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using SafeApp.Utilities;
+using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using Xamarin.Essentials;
@@ -122,7 +122,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
 
         public static string ReplaceHtmlStringContent(string htmlString, string find, string replaceString)
         {
-            int index = htmlString.IndexOf(find);
+            int index = htmlString.IndexOf(find, StringComparison.Ordinal);
             return htmlString.Remove(index, find.Length).Insert(index, replaceString);
         }
     }

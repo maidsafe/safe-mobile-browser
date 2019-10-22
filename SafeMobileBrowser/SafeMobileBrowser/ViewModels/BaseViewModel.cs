@@ -7,8 +7,6 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class BaseViewModel : ObservableObject, IDisposable
     {
-        public BookmarkManager BookmarkManager => DependencyService.Get<BookmarkManager>();
-
         public AppService AppService => DependencyService.Get<AppService>();
 
         public AuthenticationService AuthService => DependencyService.Get<AuthenticationService>();

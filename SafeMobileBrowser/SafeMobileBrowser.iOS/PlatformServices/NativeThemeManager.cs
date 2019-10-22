@@ -16,23 +16,24 @@ namespace SafeMobileBrowser.iOS.PlatformServices
 
         public void ChangeAppTheme(ThemeHelper.AppThemeMode theme, bool isAppLaunched)
         {
-            switch (theme)
-            {
-                case ThemeHelper.AppThemeMode.Light:
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
-                            statusBar.BackgroundColor = _lightStatusBarColor;
-                    });
-                    break;
-                case ThemeHelper.AppThemeMode.Dark:
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
-                            statusBar.BackgroundColor = _darkStatusBarColor;
-                    });
-                    break;
-            }
+            // Implementation
+            // switch (theme)
+            // {
+            //    case ThemeHelper.AppThemeMode.Light:
+            //        Device.BeginInvokeOnMainThread(() =>
+            //        {
+            //            if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
+            //                statusBar.BackgroundColor = _lightStatusBarColor;
+            //        });
+            //        break;
+            //    case ThemeHelper.AppThemeMode.Dark:
+            //        Device.BeginInvokeOnMainThread(() =>
+            //        {
+            //            if (UIApplication.SharedApplication.ValueForKey(_statusBarKey) is UIView statusBar)
+            //                statusBar.BackgroundColor = _darkStatusBarColor;
+            //        });
+            //        break;
+            // }
         }
     }
 }

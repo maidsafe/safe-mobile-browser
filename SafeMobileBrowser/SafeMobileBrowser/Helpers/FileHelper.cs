@@ -20,9 +20,14 @@ namespace SafeMobileBrowser.Helpers
 
                 var files = new List<AssetFileTransferModel>
                 {
-                    new AssetFileTransferModel()
+                    new AssetFileTransferModel
                     {
                         FileName = "log.toml",
+                        TransferLocation = fileTransferService.ConfigFilesPath
+                    },
+                    new AssetFileTransferModel
+                    {
+                        FileName = "vault.config",
                         TransferLocation = fileTransferService.ConfigFilesPath
                     }
                 };
@@ -31,6 +36,7 @@ namespace SafeMobileBrowser.Helpers
                 Logger.Info("Assets transferred");
                 await Session.SetAdditionalSearchPathAsync(fileTransferService.ConfigFilesPath);
                 await Session.InitLoggingAsync($"log-{DateTime.Now:MMddyyyy-HHmm}.log");
+                await Session.SetConfigurationSearchPathAsync(fileTransferService.ConfigFilesPath);
                 return true;
             }
             catch (Exception ex)

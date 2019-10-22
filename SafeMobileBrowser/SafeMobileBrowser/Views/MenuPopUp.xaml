@@ -124,15 +124,6 @@
                                AutomationId="ReloadActionIcon"
                                Text="{Binding ReloadMenuItem.MenuItemIcon}" />
                     </xamEffect:BorderView>
-
-                    <xamEffect:BorderView IsEnabled="{Binding BookmarkMenuItem.IsEnabled}"
-                                          xamEffect:TouchEffect.Color="LightGray"
-                                          Style="{StaticResource PopUpBottomMenubarIconFrameStyle}"
-                                          xamEffect:Commands.Tap="{Binding ManageBookmarkCommand}">
-                        <Label Style="{DynamicResource PopUpBottomMenuBarIconStyle}"
-                               Text="{Binding BookmarkMenuItem.MenuItemIcon}" 
-                               AutomationId="BookmarkActionIcon" />
-                    </xamEffect:BorderView>
                 </StackLayout>
             </StackLayout>
         </Frame>
