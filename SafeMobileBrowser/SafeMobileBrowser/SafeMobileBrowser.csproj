@@ -20,8 +20,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
     <PackageReference Include="System.ObjectModel" Version="4.3.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.778476-pre1" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.2.0.608146-pre1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991211" />
     <PackageReference Include="XamEffects" Version="1.6.3" />  
     <PackageReference Include="MaidSafe.SafeApp" Version="0.3.0-rc1" />
   </ItemGroup>

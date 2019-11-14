@@ -20,8 +20,8 @@ appenders = ["async_console", "async_file"]
 [loggers."crust"]
 level = "debug"
 
-[loggers."routing"]
-level = "trace"
+[loggers."quic_p2p"]
+level = "debug"
 
 [loggers."routing_stats"]
 level = "trace"
@@ -37,3 +37,9 @@ level = "trace"
 
 [loggers."ffi_utils"]
 level = "trace"
+
+[loggers."safe-ffi"]
+level = "debug"
+
+[loggers."safe-api"]
+level = "debug"
