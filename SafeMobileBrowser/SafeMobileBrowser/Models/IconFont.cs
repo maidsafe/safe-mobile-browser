@@ -31,5 +31,7 @@
         public const string Settings = "\uf493";
         public const string Delete = "\uf1c0";
         public const string ContentCopy = "\uf18f";
+        public const string SkipNext = "\uf4ad";
+        public const string SkipPrevious = "\uf4ae";
     }
 }

@@ -12,6 +12,43 @@
              xmlns:pulltorefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
              Padding="0">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame"
+                   x:Key="VersionChangeLabelFrame">
+                <Setter Property="HasShadow"
+                        Value="False" />
+                <Setter Property="CornerRadius"
+                        Value="5" />
+                <Setter Property="Padding"
+                        Value="3" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="BackgroundColor"
+                        Value="LightGreen" />
+                <Style.Triggers>
+                    <Trigger TargetType="Frame"
+                             Property="IsEnabled"
+                             Value="False">
+                        <Setter Property="BackgroundColor"
+                                Value="LightGray" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="VersionChangeLabelIcon">
+                <Setter Property="FontSize"
+                        Value="20" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="FontFamily"
+                        Value="{DynamicResource MaterialFontFamily}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <NavigationPage.TitleView>
         <StackLayout Padding="10,3"
                      HorizontalOptions="FillAndExpand"
@@ -30,6 +67,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
@@ -84,6 +122,21 @@
                             <TapGestureRecognizer Tapped="ClearAddressBar" />
                         </Label.GestureRecognizers>
                     </Label>
+
+                    <StackLayout Orientation="Horizontal"
+                                 Grid.Column="3"
+                                 HorizontalOptions="End">
+                        <Frame Style="{DynamicResource VersionChangeLabelFrame}">
+                            <Label Style="{DynamicResource VersionChangeLabelIcon}"
+                                   Text="{x:Static icons:IconFont.SkipPrevious}" />
+                        </Frame>
+
+                        <Frame Style="{DynamicResource VersionChangeLabelFrame}"
+                               IsEnabled="False">
+                            <Label Style="{DynamicResource VersionChangeLabelIcon}"
+                                   Text="{x:Static icons:IconFont.SkipNext}" />
+                        </Frame>
+                    </StackLayout>
                 </Grid>
             </Frame>
 
