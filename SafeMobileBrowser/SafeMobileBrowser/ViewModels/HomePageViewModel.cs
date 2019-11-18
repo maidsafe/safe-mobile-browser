@@ -120,14 +120,7 @@ namespace SafeMobileBrowser.ViewModels
         public ulong CurrentWebPageVersion
         {
             get => _currentWebPageVersion;
-            set
-            {
-                SetProperty(ref _currentWebPageVersion, value);
-                if (value > 0 && !IsNavigating)
-                    ShowVersionChangeControls = true;
-                else
-                    ShowVersionChangeControls = false;
-            }
+            set => SetProperty(ref _currentWebPageVersion, value);
         }
 
         public string ErrorType { get; private set; }
@@ -182,6 +175,11 @@ namespace SafeMobileBrowser.ViewModels
                 IsRefreshing = false;
 
             IsNavigating = false;
+
+            if (CurrentWebPageVersion > 0)
+                ShowVersionChangeControls = true;
+            else
+                ShowVersionChangeControls = false;
         }
 
         private void OnNavigating(WebNavigatingEventArgs args)

@@ -125,7 +125,8 @@
 
                     <StackLayout Orientation="Horizontal"
                                  Grid.Column="3"
-                                 HorizontalOptions="End">
+                                 HorizontalOptions="End"
+                                 IsVisible="{Binding ShowVersionChangeControls}">
                         <Frame Style="{DynamicResource VersionChangeLabelFrame}">
                             <Label Style="{DynamicResource VersionChangeLabelIcon}"
                                    Text="{x:Static icons:IconFont.SkipPrevious}" />

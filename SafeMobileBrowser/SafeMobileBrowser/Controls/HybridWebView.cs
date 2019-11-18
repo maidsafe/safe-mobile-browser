@@ -93,7 +93,7 @@ namespace SafeMobileBrowser.Controls
             nameof(CurrentPageVersion),
             typeof(ulong),
             typeof(HybridWebView),
-            0,
+            0UL,
             BindingMode.TwoWay);
 
         public HybridWebView()
