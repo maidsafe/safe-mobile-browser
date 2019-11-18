@@ -39,23 +39,9 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 var fetchUrl = url.Replace("https://", "safe://");
                 var data = await _session.Fetch.FetchAsync(fetchUrl);
 
-                if (data is SafeDataFetchFailed)
-                {
-                    throw new WebFetchException(
-                        WebFetchConstants.NoSuchPublicName,
-                        WebFetchConstants.NoSuchPublicNameMessage);
-                }
-
-                if (data is PublishedImmutableData fetchedData)
-                {
-                    response.Data = fetchedData.Data;
-                    response.MimeType = fetchedData.MediaType;
-                    response.Headers.Add("Content-Type", fetchedData.MediaType);
-                    return response;
-                }
-
                 if (data is FilesContainer filesContainer)
                 {
+                    ulong nrsContainerVersion = filesContainer.ResolvedFrom.Version;
                     if (!string.IsNullOrWhiteSpace(filesContainer.FilesMap))
                     {
                         var filesMap = JsonConvert.DeserializeObject<JObject>(filesContainer.FilesMap);
@@ -64,11 +50,39 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         {
                             var indexFileLink = (string)indexFileItem["link"];
                             if (!string.IsNullOrWhiteSpace(indexFileLink))
-                                await FetchAsync(indexFileLink);
+                            {
+                                var fetchResponse = await FetchAsync(indexFileLink);
+                                fetchResponse.NrsVersion = nrsContainerVersion;
+                                return fetchResponse;
+                            }
                         }
                     }
                 }
-                return response;
+                else if (data is PublishedImmutableData fetchedData)
+                {
+                    response.NrsVersion = fetchedData.ResolvedFrom.Version;
+                    response.Data = fetchedData.Data;
+                    response.MimeType = fetchedData.MediaType;
+                    response.Headers.Add("Content-Type", fetchedData.MediaType);
+                    return response;
+                }
+
+                throw new WebFetchException(
+                        WebFetchConstants.NoSuchPublicName,
+                        WebFetchConstants.NoSuchPublicNameMessage);
+
+                // else if (data is SafeDataFetchFailed)
+                // {
+                //    throw new WebFetchException(
+                //        WebFetchConstants.NoSuchPublicName,
+                //        WebFetchConstants.NoSuchPublicNameMessage);
+                // }
+                // else if (data is Wallet || data is SafeKey)
+                // {
+                //    throw new WebFetchException(
+                //        WebFetchConstants.NoSuchPublicName,
+                //        WebFetchConstants.NoSuchPublicNameMessage);
+                // }
             }
             catch (WebFetchException ex)
             {

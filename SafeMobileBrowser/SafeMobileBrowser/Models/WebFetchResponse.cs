@@ -10,6 +10,8 @@ namespace SafeMobileBrowser.Models
 
         public byte[] Data { get; set; }
 
+        public ulong NrsVersion { get; set; }
+
         public WebFetchResponse()
         {
             Headers = new Dictionary<string, string>();
