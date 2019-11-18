@@ -107,6 +107,29 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        private bool _showVersionChangeControls;
+
+        public bool ShowVersionChangeControls
+        {
+            get => _showVersionChangeControls;
+            set => SetProperty(ref _showVersionChangeControls, value);
+        }
+
+        private ulong _currentWebPageVersion;
+
+        public ulong CurrentWebPageVersion
+        {
+            get => _currentWebPageVersion;
+            set
+            {
+                SetProperty(ref _currentWebPageVersion, value);
+                if (value > 0 && !IsNavigating)
+                    ShowVersionChangeControls = true;
+                else
+                    ShowVersionChangeControls = false;
+            }
+        }
+
         public string ErrorType { get; private set; }
 
         public bool IsErrorState { get; set; }

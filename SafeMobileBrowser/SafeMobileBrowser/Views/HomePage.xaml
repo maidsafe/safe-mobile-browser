@@ -167,19 +167,20 @@
                     </pulltorefresh:PullToRefreshLayout.Triggers>
 
                     <controls:HybridWebView x:Name="HybridWebViewControl"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="FillAndExpand"
-                                        Source="{Binding Url, Mode=TwoWay}"
-                                        AutomationId="HybridWebView"
-                                        CanGoBack="{Binding CanGoBack}"
-                                        CanGoForward="{Binding CanGoForward}"
-                                        GoBackCommand="{Binding GoBackCommand}"
-                                        GoForwardCommand="{Binding GoForwardCommand}"
-                                        ReloadCommand="{Binding ReloadCommand}"
-                                        NavigatingCommand="{Binding WebViewNavigatingCommand}"
-                                        NavigatedCommand="{Binding WebViewNavigatedCommand}"
-                                        android:WebView.EnableZoomControls="true"
-                                        android:WebView.DisplayZoomControls="False" />
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            Source="{Binding Url, Mode=TwoWay}"
+                                            AutomationId="HybridWebView"
+                                            CanGoBack="{Binding CanGoBack}"
+                                            CanGoForward="{Binding CanGoForward}"
+                                            GoBackCommand="{Binding GoBackCommand}"
+                                            GoForwardCommand="{Binding GoForwardCommand}"
+                                            ReloadCommand="{Binding ReloadCommand}"
+                                            NavigatingCommand="{Binding WebViewNavigatingCommand}"
+                                            NavigatedCommand="{Binding WebViewNavigatedCommand}"
+                                            CurrentPageVersion="{Binding CurrentWebPageVersion}"
+                                            android:WebView.EnableZoomControls="true"
+                                            android:WebView.DisplayZoomControls="False" />
 
                 </pulltorefresh:PullToRefreshLayout>
 

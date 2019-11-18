@@ -61,6 +61,8 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                                 { "Content-Range", safeResponse.Headers["Content-Range"] },
                                 { "Content-Length", safeResponse.Headers["Content-Length"] },
                             };
+                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
+                            webviewRenderer.SetCurrentPageVersion(safeResponse.NrsVersion);
                         return response;
                     }
                     else
@@ -68,6 +70,8 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                         var safeResponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
                         var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
+                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
+                            webviewRenderer.SetCurrentPageVersion(safeResponse.NrsVersion);
                         return response;
                     }
                 }

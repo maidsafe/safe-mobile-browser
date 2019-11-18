@@ -37,6 +37,14 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
             }
         }
 
+        public void SetCurrentPageVersion(ulong version)
+        {
+            if (Control != null && Element != null)
+            {
+                ((HybridWebView)Element).CurrentPageVersion = version;
+            }
+        }
+
         protected override void OnCreateContextMenu(IContextMenu menu)
         {
             base.OnCreateContextMenu(menu);
