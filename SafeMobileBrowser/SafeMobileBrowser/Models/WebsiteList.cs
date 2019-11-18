@@ -6,28 +6,9 @@ namespace SafeMobileBrowser.Models
     {
         public static List<string> GetWebsiteList()
         {
-            return new List<string>
-            {
-                "cat.ashi",
-                "home.chickenbacon",
-                "home.dgeddes",
-                "doggies.vmp",
-                "dweb",
-                "eye.eye",
-                "heaven",
-                "hello",
-                "udhr",
-                "wall.knot",
-                "fear.knot",
-                "maid.safedemo",
-                "maidsafe.safenet",
-                "the.odyssey",
-                "safenetworkprimer",
-                "safe-blues.jpl",
-                "typer.game",
-                "complements.valmarkpro",
-                "safedapps.jpl1"
-            };
+            // Todo: update with the shared vault websites
+            // Or add option to raise PRs in GitHub to add websites here.
+            return new List<string>();
         }
     }
 }

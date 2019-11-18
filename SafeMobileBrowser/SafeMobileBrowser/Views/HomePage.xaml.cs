@@ -145,8 +145,9 @@ namespace SafeMobileBrowser.Views
                 await ReconnectSessionAsync();
 
 #if DEV_BUILD
-            if (Device.RuntimePlatform == Device.Android)
-                AddWebsiteList();
+            // Todo: Enable this later when we have new preview network.
+            // if (Device.RuntimePlatform == Device.Android)
+            // AddWebsiteList();
 #endif
         }
 
