@@ -43,6 +43,26 @@ namespace SafeMobileBrowser.ViewModels
 
         public ICommand AddressBarUnfocusCommand { get; set; }
 
+        public ICommand FetchPreviousVersionCommand { get; set; }
+
+        public ICommand FetchNextVersionCommand { get; set; }
+
+        private bool _canFetchPreviousVersion;
+
+        public bool CanFetchPreviousVersion
+        {
+            get => _canFetchPreviousVersion;
+            set => SetProperty(ref _canFetchPreviousVersion, value);
+        }
+
+        private bool _canFetchNextVersion;
+
+        public bool CanFetchNextVersion
+        {
+            get => _canFetchNextVersion;
+            set => SetProperty(ref _canFetchNextVersion, value);
+        }
+
         private bool _canGoBack;
 
         public bool CanGoBack
@@ -141,6 +161,18 @@ namespace SafeMobileBrowser.ViewModels
             GoToHomePageCommand = new Command(GoToHomePage);
             MenuCommand = new Command(ShowPopUpMenu);
             AddressBarUnfocusCommand = new Command(RestoreAddressBar);
+            FetchPreviousVersionCommand = new Command(FetchPreviousVersion);
+            FetchNextVersionCommand = new Command(FetchNextVersion);
+        }
+
+        private void FetchPreviousVersion()
+        {
+            // Todo: Implement to fetch last version of the data
+        }
+
+        private void FetchNextVersion()
+        {
+            // Todo: Implement to fetch last version of the data
         }
 
         private void GoToHomePage()

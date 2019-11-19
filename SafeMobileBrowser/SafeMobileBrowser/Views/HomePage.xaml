@@ -127,15 +127,24 @@
                                  Grid.Column="3"
                                  HorizontalOptions="End"
                                  IsVisible="{Binding ShowVersionChangeControls}">
-                        <Frame Style="{DynamicResource VersionChangeLabelFrame}">
+                        <Frame Style="{DynamicResource VersionChangeLabelFrame}"
+                               IsEnabled="{Binding CanFetchPreviousVersion}">
                             <Label Style="{DynamicResource VersionChangeLabelIcon}"
-                                   Text="{x:Static icons:IconFont.SkipPrevious}" />
+                                   Text="{x:Static icons:IconFont.SkipPrevious}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FetchPreviousVersionCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </Frame>
 
                         <Frame Style="{DynamicResource VersionChangeLabelFrame}"
-                               IsEnabled="False">
+                               IsEnabled="{Binding CanFetchNextVersion}">
                             <Label Style="{DynamicResource VersionChangeLabelIcon}"
-                                   Text="{x:Static icons:IconFont.SkipNext}" />
+                                   Text="{x:Static icons:IconFont.SkipNext}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FetchNextVersionCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </Frame>
                     </StackLayout>
                 </Grid>
