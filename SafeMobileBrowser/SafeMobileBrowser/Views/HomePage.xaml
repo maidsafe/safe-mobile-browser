@@ -189,6 +189,7 @@
                                             NavigatingCommand="{Binding WebViewNavigatingCommand}"
                                             NavigatedCommand="{Binding WebViewNavigatedCommand}"
                                             CurrentPageVersion="{Binding CurrentWebPageVersion}"
+                                            LatestPageVersion="{Binding LatestWebPageVersion}"
                                             android:WebView.EnableZoomControls="true"
                                             android:WebView.DisplayZoomControls="False" />
 

@@ -52,7 +52,8 @@ namespace SafeMobileBrowser.WebFetchImplementation
                             if (!string.IsNullOrWhiteSpace(indexFileLink))
                             {
                                 var fetchResponse = await FetchAsync(indexFileLink);
-                                fetchResponse.NrsVersion = nrsContainerVersion;
+                                fetchResponse.CurrentNrsVersion = nrsContainerVersion;
+                                fetchResponse.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
                                 return fetchResponse;
                             }
                         }
@@ -60,7 +61,8 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 }
                 else if (data is PublishedImmutableData fetchedData)
                 {
-                    response.NrsVersion = fetchedData.ResolvedFrom.Version;
+                    response.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
+                    response.CurrentNrsVersion = fetchedData.ResolvedFrom.Version;
                     response.Data = fetchedData.Data;
                     response.MimeType = fetchedData.MediaType;
                     response.Headers.Add("Content-Type", fetchedData.MediaType);
@@ -83,6 +85,44 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 //        WebFetchConstants.NoSuchPublicName,
                 //        WebFetchConstants.NoSuchPublicNameMessage);
                 // }
+            }
+            catch (WebFetchException ex)
+            {
+                Logger.Error(ex);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                throw;
+            }
+        }
+
+        public async Task<ulong> GetLatestVersionAsync(string url)
+        {
+            try
+            {
+                var fetchUrl = url.Replace("https://", "safe://").TrimEnd('/');
+                if (url.Contains("?v="))
+                {
+                    var versionTextIndex = url.LastIndexOf("?v=");
+                    fetchUrl = url.Replace("https://", "safe://").Substring(0, versionTextIndex);
+                }
+
+                var data = await _session.Fetch.InspectAsync(fetchUrl);
+
+                if (data is FilesContainer filesContainer)
+                {
+                    return filesContainer.ResolvedFrom.Version;
+                }
+                else if (data is PublishedImmutableData fetchedData)
+                {
+                    return fetchedData.ResolvedFrom.Version;
+                }
+
+                throw new WebFetchException(
+                        WebFetchConstants.NoSuchPublicName,
+                        WebFetchConstants.NoSuchPublicNameMessage);
             }
             catch (WebFetchException ex)
             {

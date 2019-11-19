@@ -10,7 +10,9 @@ namespace SafeMobileBrowser.Models
 
         public byte[] Data { get; set; }
 
-        public ulong NrsVersion { get; set; }
+        public ulong CurrentNrsVersion { get; set; }
+
+        public ulong LatestNrsVersion { get; set; }
 
         public WebFetchResponse()
         {

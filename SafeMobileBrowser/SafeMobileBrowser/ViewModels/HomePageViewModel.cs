@@ -143,6 +143,14 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _currentWebPageVersion, value);
         }
 
+        private ulong _latestWebPageVersion;
+
+        public ulong LatestWebPageVersion
+        {
+            get => _latestWebPageVersion;
+            set => SetProperty(ref _latestWebPageVersion, value);
+        }
+
         public string ErrorType { get; private set; }
 
         public bool IsErrorState { get; set; }
@@ -153,6 +161,7 @@ namespace SafeMobileBrowser.ViewModels
 
         public HomePageViewModel(INavigation navigation)
         {
+            ShowVersionChangeControls = false;
             Navigation = navigation;
             PageLoadCommand = new Command<string>(LoadUrl);
             BottomNavbarTapCommand = new Command<string>(OnTapped);
@@ -167,12 +176,40 @@ namespace SafeMobileBrowser.ViewModels
 
         private void FetchPreviousVersion()
         {
-            // Todo: Implement to fetch last version of the data
+            if (!CanFetchPreviousVersion)
+                return;
+
+            var currentUrl = ((UrlWebViewSource)Url).Url.TrimEnd('/');
+            if (currentUrl.Contains("?v="))
+            {
+                var versionText = "?v=";
+                var versionStringIndex = currentUrl.LastIndexOf(versionText);
+                var urlSubString = currentUrl.Substring(0, versionStringIndex);
+                LoadUrl($"{urlSubString}?v={--CurrentWebPageVersion}");
+            }
+            else
+            {
+                LoadUrl($"{currentUrl}?v={--CurrentWebPageVersion}");
+            }
         }
 
         private void FetchNextVersion()
         {
-            // Todo: Implement to fetch last version of the data
+            if (!CanFetchNextVersion)
+                return;
+
+            var currentUrl = ((UrlWebViewSource)Url).Url.TrimEnd('/');
+            if (currentUrl.Contains("?v="))
+            {
+                var versionText = "?v=";
+                var versionStringIndex = currentUrl.LastIndexOf(versionText);
+                var urlSubString = currentUrl.Substring(0, versionStringIndex);
+                LoadUrl($"{urlSubString}?v={++CurrentWebPageVersion}");
+            }
+            else
+            {
+                LoadUrl($"{currentUrl}?v={++CurrentWebPageVersion}");
+            }
         }
 
         private void GoToHomePage()
@@ -208,16 +245,19 @@ namespace SafeMobileBrowser.ViewModels
 
             IsNavigating = false;
 
-            if (CurrentWebPageVersion > 0)
+            if (!IsErrorState && CanGoToHomePage)
                 ShowVersionChangeControls = true;
-            else
-                ShowVersionChangeControls = false;
+
+            CanFetchPreviousVersion = CurrentWebPageVersion > 0;
+            CanFetchNextVersion = CurrentWebPageVersion < LatestWebPageVersion;
         }
 
         private void OnNavigating(WebNavigatingEventArgs args)
         {
             try
             {
+                ShowVersionChangeControls = false;
+
                 var url = args.Url;
                 SetAddressBarText(url);
 

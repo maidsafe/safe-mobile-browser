@@ -96,6 +96,19 @@ namespace SafeMobileBrowser.Controls
             0UL,
             BindingMode.TwoWay);
 
+        public ulong LatestPageVersion
+        {
+            get => (ulong)GetValue(LatestPageVersionProperty);
+            set => SetValue(LatestPageVersionProperty, value);
+        }
+
+        public static readonly BindableProperty LatestPageVersionProperty = BindableProperty.Create(
+            nameof(LatestPageVersion),
+            typeof(ulong),
+            typeof(HybridWebView),
+            0UL,
+            BindingMode.TwoWay);
+
         public HybridWebView()
         {
             GoBackCommand = new Command(GoBack);
