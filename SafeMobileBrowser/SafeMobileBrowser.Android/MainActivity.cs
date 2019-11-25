@@ -29,7 +29,7 @@ namespace SafeMobileBrowser.Droid
         {
             var theme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
             SetTheme(theme ? Resource.Style.MainDarkTheme : Resource.Style.MainTheme);
-            Forms.SetFlags("CollectionView_Experimental");
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             base.OnCreate(savedInstanceState);

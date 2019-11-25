@@ -19,7 +19,6 @@ namespace SafeMobileBrowser.iOS
             Xamarin.Calabash.Start();
 #endif
 
-            Forms.SetFlags("CollectionView_Experimental");
             Rg.Plugins.Popup.Popup.Init();
             XamEffects.iOS.Effects.Init();
             global::Xamarin.Forms.Forms.Init();
