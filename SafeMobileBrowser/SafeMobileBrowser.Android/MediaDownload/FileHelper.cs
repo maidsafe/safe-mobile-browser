@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Android.Graphics;
+using Plugin.CurrentActivity;
 using SafeMobileBrowser.Helpers;
 using AEnvironment = Android.OS.Environment;
 using Path = System.IO.Path;
@@ -11,7 +12,7 @@ namespace SafeMobileBrowser.Droid.MediaDownload
     public static class FileHelper
     {
         private static string DownloadPath => Path.Combine(
-            AEnvironment.ExternalStorageDirectory.AbsolutePath,
+            CrossCurrentActivity.Current.Activity.ApplicationContext.GetExternalFilesDir(null).AbsolutePath,
             AEnvironment.DirectoryDownloads);
 
         public static void ExportBitmapAsFile(Bitmap image, string fileType, string fileName)

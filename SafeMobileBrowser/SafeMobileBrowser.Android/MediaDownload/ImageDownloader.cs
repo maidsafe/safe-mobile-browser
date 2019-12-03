@@ -137,7 +137,7 @@ namespace SafeMobileBrowser.Droid.MediaDownload
                 });
 
                 var downloadPath = Path.Combine(
-                    AEnvironment.ExternalStorageDirectory.AbsolutePath,
+                    CrossCurrentActivity.Current.Activity.ApplicationContext.GetExternalFilesDir(null).AbsolutePath,
                     AEnvironment.DirectoryDownloads);
                 var filePath = Path.Combine(downloadPath, _fileName);
                 var file = new File(filePath);
