@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SafeApp;
 using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
@@ -42,14 +41,20 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 if (data is FilesContainer filesContainer)
                 {
                     ulong nrsContainerVersion = filesContainer.ResolvedFrom.Version;
-                    if (!string.IsNullOrWhiteSpace(filesContainer.FilesMap))
+                    if (filesContainer.FilesMap.Files != null && filesContainer.FilesMap.Files.Count > 0)
                     {
-                        var filesMap = JsonConvert.DeserializeObject<JObject>(filesContainer.FilesMap);
-                        var indexFileItem = filesMap["/index.html"] as JObject;
-                        if (indexFileItem != null)
+                        var indexFileInfo = filesContainer
+                                            .FilesMap
+                                            .Files
+                                            .FirstOrDefault(file => file.FileName == "index.html");
+
+                        if (!indexFileInfo.Equals(default(FileInfo)))
                         {
-                            var indexFileLink = (string)indexFileItem["link"];
-                            if (!string.IsNullOrWhiteSpace(indexFileLink))
+                            var indexFileLink = indexFileInfo
+                                                .FileMetaData
+                                                .FirstOrDefault(meta => meta.MetaDataKey == "link").MetaDataValue;
+
+                            if (!string.IsNullOrEmpty(indexFileLink))
                             {
                                 var fetchResponse = await FetchAsync(indexFileLink);
                                 fetchResponse.CurrentNrsVersion = nrsContainerVersion;
@@ -105,7 +110,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 var fetchUrl = url.Replace("https://", "safe://").TrimEnd('/');
                 if (url.Contains("?v="))
                 {
-                    var versionTextIndex = url.LastIndexOf("?v=");
+                    var versionTextIndex = url.LastIndexOf("?v=", StringComparison.Ordinal);
                     fetchUrl = url.Replace("https://", "safe://").Substring(0, versionTextIndex);
                 }
 
