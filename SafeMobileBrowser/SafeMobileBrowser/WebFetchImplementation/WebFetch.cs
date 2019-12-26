@@ -23,6 +23,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
 
     public class WebFetch
     {
+        private static readonly string _default_page = "index.html";
         private readonly Session _session;
 
         public WebFetch(Session session)
@@ -46,7 +47,9 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         var indexFileInfo = filesContainer
                                             .FilesMap
                                             .Files
-                                            .FirstOrDefault(file => file.FileName == "/index.html");
+                                            .FirstOrDefault(
+                                                file => file.FileName == $"/{_default_page}" ||
+                                                file.FileName == $"{_default_page}");
 
                         if (!indexFileInfo.Equals(default(FileInfo)))
                         {
@@ -77,19 +80,6 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 throw new WebFetchException(
                         WebFetchConstants.NoSuchPublicName,
                         WebFetchConstants.NoSuchPublicNameMessage);
-
-                // else if (data is SafeDataFetchFailed)
-                // {
-                //    throw new WebFetchException(
-                //        WebFetchConstants.NoSuchPublicName,
-                //        WebFetchConstants.NoSuchPublicNameMessage);
-                // }
-                // else if (data is Wallet || data is SafeKey)
-                // {
-                //    throw new WebFetchException(
-                //        WebFetchConstants.NoSuchPublicName,
-                //        WebFetchConstants.NoSuchPublicNameMessage);
-                // }
             }
             catch (WebFetchException ex)
             {

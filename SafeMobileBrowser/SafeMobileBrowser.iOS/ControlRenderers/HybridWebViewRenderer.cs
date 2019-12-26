@@ -62,5 +62,21 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
             _progressObserver?.Dispose();
             base.Dispose(disposing);
         }
+
+        public void SetCurrentPageVersion(ulong version)
+        {
+            if (NativeView != null && Element != null)
+            {
+                ((HybridWebView)Element).CurrentPageVersion = version;
+            }
+        }
+
+        public void SetLatestPageVersion(ulong version)
+        {
+            if (NativeView != null && Element != null)
+            {
+                ((HybridWebView)Element).LatestPageVersion = version;
+            }
+        }
     }
 }
