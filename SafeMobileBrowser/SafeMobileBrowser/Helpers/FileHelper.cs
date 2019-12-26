@@ -24,11 +24,6 @@ namespace SafeMobileBrowser.Helpers
                     {
                         FileName = "log.toml",
                         TransferLocation = fileTransferService.ConfigFilesPath
-                    },
-                    new AssetFileTransferModel
-                    {
-                        FileName = "vault.config",
-                        TransferLocation = fileTransferService.ConfigFilesPath
                     }
                 };
 

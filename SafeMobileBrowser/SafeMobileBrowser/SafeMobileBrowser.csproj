@@ -57,6 +57,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="AssetFiles\vault_connection_info.config" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

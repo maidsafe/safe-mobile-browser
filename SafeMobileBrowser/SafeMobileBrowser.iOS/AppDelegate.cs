@@ -49,6 +49,7 @@ namespace SafeMobileBrowser.iOS
                       {
                           await _authenticationService.ProcessAuthenticationResponseAsync(launchUrl);
                       }
+
                       Logger.Info("IPC Msg Handling Completed");
                   }
                   catch (Exception ex)

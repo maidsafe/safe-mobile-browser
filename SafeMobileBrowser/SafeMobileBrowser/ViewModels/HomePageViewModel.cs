@@ -277,9 +277,14 @@ namespace SafeMobileBrowser.ViewModels
         {
             try
             {
-                using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
+                var result = await Application.Current.MainPage.DisplayAlert(
+                                "Authentication",
+                                "Press authenticate to open authenticator app and authenticate mobile browser.",
+                                "Authenticate",
+                                "Cancel");
+                if (result)
                 {
-                    await AuthService.ConnectUsingStoredSerialisedConfiguration();
+                    await AuthenticationService.RequestAuthenticationAsync(true);
                 }
             }
             catch (Exception ex)

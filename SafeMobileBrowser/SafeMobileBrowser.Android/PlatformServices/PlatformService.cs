@@ -47,8 +47,7 @@ namespace SafeMobileBrowser.Droid.PlatformServices
             {
                 using (var reader = new StreamReader(Application.Context.Assets.Open(file.FileName)))
                 {
-                    var fileSaveName = file.FileName == "vault.config" ? "vault_connection_info.config" : file.FileName;
-                    using (var writer = new StreamWriter(Path.Combine(file.TransferLocation, fileSaveName)))
+                    using (var writer = new StreamWriter(Path.Combine(file.TransferLocation, file.FileName)))
                     {
                         await writer.WriteAsync(await reader.ReadToEndAsync());
                         writer.Close();

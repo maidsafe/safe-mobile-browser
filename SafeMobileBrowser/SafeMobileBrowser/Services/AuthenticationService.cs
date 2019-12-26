@@ -1,11 +1,8 @@
-﻿using SafeApp;
-#if SAFE_APP_MOCK
-using SafeApp.MockAuthBindings;
-#endif
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using SafeApp;
 using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
@@ -17,38 +14,6 @@ namespace SafeMobileBrowser.Services
 {
     public class AuthenticationService
     {
-#if SAFE_APP_MOCK
-        public static Authenticator _authenticator;
-        public static async Task RequestMockNetworkAuthenticationAsync()
-        {
-            var (_, reqMsg) = await Session.EncodeUnregisteredRequestAsync(Constants.AppId);
-            var ipcReq = await Authenticator.UnRegisteredDecodeIpcMsgAsync(reqMsg);
-            var authIpcReq = ipcReq as UnregisteredIpcReq;
-            var resMsg = await Authenticator.EncodeUnregisteredRespAsync(authIpcReq.ReqId, true);
-            var ipcResponse = await Session.DecodeIpcMessageAsync(resMsg);
-            if (ipcResponse.GetType() == typeof(UnregisteredIpcMsg))
-            {
-                var authResponse = ipcResponse as UnregisteredIpcMsg;
-                App.AppSession = await Session.AppUnregisteredAsync(authResponse.SerialisedCfg);
-            }
-        }
-
-        public static async Task CreateMockAccount()
-        {
-            try
-            {
-                var locator = RandomGenerators.GetRandomString(5);
-                var secret = RandomGenerators.GetRandomString(5);
-                var invitation = RandomGenerators.GetRandomString(5);
-                _authenticator = await Authenticator.CreateAccountAsync(locator, secret, invitation);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                throw ex;
-            }
-        }
-#else
         public static async Task<(uint, string)> GenerateEncodedAuthReqAsync()
         {
             // Create an AuthReq
@@ -69,7 +34,7 @@ namespace SafeMobileBrowser.Services
             return await Session.EncodeAuthReqAsync(authReq);
         }
 
-        public static async Task RequestNonMockAuthenticationAsync(bool isUnregistered = false)
+        public static async Task RequestAuthenticationAsync(bool isUnregistered = false)
         {
             try
             {
@@ -107,7 +72,7 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is UnregisteredIpcMsg ipcMsg)
                     {
-                        App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
+                        App.AppSession = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
                         MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
                     }
                 }
@@ -151,11 +116,11 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-        public async Task ConnectUsingStoredSerialisedConfiguration(string encodedResponse = Constants.HardCodedAuthResponse)
+        public async Task ConnectUsingStoredSerialisedConfiguration(string encodedResponse)
         {
             try
             {
-                App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
+                App.AppSession = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
             }
             catch (Exception ex)
             {
@@ -164,6 +129,5 @@ namespace SafeMobileBrowser.Services
                 throw;
             }
         }
-#endif
     }
 }

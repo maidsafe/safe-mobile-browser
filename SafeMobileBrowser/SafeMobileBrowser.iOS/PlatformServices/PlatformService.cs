@@ -33,8 +33,7 @@ namespace SafeMobileBrowser.iOS.PlatformServices
             {
                 using (var reader = new StreamReader(Path.Combine(".", file.FileName)))
                 {
-                    var fileSaveName = file.FileName == "vault.config" ? "vault_connection_info.config" : file.FileName;
-                    using (var writer = new StreamWriter(Path.Combine(file.TransferLocation, fileSaveName)))
+                    using (var writer = new StreamWriter(Path.Combine(file.TransferLocation, file.FileName)))
                     {
                         await writer.WriteAsync(await reader.ReadToEndAsync());
                         writer.Close();

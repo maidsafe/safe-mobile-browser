@@ -19,7 +19,6 @@
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AndroidSupportedAbis>armeabi-v7a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,10 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,9 +108,6 @@
       <Link>Assets\log.toml</Link>
     </AndroidAsset>
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
-    <AndroidAsset Include="..\SafeMobileBrowser\AssetFiles\vault_connection_info.config">
-      <Link>Assets\vault.config</Link>
-    </AndroidAsset>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
@@ -137,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SafeMobileBrowser\SafeMobileBrowser.csproj">
-      <Project>{38F802A4-2178-47AB-BB72-E180CC06BB93}</Project>
+      <Project>{6ACB7EE7-DD48-4E79-AB5B-C1492BDCC349}</Project>
       <Name>SafeMobileBrowser</Name>
     </ProjectReference>
   </ItemGroup>

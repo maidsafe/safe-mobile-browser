@@ -46,7 +46,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         var indexFileInfo = filesContainer
                                             .FilesMap
                                             .Files
-                                            .FirstOrDefault(file => file.FileName == "index.html");
+                                            .FirstOrDefault(file => file.FileName == "/index.html");
 
                         if (!indexFileInfo.Equals(default(FileInfo)))
                         {

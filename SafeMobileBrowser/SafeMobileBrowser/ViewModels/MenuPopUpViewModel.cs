@@ -67,8 +67,8 @@ namespace SafeMobileBrowser.ViewModels
                 ReloadMenuItem.IsEnabled = false;
             }
 
-            var bookmarksMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
-            bookmarksMenuItem.IsEnabled = AppService.IsSessionAvailable;
+            // var bookmarksMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
+            // bookmarksMenuItem.IsEnabled = AppService.IsSessionAvailable;
 
             var authenticationMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Authenticate"));
             authenticationMenuItem.IsEnabled = !AppService.IsSessionAvailable;
@@ -102,7 +102,8 @@ namespace SafeMobileBrowser.ViewModels
             PopMenuItems = new ObservableCollection<PopUpMenuItem>
             {
                 new PopUpMenuItem { MenuItemTitle = "Settings", MenuItemIcon = IconFont.Settings, IsEnabled = true },
-                new PopUpMenuItem { MenuItemTitle = "Bookmarks", MenuItemIcon = IconFont.BookmarkPlusOutline, },
+
+                // new PopUpMenuItem { MenuItemTitle = "Bookmarks", MenuItemIcon = IconFont.BookmarkPlusOutline, },
                 new PopUpMenuItem { MenuItemTitle = "Authenticate", MenuItemIcon = IconFont.Web, IsEnabled = true },
                 new PopUpMenuItem { MenuItemTitle = "Share", MenuItemIcon = IconFont.ShareVariant }
             };
@@ -135,7 +136,7 @@ namespace SafeMobileBrowser.ViewModels
                     case "Authenticate":
                         if (!AppService.IsSessionAvailable)
                         {
-                            await AuthenticationService.RequestNonMockAuthenticationAsync();
+                            await AuthenticationService.RequestAuthenticationAsync(true);
                         }
                         break;
                     case "Share":
