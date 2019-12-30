@@ -28,8 +28,8 @@ namespace SafeMobileBrowser.Helpers
                 };
 
                 await fileTransferService.TransferAssetsAsync(files);
-                await Session.InitLoggingAsync($"log-{DateTime.Now:MMddyyyy-HHmm}.log");
                 await Session.SetConfigurationFilePathAsync(fileTransferService.ConfigFilesPath);
+                await Session.InitLoggingAsync($"log-{DateTime.Now:MMddyyyy-HHmm}.log");
                 Logger.Info("Assets transferred");
                 return true;
             }

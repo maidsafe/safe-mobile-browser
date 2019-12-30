@@ -57,7 +57,7 @@ namespace SafeMobileBrowser.ViewModels
 
                 var logFileDirectory = new DirectoryInfo(_logFilesPath);
                 var files = logFileDirectory.GetFiles("*.log")
-                    .Where(f => f.Name.StartsWith("log-"))
+                    .Where(f => f.Name.StartsWith("log-", StringComparison.InvariantCulture))
                     .OrderByDescending(f => f.LastWriteTime)
                     .ToList();
 
