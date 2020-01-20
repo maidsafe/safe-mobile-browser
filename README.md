@@ -33,7 +33,6 @@ The app currently uses the [MaidSafe.SafeApp](https://www.nuget.org/packages/Mai
 ## Features
 
 * Fetch static websites from the SAFE Network.
-* Bookmarks (sync with SAFE Desktop Browser).
 
 ## User Guide
 
@@ -57,16 +56,6 @@ Once installed, mobile browser can be used to browse the websites hosted on Alph
 | Browser launch page |Fetching website from the SAFE Network |
 |:---:|:---:|
 |<img src="docs/screenshots/launch-browser.gif"  width="250" alt="mobile-browser-homepage" />| <img src="docs/screenshots/load-website.gif"  width="250" alt="mobile-browser-homepage" /> |
-
-</div>
-
-### Working with bookmarks
-
-To use bookmarks feature in mobile browser, we need to authenticate the app using [SAFE mobile Authenticator app](https://github.com/maidsafe/safe-authenticator-mobile).
-
-| Authenticate | Add bookmark | Remove bookmark | Manage bookmarks |
-|:---:|:---:|:--:|:--:|
-|<img src="docs/screenshots/authentication.gif"  width="250" alt="mobile-browser-homepage" />| <img src="docs/screenshots/add-bookmark.gif"  width="250" alt="mobile-browser-homepage" /> | <img src="docs/screenshots/remove-bookmark.gif"  width="250" alt="mobile-browser-homepage" /> | <img src="docs/screenshots/manage-bookmarks.gif"  width="250" alt="mobile-browser-homepage" /> |
 
 ## Development
 
