@@ -19,6 +19,8 @@ namespace SafeMobileBrowser
 {
     public partial class App : Application
     {
+        public static bool PendingRequest { get; set; }
+
         public static Session AppSession { get; set; }
 
         public static bool IsConnectedToInternet { get; set; }

@@ -81,8 +81,12 @@ namespace SafeMobileBrowser.Services
                 {
                     if (decodeResponse is UnregisteredIpcMsg ipcMsg)
                     {
-                        App.AppSession = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
-                        MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
+                        using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
+                        {
+                            App.AppSession = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
+                            App.PendingRequest = false;
+                            MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
+                        }
                     }
                 }
                 else if (decodedResponseType == typeof(AuthIpcMsg))
@@ -92,6 +96,7 @@ namespace SafeMobileBrowser.Services
                         using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                         {
                             Session session = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
+                            App.PendingRequest = false;
                             AppService.InitialiseSession(session);
                         }
                     }

@@ -288,7 +288,7 @@ namespace SafeMobileBrowser.ViewModels
             {
                 var result = await Application.Current.MainPage.DisplayAlert(
                                 "Authentication",
-                                "Press authenticate to open authenticator app and authenticate mobile browser.",
+                                "You will be redirected to the authenticator app for authentication.",
                                 "Authenticate",
                                 "Cancel");
                 if (result)

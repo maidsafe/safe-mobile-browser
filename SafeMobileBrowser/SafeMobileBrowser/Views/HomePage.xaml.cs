@@ -15,6 +15,8 @@ using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace SafeMobileBrowser.Views
 {
@@ -128,6 +130,13 @@ namespace SafeMobileBrowser.Views
         {
             base.OnAppearing();
 
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                var safeInsets = On<iOS>().SafeAreaInsets();
+                safeInsets.Bottom = 10;
+                Padding = safeInsets;
+            }
+
             if (!_isLogInitialised)
             {
                 _isLogInitialised = await FileHelper.TransferAssetFilesAndInitLoggingAsync();
@@ -139,8 +148,9 @@ namespace SafeMobileBrowser.Views
                 BindingContext = _viewModel;
             }
 
-            if (App.AppSession == null)
+            if (App.AppSession == null && !App.PendingRequest)
             {
+                App.PendingRequest = true;
                 await _viewModel.InitilizeSessionAsync();
 
                 if (!string.IsNullOrWhiteSpace(_launchUrl))
