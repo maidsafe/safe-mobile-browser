@@ -269,3 +269,8 @@ __pycache__/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Build related and mobile app packages
+*.apk
+*.ipa
+*.txt
