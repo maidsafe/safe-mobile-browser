@@ -85,6 +85,12 @@ namespace SafeMobileBrowser.WebFetchImplementation
                     response.Headers.Add("Content-Type", fetchedData.MediaType);
                     return response;
                 }
+                else if (data is SafeDataFetchFailed fetchFailed)
+                {
+                    throw new WebFetchException(
+                        WebFetchConstants.NoSuchData,
+                        WebFetchConstants.NoSuchDataMessage);
+                }
 
                 throw new WebFetchException(
                         WebFetchConstants.NoSuchPublicName,
