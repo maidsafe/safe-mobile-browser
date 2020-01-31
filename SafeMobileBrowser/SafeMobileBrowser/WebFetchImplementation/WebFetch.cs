@@ -8,7 +8,9 @@
 // Software.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using SafeApp;
 using SafeApp.Core;
@@ -17,22 +19,10 @@ using SafeMobileBrowser.Models;
 
 namespace SafeMobileBrowser.WebFetchImplementation
 {
-    public class FileMapItem
-    {
-        public DateTimeOffset Created { get; set; }
-
-        public string Link { get; set; }
-
-        public DateTimeOffset Modified { get; set; }
-
-        public long Size { get; set; }
-
-        public string Type { get; set; }
-    }
-
     public class WebFetch
     {
-        private static readonly string _default_page = "index.html";
+        private static readonly string _filesContainerText = "FILESLIST";
+        private static readonly string _defaultPage = "index.html";
         private readonly Session _session;
 
         public WebFetch(Session session)
@@ -57,14 +47,15 @@ namespace SafeMobileBrowser.WebFetchImplementation
                                             .FilesMap
                                             .Files
                                             .FirstOrDefault(
-                                                file => file.FileName == $"/{_default_page}" ||
-                                                file.FileName == $"{_default_page}");
+                                                file => file.FileName == $"/{_defaultPage}" ||
+                                                file.FileName == $"{_defaultPage}");
 
                         if (!indexFileInfo.Equals(default(FileInfo)))
                         {
                             var indexFileLink = indexFileInfo
                                                 .FileMetaData
-                                                .FirstOrDefault(meta => meta.MetaDataKey == "link").MetaDataValue;
+                                                .FirstOrDefault(meta => meta.MetaDataKey == "link")
+                                                .MetaDataValue;
 
                             if (!string.IsNullOrEmpty(indexFileLink))
                             {
@@ -73,6 +64,16 @@ namespace SafeMobileBrowser.WebFetchImplementation
                                 fetchResponse.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
                                 return fetchResponse;
                             }
+                        }
+                        else
+                        {
+                            var content = await CreateFilesContainerPageAsync(filesContainer.FilesMap.Files);
+                            response.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
+                            response.CurrentNrsVersion = filesContainer.ResolvedFrom.Version;
+                            response.Data = content.ToUtfBytes();
+                            response.MimeType = "text/html";
+                            response.Headers.Add("Content-Type", "text/html");
+                            return response;
                         }
                     }
                 }
@@ -106,6 +107,20 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 Logger.Error(ex);
                 throw;
             }
+        }
+
+        private async Task<string> CreateFilesContainerPageAsync(List<FileInfo> files)
+        {
+            var htmlString = await FileHelper.ReadAssetFileContentAsync("FilesContainer.html");
+            var filesContainerContent = new StringBuilder();
+            foreach (var file in files)
+            {
+                filesContainerContent.Append($"<li>{file.FileName}</li>");
+            }
+            int index = htmlString.IndexOf(_filesContainerText, StringComparison.Ordinal);
+            return htmlString
+                .Remove(index, _filesContainerText.Length)
+                .Insert(index, filesContainerContent.ToString());
         }
 
         public async Task<ulong> GetLatestVersionAsync(string url)

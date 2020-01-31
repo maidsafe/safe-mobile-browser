@@ -76,6 +76,9 @@
     <Compile Include="PlatformServices\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
+    <BundleResource Include="..\SafeMobileBrowser\AssetFiles\FilesContainer.html">
+      <Link>Resources\FilesContainer.html</Link>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

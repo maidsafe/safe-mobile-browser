@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
@@ -110,6 +110,9 @@
     <AndroidAsset Include="Assets\materialdesignicons-webfont.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
+    <AndroidAsset Include="..\SafeMobileBrowser\AssetFiles\FilesContainer.html">
+      <Link>Assets\FilesContainer.html</Link>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />

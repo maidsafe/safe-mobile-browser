@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>TRACE;DEBUG;DEV_BUILD</DefineConstants>
+    <DefineConstants>TRACE;DEV_BUILD;DEBUG;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

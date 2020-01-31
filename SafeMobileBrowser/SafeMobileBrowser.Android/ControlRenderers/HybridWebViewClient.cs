@@ -36,6 +36,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                 view.LoadUrl(request.Url.ToString().Replace("safe://", "https:"));
                 return true;
             }
+
             return base.ShouldOverrideUrlLoading(view, request);
         }
 
@@ -87,6 +88,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                             webviewRenderer.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
                             webviewRenderer.SetLatestPageVersion(safeResponse.LatestNrsVersion);
                         }
+
                         return response;
                     }
                 }

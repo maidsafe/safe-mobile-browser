@@ -160,8 +160,9 @@ namespace SafeMobileBrowser.Views
                 }
             }
 
-            if (App.AppSession != null && App.AppSession.IsDisconnected)
-                await ReconnectSessionAsync();
+            // Todo: Enable this later when we have disconnect handler
+            // if (App.AppSession != null && App.AppSession.IsDisconnected)
+            //    await ReconnectSessionAsync();
 
 #if DEV_BUILD
             // Todo: Enable this later when we have new preview network.
