@@ -61,7 +61,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                         var task = WebFetchService.FetchResourceAsync(urlToFetch, options);
                         var safeResponse = task.WaitAndUnwrapException();
 
-                        using var stream = new MemoryStream(safeResponse.Data);
+                        var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         response.SetStatusCodeAndReasonPhrase(206, "Partial Content");
                         response.ResponseHeaders = new Dictionary<string, string>
@@ -83,7 +83,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                     else
                     {
                         var safeResponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
-                        using var stream = new MemoryStream(safeResponse.Data);
+                        var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
                         {
@@ -101,7 +101,7 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 
                 if (ex.InnerException != null)
                 {
-                    using var stream = new MemoryStream();
+                    var stream = new MemoryStream();
                     var response = new WebResourceResponse("text/html", "UTF-8", stream);
                     response.SetStatusCodeAndReasonPhrase(404, "Not Found");
                     return response;
