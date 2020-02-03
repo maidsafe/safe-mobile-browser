@@ -19,7 +19,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
 {
     public static class WebFetchService
     {
-        private static readonly WebFetch WebFetch = new WebFetch(App.AppSession);
+        private static readonly WebFetch WebFetch = new WebFetch();
 
         public static async Task<WebFetchResponse> FetchResourceAsync(string url, WebFetchOptions options = null)
         {

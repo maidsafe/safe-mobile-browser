@@ -23,12 +23,6 @@ namespace SafeMobileBrowser.WebFetchImplementation
     {
         private static readonly string _filesContainerText = "FILESLIST";
         private static readonly string _defaultPage = "index.html";
-        private readonly Session _session;
-
-        public WebFetch(Session session)
-        {
-            _session = session;
-        }
 
         public async Task<WebFetchResponse> FetchAsync(string url, WebFetchOptions options = null)
         {
@@ -36,11 +30,16 @@ namespace SafeMobileBrowser.WebFetchImplementation
             {
                 var response = new WebFetchResponse();
                 var fetchUrl = url.Replace("https://", "safe://");
-                var data = await _session.Fetch.FetchAsync(fetchUrl);
+                var data = await App
+                                 .AppSession
+                                 .Fetch
+                                 .FetchAsync(fetchUrl);
 
                 if (data is FilesContainer filesContainer)
                 {
-                    ulong nrsContainerVersion = filesContainer.ResolvedFrom.Version;
+                    ulong nrsContainerVersion = filesContainer
+                                                .ResolvedFrom
+                                                .Version;
                     if (filesContainer.FilesMap.Files != null && filesContainer.FilesMap.Files.Count > 0)
                     {
                         var indexFileInfo = filesContainer
@@ -134,7 +133,10 @@ namespace SafeMobileBrowser.WebFetchImplementation
                     fetchUrl = url.Replace("https://", "safe://").Substring(0, versionTextIndex);
                 }
 
-                var data = await _session.Fetch.InspectAsync(fetchUrl);
+                var data = await App
+                                 .AppSession
+                                 .Fetch
+                                 .InspectAsync(fetchUrl);
 
                 if (data is FilesContainer filesContainer)
                 {
