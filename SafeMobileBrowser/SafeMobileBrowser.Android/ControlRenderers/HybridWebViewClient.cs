@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using Android.Webkit;
 using Nito.AsyncEx.Synchronous;
+using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
 using SafeMobileBrowser.WebFetchImplementation;
@@ -31,9 +32,9 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 
         public override bool ShouldOverrideUrlLoading(WebView view, IWebResourceRequest request)
         {
-            if (request.Url.ToString().Contains("safe"))
+            if (request.Url.ToString().Contains("safe://"))
             {
-                view.LoadUrl(request.Url.ToString().Replace("safe://", "https:"));
+                view.LoadUrl(request.Url.ToString().Replace("safe://", "https://"));
                 return true;
             }
 
@@ -72,7 +73,8 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                             { "Content-Length", safeResponse.Headers["Content-Length"] },
                         };
 
-                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
+                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer) &&
+                            safeResponse.FetchDataType == typeof(FilesContainer))
                         {
                             webviewRenderer.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
                             webviewRenderer.SetLatestPageVersion(safeResponse.LatestNrsVersion);
@@ -85,7 +87,9 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                         var safeResponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
                         var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
-                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
+
+                        if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer) &&
+                            safeResponse.FetchDataType == typeof(FilesContainer))
                         {
                             webviewRenderer.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
                             webviewRenderer.SetLatestPageVersion(safeResponse.LatestNrsVersion);

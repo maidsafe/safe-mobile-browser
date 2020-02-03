@@ -61,6 +61,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                                 var fetchResponse = await FetchAsync(indexFileLink);
                                 fetchResponse.CurrentNrsVersion = nrsContainerVersion;
                                 fetchResponse.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
+                                fetchResponse.FetchDataType = typeof(FilesContainer);
                                 return fetchResponse;
                             }
                         }
@@ -69,6 +70,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
                             var content = await CreateFilesContainerPageAsync(filesContainer.FilesMap.Files);
                             response.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
                             response.CurrentNrsVersion = filesContainer.ResolvedFrom.Version;
+                            response.FetchDataType = typeof(FilesContainer);
                             response.Data = content.ToUtfBytes();
                             response.MimeType = "text/html";
                             response.Headers.Add("Content-Type", "text/html");
@@ -78,10 +80,9 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 }
                 else if (data is PublishedImmutableData fetchedData)
                 {
-                    response.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
-                    response.CurrentNrsVersion = fetchedData.ResolvedFrom.Version;
                     response.Data = fetchedData.Data;
                     response.MimeType = fetchedData.MediaType;
+                    response.FetchDataType = typeof(PublishedImmutableData);
                     response.Headers.Add("Content-Type", fetchedData.MediaType);
                     return response;
                 }
@@ -127,6 +128,7 @@ namespace SafeMobileBrowser.WebFetchImplementation
             try
             {
                 var fetchUrl = url.Replace("https://", "safe://").TrimEnd('/');
+
                 if (url.Contains("?v="))
                 {
                     var versionTextIndex = url.LastIndexOf("?v=", StringComparison.Ordinal);

@@ -7,6 +7,7 @@
 // specific language governing permissions and limitations relating to use of the SAFE Network
 // Software.
 
+using System;
 using System.Collections.Generic;
 
 namespace SafeMobileBrowser.Models
@@ -22,6 +23,8 @@ namespace SafeMobileBrowser.Models
         public ulong CurrentNrsVersion { get; set; }
 
         public ulong LatestNrsVersion { get; set; }
+
+        public Type FetchDataType { get; set; }
 
         public WebFetchResponse()
         {

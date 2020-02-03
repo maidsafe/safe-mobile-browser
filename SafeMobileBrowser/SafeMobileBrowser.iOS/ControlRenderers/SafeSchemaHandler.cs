@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using Foundation;
 using Nito.AsyncEx;
+using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.WebFetchImplementation;
 using WebKit;
@@ -30,9 +31,14 @@ namespace SafeMobileBrowser.iOS.ControlRenderers
                     var safeResponse = AsyncContext.Run(() => WebFetchService.FetchResourceAsync(urlToFetch));
                     var stream = new MemoryStream(safeResponse.Data);
                     var response = new NSUrlResponse(urlSchemeTask.Request.Url, safeResponse.MimeType, (nint)stream.Length, null);
-                    var currentWebView = webView as HybridWebViewRenderer;
-                    currentWebView.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
-                    currentWebView.SetLatestPageVersion(safeResponse.LatestNrsVersion);
+
+                    if (safeResponse.FetchDataType == typeof(FilesContainer))
+                    {
+                        var currentWebView = webView as HybridWebViewRenderer;
+                        currentWebView.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
+                        currentWebView.SetLatestPageVersion(safeResponse.LatestNrsVersion);
+                    }
+
                     urlSchemeTask.DidReceiveResponse(response);
                     urlSchemeTask.DidReceiveData(NSData.FromStream(stream));
                     urlSchemeTask.DidFinish();
