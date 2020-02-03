@@ -61,27 +61,29 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
                         var task = WebFetchService.FetchResourceAsync(urlToFetch, options);
                         var safeResponse = task.WaitAndUnwrapException();
 
-                        var stream = new MemoryStream(safeResponse.Data);
+                        using var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         response.SetStatusCodeAndReasonPhrase(206, "Partial Content");
                         response.ResponseHeaders = new Dictionary<string, string>
-                            {
-                                { "Accept-Ranges", "bytes" },
-                                { "content-type", safeResponse.MimeType },
-                                { "Content-Range", safeResponse.Headers["Content-Range"] },
-                                { "Content-Length", safeResponse.Headers["Content-Length"] },
-                            };
+                        {
+                            { "Accept-Ranges", "bytes" },
+                            { "content-type", safeResponse.MimeType },
+                            { "Content-Range", safeResponse.Headers["Content-Range"] },
+                            { "Content-Length", safeResponse.Headers["Content-Length"] },
+                        };
+
                         if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
                         {
                             webviewRenderer.SetCurrentPageVersion(safeResponse.CurrentNrsVersion);
                             webviewRenderer.SetLatestPageVersion(safeResponse.LatestNrsVersion);
                         }
+
                         return response;
                     }
                     else
                     {
                         var safeResponse = WebFetchService.FetchResourceAsync(urlToFetch).Result;
-                        var stream = new MemoryStream(safeResponse.Data);
+                        using var stream = new MemoryStream(safeResponse.Data);
                         var response = new WebResourceResponse(safeResponse.MimeType, "UTF-8", stream);
                         if (_renderer.TryGetTarget(out HybridWebViewRenderer webviewRenderer))
                         {
@@ -99,14 +101,13 @@ namespace SafeMobileBrowser.Droid.ControlRenderers
 
                 if (ex.InnerException != null)
                 {
-                    using (var stream = new MemoryStream())
-                    {
-                        var response = new WebResourceResponse("text/html", "UTF-8", stream);
-                        response.SetStatusCodeAndReasonPhrase(404, "Not Found");
-                        return response;
-                    }
+                    using var stream = new MemoryStream();
+                    var response = new WebResourceResponse("text/html", "UTF-8", stream);
+                    response.SetStatusCodeAndReasonPhrase(404, "Not Found");
+                    return response;
                 }
             }
+
             return base.ShouldInterceptRequest(view, request);
         }
     }
