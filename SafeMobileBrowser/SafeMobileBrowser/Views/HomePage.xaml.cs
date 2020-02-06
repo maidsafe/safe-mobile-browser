@@ -102,6 +102,16 @@ namespace SafeMobileBrowser.Views
                     var jsToEvaluate = "ChangeBackgroundColor (" + $"'{theme.ToString()}'" + ")";
                     await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
                 });
+
+            HybridWebViewControl.Navigated += HybridWebViewControl_NavigatedAsync;
+        }
+
+        private async void HybridWebViewControl_NavigatedAsync(object sender, WebNavigatedEventArgs e)
+        {
+            var jsToEvaluate = "isStaticPage()";
+            var response = await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
+            if (_viewModel != null && bool.TryParse(response, out _))
+                _viewModel.HideVersionChangeControls();
         }
 
         private async Task UpdateHTMLPageToShowErrorAsync()

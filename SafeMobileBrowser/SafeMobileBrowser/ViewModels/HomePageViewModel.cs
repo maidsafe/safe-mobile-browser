@@ -160,6 +160,12 @@ namespace SafeMobileBrowser.ViewModels
             set => SetProperty(ref _latestWebPageVersion, value);
         }
 
+        internal void HideVersionChangeControls()
+        {
+            if (ShowVersionChangeControls)
+                ShowVersionChangeControls = false;
+        }
+
         public string ErrorType { get; private set; }
 
         public bool IsErrorState { get; set; }

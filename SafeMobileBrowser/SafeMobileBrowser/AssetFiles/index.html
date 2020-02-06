@@ -98,6 +98,16 @@
             }
         }
 
+        function isStaticPage() {
+            var heading = document.getElementById("heading");
+            var errorHead = document.getElementById("errorHead");
+
+            if (errorHead && heading)
+                return true;
+            else
+                return false;
+        }
+
         function resetHomePage() {
             ChangePageContent("Welcome", "Start browsing on the SAFE Network.", false);
         }
