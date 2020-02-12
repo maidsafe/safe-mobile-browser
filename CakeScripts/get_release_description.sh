@@ -23,7 +23,7 @@ EOF
 
 apk_checksum=$(sha256sum "../net.maidsafe.browser.apk" | awk '{ print $1 }')
 ipa_checksum=$(sha256sum "../SafeMobileBrowser.iOS.ipa" | awk '{ print $1 }')
-changelog_content=$(sed '1,/)/d;/##/,$d' ../CHANGELOG.MD)
+changelog_content=$(sed '1,/]/d;/##/,$d' ../CHANGELOG.MD)
 release_description=$(sed "s/APK_CHECKSUM/$apk_checksum/g" <<< "$release_description")
 release_description=$(sed "s/IPA_CHECKSUM/$ipa_checksum/g" <<< "$release_description")
 

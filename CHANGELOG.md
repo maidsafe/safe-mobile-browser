@@ -1,3 +1,19 @@
+# safe-mobile-browser changelog
+
+## [0.3.0]
+
+* Add version change buttons in the navigation bar to navigate between the different versions of a web page.
+* Update to use new `Fetch` and `Inspect` API to get the web pages from the SAFE network.
+* Update to show the files list from the `FilesContainer` when the url doesn't contain an `index.html` file.
+* Update to use the authentication from the SAFE Authenticator app.
+* Update to support Android 10 and update minimum supported platforms.
+* Add pull to refesh feature.
+* Remove bookmarks UI and logic.
+* Remove Alpha-2 related code.
+* Add additional session related checks to ensure less undefined behaviour.
+* Multiple bug fixes, UI and performance improvements.
+* Update CI to auto create a draft GitHub release on version change PR.
+
 ## 0.2.0 - (2019-09-05)
 
 ### Features
