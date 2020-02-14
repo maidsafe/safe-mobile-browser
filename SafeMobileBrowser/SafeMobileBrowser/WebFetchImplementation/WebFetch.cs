@@ -84,6 +84,13 @@ namespace SafeMobileBrowser.WebFetchImplementation
                     response.MimeType = fetchedData.MediaType;
                     response.FetchDataType = typeof(PublishedImmutableData);
                     response.Headers.Add("Content-Type", fetchedData.MediaType);
+
+                    if (options != null)
+                    {
+                        response.Headers.Add("Content-Range", $"bytes 0-{response.Data.Length - 1}/{response.Data.Length}");
+                        response.Headers.Add("Content-Length", $"{response.Data.Length}");
+                    }
+
                     return response;
                 }
                 else if (data is SafeDataFetchFailed fetchFailed)
