@@ -160,7 +160,6 @@ namespace SafeMobileBrowser.Views
 
             if (App.AppSession == null && !App.PendingRequest)
             {
-                App.PendingRequest = true;
                 await _viewModel.InitilizeSessionAsync();
 
                 if (!string.IsNullOrWhiteSpace(_launchUrl))

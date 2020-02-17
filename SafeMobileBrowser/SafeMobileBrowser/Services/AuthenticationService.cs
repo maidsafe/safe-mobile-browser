@@ -47,6 +47,7 @@ namespace SafeMobileBrowser.Services
         {
             try
             {
+                App.PendingRequest = true;
                 string req;
                 if (isUnregistered)
                     (_, req) = await Session.EncodeUnregisteredRequestAsync(Constants.AppId);
