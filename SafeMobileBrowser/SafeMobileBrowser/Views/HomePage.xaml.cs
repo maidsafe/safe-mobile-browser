@@ -264,8 +264,12 @@ namespace SafeMobileBrowser.Views
             }
         }
 
-        private void AddressBarTextChangeCompleted(object sender, EventArgs e)
+        private async void AddressBarTextChangeCompleted(object sender, EventArgs e)
         {
+            // Intentional delay to give the animation enough time to finish.
+            if (Device.RuntimePlatform == Device.iOS)
+                await Task.Delay(1000);
+
             _viewModel.PageLoadCommand.Execute(null);
         }
 
