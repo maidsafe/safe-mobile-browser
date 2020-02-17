@@ -84,7 +84,6 @@ namespace SafeMobileBrowser.Services
                         using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                         {
                             App.AppSession = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
-                            App.PendingRequest = false;
                             MessagingCenter.Send(this, MessageCenterConstants.Authenticated, encodedResponse);
                         }
                     }
@@ -96,7 +95,6 @@ namespace SafeMobileBrowser.Services
                         using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                         {
                             Session session = await Session.AppConnectAsync(Constants.AppId, encodedResponse);
-                            App.PendingRequest = false;
                             AppService.InitialiseSession(session);
                         }
                     }
@@ -127,6 +125,10 @@ namespace SafeMobileBrowser.Services
             {
                 Logger.Error(ex);
                 await Application.Current.MainPage.DisplayAlert("Authentication", "Authentication Failed", "OK");
+            }
+            finally
+            {
+                App.PendingRequest = false;
             }
         }
 

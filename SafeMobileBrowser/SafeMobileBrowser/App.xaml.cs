@@ -62,7 +62,7 @@ namespace SafeMobileBrowser
         protected override void OnResume()
         {
             // Handle when your app resumes
-            if (Device.RuntimePlatform == Device.iOS)
+            if (Device.RuntimePlatform == Device.iOS && !PendingRequest)
             {
                 MessagingCenter.Send(
                     this,
