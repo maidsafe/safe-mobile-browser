@@ -24,7 +24,7 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class MenuPopUpViewModel : BaseViewModel
     {
-        private SettingsModalPage _settingsModalPage;
+        private NavigationPage _settingsModalPage;
 
         public INavigation Navigation { get; set; }
 
@@ -139,7 +139,7 @@ namespace SafeMobileBrowser.ViewModels
                 {
                     case "Settings":
                         if (_settingsModalPage == null)
-                            _settingsModalPage = new SettingsModalPage();
+                            _settingsModalPage = new NavigationPage(new SettingsModalPage());
                         await Navigation.PushModalAsync(_settingsModalPage);
                         break;
                     case "Authenticate":

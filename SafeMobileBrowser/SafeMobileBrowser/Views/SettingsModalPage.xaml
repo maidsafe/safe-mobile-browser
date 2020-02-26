@@ -1,133 +1,113 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="SafeMobileBrowser.Views.SettingsModalPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:xamEffects="clr-namespace:XamEffects;assembly=XamEffects"
-             xmlns:icons="clr-namespace:SafeMobileBrowser.Models"
-             xmlns:controls="clr-namespace:SafeMobileBrowser.Controls"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             Title="Settings"
              ios:Page.PrefersHomeIndicatorAutoHidden="true"
              ios:Page.UseSafeArea="true"
              BackgroundColor="{DynamicResource ModalPageBackgroundColor}"
-             mc:Ignorable="d"
-             x:Class="SafeMobileBrowser.Views.SettingsModalPage">
+             mc:Ignorable="d">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TitleStyle"
-                   TargetType="Label">
-                <Setter Property="FontSize"
-                        Value="{StaticResource ExtraLargeSize}" />
-                <Setter Property="TextColor"
-                        Value="{DynamicResource PrimaryColor}" />
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
-            <Style x:Key="ItemStyle"
-                   TargetType="Label">
-                <Setter Property="FontSize"
-                        Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor"
-                        Value="{DynamicResource PrimaryTextColor}" />
+            <Style x:Key="ItemStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
             </Style>
-            <Style x:Key="BoxViewStyle"
-                   TargetType="BoxView">
-                <Setter Property="HeightRequest"
-                        Value="0.5" />
-                <Setter Property="Color"
-                        Value="{DynamicResource BoxViewSyleColor}" />
+            <Style x:Key="BoxViewStyle" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="0.5" />
+                <Setter Property="Color" Value="{DynamicResource BoxViewSyleColor}" />
             </Style>
-            <Style x:Key="ExternalLinkStyle"
-                   TargetType="StackLayout">
-                <Setter Property="HeightRequest"
-                        Value="40" />
+            <Style x:Key="ExternalLinkStyle" TargetType="StackLayout">
+                <Setter Property="HeightRequest" Value="40" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GoBackCommand}"
+                     Order="Primary"
+                     Text="Close">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                 Glyph="{x:Static icons:IconFont.Close}"
+                                 Color="{DynamicResource ModalPageTitleIconColor}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="0">
-                <StackLayout Spacing="0">
-                    <StackLayout Style="{StaticResource ModalPageTitleView}">
-                        <Label Style="{DynamicResource TopNavigationIconStyle}"
-                               Text="{x:Static icons:IconFont.ArrowLeft}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Text="Settings"
-                               Style="{StaticResource ModalPageTitleLabelStyle}" />
-                    </StackLayout>
-                    <controls:ShadowBoxView ShadowType="Bottom"
-                                            IsVisible="{DynamicResource IsLightTheme}"
-                                            HeightRequest="6" />
-                </StackLayout>
-                <StackLayout Margin="0, 10"
-                             Spacing="15">
-                    <Label Text="General"
-                           Margin="16,0,16,10"
-                           Style="{StaticResource TitleStyle}" />
-                    <Grid x:Name="AutoReconnectLayout"
-                          Margin="16,0">
+                <StackLayout Margin="0,10" Spacing="15">
+                    <Label Margin="16,0,16,10"
+                           Style="{StaticResource TitleStyle}"
+                           Text="General" />
+                    <Grid x:Name="AutoReconnectLayout" Margin="16,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Dark Mode"
-                               Style="{StaticResource ItemStyle}"
+                        <Label Style="{StaticResource ItemStyle}"
+                               Text="Dark Mode"
                                VerticalOptions="Center" />
-                        <Switch Grid.Column="1"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                x:Name="AppThemeChangeSwitch"
+                        <Switch x:Name="AppThemeChangeSwitch"
+                                Grid.Column="1"
                                 AutomationId="AppDarkModeSwitch"
-                                IsToggled="{Binding AppDarkMode, Mode=OneWayToSource}" />
+                                HorizontalOptions="End"
+                                IsToggled="{Binding AppDarkMode, Mode=OneWayToSource}"
+                                VerticalOptions="Center" />
                     </Grid>
 
-                    <StackLayout xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
-                                 xamEffects:Commands.Tap="{Binding OpenLogsPageCommand}"
+                    <StackLayout xamEffects:Commands.Tap="{Binding OpenLogsPageCommand}"
+                                 xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
-                        <Label Text="App logs"
-                               Margin="16,0"
+                        <Label Margin="16,0"
                                Style="{StaticResource ItemStyle}"
+                               Text="App logs"
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                 </StackLayout>
-                <BoxView Style="{StaticResource BoxViewStyle}"
-                         Margin="0,15,0,0" />
-                <StackLayout Spacing="0"
-                             Margin="0,15,0,0">
-                    <Label Text="Help"
-                           Margin="16,0,16,10"
-                           Style="{StaticResource TitleStyle}" />
+                <BoxView Margin="0,15,0,0" Style="{StaticResource BoxViewStyle}" />
+                <StackLayout Margin="0,15,0,0" Spacing="0">
+                    <Label Margin="16,0,16,10"
+                           Style="{StaticResource TitleStyle}"
+                           Text="Help" />
 
-                    <StackLayout xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
-                                 xamEffects:Commands.Tap="{Binding FaqCommand}"
+                    <StackLayout xamEffects:Commands.Tap="{Binding FaqCommand}"
+                                 xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
-                        <Label Text="FAQs"
-                               Margin="16,0"
+                        <Label Margin="16,0"
                                Style="{StaticResource ItemStyle}"
+                               Text="FAQs"
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
 
-                    <StackLayout xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
-                                 xamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
+                    <StackLayout xamEffects:Commands.Tap="{Binding PrivacyInfoCommand}"
+                                 xamEffects:TouchEffect.Color="{DynamicResource GreySmokeMediumColor}"
                                  Style="{StaticResource ExternalLinkStyle}">
 
-                        <Label Text="Privacy statement"
-                               Margin="16,0"
+                        <Label Margin="16,0"
                                Style="{StaticResource ItemStyle}"
+                               Text="Privacy statement"
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
 
                     <StackLayout Margin="16,10">
-                        <Label Text="Application version"
-                               Style="{StaticResource ItemStyle}" />
-                        <Label Text="{Binding ApplicationVersion}"
-                               Margin="0,5,0,0"
+                        <Label Style="{StaticResource ItemStyle}" Text="Application version" />
+                        <Label Margin="0,5,0,0"
+                               HorizontalOptions="Start"
                                Style="{StaticResource ItemStyle}"
-                               TextColor="{DynamicResource GreySmokeMediumColor}"
-                               HorizontalOptions="Start" />
+                               Text="{Binding ApplicationVersion}"
+                               TextColor="{DynamicResource GreySmokeMediumColor}" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
