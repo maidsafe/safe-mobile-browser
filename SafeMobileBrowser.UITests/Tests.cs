@@ -19,9 +19,6 @@ namespace SafeMobileBrowser.UITests
     [TestFixture(Platform.iOS)]
     public class Tests
     {
-        private IApp _app;
-        private Platform _platform;
-
         private const string _connectionErrorMsg = "Could not connect to the SAFE Network. Try updating your IP address on invite server.";
         private static readonly Func<AppQuery, AppQuery> _addressBarEntry = c => c.Marked("AddressBarEntry");
         private static readonly Func<AppQuery, AppQuery> _connectionFailedMsg = c => c.Marked(_connectionErrorMsg);
@@ -35,10 +32,12 @@ namespace SafeMobileBrowser.UITests
         private static readonly Func<AppQuery, AppQuery> _privacyStatementLabel = c => c.Marked("Privacy statement");
         private static readonly Func<AppQuery, AppQuery> _appDarkModeSwitch = c => c.Marked("AppDarkModeSwitch");
 
+        private IApp _app;
+        private Platform _platform;
 
         public Tests(Platform platform)
         {
-            this._platform = platform;
+            _platform = platform;
         }
 
         [SetUp]
@@ -72,7 +71,6 @@ namespace SafeMobileBrowser.UITests
             _app.Tap(_homeActionIcon);
             _app.Screenshot("Home page");
         }
-
 
         [Test]
         public void SwitchAppModeTest()
