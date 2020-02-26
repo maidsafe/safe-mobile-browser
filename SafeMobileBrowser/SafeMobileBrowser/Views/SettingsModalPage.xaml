@@ -31,17 +31,26 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding GoBackCommand}"
-                     Order="Primary"
-                     Text="Close">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                 Glyph="{x:Static icons:IconFont.Close}"
-                                 Color="{DynamicResource ModalPageTitleIconColor}" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label HorizontalOptions="StartAndExpand"
+                   Style="{StaticResource ModalPageTitleLabelStyle}"
+                   Text="Settings" />
+            <Label HorizontalOptions="End"
+                   Style="{DynamicResource TopNavigationIconStyle}"
+                   Text="{x:Static icons:IconFont.Close}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <StackLayout.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="Android">20,0</On>
+                    <On Platform="iOS">0</On>
+                </OnPlatform>
+            </StackLayout.Padding>
+        </StackLayout>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="0">
