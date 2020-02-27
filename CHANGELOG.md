@@ -1,5 +1,14 @@
 # safe-mobile-browser changelog
 
+## [0.3.1]
+
+* Prevent iOS system level dark theme overloading.
+* Refactored settigns and log page to use inbuild navigation bar.
+* Fixed address bar animation freeze issue in iOS app.
+* Fixed repeated authentication dialog cycle in iOS app.
+* Added base support logic for the audio streaming on Android devices.
+* Updated the packages to the latest versions
+
 ## [0.3.0]
 
 * Add version change buttons in the navigation bar to navigate between the different versions of a web page.
