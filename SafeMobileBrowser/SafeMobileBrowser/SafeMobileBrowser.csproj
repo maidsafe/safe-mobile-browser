@@ -21,7 +21,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.4.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
     <PackageReference Include="XamEffects" Version="1.6.3" />  
-    <PackageReference Include="MaidSafe.SafeApp" Version="0.3.1-rc2" />
+    <PackageReference Include="MaidSafe.SafeApp" Version="0.3.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -37,7 +37,7 @@
       <Version>3.11.1</Version>
     </PackageReference>
     <PackageReference Include="MaidSafe.SafeApp">
-      <Version>0.3.1-rc2</Version>
+      <Version>0.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

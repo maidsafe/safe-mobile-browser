@@ -137,7 +137,7 @@
       <Version>7.0.35</Version>
     </PackageReference>
     <PackageReference Include="MaidSafe.SafeApp">
-      <Version>0.3.1-rc2</Version>
+      <Version>0.3.1</Version>
     </PackageReference>
     <PackageReference Include="Nito.AsyncEx">
       <Version>5.0.0</Version>
