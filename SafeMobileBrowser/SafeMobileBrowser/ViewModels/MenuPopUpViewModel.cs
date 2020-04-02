@@ -15,7 +15,6 @@ using System.Windows.Input;
 using Rg.Plugins.Popup.Extensions;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
-using SafeMobileBrowser.Services;
 using SafeMobileBrowser.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -78,9 +77,8 @@ namespace SafeMobileBrowser.ViewModels
 
             // var bookmarksMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Bookmarks"));
             // bookmarksMenuItem.IsEnabled = AppService.IsSessionAvailable;
-
-            var authenticationMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Authenticate"));
-            authenticationMenuItem.IsEnabled = !AppService.IsSessionAvailable;
+            // var authenticationMenuItem = PopMenuItems.First(p => string.Equals(p.MenuItemTitle, "Authenticate"));
+            // authenticationMenuItem.IsEnabled = !AppService.IsSessionAvailable;
         }
 
         private void RefreshWebView(object obj)
@@ -113,7 +111,7 @@ namespace SafeMobileBrowser.ViewModels
                 new PopUpMenuItem { MenuItemTitle = "Settings", MenuItemIcon = IconFont.Settings, IsEnabled = true },
 
                 // new PopUpMenuItem { MenuItemTitle = "Bookmarks", MenuItemIcon = IconFont.BookmarkPlusOutline, },
-                new PopUpMenuItem { MenuItemTitle = "Authenticate", MenuItemIcon = IconFont.Web, IsEnabled = true },
+                // new PopUpMenuItem { MenuItemTitle = "Authenticate", MenuItemIcon = IconFont.Web, IsEnabled = true },
                 new PopUpMenuItem { MenuItemTitle = "Share", MenuItemIcon = IconFont.ShareVariant }
             };
 
@@ -143,12 +141,12 @@ namespace SafeMobileBrowser.ViewModels
                         await Navigation.PushModalAsync(_settingsModalPage);
                         break;
 
-                    case "Authenticate":
-                        if (!AppService.IsSessionAvailable)
-                        {
-                            await AuthService.RequestAuthenticationAsync(true);
-                        }
-                        break;
+                    // case "Authenticate":
+                    //    if (!AppService.IsSessionAvailable)
+                    //    {
+                    //        await AuthService.RequestAuthenticationAsync(true);
+                    //    }
+                    //    break;
                     case "Share":
                         if (!string.IsNullOrWhiteSpace(HomePageViewModel.CurrentUrl) && HomePageViewModel.CurrentUrl.StartsWith("safe://"))
                         {
