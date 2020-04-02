@@ -1,5 +1,12 @@
 # safe-mobile-browser changelog
 
+## [0.4.0]
+
+* Added support for a single section network.
+* Added option to download and use MaidSafe's hosted shared section connection info file.
+* Added authentication status button in top navigation bar.
+* Updated MaidSafe.SafeApp packages to v0.3.1
+
 ## [0.3.1]
 
 * Prevent iOS system level dark theme overloading.
