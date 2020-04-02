@@ -146,7 +146,7 @@ namespace SafeMobileBrowser.ViewModels
                     case "Authenticate":
                         if (!AppService.IsSessionAvailable)
                         {
-                            await AuthenticationService.RequestAuthenticationAsync(true);
+                            await AuthService.RequestAuthenticationAsync(true);
                         }
                         break;
                     case "Share":

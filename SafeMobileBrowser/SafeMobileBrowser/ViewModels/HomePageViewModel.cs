@@ -341,9 +341,9 @@ namespace SafeMobileBrowser.ViewModels
                                 "Use authenticator app",
                                 "Use MaidSafe shared section");
                 if (result)
-                    await AuthenticationService.RequestAuthenticationAsync(true);
+                    await AuthService.RequestAuthenticationAsync(true);
                 else
-                    await AuthenticationService.DownloadMaidSafeSharedSectionVault();
+                    await AuthService.DownloadMaidSafeSharedSectionVault();
             }
             catch (Exception ex)
             {

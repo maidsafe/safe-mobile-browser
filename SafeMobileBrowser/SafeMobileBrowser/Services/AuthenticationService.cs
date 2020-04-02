@@ -52,7 +52,7 @@ namespace SafeMobileBrowser.Services
             return await Session.EncodeAuthReqAsync(authReq);
         }
 
-        public static async Task RequestAuthenticationAsync(bool isUnregistered = false)
+        public async Task RequestAuthenticationAsync(bool isUnregistered = false)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-        internal static async Task DownloadMaidSafeSharedSectionVault()
+        internal async Task DownloadMaidSafeSharedSectionVault()
         {
             try
             {
@@ -179,6 +179,7 @@ namespace SafeMobileBrowser.Services
                                     File.WriteAllText(Path.Combine(ConfigFilePath, _defaultVaultConnectionFileName), fileContent);
                                     await Session.SetAppConfigurationDirectoryPathAsync(ConfigFilePath);
                                     App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
+                                    MessagingCenter.Send(this, MessageCenterConstants.Authenticated);
                                 }
                             }
                             else
