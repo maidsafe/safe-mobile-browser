@@ -1,4 +1,11 @@
 variables:
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'signing_cert.keystore'
+    apksignerKeystorePassword: '$(signing_cert_pwd)'
+    apksignerKeystoreAlias: 'signing_cert'
+    apksignerKeyPassword: '$(signing_cert_pwd)'
   MONO_VERSION: 6_4_0
   XCODE_VERSION: 11.2
   NETCORE_VERSION: '3.0.x'
