@@ -1,5 +1,10 @@
 # safe-mobile-browser changelog
 
+## [0.5.0]
+
+* Added In-App Updates support using App Center Distribute SDK.
+* Update Android app to use AndroidX packages.
+
 ## [0.4.0]
 
 * Added support for a single section network.

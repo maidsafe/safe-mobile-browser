@@ -31,7 +31,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>net.maidsafe.browser</string>
 	<key>CFBundleVersion</key>
-	<string>4.0</string>
+	<string>5.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -71,7 +71,7 @@
 		<true/>
 	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>0.4.0</string>
+	<string>0.5.0</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Mobile browser needs access to the photo library to download/upload image(s).</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
