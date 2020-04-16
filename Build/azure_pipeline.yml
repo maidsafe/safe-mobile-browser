@@ -1,0 +1,249 @@
+variables:
+  MONO_VERSION: 6_4_0
+  XCODE_VERSION: 11.2
+  NETCORE_VERSION: '3.0.x'
+  isVersionChange: false
+  new_version: 0.0.0
+  BuildConfiguration: 'Release'
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
+
+pr:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
+
+jobs:
+  - job: android_build
+    displayName: Android Build
+    pool:
+      vmImage: 'macOS-latest'
+      demands:
+      - MSBuild
+      - Xamarin.Android
+      - JDK
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .Net Core sdk $(NETCORE_VERSION)'
+      inputs:
+        version: $(NETCORE_VERSION)
+
+    - bash: |
+        sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+        mono --version
+        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+        /usr/bin/xcodebuild -version
+      displayName: 'Set mono and Xcode version'
+
+    - task: NuGetToolInstaller@1
+      displayName: 'Use NuGet 5.x'
+      inputs:
+        versionSpec: 5.x
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: '$(Parameters.restorePkgSolution)'
+
+    - bash: |
+        bash ./Build/pre_build.sh
+      env:
+        ANDROID_APPCENTER_APP_SECRET: $(ANDROID_APPCENTER_SECRET)
+      displayName: 'Update App Secret'
+    
+    - task: XamarinAndroid@1
+      displayName: 'Build Xamarin.Android project **/*Droid*.csproj'
+      inputs:
+        projectFile: '**/*Droid*.csproj'
+        outputDirectory: '$(build.binariesdirectory)/$(BuildConfiguration)'
+        configuration: '$(BuildConfiguration)'
+
+    - task: AndroidSigning@3
+      displayName: 'Signing and aligning APK file(s) $(build.binariesdirectory)/$(BuildConfiguration)/*.apk'
+      inputs:
+        apkFiles: '$(build.binariesdirectory)/$(BuildConfiguration)/*.apk'
+        apksignerKeystoreFile: 'signing_cert.keystore'
+        apksignerKeystorePassword: '$(signing_cert_pwd)'
+        apksignerKeystoreAlias: 'signing_cert'
+        apksignerKeyPassword: '$(signing_cert_pwd)'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        SourceFolder: '$(build.binariesdirectory)/$(BuildConfiguration)'
+        Contents: '**/*.apk'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        flattenFolders: true
+      
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: Android'
+      inputs:
+        ArtifactName: Android
+
+  - job: ios_build
+    displayName: iOS Build
+    pool:
+      vmImage: 'macOS-latest'
+      demands:
+      - xcode
+      - Xamarin.iOS
+    
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .Net Core sdk $(NETCORE_VERSION)'
+      inputs:
+        version: $(NETCORE_VERSION)
+
+    - bash: |
+        sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+        mono --version
+        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+        /usr/bin/xcodebuild -version
+      displayName: 'Set mono and Xcode version'
+
+    - task: InstallAppleCertificate@2
+      displayName: 'Install an Apple certificate'
+      inputs:
+        certSecureFile: 'iOS Ad-hoc Dec 2019.p12'
+        certPwd: '$(P12password)'
+      
+    - task: InstallAppleProvisioningProfile@1
+      displayName: 'Install an Apple provisioning profile'
+      inputs:
+        provProfileSecureFile: 'iOS Ad-hoc Dec 2019.mobileprovision'
+      
+    - task: NuGetToolInstaller@1
+      displayName: 'Use NuGet 5.x'
+      inputs:
+        versionSpec: 5.x
+      
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+
+    - bash: |
+        bash ./Build/pre_build.sh
+      env:
+        IOS_APPCENTER_APP_SECRET: $(IOS_APPCENTER_SECRET)
+      displayName: 'Update App Secret'
+
+    - task: XamariniOS@2
+      displayName: 'Build Xamarin.iOS solution SafeMobileBrowser/SafeMobileBrowser.iOS/SafeMobileBrowser.iOS.csproj'
+      inputs:
+        solutionFile: SafeMobileBrowser/SafeMobileBrowser.iOS/SafeMobileBrowser.iOS.csproj
+        signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+        signingProvisioningProfileID: '$(APPLE_PROV_PROFILE_UUID)'
+      
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(system.defaultworkingdirectory)'
+        Contents: '**/*.ipa'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        flattenFolders: true
+      
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: iOS'
+      inputs:
+        ArtifactName: iOS
+    
+  - job: release
+    displayName: GitHub and App Center Release
+    dependsOn:
+      - android_build
+      - ios_build
+    pool:
+      vmImage: 'macOS-latest'
+    condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), contains(variables['Build.SourceVersionMessage'], 'version change'))
+    steps:
+    - bash: |
+        export commitMessage=$(git log --format=%B -n 1)
+        
+        if [[ $commitMessage == [Vv]ersion[[:space:]]change* ]]; then
+            echo '##vso[task.setvariable variable=isVersionChange]true'
+        fi
+        
+        if $isVersionChange; then
+            sed '1,/)/d;/##/,$d' CHANGELOG.MD > newChangeLog.txt
+            version=$(perl -pe '($_)=/([0-9]+([.][0-9]+)+([-][Rr][Cc][0-9]+)?)/' <<< $commitMessage)
+            echo "##vso[task.setvariable variable=new_version]$version"
+        fi
+      displayName: 'Check if version change'
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifact'
+      inputs:
+        itemPattern: |
+          **/*.apk
+          **/*.ipa
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
+
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.SourcesDirectory)'
+      inputs:
+        SourceFolder: '$(Build.ArtifactStagingDirectory)'
+        Contents: |
+          **/*.apk
+          **/*.ipa
+          TargetFolder: '$(Build.SourcesDirectory)'
+          flattenFolders: true
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
+
+    - bash: |
+        brew install coreutils
+        cd ./CakeScripts
+        bash get_release_description.sh
+        displayName: 'Generate release notes'
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
+
+    - task: GitHubRelease@1
+      displayName: 'GitHub release (create)'
+      inputs:
+        gitHubConnection: 'github.com_ravinderjangra'
+        tagSource: userSpecifiedTag
+        tag: '$(new_version)'
+        title: '$(new_version)'
+        releaseNotesFilePath: 'CakeScripts/release_description.txt'
+        assets: |
+          $(Build.ArtifactStagingDirectory)/**/*.apk
+          $(Build.ArtifactStagingDirectory)/**/*.ipa
+          isDraft: true
+          addChangeLog: false
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
+
+    - task: AppCenterDistribute@3
+      displayName: 'Deploy **/*.apk to Visual Studio App Center'
+      inputs:
+        serverEndpoint: 'MaidSafe-AppCenter'
+        appSlug: 'MaidSafe-Apps/Safe-Mobile-Browser'
+        appFile: '**/*.apk'
+        symbolsOption: Android
+        releaseNotesOption: file
+        releaseNotesFile: newChangeLog.txt
+        distributionGroupId: $(AndroidDistributionGroupId)
+        isSilent: false
+        isMandatory: true
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
+
+    - task: AppCenterDistribute@3
+      displayName: 'Deploy **/*.ipa to Visual Studio App Center'
+      inputs:
+        serverEndpoint: 'MaidSafe-AppCenter'
+        appSlug: 'MaidSafe-Apps/Safe-Mobile-Browser-1'
+        appFile: '**/*.ipa'
+        symbolsIncludeParentDirectory: false
+        releaseNotesOption: file
+        releaseNotesFile: newChangeLog.txt
+        distributionGroupId: $(iOSDistributionGroupId)
+        isSilent: false
+        isMandatory: true
+      condition: and(succeeded(), eq(variables['isVersionChange'], 'true'))
