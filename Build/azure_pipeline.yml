@@ -161,7 +161,7 @@ jobs:
       - ios_build
     pool:
       vmImage: 'macOS-latest'
-    condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'), contains(variables['Build.SourceVersionMessage'], 'version change'))
+    condition: and(eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     steps:
     - bash: |
         export commitMessage=$(git log --format=%B -n 1)
