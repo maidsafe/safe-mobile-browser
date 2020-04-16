@@ -134,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
-      <Version>7.0.35</Version>
+      <Version>7.1.0.442</Version>
     </PackageReference>
     <PackageReference Include="MaidSafe.SafeApp">
       <Version>0.3.1</Version>
@@ -146,14 +146,14 @@
       <Version>2.5.0.3-beta</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
-      <Version>1.2.0.223</Version>
+      <Version>2.0.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.5.2</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.617" />
     <PackageReference Include="Xamarin.Forms.Visual.Material">
-      <Version>4.5.0.530</Version>
+      <Version>4.5.0.617</Version>
     </PackageReference>
     <PackageReference Include="XamEffects">
       <Version>1.6.3</Version>

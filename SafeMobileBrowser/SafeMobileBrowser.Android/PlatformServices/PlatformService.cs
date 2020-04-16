@@ -12,7 +12,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Android.Content;
+#if __ANDROID_29__
+using AndroidX.Browser.CustomTabs;
+#else
 using Android.Support.CustomTabs;
+#endif
 using Plugin.CurrentActivity;
 using SafeMobileBrowser.Droid.PlatformServices;
 using SafeMobileBrowser.Models;
