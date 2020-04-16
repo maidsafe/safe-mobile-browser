@@ -18,10 +18,11 @@
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.5.0.3-beta" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
     <PackageReference Include="System.ObjectModel" Version="4.3.0" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.4.0" />
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
     <PackageReference Include="XamEffects" Version="1.6.3" />  
     <PackageReference Include="MaidSafe.SafeApp" Version="0.3.1" />
+    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>

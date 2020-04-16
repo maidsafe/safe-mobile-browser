@@ -14,19 +14,23 @@
              mc:Ignorable="d">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TitleStyle" TargetType="Label">
+            <Style x:Key="TitleStyle"
+                   TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource ExtraLargeSize}" />
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
-            <Style x:Key="ItemStyle" TargetType="Label">
+            <Style x:Key="ItemStyle"
+                   TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
             </Style>
-            <Style x:Key="BoxViewStyle" TargetType="BoxView">
+            <Style x:Key="BoxViewStyle"
+                   TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="0.5" />
                 <Setter Property="Color" Value="{DynamicResource BoxViewSyleColor}" />
             </Style>
-            <Style x:Key="ExternalLinkStyle" TargetType="StackLayout">
+            <Style x:Key="ExternalLinkStyle"
+                   TargetType="StackLayout">
                 <Setter Property="HeightRequest" Value="40" />
             </Style>
         </ResourceDictionary>
@@ -45,8 +49,12 @@
             </Label>
             <StackLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
-                    <On Platform="Android">20,0</On>
-                    <On Platform="iOS">0</On>
+                    <On Platform="Android">
+                        20,0
+                    </On>
+                    <On Platform="iOS">
+                        0
+                    </On>
                 </OnPlatform>
             </StackLayout.Padding>
         </StackLayout>
@@ -54,11 +62,29 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="0">
-                <StackLayout Margin="0,10" Spacing="15">
-                    <Label Margin="16,0,16,10"
+                <StackLayout Margin="0,10"
+                             Padding="0,10"
+                             Spacing="0">
+                    <Label Margin="16,0"
                            Style="{StaticResource TitleStyle}"
                            Text="General" />
-                    <Grid x:Name="AutoReconnectLayout" Margin="16,0">
+                    <Grid Margin="16,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Style="{StaticResource ItemStyle}"
+                               Text="App Updates"
+                               VerticalOptions="Center" />
+                        <Switch x:Name="AppUpdateSwitch"
+                                Grid.Column="1"
+                                AutomationId="AppUpdateModeSwitch"
+                                HorizontalOptions="End"
+                                IsToggled="{Binding AppUpdateEnabled}"
+                                VerticalOptions="Center" />
+                    </Grid>
+
+                    <Grid Margin="16,0,16,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -77,15 +103,15 @@
                     <StackLayout xamEffects:Commands.Tap="{Binding OpenLogsPageCommand}"
                                  xamEffects:TouchEffect.Color="{StaticResource GreySmokeMediumColor}"
                                  Style="{StaticResource ExternalLinkStyle}">
-
                         <Label Margin="16,0"
                                Style="{StaticResource ItemStyle}"
                                Text="App logs"
                                VerticalOptions="CenterAndExpand" />
                     </StackLayout>
                 </StackLayout>
-                <BoxView Margin="0,15,0,0" Style="{StaticResource BoxViewStyle}" />
-                <StackLayout Margin="0,15,0,0" Spacing="0">
+                <BoxView Style="{StaticResource BoxViewStyle}" />
+                <StackLayout Margin="0,15,0,0"
+                             Spacing="0">
                     <Label Margin="16,0,16,10"
                            Style="{StaticResource TitleStyle}"
                            Text="Help" />
@@ -111,7 +137,8 @@
                     </StackLayout>
 
                     <StackLayout Margin="16,10">
-                        <Label Style="{StaticResource ItemStyle}" Text="Application version" />
+                        <Label Style="{StaticResource ItemStyle}"
+                               Text="Application version" />
                         <Label Margin="0,5,0,0"
                                HorizontalOptions="Start"
                                Style="{StaticResource ItemStyle}"

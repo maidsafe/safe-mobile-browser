@@ -16,9 +16,14 @@ namespace SafeMobileBrowser.ViewModels
 {
     public class BaseViewModel : ObservableObject, IDisposable
     {
-        public AppService AppService => DependencyService.Get<AppService>();
+        public AppService AppService =>
+            DependencyService.Get<AppService>();
 
-        public AuthenticationService AuthService => DependencyService.Get<AuthenticationService>();
+        public AuthenticationService AuthService =>
+            DependencyService.Get<AuthenticationService>();
+
+        public AppUpdateService AppUpdateService =>
+            DependencyService.Get<AppUpdateService>();
 
         private bool _isBusy;
 

@@ -331,6 +331,26 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
+        internal async Task RegisterToGetAppUpdate()
+        {
+            try
+            {
+                if (AppUpdateService.GetAppUpdateSettings())
+                {
+                    AppUpdateService.RegisterUpdateService();
+                    AppUpdateService.UpdateAppSettings(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                await Application.Current.MainPage.DisplayAlert(
+                   ErrorConstants.ConnectionFailedTitle,
+                   ErrorConstants.ConnectionFailedMsg,
+                   "OK");
+            }
+        }
+
         internal async Task InitilizeSessionAsync()
         {
             try

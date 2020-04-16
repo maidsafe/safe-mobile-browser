@@ -48,6 +48,22 @@ namespace SafeMobileBrowser.ViewModels
             }
         }
 
+        private bool _appUpdateEnabled;
+
+        public bool AppUpdateEnabled
+        {
+            get => _appUpdateEnabled;
+            set
+            {
+                if (value != _appUpdateEnabled)
+                {
+                    SetProperty(ref _appUpdateEnabled, value);
+                    AppUpdateService.UpdateAppSettings(value);
+                    AppUpdateService.UpdateAppCenterUpdateChecks(value);
+                }
+            }
+        }
+
         public SettingsModalPageViewModel(INavigation navigation)
         {
             _navigation = navigation;
@@ -73,6 +89,8 @@ namespace SafeMobileBrowser.ViewModels
                     AppDarkMode = true;
                     break;
             }
+
+            AppUpdateEnabled = AppUpdateService.GetAppUpdateSettings();
         }
 
         private async void GoBackToHomePage()

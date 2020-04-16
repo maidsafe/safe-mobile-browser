@@ -9,6 +9,7 @@
 
 using System;
 using Foundation;
+using Microsoft.AppCenter.Distribute;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using UIKit;
@@ -28,6 +29,7 @@ namespace SafeMobileBrowser.iOS
             Xamarin.Calabash.Start();
 #endif
 
+            Distribute.DontCheckForUpdatesInDebug();
             Rg.Plugins.Popup.Popup.Init();
             XamEffects.iOS.Effects.Init();
             global::Xamarin.Forms.Forms.Init();

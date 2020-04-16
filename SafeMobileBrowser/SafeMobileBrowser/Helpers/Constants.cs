@@ -31,6 +31,7 @@ namespace SafeMobileBrowser.Helpers
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";
         public const string FaqUrl = "https://safenetforum.org/t/safe-mobile-browser-faqs/";
         public const string AppThemePreferenceKey = "AppThemePreferenceKey";
+        public const string AppUpdatePreferenceKey = "AppUpdatePreferenceKey";
         public const string BufferText = "buffer-text";
     }
 }
