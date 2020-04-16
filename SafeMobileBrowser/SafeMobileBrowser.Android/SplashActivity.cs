@@ -8,7 +8,11 @@
 // Software.
 
 using Android.App;
+#if __ANDROID_29__
+using AndroidX.AppCompat.App;
+#else
 using Android.Support.V7.App;
+#endif
 
 namespace SafeMobileBrowser.Droid
 {
@@ -26,10 +30,6 @@ namespace SafeMobileBrowser.Droid
             base.OnResume();
             StartActivity(typeof(MainActivity));
             OverridePendingTransition(Resource.Drawable.fade_in, Resource.Drawable.fade_out);
-        }
-
-        public override void OnBackPressed()
-        {
         }
     }
 }

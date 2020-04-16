@@ -12,7 +12,11 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+#if __ANDROID_29__
+using AndroidX.Core.App;
+#else
 using Android.Support.V4.App;
+#endif
 using Android.Webkit;
 using Android.Widget;
 using Java.IO;
