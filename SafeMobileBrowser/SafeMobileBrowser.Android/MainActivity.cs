@@ -14,11 +14,11 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Microsoft.AppCenter.Distribute;
 using Plugin.CurrentActivity;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Services;
 using Xamarin.Forms;
-using View = Android.Views.View;
 
 namespace SafeMobileBrowser.Droid
 {
@@ -44,6 +44,7 @@ namespace SafeMobileBrowser.Droid
             base.OnCreate(savedInstanceState);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            Distribute.SetEnabledForDebuggableBuild(true);
             global::Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             XamEffects.Droid.Effects.Init();
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

@@ -186,8 +186,6 @@ namespace SafeMobileBrowser.Views
                 }
             }
 
-            await _viewModel.RegisterToGetAppUpdate();
-
             // Todo: Enable this later when we have disconnect handler
             // if (App.AppSession != null && App.AppSession.IsDisconnected)
             //    await ReconnectSessionAsync();

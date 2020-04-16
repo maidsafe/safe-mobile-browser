@@ -25,10 +25,13 @@ namespace SafeMobileBrowser.Services
             "ios=_IOS_APP_CENTER_SECRET_;android=_ANDROID_APP_CENTER_SECRET_";
 
         public static void UpdateAppSettings(bool inAppUpdateEnabled) =>
-            Preferences.Set(Constants.AppThemePreferenceKey, inAppUpdateEnabled);
+            Preferences.Set(Constants.AppUpdatePreferenceKey, inAppUpdateEnabled);
 
         public static void UpdateAppCenterUpdateChecks(bool inAppUpdateEnabled) =>
             Distribute.SetEnabledAsync(inAppUpdateEnabled);
+
+        public static bool CheckIfAppUpdateSettingsExists() =>
+            Preferences.ContainsKey(Constants.AppUpdatePreferenceKey);
 
         public static bool GetAppUpdateSettings() =>
             Preferences.Get(Constants.AppUpdatePreferenceKey, false);
@@ -54,6 +57,9 @@ namespace SafeMobileBrowser.Services
             var versionCodeOrBuildNumber = releaseDetails.Version;
             var releaseNotes = releaseDetails.ReleaseNotes;
             var releaseNotesUrl = releaseDetails.ReleaseNotesUrl;
+
+            if (string.IsNullOrWhiteSpace(releaseNotes))
+                releaseNotes = "A new version for this app is available.";
 
             // custom dialog
             var title = $"New version available {versionName} !";
