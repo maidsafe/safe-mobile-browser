@@ -215,10 +215,10 @@ namespace SafeMobileBrowser.ViewModels
                 if (IsAuthenticated == 1)
                 {
                     var result = await Application.Current.MainPage.DisplayAlert(
-                                "Authentication",
-                                "Please press continue to reset the current session and re-authenticate to start a new session.",
-                                "Continue",
-                                "Cancel");
+                        Constants.AuthenticationDialogTitle,
+                        Constants.AuthStatusMsg,
+                        Constants.Continue,
+                        "Cancel");
                     if (result)
                         await InitilizeSessionAsync();
                 }
@@ -362,14 +362,14 @@ namespace SafeMobileBrowser.ViewModels
             try
             {
                 var result = await Application.Current.MainPage.DisplayAlert(
-                                "Authentication",
-                                "You can connect to a section of your choice using the Authenticator app, or you can connect to the MaidSafe hosted shared section.",
-                                "Use authenticator app",
-                                "Use MaidSafe shared section");
+                    Constants.AuthenticationDialogTitle,
+                    Constants.AuthenticationDialogMsg,
+                    "Continue",
+                    Constants.UseAuthenticator);
                 if (result)
-                    await AuthService.RequestAuthenticationAsync(true);
-                else
                     await AuthService.DownloadMaidSafeSharedSectionVault();
+                else
+                    await AuthService.RequestAuthenticationAsync(true);
             }
             catch (Exception ex)
             {

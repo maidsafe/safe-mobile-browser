@@ -26,7 +26,12 @@ namespace SafeMobileBrowser.Helpers
                                                      "which is currently used by the app";
 
         public const string CurrentLogFile = "Current log file cannot be deleted";
-        public const string S3FileDownloadDialogMsg = "Downloading MaidSafe connection info";
+        public const string S3FileDownloadDialogMsg = "Downloading MaidSafe hosted network info";
+        public const string AuthStatusMsg = "Press continue to reset the current session and re-authenticate to start a new session.";
+        public const string AuthenticationDialogTitle = "Authentication";
+        public const string UseAuthenticator = "Authenticate";
+        public const string AuthenticationDialogMsg = "You can connect to a network of your choice using the Authenticator app, or continue to connect to the MaidSafe hosted network.";
+        public const string Continue = "Continue";
 
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";
