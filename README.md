@@ -6,10 +6,9 @@ The SAFE Mobile Browser is a mobile web browser for the SAFE Network.
 
 ## Build Status
 
-|CI service|Platform|Status|
-|---|---|---|
-|Azure DevOps|Android - MacOS| [![Build Status](https://dev.azure.com/maidsafe/SafeMobileBrowser/_apis/build/status/SafeMobileBrowser-%20Android%20-%20CI?branchName=master)](https://dev.azure.com/maidsafe/SafeMobileBrowser/_build/latest?definitionId=13&branchName=master) |
-|Azure DevOps|iOS - MacOS| [![Build Status](https://dev.azure.com/maidsafe/SafeMobileBrowser/_apis/build/status/SafeMobileBrowser-%20iOS%20-%20CI?branchName=master)](https://dev.azure.com/maidsafe/SafeMobileBrowser/_build/latest?definitionId=14&branchName=master) |
+|CI service|Status|
+|---|---|
+|Azure DevOps| [![Build Status](https://dev.azure.com/maidsafe/SafeMobileBrowser/_apis/build/status/Build%20%26%20Release%20CI?branchName=master)](https://dev.azure.com/maidsafe/SafeMobileBrowser/_build/latest?definitionId=22&branchName=master) |
 
 ## Table of Contents
 
@@ -69,8 +68,8 @@ Once installed, mobile browser can be used to browse the websites hosted on your
 
 ### Tools required
 
-* [Visual Studio](https://visualstudio.microsoft.com/) 2017 or later editions with the following workloads:
-  * [Mobile development with .NET (Xamarin)](https://visualstudio.microsoft.com/vs/visual-studio-workloads/)
+* [Visual Studio](https://visualstudio.microsoft.com/) 2017 or later editions:
+  * [Mobile development with .NET (Xamarin)](https://docs.microsoft.com/en-us/xamarin/get-started/installation/?pivots=windows)
 
 ## Further help
 
