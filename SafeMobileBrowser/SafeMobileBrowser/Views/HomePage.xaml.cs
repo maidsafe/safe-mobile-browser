@@ -99,9 +99,16 @@ namespace SafeMobileBrowser.Views
                 MessageCenterConstants.UpdateWelcomePageTheme,
                 async (sender) =>
                 {
-                    var theme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
-                    var jsToEvaluate = "ChangeBackgroundColor (" + $"'{theme.ToString()}'" + ")";
-                    await HybridWebViewControl.EvaluateJavaScriptAsync(jsToEvaluate);
+                    try
+                    {
+                        var theme = Xamarin.Essentials.Preferences.Get(Constants.AppThemePreferenceKey, false);
+                        var jsToEvaluate = "ChangeBackgroundColor (" + $"'{theme}'" + ")";
+                        await HybridWebViewControl?.EvaluateJavaScriptAsync(jsToEvaluate);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex);
+                    }
                 });
             MessagingCenter.Subscribe<AuthenticationService>(
                 this,

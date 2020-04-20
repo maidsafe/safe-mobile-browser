@@ -20,7 +20,7 @@ appenders = ["async_console", "async_file"]
 [loggers."quic_p2p"]
 level = "trace"
 
-[loggers."routing_stats"]
+[loggers."quinn"]
 level = "trace"
 
 [loggers."safe_core"]
@@ -29,14 +29,11 @@ level = "trace"
 [loggers."safe_app"]
 level = "trace"
 
-[loggers."safe_authenticator"]
-level = "trace"
-
 [loggers."ffi_utils"]
 level = "trace"
 
-[loggers."safe-ffi"]
+[loggers."safe_ffi"]
 level = "debug"
 
-[loggers."safe-api"]
+[loggers."safe_api"]
 level = "trace"

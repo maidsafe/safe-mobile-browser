@@ -14,6 +14,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Widget;
 using Microsoft.AppCenter.Distribute;
 using Plugin.CurrentActivity;
 using SafeMobileBrowser.Helpers;
@@ -33,6 +34,7 @@ namespace SafeMobileBrowser.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private readonly AuthenticationService _authenticationService = new AuthenticationService();
+        private bool _killApp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -77,6 +79,22 @@ namespace SafeMobileBrowser.Droid
                       Logger.Error(ex);
                   }
               });
+        }
+
+        public override void OnBackPressed()
+        {
+            if (_killApp)
+            {
+                base.OnBackPressed();
+                Finish();
+            }
+            else
+            {
+                Toast.MakeText(this, "Press Back again to Exit.", ToastLength.Short).Show();
+                _killApp = true;
+                void SetKillAppFlag() => _killApp = false;
+                new Handler().PostDelayed(SetKillAppFlag, 3000);
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
