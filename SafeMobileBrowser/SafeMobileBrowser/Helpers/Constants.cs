@@ -26,6 +26,7 @@ namespace SafeMobileBrowser.Helpers
                                                      "which is currently used by the app";
 
         public const string CurrentLogFile = "Current log file cannot be deleted";
+        public const string S3FileDownloadDialogMsg = "Downloading MaidSafe connection info";
 
         // URL
         public const string PrivacyInfoUrl = "https://safenetwork.tech/privacy/";

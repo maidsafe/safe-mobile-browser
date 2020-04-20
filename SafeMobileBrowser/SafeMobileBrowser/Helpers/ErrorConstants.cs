@@ -37,15 +37,18 @@ namespace SafeMobileBrowser.Helpers
         public const string AuthenticationFailedTitle = "Authentication failed";
         public const string FailedToDeleteLogFile = "Failed to delete log file";
         public const string FailedToCopyLogFileContent = "Failed to copy log file content";
+        public const string S3FileDownloadFailedTitle = "Download vault connection file";
 
         // Error Messages
         public const string SessionNotAvailableMsg = "You are not connected to the SAFE Network.";
         public const string InvalidUrlMsg = "Please try again with a valid url.";
         public const string NoInternetConnectionMsg = "Please connect to the internet.";
-        public const string ConnectionFailedMsg = "Could not connect to the SAFE Network. Try updating your IP address on invite server.";
+        public const string ConnectionFailedMsg = "Could not connect to the SAFE Network.";
         public const string BookmarkFetchFailedMsg = "Showing previously fetched bookmarks";
         public const string UnableToFetchDataMsg = "Unable to fetch data from the network.";
         public const string RequestDeniedMsg = "Request not granted";
         public const string AuthenticationFailedMsg = "Authentication failed";
+        public const string AuthenticatorAppNotFoundMsg = "The SAFE Authenticator app is required to authorise this application.";
+        public const string S3FileDownloadFailedMsg = "Failed to download file from S3.";
     }
 }

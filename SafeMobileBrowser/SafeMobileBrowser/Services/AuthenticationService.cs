@@ -72,8 +72,8 @@ namespace SafeMobileBrowser.Services
                 if (!appLaunched)
                 {
                     await Application.Current.MainPage.DisplayAlert(
-                        "Authentication failed",
-                        "The SAFE Authenticator app is required to authorise this application",
+                        ErrorConstants.AuthenticationFailedTitle,
+                        ErrorConstants.AuthenticatorAppNotFoundMsg,
                         "OK");
                 }
             }
@@ -139,7 +139,10 @@ namespace SafeMobileBrowser.Services
             catch (Exception ex)
             {
                 Logger.Error(ex);
-                await Application.Current.MainPage.DisplayAlert("Authentication", "Authentication Failed", "OK");
+                await Application.Current.MainPage.DisplayAlert(
+                    ErrorConstants.AuthenticationFailedTitle,
+                    ErrorConstants.AuthenticationFailedMsg,
+                    "OK");
             }
             finally
             {
@@ -165,7 +168,10 @@ namespace SafeMobileBrowser.Services
         {
             try
             {
-                using (UserDialogs.Instance.Loading("Connect to the MaidSafe shared section"))
+                var fileContent = string.Empty;
+
+                // Download connection file from S3.
+                using (UserDialogs.Instance.Loading(Constants.S3FileDownloadDialogMsg))
                 {
                     using (var client = new HttpClient())
                     {
@@ -173,30 +179,53 @@ namespace SafeMobileBrowser.Services
                         {
                             if (response.IsSuccessStatusCode)
                             {
-                                var fileContent = await response.Content.ReadAsStringAsync();
-                                if (fileContent.Length > 0)
-                                {
-                                    File.WriteAllText(Path.Combine(ConfigFilePath, _defaultVaultConnectionFileName), fileContent);
-                                    await Session.SetAppConfigurationDirectoryPathAsync(ConfigFilePath);
-                                    App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
-                                    MessagingCenter.Send(this, MessageCenterConstants.Authenticated);
-                                }
+                                fileContent = await response.Content.ReadAsStringAsync();
+                                if (fileContent.Length <= 0)
+                                    throw new Exception(ErrorConstants.S3FileDownloadFailedMsg);
                             }
                             else
                             {
-                                throw new Exception("Failed to download file from S3.");
+                                throw new Exception(ErrorConstants.S3FileDownloadFailedMsg);
                             }
                         }
                     }
                 }
+
+                // Connect to the shared network.
+                using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
+                {
+                    File.WriteAllText(Path.Combine(ConfigFilePath, _defaultVaultConnectionFileName), fileContent);
+                    await Session.SetAppConfigurationDirectoryPathAsync(ConfigFilePath);
+                    App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
+                    MessagingCenter.Send(this, MessageCenterConstants.Authenticated);
+                }
+            }
+            catch (FfiException ex)
+            {
+                Logger.Error(ex.Message);
+
+                await Application.Current.MainPage.DisplayAlert(
+                       ErrorConstants.ConnectionFailedTitle,
+                       ErrorConstants.ConnectionFailedMsg,
+                       "ok");
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Download vault connection file",
-                    "Failed to download the vault connection file.",
-                    "ok");
-                Debug.WriteLine(ex.Message);
+                Logger.Error(ex.Message);
+                if (ex.Message == ErrorConstants.S3FileDownloadFailedMsg)
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        ErrorConstants.S3FileDownloadFailedTitle,
+                        ErrorConstants.S3FileDownloadFailedMsg,
+                        "ok");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        ErrorConstants.ConnectionFailedTitle,
+                        ex.Message,
+                        "ok");
+                }
             }
         }
     }
