@@ -212,7 +212,15 @@ namespace SafeMobileBrowser.Services
             catch (Exception ex)
             {
                 Logger.Error(ex.Message);
-                if (ex.Message == ErrorConstants.S3FileDownloadFailedMsg)
+
+                if (!App.IsConnectedToInternet)
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        ErrorConstants.NoInternetConnectionTitle,
+                        ErrorConstants.NoInternetConnectionMsg,
+                        "ok");
+                }
+                else if (ex.Message == ErrorConstants.S3FileDownloadFailedMsg)
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         ErrorConstants.S3FileDownloadFailedTitle,
