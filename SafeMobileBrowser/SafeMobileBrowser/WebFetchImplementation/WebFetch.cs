@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SafeApp.Core;
 using SafeMobileBrowser.Helpers;
 using SafeMobileBrowser.Models;
@@ -36,9 +37,6 @@ namespace SafeMobileBrowser.WebFetchImplementation
 
                 if (data is FilesContainer filesContainer)
                 {
-                    ulong nrsContainerVersion = filesContainer
-                                                .ResolvedFrom
-                                                .Version;
                     if (filesContainer.FilesMap.Files != null && filesContainer.FilesMap.Files.Count > 0)
                     {
                         var indexFileInfo = filesContainer
@@ -58,8 +56,8 @@ namespace SafeMobileBrowser.WebFetchImplementation
                             if (!string.IsNullOrEmpty(indexFileLink))
                             {
                                 var fetchResponse = await FetchAsync(indexFileLink);
-                                fetchResponse.CurrentNrsVersion = nrsContainerVersion;
-                                fetchResponse.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
+                                fetchResponse.CurrentNrsVersion = await GetVersion(fetchUrl);
+                                fetchResponse.LatestNrsVersion = await GetVersion(fetchUrl, true);
                                 fetchResponse.FetchDataType = typeof(FilesContainer);
                                 return fetchResponse;
                             }
@@ -67,8 +65,8 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         else
                         {
                             var content = await CreateFilesContainerPageAsync(filesContainer.FilesMap.Files);
-                            response.LatestNrsVersion = await GetLatestVersionAsync(fetchUrl);
-                            response.CurrentNrsVersion = filesContainer.ResolvedFrom.Version;
+                            response.CurrentNrsVersion = await GetVersion(fetchUrl);
+                            response.LatestNrsVersion = await GetVersion(fetchUrl, true);
                             response.FetchDataType = typeof(FilesContainer);
                             response.Data = content.ToUtfBytes();
                             response.MimeType = "text/html";
@@ -77,11 +75,11 @@ namespace SafeMobileBrowser.WebFetchImplementation
                         }
                     }
                 }
-                else if (data is PublishedImmutableData fetchedData)
+                else if (data is PublicImmutableData fetchedData)
                 {
                     response.Data = fetchedData.Data;
                     response.MimeType = fetchedData.MediaType;
-                    response.FetchDataType = typeof(PublishedImmutableData);
+                    response.FetchDataType = typeof(PublicImmutableData);
                     response.Headers.Add("Content-Type", fetchedData.MediaType);
 
                     if (options != null)
@@ -133,13 +131,13 @@ namespace SafeMobileBrowser.WebFetchImplementation
                 .Insert(index, filesContainerContent.ToString());
         }
 
-        public async Task<ulong> GetLatestVersionAsync(string url)
+        public async Task<ulong> GetVersion(string url, bool getLatest = false)
         {
             try
             {
                 var fetchUrl = url.Replace("https://", "safe://").TrimEnd('/');
 
-                if (url.Contains("?v="))
+                if (url.Contains("?v=") && getLatest)
                 {
                     var versionTextIndex = url.LastIndexOf("?v=", StringComparison.Ordinal);
                     fetchUrl = url.Replace("https://", "safe://").Substring(0, versionTextIndex);
@@ -150,13 +148,17 @@ namespace SafeMobileBrowser.WebFetchImplementation
                                  .Fetch
                                  .InspectAsync(fetchUrl);
 
-                if (data is FilesContainer filesContainer)
+                if (!string.IsNullOrEmpty(data))
                 {
-                    return filesContainer.ResolvedFrom.Version;
-                }
-                else if (data is PublishedImmutableData fetchedData)
-                {
-                    return fetchedData.ResolvedFrom.Version;
+                    var jsonData = JArray.Parse(data);
+                    if (jsonData != null && jsonData.Count > 0)
+                    {
+                        var val = jsonData[0][nameof(NrsMapContainer)]["version"];
+                        if (val != null)
+                            return (ulong)val;
+                    }
+
+                    return 0;
                 }
 
                 throw new WebFetchException(
