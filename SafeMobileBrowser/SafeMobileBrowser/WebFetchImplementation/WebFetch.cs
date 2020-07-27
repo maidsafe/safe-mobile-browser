@@ -153,9 +153,24 @@ namespace SafeMobileBrowser.WebFetchImplementation
                     var jsonData = JArray.Parse(data);
                     if (jsonData != null && jsonData.Count > 0)
                     {
-                        var val = jsonData[0][nameof(NrsMapContainer)]["version"];
-                        if (val != null)
-                            return (ulong)val;
+                        var jProperty = (JProperty)jsonData[0].First;
+                        var name = jProperty.Name;
+                        JToken version = null;
+                        if (name == nameof(FilesContainer))
+                            version = jsonData[0][nameof(FilesContainer)]["version"];
+                        else if (name == nameof(NrsMapContainer))
+                            version = jsonData[0][nameof(NrsMapContainer)]["version"];
+
+                        if (version != null)
+                        {
+                            return (ulong)version;
+                        }
+                        else
+                        {
+                            throw new WebFetchException(
+                                WebFetchConstants.NoSuchData,
+                                WebFetchConstants.NoSuchDataMessage);
+                        }
                     }
 
                     return 0;
