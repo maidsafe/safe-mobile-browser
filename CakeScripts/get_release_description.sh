@@ -14,10 +14,10 @@ IPA_CHECKSUM
 ```
 
 ## Related Links
-* [SAFE Mobile Authenticator Browser](https://github.com/maidsafe/safe-authenticator-mobile/releases/)
-* [SAFE Desktop Browser](https://github.com/maidsafe/safe_browser/releases/)
-* [SAFE CLI](https://github.com/maidsafe/safe-api/tree/master/safe-cli)
-* [SAFE Vault](https://github.com/maidsafe/safe_vault/releases/latest/)
+* [Safe Mobile Authenticator Browser](https://github.com/maidsafe/safe-authenticator-mobile/releases/)
+* [Safe Desktop Browser](https://github.com/maidsafe/safe_browser/releases/)
+* [Safe CLI](https://github.com/maidsafe/sn_api/tree/master/sn_cli)
+* [Safe Vault](https://github.com/maidsafe/safe_vault/releases/latest/)
 * [safe_app_csharp](https://github.com/maidsafe/safe_app_csharp/)
 EOF
 
