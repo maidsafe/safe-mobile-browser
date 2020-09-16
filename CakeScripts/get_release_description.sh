@@ -1,5 +1,5 @@
 read -r -d '' release_description << 'EOF'
-The SAFE Mobile Browser is a cross-platform mobile (Android, iOS) browser, built to provide web browsing experience to the users on the SAFE Network.
+The Safe Mobile Browser is a cross-platform mobile (Android, iOS) browser, built to provide web browsing experience to the users on the SAFE Network.
 
 ## Changelog
 CHANGELOG_CONTENT
@@ -14,11 +14,11 @@ IPA_CHECKSUM
 ```
 
 ## Related Links
-* [Safe Mobile Authenticator Browser](https://github.com/maidsafe/safe-authenticator-mobile/releases/)
-* [Safe Desktop Browser](https://github.com/maidsafe/safe_browser/releases/)
+* [Safe Mobile Authenticator](https://github.com/maidsafe/sn_authenticator_mobile/releases/)
+* [Safe Desktop Browser](https://github.com/maidsafe/sn_browser/releases/)
 * [Safe CLI](https://github.com/maidsafe/sn_api/tree/master/sn_cli)
 * [Safe Vault](https://github.com/maidsafe/safe_vault/releases/latest/)
-* [safe_app_csharp](https://github.com/maidsafe/safe_app_csharp/)
+* [sn_csharp](https://github.com/maidsafe/sn_csharp/)
 EOF
 
 apk_checksum=$(sha256sum "../net.maidsafe.browser.apk" | awk '{ print $1 }')
