@@ -1,4 +1,4 @@
-# safe-mobile-browser changelog
+# sn_mobile_browser changelog
 
 ## [0.5.1]
 

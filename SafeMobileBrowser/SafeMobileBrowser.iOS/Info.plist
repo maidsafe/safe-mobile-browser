@@ -53,7 +53,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>net.maidsafe.safe-browser</string>
+				<string>net.maidsafe.sn_browser</string>
 			</array>
 			<key>CFBundleURLName</key>
 			<string>SafeBrowserUrl</string>

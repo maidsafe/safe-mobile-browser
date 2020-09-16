@@ -11,12 +11,12 @@ namespace SafeMobileBrowser.Helpers
 {
     public static class Constants
     {
-        public const string AppName = "SAFE Browser";
-        public const string AppId = "net.maidsafe.safe-browser";
+        public const string AppName = "Safe Browser";
+        public const string AppId = "net.maidsafe.sn_browser";
         public const string Vendor = "MaidSafe.net Ltd";
         public const string AppStateMdEntryKey = "safeBrowserState";
 
-        public const string ConnectingProgressText = "Connecting to the SAFE Network";
+        public const string ConnectingProgressText = "Connecting to the Safe Network";
         public const string BookmarkRemovedSuccessfully = "Bookmark removed successfully";
         public const string BookmarkAddedSuccessfully = "Bookmark added successfully";
         public const string LogFileContentReadSuccessfully = "Log file content copied to clipboard";
