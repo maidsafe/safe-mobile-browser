@@ -15,7 +15,7 @@ namespace SafeMobileBrowser.Models
     {
         public static List<string> GetWebsiteList()
         {
-            // Todo: update with the shared vault websites
+            // Todo: update with the shared node websites
             // Or add option to raise PRs in GitHub to add websites here.
             return new List<string>();
         }

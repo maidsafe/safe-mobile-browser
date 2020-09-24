@@ -367,7 +367,7 @@ namespace SafeMobileBrowser.ViewModels
                     "Continue",
                     Constants.UseAuthenticator);
                 if (result)
-                    await AuthService.DownloadMaidSafeSharedSectionVault();
+                    await AuthService.DownloadMaidSafeSharedSectionNode();
                 else
                     await AuthService.RequestAuthenticationAsync(true);
             }
