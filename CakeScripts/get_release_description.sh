@@ -17,7 +17,7 @@ IPA_CHECKSUM
 * [Safe Mobile Authenticator](https://github.com/maidsafe/sn_authenticator_mobile/releases/)
 * [Safe Desktop Browser](https://github.com/maidsafe/sn_browser/releases/)
 * [Safe CLI](https://github.com/maidsafe/sn_api/tree/master/sn_cli)
-* [Safe Vault](https://github.com/maidsafe/safe_vault/releases/latest/)
+* [Safe Network Node](https://github.com/maidsafe/sn_node/releases/latest/)
 * [sn_csharp](https://github.com/maidsafe/sn_csharp/)
 EOF
 

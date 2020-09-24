@@ -26,11 +26,11 @@ namespace SafeMobileBrowser.Services
 {
     public class AuthenticationService
     {
-        private static readonly string _vaultS3DownloadLink = "https://safe-vault-config.s3.eu-west-2.amazonaws.com/shared-section/vault_connection_info.config";
+        private static readonly string _nodeS3DownloadLink = "https://sn-node-config.s3.eu-west-2.amazonaws.com/shared-section/node_connection_info.config";
 
         private static string ConfigFilePath => DependencyService.Get<IPlatformService>().ConfigFilesPath;
 
-        private static readonly string _defaultVaultConnectionFileName = "vault_connection_info.config";
+        private static readonly string _defaultNodeConnectionFileName = "node_connection_info.config";
 
         public static async Task<(uint, string)> GenerateEncodedAuthReqAsync()
         {
@@ -58,7 +58,7 @@ namespace SafeMobileBrowser.Services
             {
                 App.PendingRequest = true;
 
-                var filePath = Path.Combine(ConfigFilePath, _defaultVaultConnectionFileName);
+                var filePath = Path.Combine(ConfigFilePath, _defaultNodeConnectionFileName);
                 if (File.Exists(filePath))
                     File.Delete(filePath);
 
@@ -164,7 +164,7 @@ namespace SafeMobileBrowser.Services
             }
         }
 
-        internal async Task DownloadMaidSafeSharedSectionVault()
+        internal async Task DownloadMaidSafeSharedSectionNode()
         {
             try
             {
@@ -175,7 +175,7 @@ namespace SafeMobileBrowser.Services
                 {
                     using (var client = new HttpClient())
                     {
-                        using (var response = await client.GetAsync(_vaultS3DownloadLink))
+                        using (var response = await client.GetAsync(_nodeS3DownloadLink))
                         {
                             if (response.IsSuccessStatusCode)
                             {
@@ -194,7 +194,7 @@ namespace SafeMobileBrowser.Services
                 // Connect to the shared network.
                 using (UserDialogs.Instance.Loading(Constants.ConnectingProgressText))
                 {
-                    File.WriteAllText(Path.Combine(ConfigFilePath, _defaultVaultConnectionFileName), fileContent);
+                    File.WriteAllText(Path.Combine(ConfigFilePath, _defaultNodeConnectionFileName), fileContent);
                     await Session.SetAppConfigurationDirectoryPathAsync(ConfigFilePath);
                     App.AppSession = await Session.AppConnectUnregisteredAsync(Constants.AppId);
                     MessagingCenter.Send(this, MessageCenterConstants.Authenticated);
